@@ -1,0 +1,42 @@
+
+<html><head>
+	<meta charset="utf-8">
+	<title>test</title>
+	<!-- <script type="text/javascript" src="http://img.kuaixun360.com/Public/Home/js/jquery-1.11.3.min.js?v=2.1.12.68"> </script>-->
+</head>
+<body>
+  <div>
+	 <input type="button" value="Req" onclick="testXMLHttpRequest();"/>
+  </div>
+</body>
+<script>
+    function testXMLHttpRequest() {
+        function createCORSRequest(method, url) {
+            var xhr = new XMLHttpRequest();
+//                    alert(xhr.readyState)
+            if ("withCredentials" in xhr) {
+                xhr.open(method, url, true)
+            } else if (typeof XDomainRequest != "undefined") {
+                var xhr = new XDomainRequest();
+                xhr.open(method, url)
+            } else {
+                xhr = null;
+            }
+            return xhr;
+        }
+        var request = createCORSRequest("get", "http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js");
+        if (request) {
+            request.onload = function () {
+                alert(request.readyState);
+                alert(request.getAllResponseHeaders());
+                console.log(request)
+            }
+            request.onerror = function () {
+                alert("error")
+            }
+            //alert(request.getAllResponseHeaders());
+            request.send();
+        }
+    }
+</script>  
+</html>

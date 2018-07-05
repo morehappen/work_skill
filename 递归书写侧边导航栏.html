@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="GB18030">
+    <title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        /* #menu {
+            border: 1px solid black;
+        }
+
+        #menu li {
+            list-style: none;
+        }
+
+        #menu li ul {
+            display: none;
+        } */
+
+        #menu {
+            width: 150px;
+        }
+
+        #menu ul .leaf {
+            display: block;
+            text-align: left;
+            padding-left: 35px;
+            height: 50px;
+            line-height: 50px;
+            background-color: pink;
+        }
+    </style>
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //创建类，采用键值对的方式 
+            var obj = [
+                {
+                    "id": 1,
+                    "menuName": "后台分类"
+                },
+                {
+                    "id": 2,
+                    "menuName": "前台分类"
+                },
+                {
+                    "id": 3,
+                    "menuName": "服务管理",
+                    "childMenu": [
+                        {
+                            "id": 31,
+                            "menuName": "服务设定"
+                        },
+                        {
+                            "id": 32,
+                            "menuName": "服务属性"
+                        }
+                    ]
+                }
+            ]
+            buildMenu(obj);
+            $("#menu").html(buildMenu(obj));
+            $("#menu ul li").click(function () {
+                $(this).siblings().find("ul").css("display", "none"); //找到同一级的ul将其隐藏 
+                if ($(this).has("ul").length > 0) {
+                    $(this).children("ul").css("display", "block");   //如果是ul将其子项显示出来 
+                }
+            });
+        });
+       
+        //创建按钮
+        function buildMenu(obj) {
+            var str = "<ul>";
+            $.each(obj, function (index, item) {
+                if (typeof (obj[index].childMenu) == "object") {
+                    str += "<li><span class='leaf'>" + obj[index].menuName + "</span>";
+                    str += buildMenu(obj[index].childMenu); //递归判断是不是object,直到不是li 
+                    str += "</li>";
+                }
+                else {
+                    //  alert(index + "--" + obj[index]);  //item == obj[index]
+                    str += "<li class='leaf'>" + obj[index].menuName + "</li>"
+                }
+            });
+            str += "</ul>";
+            return str;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="menu"></div>
+</body>
+
+</html>

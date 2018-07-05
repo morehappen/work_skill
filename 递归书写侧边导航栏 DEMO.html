@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="GB18030">
+    <title>Insert title here</title>
+    <style type="text/css">
+        #menu {
+            border: 1px solid black;
+        }
+
+        #menu li {
+            list-style: none;
+        }
+
+        #menu li ul {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //创建类，采用键值对的方式 
+            var obj = {
+                "menu1": "a",
+                "menu2": {
+                    "item1": "bb",
+                    "item2": "cc"
+                },
+                "menu3": {
+                    "item1": "aa",
+                    "item2": {
+                        "button1": "b1",
+                        "button2": "b2",
+                        "buttonleaf": {
+                            "itemleaf": "bb",
+                            "itemleaf": "cc"
+                        }
+                    },
+                    "item3": {
+                        "button1": "b1",
+                        "button2": "b2",
+                        "buttonleaf": {
+                            "itemleaf": "bb",
+                            "itemleaf": "cc"
+                        }
+                    }
+                }
+            };
+            buildMenu(obj);
+            $("#menu").html(buildMenu(obj));
+            $("#menu ul li").click(function () {
+                $(this).siblings().find("ul").css("display", "none"); //找到同一级的ul将其隐藏 
+                if ($(this).has("ul").length > 0) {
+                    $(this).children("ul").css("display", "block");   //如果是ul将其子项显示出来 
+                }
+            });
+        });
+        //创建按钮
+        function buildMenu(obj) {
+            var str = "<ul>";
+            $.each(obj, function (index, item) {
+                if (typeof (obj[index]) == "object") {
+                    str += "<li>" + index;
+                    str += buildMenu(obj[index]); //递归判断是不是object,直到不是li 
+                    str += "</li>";
+                }
+                else {
+                    //  alert(index + "--" + obj[index]);  //item == obj[index]
+                    str += "<li>" + index + "</li>"
+                }
+            });
+            str += "</ul>";
+            return str;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="menu"></div>
+</body>
+
+</html>
