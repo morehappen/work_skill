@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./commonJS/mint-ui/mint-ui.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <!-- 注意此处，picker的显示个数，会造成样式错乱，具体什么用，再研究 -->
+            <mt-picker :slots="slots" @change="" :visible-item-count="3"></mt-picker>
+        </div>
+        <div>
+            <mt-picker :slots="slotsAPI_DEMO" @change="onValuesChange"></mt-picker>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./commonJS//vue.js"></script>
+<script type="text/javascript" src="./commonJS/mint-ui/mint-ui.js"></script>
+<script type="text/javascript" src="./commonJS/zepto-1.2.0.js"></script>
+<script type="text/javascript" src="./commonJS/date.js"></script>
+<script type="text/javascript" src="./commonJS/moment.js"></script>
+<script type="text/javascript" src="./commonJS/common.js"></script>
+<script type="text/javascript" src="./self-use-js/picker_actual.js"></script>
+
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <!-- 清除浏览器默认样式的css脚本 -->
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <!-- 城市插件的css脚本 -->
+    <link rel="stylesheet" type="text/css" href="./css/city-plugin.css" />
+    <style>
+        .input {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="">
+        <div class="">
+            公共业务线
+        </div>
+        <ul class="">
+            <li class="">
+                <span class=""></span>
+                <input data-basic="from" data-type="base" type="text" class="show-city input" value="" autocomplete="off" placeholder="出发城市">
+                <input type="hidden" name="" value="" data-code="" class="city-code">
+            </li>
+        </ul>
+    </div>
+    <div class="">
+        <div class="">
+            机票业务线
+        </div>
+        <ul class="">
+            <li class="">
+                <span class=""></span>
+                <input data-basic="from" data-type="air" type="text" class="show-city input" value="" autocomplete="off" placeholder="出发城市">
+                <input type="hidden" name="" value="" data-code="" class="city-code">
+            </li>
+            <li class="">
+                <span class=""></span>
+                <input data-basic="from" data-type="air" type="text" class="show-city input" value="" autocomplete="off" placeholder="目的城市">
+                <input type="hidden" name="" value="" data-code="" class="city-code">
+            </li>
+        </ul>
+    </div>
+    <div class="">
+        <div class="">
+            酒店业务线
+        </div>
+        <ul class="">
+            <li class="">
+                <span class=""></span>
+                <input data-basic="from" data-type="hotel" type="text" class="show-city input" value="" autocomplete="off" placeholder="出发城市">
+                <input type="hidden" name="" value="" data-code="" class="city-code">
+            </li>
+            <li class="">
+                <span class=""></span>
+                <input data-basic="from" data-type="hotel" type="text" class="show-city input" value="" autocomplete="off" placeholder="目的城市">
+                <input type="hidden" name="" value="" data-code="" class="city-code">
+            </li>
+        </ul>
+    </div>
+    <div class="">
+        <div class="">
+            火车票业务线
+        </div>
+        <ul class="">
+            <li class="">
+                <span class=""></span>
+                <input data-basic="from" data-type="train" type="text" class="show-city input" value="" autocomplete="off" placeholder="出发城市">
+                <input type="hidden" name="" value="" data-code="" class="city-code">
+            </li>
+            <li class="">
+                <span class=""></span>
+                <input data-basic="from" data-type="train" type="text" class="show-city input" value="" autocomplete="off" placeholder="目的城市">
+                <input type="hidden" name="" value="" data-code="" class="city-code">
+            </li>
+        </ul>
+    </div>
+</body>
+<!-- 插件基于jq脚本 -->
+<script type="text/javascript" src="./js/jquery.js"></script>
+<!-- 兼容至IE8的封装输入事件的脚本 -->
+<script type="text/javascript" src="./js/jquery.splendid.textchange.js"></script>
+<!-- 公共业务线城市数据 -->
+<script type="text/javascript" src="./js/data-origin/base-geo-data.js" charset="utf-8"></script>
+<!-- <script type="text/javascript" src="http://auvgo-bucket.oss-cn-beijing.aliyuncs.com/city/base-geo-data.js" charset="utf-8"></script> -->
+<!-- 酒店业务线城市数据 -->
+<script type="text/javascript" src="./js/data-origin/geo-data.js" charset="utf-8"></script>
+<!-- <script type="text/javascript" src="http://auvgo-bucket.oss-cn-beijing.aliyuncs.com/city/hotel-geo-data.js" charset="utf-8"></script> -->
+<!-- 飞机业务线城市数据 -->
+<script type="text/javascript" src="./js/data-origin/air-geo-data.js" charset="utf-8"></script>
+<!-- <script src="http://auvgo-bucket.oss-cn-beijing.aliyuncs.com/city/air-geo-data.js"></script> -->
+<!-- 火车业务线城市数据 -->
+<script type="text/javascript" src="./js/data-origin/train-geo-data.js" charset="utf-8"></script>
+<!-- <script type="text/javascript" src="http://auvgo-bucket.oss-cn-beijing.aliyuncs.com/city/train-geo-data.js" charset="utf-8"></script> -->
+<!-- 城市插件控制脚本 -->
+<script type="text/javascript" src="./js/model-city-local.js"></script>
+<script>
+    // 简易使用文档
+    // 使用方法：
+    // 1，该插件基于jq
+    // 2，input的类名show-city不可去除，data-type属性不可去除，
+    // 3，紧挨着show-city的隐藏域如下，仅可变更name属性
+    //<input type="hidden" name="" value="" data-code="" class="city-code">
+    // 4，最终结果，在show-city中获取城市名，在紧随隐藏域获取到城市三字码。
+
+    // 怎么样控制城市业务线
+    // 1，data-type="train"//火车业务线
+    // 2，data-type="base"//公共城市业务线
+    // 3，data-type="hotel"//酒店业务线
+    // 4，data-type="air"//飞机业务线
+</script>
+
+</html>

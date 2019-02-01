@@ -8,25 +8,24 @@
 </head>
 
 <body>
-    <script src="./jquery.min.js"></script>
+    <script src="../jquery.min.js"></script>
     <script>
-       
-
-        $(function () {
+        $(function() {
             debugger
             var a = (new Date()).getTime();
             token_issue_setIem(a);
             var b = (new Date()).getTime();
             var d = +token_issue_getIem();
             debugger;
-            var c = sky(d,b);
+            var c = sky(d, b);
             debugger;
             console.log(c);
         })
-        function sky(faultDate,completeTime){
+
+        function sky(faultDate, completeTime) {
             var stime = Date.parse(new Date(faultDate));
             var etime = Date.parse(new Date(completeTime));
-            var usedTime = etime - stime;  //两个时间戳相差的毫秒数
+            var usedTime = etime - stime; //两个时间戳相差的毫秒数
             // var days = Math.floor(usedTime / (24 * 3600 * 1000));
             var days = Math.floor(usedTime / (1000));
             // //计算出小时数
@@ -40,15 +39,14 @@
             return days
         }
 
-function token_issue_setIem(paramdata) {
-    localStorage.removeItem("token_issue");
-    localStorage.setItem("token_issue", paramdata);
-}
+        function token_issue_setIem(paramdata) {
+            localStorage.removeItem("token_issue");
+            localStorage.setItem("token_issue", paramdata);
+        }
 
-function token_issue_getIem() {
-    return localStorage.getItem("token_issue");
-}
-
+        function token_issue_getIem() {
+            return localStorage.getItem("token_issue");
+        }
     </script>
 </body>
 

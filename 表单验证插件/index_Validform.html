@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/airrate/flightRule/save" method="post" id="flightRuleForm">
+        <div class="f-e-cell clear">
+            <span class="f-title">航司代码：</span>
+            <input type="text" name="airline" maxlength="2" value="" class="f-input" datatype="m1-111" nullmsg="请输入航司代码" errormsg='sky_测试' />
+            <b>*</b>
+        </div>
+    </form>
+
+</body>
+<script src="../../jquery-1.12.4.min.js"></script>
+<script src="./layer/2.1/layer.js"></script>
+<script src="./Validform//5.3.2//Validform.min.js"></script>
+<script>
+    $("#flightRuleForm").Validform({
+        datatype: {
+            "m1-111": /^[0-9]*[0-9][0-9]*$/,
+            "m1-112": /^100$|^(\d|[0-9]\d)$/,
+            "m1-113": /\S/,
+            "m1-114": /\S/
+        },
+        tiptype: function(msg, o, s) {
+            if (msg != "") {
+                debugger
+                layer.msg(msg);
+            }
+        },
+        ajaxPost: true,
+        callback: function(data) {
+            if (data.status == 200) {
+                layer.msg("操作成功.");
+                parent.location.reload();
+            } else {
+                debugger
+                layer.msg(data.msg);
+            }
+        }
+    });
+</script>
+
+</html>

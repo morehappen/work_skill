@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../jquery-1.12.4.min.js"></script>
+</head>
+
+<body>
+    <script>
+        var sky = ["16530_1_199_101.0_1", "16530_1_419_101.0_1", "46180_1_200_-100.0_2", "46181_1_200_0.0_2"];
+
+        function getMinStand(arr_origin) {
+            var sky_boj = {};
+            var sky_arr = [];
+            var get_arr = [];
+            //用于处理最小值
+            for (var i = 0; i < arr_origin.length; i++) {
+                var key_item = arr_origin[i].split("_")[4];
+                var ai = arr_origin[i];
+                if (!sky_boj[key_item]) {
+                    sky_arr.push[arr_origin[i]];
+                    sky_boj[key_item] = [ai];
+                } else {
+                    sky_boj[key_item].push(arr_origin[i])
+                }
+            };
+            console.log(sky_boj);
+            //取得最小值【此处使用map的原因是，jq遍历对象的方法，我只想到了这一个。注意语法】
+            var resultArr = $.map(sky_boj, function(value, key) {
+                var obj_ = {};
+                var num = 0;
+                $(value).each(function(ii, vv) {
+                    // debugger
+                    return num += +vv.split("_")[2];
+                })
+                obj_.roomNumber = key;
+                obj_.price = num
+                get_arr.push(obj_);
+                return num
+
+            });
+            var minNum = Math.min.apply(null, resultArr);
+            return {
+                "minNum": minNum,
+                "targetArr": get_arr
+            }
+        };
+        var res = getMinStand(sky);
+        console.log(res);
+    </script>
+</body>
+
+</html>

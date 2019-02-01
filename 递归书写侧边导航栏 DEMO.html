@@ -8,18 +8,18 @@
         #menu {
             border: 1px solid black;
         }
-
+        
         #menu li {
             list-style: none;
         }
-
+        
         #menu li ul {
             display: none;
         }
     </style>
     <script type="text/javascript" src="./jquery.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             //创建类，采用键值对的方式 
             var obj = {
                 "menu1": "a",
@@ -49,23 +49,22 @@
             };
             buildMenu(obj);
             $("#menu").html(buildMenu(obj));
-            $("#menu ul li").click(function () {
+            $("#menu ul li").click(function() {
                 $(this).siblings().find("ul").css("display", "none"); //找到同一级的ul将其隐藏 
                 if ($(this).has("ul").length > 0) {
-                    $(this).children("ul").css("display", "block");   //如果是ul将其子项显示出来 
+                    $(this).children("ul").css("display", "block"); //如果是ul将其子项显示出来 
                 }
             });
         });
         //创建按钮
         function buildMenu(obj) {
             var str = "<ul>";
-            $.each(obj, function (index, item) {
-                if (typeof (obj[index]) == "object") {
+            $.each(obj, function(index, item) {
+                if (typeof(obj[index]) == "object") {
                     str += "<li>" + index;
                     str += buildMenu(obj[index]); //递归判断是不是object,直到不是li 
                     str += "</li>";
-                }
-                else {
+                } else {
                     //  alert(index + "--" + obj[index]);  //item == obj[index]
                     str += "<li>" + index + "</li>"
                 }

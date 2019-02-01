@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./commonJS/mint-ui/mint-ui.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="clear time_begin_box searchDom_item position">
+            <div class="f-l left_item reserve_tip" v-if="timeType=='book'">
+                预定始
+            </div>
+            <div class="f-l left_item reserve_tip" v-else>
+                入住始
+            </div>
+            <div @click="togglePickerStart()" class="f-l right_item reserve_con" v-cloak>
+                {{mint_startTime | time_obj_string}}
+            </div>
+            <div class="position-ab img_tip">
+
+            </div>
+        </div>
+        <div class="clear time_end_box searchDom_item position">
+            <div class="f-l left_item" v-if="timeType=='book'">
+                预定止
+            </div>
+            <div class="f-l left_item" v-else>
+                入住止
+            </div>
+            <div @click="togglePickerEnd()" class="f-l right_item" v-cloak>
+                {{mint_endTime | time_obj_string}}
+            </div>
+            <div class="img_tip position-ab">
+
+            </div>
+        </div>
+        <mt-datetime-picker ref="picker_start" type="date" v-model="mint_startTime" @confirm="startTimeGet">
+        </mt-datetime-picker>
+        <mt-datetime-picker ref="picker_end" type="date" v-model="mint_endTime" @confirm="endTimeGet">
+        </mt-datetime-picker>
+    </div>
+
+</body>
+<script type="text/javascript" src="./commonJS//vue.js"></script>
+<script type="text/javascript" src="./commonJS/mint-ui/mint-ui.js"></script>
+<script type="text/javascript" src="./commonJS/zepto-1.2.0.js"></script>
+<script type="text/javascript" src="./commonJS/date.js"></script>
+<script type="text/javascript" src="./commonJS/moment.js"></script>
+<script type="text/javascript" src="./commonJS/common.js"></script>
+<script type="text/javascript" src="./self-use-js/sky_test.js"></script>
+
+</html>

@@ -25,6 +25,9 @@
 
             </div>
         </div>
+
+
+
         <div class="clear time_end_box searchDom_item position">
             <div class="f-l left_item" v-if="timeType=='book'">
                 预定止
@@ -39,8 +42,30 @@
 
             </div>
         </div>
+        <div class="clear time_end_box searchDom_item position">
+            <div class="f-l left_item" v-if="timeType=='book'">
+                测试自定义时间模板
+            </div>
+            <div class="f-l left_item" v-else>
+                入住止
+            </div>
+            <div @click="togglePickerSky()" class="f-l right_item" v-cloak>
+                {{sky_testTime | time_obj_string}}
+            </div>
+            <div class="img_tip position-ab">
+
+            </div>
+        </div>
+        <!-- <mt-datetime-picker v-model="sky_testTime" type="datetime" :yearFormat="week_src" month-format="{value} 月" date-format="{value} 毛日" hour-Format="{value} 点" minute-Format="{value}分" ref="picker_sky_test" @confirm="sky_testTimeGet">
+        </mt-datetime-picker> -->
+        <mt-datetime-picker :start-date="sky_startTime" :end-date="sky_endTime" v-model="sky_testTime" type="datetime" year-format="{value} 年" month-format="{value}月" date-format="{value} 海日" hour-Format="{value} 点" minute-Format="{value}分" ref="picker_sky_test"
+            @confirm="sky_testTimeGet">
+        </mt-datetime-picker>
         <mt-datetime-picker ref="picker_start" type="date" v-model="mint_startTime" @confirm="startTimeGet">
         </mt-datetime-picker>
+
+
+
         <mt-datetime-picker ref="picker_end" type="date" v-model="mint_endTime" @confirm="endTimeGet">
         </mt-datetime-picker>
     </div>

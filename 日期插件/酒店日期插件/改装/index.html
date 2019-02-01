@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>jquery日期区间选择双日历插件演示_大头网</title>
+
+    <link rel="stylesheet" type="text/css" href="iconfont/iconfont.css">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="js/daterangepicker.js"></script>
+
+</head>
+
+<body>
+
+    <!--<div class="bjui-pageContent">-->
+        <!---->
+    <!--</div>-->
+
+    <!--<div class="form-group d_t_dater">-->
+        <!--<label class="col-sm-3 control-label"></label>-->
+        <!---->
+    <!--</div>-->
+
+    <!--<div class="input-group">-->
+        <!---->
+    <!--</div>-->
+    <button type="button" class="btn btn-default" id="daterange-btn">
+                    <span>
+                      <i class="icon iconfont icon-calendar1"></i> 日期选择
+                    </span>
+        <i class="icon iconfont icon-danxian-youjiantou-copy"></i>
+    </button>
+
+    <script type="text/javascript">
+        function getCurrMonthDays() {
+            var date = [];
+            var start = moment().add('month', 0).format('YYYY-MM') + '-01';
+            var end = moment(start).add('month', 1).add('days', -1).format('YYYY-MM-DD');
+            date.push(start);
+            date.push(end);
+            return date;
+        };
+
+        function lastYear() {
+            var date = [];
+            var start = moment().add(1, 'year').add(0, 'month').add(0, 'days').format('YYYY-MM') + '-01';
+            var start = moment().add('year', '-1').startOf('year');
+            var end = moment(start).add('year', 1).format('YYYY-MM-DD');
+            date.push(start);
+            date.push(end);
+            return date;
+        };
+        $('.ranges_1 ul').remove();
+        $('#daterange-btn').daterangepicker(
+            {
+                autoApply:false,
+                "opens": "center",
+                dateLimit: {
+                    days: 730
+                }, //起止时间的最大间隔
+                // showDropdowns:true,
+                ranges: {
+                    // '全部': [moment(), moment().subtract(-1, 'days')],
+                    '当月': getCurrMonthDays(),
+                    // '未来30天': [moment(), moment().subtract(-29, 'days')],
+                    // '上一年': [moment().subtract(365, 'days'), moment(),],
+                    '上一年': lastYear()
+
+                },
+                startDate: moment().subtract(92, 'days'),
+                endDate: moment(),
+                // minDate:moment().add(-92,'days'),
+                maxDate: moment(),
+            },
+            function(start, end, label) {
+                //label:通过它来知道用户选择的是什么，传给后台进行相应的展示
+                     console.log(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'))
+                if (label == '全部') {
+                    $('#daterange-btn span').html('全部');
+                } else if (label == '今天') {
+                    $('#daterange-btn span').html(end.format('YYYY/MM/DD'));
+                } else if (label == '明天') {
+                    $('#daterange-btn span').html(start.format('YYYY/MM/DD'));
+                } else if (label == '未来七天') {
+                    $('#daterange-btn span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+                } else if (label == '上一年') {
+                    $('#daterange-btn span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+                } else if (label == '当月') {
+                    $('#daterange-btn span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+                };
+            }
+        );
+        // $("#daterange-btn span").html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'))
+        // $('#daterange-btn').data('daterangepicker').setStartDate('2015-03-01');
+        // $('#daterange-btn').data('daterangepicker').setEndDate('2015-05-31');
+        // $('#reportrange').daterangepicker({startDate:"2013-08-01",endDate:today.toString("yyyy-MM-dd")},function(start, end){
+        //     $('#reportrange input').val(start.toString('yyyy-MM-dd') + '~' + end.toString('yyyy-MM-dd'));
+        // });
+
+    </script>
+
+</body>
+
+</html>
