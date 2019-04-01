@@ -1,0 +1,54 @@
+<!-- 入住人 -->
+<div class="order-left background-fff margin-bottom-10 border-r5 font-size-12 clear border-bottom-E0E8ED">
+	<div class="o-title font-size-18">入住人</div>
+	#foreach($customer in $orderDetail.customers)
+	#set($index = $vCount )
+	<div  class="Occupant-box-list Occupant-box-list-bottom padding-top-20 clear">
+		<div class="clear margin-bottom-20">
+			<div class="float-left">
+				<span class="pass-bg">$index</span>
+			</div>
+			<div class="float-left clear occupant" >$!{customer.uname}</div>
+		</div>
+		<div class="o-content clear">
+			<div class="chailv-cell">
+				<div class="color-gray float-left b-m-c-t">电话：</div>
+				<div class="float-left">$!{customer.phone}</div>
+			</div>
+			<div class="chailv-cell">
+				<div class="color-gray float-left b-m-c-t">邮箱：</div>
+				<div class="float-left line-height-30">$!{customer.email}</div>
+			</div>
+			<div class="chailv-cell">
+				<div class="color-gray float-left b-m-c-t">部门：</div>
+				<div class="float-left line-height-30">$!{customer.deptName}</div>
+			</div>
+			<div class="chailv-cell">
+				<div class="color-gray  float-left b-m-c-t">成本中心：</div>
+				<div class="float-left line-height-30" style="width: 290px;line-height:30px;word-wrap: break-word; word-break: normal;">$!{customer.costName}</div>
+			</div>
+			<div class="chailv-cell">
+				<div class="color-gray  float-left isHuiChuan_text b-m-c-t">#if($!{comType} == "1")SHOWNAME#else项目中心：#end</div>
+				<div class="hoverTips line-height-30 float-left " style="width:50%; word-wrap: break-word; word-break: normal;">$!{customer.itemNumber}</div>
+			</div>
+			#if($!{comType} == "1")
+				<div class="chailv-cell">
+					<div class="color-gray  float-left b-m-c-t">SHOWCODE：</div>
+					<div class="float-left line-height-30">$!{customer.showCode}</div>
+				</div>
+			#end
+			<div class="chailv-cell">
+				<div class="color-gray  float-left b-m-c-t">发送通知：</div>
+				<div class="hoverTips hover_content float-left line-height-30" >
+					#if($!customer.isSend || $!customer.isSendEmail)
+						#if($!customer.isSend)短信#end
+						#if($!customer.isSendEmail) 邮件#end
+					#else
+						否
+					#end
+				</div>
+			</div>
+		</div>
+	</div>
+	#end
+</div>

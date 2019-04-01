@@ -1,0 +1,421 @@
+html{
+    font-size: 10px;
+}
+html,body{
+    width: 100%;
+    height:100%;
+    overflow-x: hidden;
+}
+
+.lg_tip {
+    height: 2.6rem;
+    line-height: 2.2rem;
+    font-size: 1.2rem;
+    color: #F77F7F;
+    text-align: right;
+}
+
+/*头部*/
+.lg_header {
+    height: 6.1rem;
+    background-color: #121726;
+    background-color:rgba(18,23,38,0.6);
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+    color: #FFF;
+}
+
+.lg_header .lg_container {
+    width: 71%;
+    margin: 0 auto;
+    line-height: 6.1rem;
+}
+
+.lg_logo {
+    width: 21rem;
+    height: 6rem;
+}
+
+.lg_img {
+    width: 20.8rem;
+    height: 2.6rem;
+    margin-top: 2.0rem;
+}
+
+.lg_ph_img {
+    max-width: 1.6rem;
+    max-height: 2.6rem;
+    margin-top: 1.8rem;
+}
+
+.lg_erwei_img {
+    width: 13.2rem;
+    height: 14.0rem;
+}
+
+.lg_ph_txt {
+    display: block;
+    padding-left: 0.9rem;
+    color: #fff;
+}
+
+/*main*/
+.lg_main {
+    width: 100%;
+    height: 643px;
+    background-size:auto 100%;
+    background-image: url(../img/lg_bgimg.png);
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-position: left top;
+}
+
+.lg_main .lg_container {
+    width: 71%;
+    padding-bottom: 2rem;
+    margin: 0 auto;
+    position: relative;
+}
+
+.lg_slogan1 {
+    height: 3.7rem;
+    font-size: 4.0rem;
+    font-weight: 200;
+    color: rgba(255, 255, 255, 1);
+    line-height: 24px;
+}
+
+.lg_slogan2 {
+    height: 18px;
+    font-size: 18px;
+    font-weight: 200;
+    color: rgba(255, 255, 255, 1);
+}
+
+.lg_form > .color-fff {
+    height: 59px;
+    color: #000 !important;
+    text-align: left;
+    font-size: 16px;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    line-height: 58px;
+}
+
+.lg_mobile > .phone_qrentry {
+    position: relative;
+}
+
+.lg_mobile .lg_erwei_img {
+    position: absolute;
+    top: 6.2rem;
+    z-index: 20;
+    left: -3.2rem;
+    width: 122px;
+    height: 125px;
+}
+
+.lg_form input {
+    width: 256px;
+    height: 42px;
+    padding-left: 47px;
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(220, 220, 220, 1);
+}
+
+.lg_form h2 {
+    text-align: left;
+    width: 131px;
+    height: 17px;
+    font-size: 16px;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 1);
+    line-height: 28px;
+}
+
+.input_box {
+    position: relative;
+}
+
+.kaohao_img {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 14px;
+    top: 13px;
+    line-height: 30px;
+    font-size: 14px;
+    background-size: 18px 18px;
+    background-image: url(../img/lg_kahao.png);
+}
+
+.usename_img {
+    position: absolute;
+    width: 18px;
+    height: 20px;
+    left: 14px;
+    top: 88px;
+    line-height: 30px;
+    font-size: 14px;
+    background-size: 18px 20px;
+    background-image: url(../img/lg_username.png);
+}
+
+.password_img {
+    position: absolute;
+    width: 14px;
+    height: 19px;
+    left: 17px;
+    top: 163px;
+    line-height: 30px;
+    font-size: 14px;
+    background-size: 14px 19px;
+    background-image: url(../img/lg_pwd.png);
+}
+
+.usenameDele_img {
+    position: absolute;
+    width: 19px;
+    height: 18px;
+    left: 274px;
+    top: 16px;
+    line-height: 30px;
+    font-size: 14px;
+    background-size: 14px 14px;
+    background-image: url(../img/lg_dele.png);
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#kahao_ {
+    /*background:url("../img/lg_kahao.png") no-repeat;*/
+    text-transform: uppercase;
+}
+
+#kahao_:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    border: 1px solid #CCC !important;
+    color: rgba(183, 184, 184, 1) !important;
+}
+
+#userName_:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    border: 1px solid #CCC !important;
+    color: rgba(183, 184, 184, 1) !important;
+}
+
+#passWord_:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    border: 1px solid #CCC !important;
+    color: rgba(183, 184, 184, 1) !important;
+}
+
+.lg_form .submitForm {
+    width: 303px;
+    height: 43px;
+    background: rgba(62, 78, 178, 1);
+    border-radius: 3px 3px 3px 3px;
+}
+
+.lg_form .ret-password {
+    width: 303px;
+    text-align: right;
+    height: 31px;
+    font-size: 12px;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(91, 91, 91, 1);
+    line-height: 31px;
+}
+
+/*底部*/
+.lg_footer {
+    color: #999;
+}
+
+.lg_footer .lg_container {
+    width: 72%;
+    height: 174px;
+    margin: 0 auto;
+}
+
+.lg_connect {
+    padding-top: 40px;
+    font-size: 14px;
+    text-align: center;
+    width: 362px;
+    margin: 0 auto;
+    font-weight: lighter;
+}
+
+.lg_copyright {
+    padding-top: 20px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: lighter;
+}
+
+.lg_copyright a {
+    display: inline-block;
+    color: #999;
+}
+
+.warn_validate_color {
+    border-color: #F77F7F !important;
+}
+
+@media screen and (min-width: 968px) {
+    .lg_slogan {
+        float: left;
+        margin-top: 91px;
+    }
+
+    .lg_form {
+        float: right;
+        margin-top: 86px;
+        width: 303px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 2px;
+        color: #000;
+        padding: 0 23px 25px 24px;
+    }
+    .lg_connect .hot_phone{
+        float: left;
+    }
+    .lg_connect .joint_phone{
+        float: right;
+    }
+
+}
+
+@media screen and (max-width: 968px) {
+    .lg_logo {
+        width: 9.8rem;
+        height: 5rem;
+    }
+
+    .lg_img {
+        width: 9.9rem;
+        height: 2.6rem;
+        margin-top: 2.0rem;
+    }
+
+    .lg_main .lg_container {
+        width: 71%;
+        height: 81.7rem;
+        margin: 0 auto;
+        position: relative;
+    }
+    .lg_slogan {
+        margin: 0 auto;
+        width: 310px;
+        text-align: center;
+        padding: 1em 0 1em 1.7em;
+    }
+
+    .lg_slogan1 {
+        margin-left: -70px;
+        height: 3.7rem;
+        font-size: 2.1rem;
+        font-weight: 200;
+        color: rgba(255, 255, 255, 1);
+        line-height: 24px;
+    }
+
+    .lg_slogan2 {
+        width: 312px;
+        height: 1.4rem;
+        font-size: 1.4rem;
+        font-weight: 200;
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .lg_form {
+        margin: 0em auto;
+        height: 384px;
+        width: 303px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 2px;
+        color: #000;
+        padding: 0 23px 25px 24px;
+    }
+
+}
+
+@media screen and (max-width: 450px) {
+    .lg_mobile .phone_qrentry {
+        display: none;
+    }
+
+    .lg_mobile .phone_ajump {
+        display: block !important;
+    }
+    .lg_header .lg_container {
+        width: 85%;
+    }
+    .lg_main{
+        height: 70rem;
+    }
+    .lg_footer .lg_container {
+        width: 85%;
+        padding-bottom: 1rem;
+    }
+
+    .lg_main .lg_container {
+        width: 100%;
+    }
+
+    .lg_slogan {
+        padding: 1em 0 1em 1.7em;
+    }
+
+    .lg_form {
+        margin: 0em auto;
+        height: 384px;
+        width: 303px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 2px;
+        color: #000;
+        padding: 0 23px 25px 24px;
+
+    }
+
+    .lg_form {
+        width: 260px;
+    }
+
+    .lg_form input {
+        width: 213px;
+    }
+
+    .lg_form .submitForm {
+        width: 260px;
+    }
+
+    .lg_form .ret-password {
+        width: 270px;
+    }
+
+    .usenameDele_img {
+        position: absolute;
+        width: 19px;
+        height: 18px;
+        left: 235px;
+        top: 16px;
+        line-height: 30px;
+        font-size: 14px;
+        background-size: 14px 14px;
+        background-image: url(../img/lg_dele.png);
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+
+    .lg_connect > div {
+        width: 85%;
+        text-align: center;
+    }
+}
+
+
+
+

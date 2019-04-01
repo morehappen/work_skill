@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1221Document</title>
+</head>
+
+<body>
+    <div class="">
+        <div class="">
+            <span class=""></span>
+            <input type="text" id="checkIn" placeholder="开始日期" value="" readonly="" class="" onfocus="
+                   WdatePicker({isShowClear:false,readOnly:true,errDealMode:1,lang:'zh-cn',
+                   doubleCalendar:true,dateFmt:'yyyy-MM-dd',})">
+        </div>
+        <div class="">
+            <span class=""></span>
+            <input type="text" id="checkOut" placeholder="结束日期" value="20180921" readonly="" class="" onfocus="
+                   WdatePicker({isShowClear:false,readOnly:true,
+                   errDealMode:1,lang:'zh-cn',doubleCalendar:true,dateFmt:'yyyy-MM-dd',
+                   minDate:'#F{$dp.$D(\'checkIn\',{M:0,d:1})}'})">
+        </div>
+    </div>
+    <div>
+        此处分割标记
+    </div>
+    <div>
+        <div class="">
+            <span class=""></span>
+            <input type="text" id="appformHotels[0].starttime" placeholder="入住日期1" value="" readonly="" class=" " onfocus="
+               WdatePicker({isShowClear:false,readOnly:true,errDealMode:1,lang:'zh-cn',
+               minDate:'#F{$dp.$D(\'checkIn\',{M:0,d:0})}',
+               maxDate:'#F{$dp.$D(\'checkOut\',{M:0,d:0})}',
+               doubleCalendar:true,dateFmt:'yyyy-MM-dd',})">
+        </div>
+
+        <div class="">
+            <span class=""></span>
+            <input type="text" id="appformHotels[0].endtime" placeholder="离店日期2" value="" readonly="" class="" onfocus="
+               WdatePicker({isShowClear:false,readOnly:true,
+               errDealMode:1,lang:'zh-cn',doubleCalendar:true,dateFmt:'yyyy-MM-dd',
+               maxDate:'#F{$dp.$D(\'checkOut\',{M:0,d:0})}',
+               minDate:'#F{$dp.$D(\'appformHotels[0].starttime\',{M:0,d:0})}'})">
+        </div>
+    </div>
+    <script src="../../jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="./My97DatePicker/WdatePicker.js" defer="defer" charset="utf-8"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>火车时刻</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/common/plugin.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/plugin/page/pager_blue.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/second-nav.css"/>
+    <link rel="stylesheet" type="text/css" href="./analysis-nav.css"/>
+</head>
+<body>
+<div class="main-content clear">
+    <div class="float-left">
+        <div class="second-side-nav">
+            <dl>
+                <dt class="position">
+                    <a href="javascript:void(0);" class="position ss-link ss-every-model">
+                        <span class="position-ab tip_img save_img_first"></span>
+                        节省分析
+                        <!--<span class="position-ab tip_img save_img_second s-jt-bg"></span>-->
+                    </a>
+                </dt>
+            </dl>
+            <dl>
+                <dt class="position">
+                    <a href="javascript:void(0);" class="ss-every-model">
+                        <span class="position-ab tip_img loss_img_first"></span>
+                        损耗分析
+                        <span class="position-ab tip_img travel_img_second s-jt-bg"></span>
+                    </a>
+                </dt>
+                <dd>
+                    <a href="javascript:void(0);" class="">
+                        差旅超标损耗
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        退改损耗
+                    </a>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="position">
+                    <a href="javascript:void(0);" class="ss-every-model">
+                        <span class="position-ab tip_img travel_img_first "></span>
+                        出行分析
+                        <span class="position-ab tip_img travel_img_second s-jt-bg"></span>
+                    </a>
+                </dt>
+                <dd>
+                    <a href="javascript:void(0);" class="">
+                        目的地分析
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        里程分析
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        次数/时长分析
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        热门酒店
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        航空公司分析
+                    </a>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="position">
+                    <a href="javascript:void(0);" class="ss-every-model">
+                        <span class="position-ab tip_img time_img_first"></span>
+                        时刻分析
+                        <span class="position-ab tip_img time_img_second s-jt-bg"></span>
+                    </a>
+                </dt>
+                <dd>
+                    <a href="javascript:void(0);" class="">
+                        航班时刻
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        火车时刻
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="float-left content_show">
+        <form action="javascript:void(0);" method="POST" id="SaveAnalysisForm" class="query_form">
+            <input id="" type="hidden" name="">
+            <input id="" type="hidden" name="" value="">
+            <div class="input_select clear">
+                <div class="input_items margin-default-r margin-10-b middle-line position-rel">
+                    <div class="input_item_text">起始日期：</div>
+                    <div class="i_item_input">
+                        <input type="text" id="GTE_date" data-ele="sdate" name="GTE_date" value=""
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+                    </div>
+                </div>
+                <div class="input_items margin-default-r margin-10-b">
+                    <div class="input_item_text">截止日期：</div>
+                    <div class="i_item_input">
+                        <input type="text" id="LTE_date" data-ele="edate" name="LTE_date" value=""
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+                    </div>
+                </div>
+
+                <div class="i_item_input float-right anlysis_btn_box">
+                    <button type="submit" class="btn anlysis_btn">查询</button>
+                </div>
+            </div>
+        </form>
+        <div class="margin-top-30 list_table_box">
+            <!-- table 表格部分 begin -->
+            <table class="table table-align">
+                <thead>
+                <tr>
+                    <th>时间区间</th>
+                    <th>出票张数</th>
+                    <th>出票张数占比</th>
+                    <th>退票张数</th>
+                    <th>退票张数占比</th>
+                    <th>改签张数</th>
+                    <th>改签张数占比</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>宋师庆</td>
+                    <td>
+                        5万
+                    </td>
+                    <td>
+                        11%
+                    </td>
+                    <td>
+                        10万
+                    </td>
+                    <td>
+                        90%
+                    </td>
+                    <td>
+                        6万
+                    </td>
+                    <td>
+                        95%
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="hidden" data-ele="pagenum" value="1">
+            <input type="hidden" data-ele="pages" value="1">
+            <input type="hidden" data-ele="total" value="22">
+            <input type="hidden" data-ele="pagesize" value="30">
+        </div>
+        <div id="kkpager">
+            <div>
+                <span class="infoTextAndGoPageBtnWrap">
+                    <span class="totalText">
+                        当前第
+                        <span class="currPageNum">1</span>
+                        页
+                        <span class="totalInfoSplitStr">/</span>
+                        共
+                        <span class="totalPageNum">1</span>
+                        页
+                    </span>
+                    <span class="goPageBox">
+                         &nbsp;转到
+                        <span id="kkpager_gopage_wrap">
+                            <input type="button" id="kkpager_btn_go" onclick="kkpager.gopage()" value="确定">
+                            <input type="text" id="kkpager_btn_go_input" onfocus="kkpager.focus_gopage()"
+                                   onkeypress="return kkpager.keypress_gopage(event);" onblur="kkpager.blur_gopage()"
+                                   value="1">
+                        </span>
+                        页
+                    </span>
+                    <span style="padding-left:8px">
+                        每页显示
+                        <input type="text" value="30" class="kkpager_btn_go_input" id="everyNums">
+                        <button class="btn btn-default btn-small" id="changePages" type="button"
+                                style="vertical-align: baseline;">
+                            确定
+                        </button>
+                    </span>
+                </span>
+                <span class="pageBtnWrap">
+                    <span class="disabled">首页</span>
+                    <span class="disabled">上一页</span>
+                    <span class="curr">1</span>
+                    <span class="disabled">下一页</span>
+                    <span class="disabled">尾页</span>
+                </span>
+
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../../resources/js/common/plugin.js"></script>
+<!--<script type="text/javascript" src="../../resources/js/common/common.js"></script>-->
+<script type="text/javascript" src="./analysis-nav.js"></script>
+</html>

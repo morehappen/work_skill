@@ -1,0 +1,265 @@
+.hotel-bg {
+    background: url(/static/img/hotel/hotel-bg.png) no-repeat
+}
+
+.warn-mark {
+    margin-right: 5px;
+    float: left;
+    width: 18px;
+    height: 18px
+}
+
+.xieyi-flag {
+    display: inline-block;
+    margin-left: 30px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 2px;
+    cursor: default;
+    background: #D44A9F;
+    color: #fff;
+    font-size: 12px;
+    padding: 0 5px
+}
+
+.order-left {
+    width: 786px;
+    padding: 30px 24px 20px 30px
+}
+
+.main-content-box {
+    margin-top: 14px
+}
+
+.hotel-infor-model {
+    width: 350px
+}
+
+.h-infor-i {
+    width: 350px;
+    height: 220px;
+    position: relative
+}
+
+.h-infor-i img {
+    width: 350px;
+    height: 220px;
+    border: 0
+}
+
+.order-right {
+    padding: 0;
+    width: 320px;
+    background: #E7EBFA
+}
+
+.check-box {
+    width: 320px;
+    background: #fff;
+    padding: 20px 10px 10px 20px;
+}
+
+.prepaid-notice-box {
+    border: 0;
+    background: #E7EBFA;
+    color: #888888
+}
+
+.prepaid-notice-box span {
+    color: #888888
+}
+
+.w-p-70 {
+    width: 70px;
+    display: inline-block;
+    line-height: 30px
+}
+
+.w-p-246 {
+    width: 246px;
+    line-height: 30px
+}
+
+.h-infor-f {
+    padding: 20px 10px 10px 20px
+}
+
+.check-box-name {
+    text-align: center;
+    font-size: 14px;
+    line-height: 14px;
+    height: 14px;
+    padding-bottom: 14px;
+    margin-bottom: 0;
+    border-bottom: 1px dashed #cbd0e3
+}
+
+.check-box {
+    height: 120px
+}
+
+.check-box .book-sure-icon {
+    width: 50%;
+    line-height: 30px;
+    margin-bottom: 0
+}
+
+.check-box .book-sure-icon span {
+    line-height: 30px !important
+}
+
+.h-infor-h-t-w div {
+    padding: 32px 0 0 20px
+}
+
+.h-name-w {
+    padding-left: 20px
+}
+
+.star-level {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: url(/resources/images/hotel/star-level.png) no-repeat center
+}
+
+.nothing-star-level {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: url(/resources/images/hotel/nothing-star-level.png) no-repeat
+}
+
+.o-title {
+    font-size: 16px;
+    font-weight: 600
+}
+
+.o-e-cert {
+    width: 140px;
+    color: #666
+}
+
+.o-e-cert-email {
+    width: 225px;
+    color: #666
+}
+
+.o-e-pass {
+    min-width: 130px;
+    _width: 130px;
+    color: #666
+}
+
+.latest-arrival-time {
+    font-size: 12px;
+    line-height: 21px;
+    color: #000;
+    top: 0;
+    margin-left: 20px;
+    padding-right: 5px
+}
+
+.icon-img {
+    background: url(../../images/common/svg-common.png) no-repeat 0 0
+}
+
+.warn-mark {
+    position: relative;
+    top: 0px;
+    float: left;
+    width: 18px;
+    height: 18px;
+    background-position: -73px -311px
+}
+
+.latest-timer {
+    line-height: 34px;
+    padding: 30px 0 30px 20px;
+    width: 820px
+}
+
+.b-m-c-t {
+    color: #666;
+    width: 94px;
+    float: left;
+    height: 30px;
+    line-height: 30px
+}
+
+.b-m-c-c {
+    height: 30px;
+    line-height: 30px
+}
+
+.chailv-cell {
+    width: 100%;
+    margin-bottom: 0
+}
+
+.pass-bg {
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 22px;
+    font-size: 14px;
+    margin-right: 14px
+}
+
+.occupant {
+    width: 100px;
+    line-height: 22px;
+    font-size: 16px
+}
+
+.chailv-cell {
+    width: 50%;
+    float: left
+}
+
+.border-bottom-E0E8ED {
+    border-bottom: 1px solid #E0E8ED
+}
+
+.line-height-30 {
+    line-height: 30px
+}
+
+.margin-right-35 {
+    margin-right: 35px
+}
+
+.border-bottom-1 {
+    border-bottom: 1px solid #868686
+}
+
+.hotels-address-w {
+    display: inline-block;
+    width: 300px
+}
+
+.btn-middle {
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 37px;
+    border: 0
+}
+
+.btn-cancel {
+    border: 0
+}
+
+.btn-cancel:hover {
+    background: #fff;
+    color: #D44A9F;
+    border: 0;
+    border-radius: 3px
+}
+
+/*# sourceMappingURL=hotel-book-confirm.css.map */

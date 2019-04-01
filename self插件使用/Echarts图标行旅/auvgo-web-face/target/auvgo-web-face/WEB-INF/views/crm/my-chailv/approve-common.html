@@ -1,0 +1,26 @@
+#if($!approvestatus != 3 && $!approveMap.size() > 0)
+<div class="order-right background-fff margin-bottom-20 border-r5 #if($!approvestatus == 1) approve-allow #elseif($!approvestatus == 2) approve-reject #elseif($!approvestatus == 4) approve-in #end">
+	<div class="o-title font-size-18">审批</div>
+	<div class="approve-wraper font-size-12">
+		#foreach($key in $!approveMap.keySet())
+		<div class="clear e-approve-line margin-b-14">
+			<div class="float-left approve-title">$!key级审批</div>
+			#foreach($approve in $!approveMap.get($!key))
+				<div class="float-left e-approve-person #if($!approve.status == 0) approve-before #elseif($!approve.status == 1) approve-active #elseif($!approve.status == 2) approve-active-no #end">
+					<div class="approve-text font-size-14">$!approve.name</div>
+					<div class="approve-status-text">
+						#if($!approve.status == 0)
+						未审批
+						#elseif($!approve.status == 1)
+						通过
+						#elseif($!approve.status == 2) 
+						否决
+						#end
+					</div>
+				</div>
+			#end
+		</div>
+		#end
+	</div>
+</div>
+#end

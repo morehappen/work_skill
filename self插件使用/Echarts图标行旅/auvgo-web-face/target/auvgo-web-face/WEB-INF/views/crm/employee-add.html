@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>员工管理</title> #parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/add-staff.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/personal-center/personal-center.css"/>
+	<style>
+		.drop{
+			margin-left: 5px;
+		}
+		.margn-bottom-5{margin-bottom:15px;font-size:12px;}
+	</style>
+</head>
+<body class="background-6461e2">
+	#parse("/common/head.html")
+	<!-- breadcrumbs -->
+	<div class="main-content margin-top-10 ">
+		#parse("/crm/company/company-left.html")
+	<!--<div class="bread-crums-new main-content-new margin-top-10">-->
+	<!--&lt;!&ndash;#parse("/common/bread-crumbs.html") > <a href="/crm/employee" class="normal_a">员工管理</a> > 添加员工&ndash;&gt;-->
+	<!--</div>-->
+	<form action="/crm/employee/save" method="POST" id="employeeForm" class="clear float-left" style="margin-left: 10px">
+		<!-- 主体 begin -->
+		<!--<div class="main-content margin-top-10 background-fff auto_bottom">-->
+		<div class="margin-top-10 background-fff main-content-ry add_message_one" >
+			<div class=" float-left" >
+					<div class="platform">账号信息</div>
+					<div class="clear passanger-container">
+						<div class="passanger-model">
+							<div class="e-p-model font-size-12 clear " style="margin-left: 20px;margin-top: 10px">
+								<div class="float-left p-w-200">员工编号</div>
+								<div class="float-left p-w-200">员工姓名</div>
+								<div class="float-left p-w-200">所在部门</div>
+								<div class="float-left p-w-200">数据权限</div>
+							</div>
+							<div class="clear margin-bottom-10"style="margin-left: 20px;margin-top: 10px">
+								<div class="float-left p-w-200 input-centro">
+									<!--todo 2018-10-23 客户要求可以手动输入和可以粘贴 进行更改    onpaste="return false;"不允许粘贴-->
+									<input type="text" name="accno" value="$!emp.accno" class="input" placeholder="只允许输入数字或字母" onkeyup="value=value.replace(/[\u4E00-\u9FA5]|\s/g,'')"
+										   onblur="value=value.replace(/[\u4E00-\u9FA5]|\s/g,'')"
+									datatype="s2-50" nullmsg="请填写员工编号" #if("$!emp.id"== "") ajaxurl="/crm/employee/valid" #else readonly#end />
+								</div>
+
+								<div class="float-left p-w-200 input-centro">
+									<input type="text" class="input user_centro" name="name"  placeholder="员工姓名" datatype="*" nullmsg="" value="$!emp.name">
+								</div>
+								<div class="float-left p-w-200 drop-centro ">
+									<input type="text" id="citySel" name="deptname" value="$!emp.deptname" onclick="showMenu();"
+									placeholder="部门" class="input" readonly="readonly" datatype="*2-50" nullmsg="请选择部门">
+								</div>
+								<div class="float-left drop-centro "style="margin-left: 40px">
+									<select class="_select_ _select_yz_" name="ifvip" data-yz='VIP用户' data-value=#if("$!emp.ifvip" == "")"0"#else"$!emp.ifvip"#end datatype="*" nullmsg="请选择是否是VIP">
+									<option value="1">是VIP</option>
+									<option value="0">不是VIP</option>
+									</select>
+								</div>
+							</div>
+							<div class="e-p-model font-size-12  clear" style="margin-left: 20px;margin-top: 10px">
+								<div class="float-left p-w-200">员工职级</div>
+								<div class="float-left p-w-200">在职状态</div>
+							</div>
+							<br>
+							<div class="clear margin-bottom-10"style="margin-left: 20px;margin-top:-10px">
+								<div class="float-left drop-centro ">
+									<select class="_select_ _select_yz_" name="zhiwei" data-yz='员工职级' data-value="#if($!emp.zhiwei)$!emp.zhiwei#else#end" datatype="s1-50" nullmsg="请选择员工职级">
+									<option value="">员工职级</option>
+									#foreach($!staff in $!AllStaff)
+									<option value="$!staff.value">$!staff.name</option>
+									#end
+									</select>
+								</div>
+								<div class="float-left drop-centro input-maring">
+									<select class="_select_" name="status" datatype="*" nullmsg="在职状态" data-value="#if($!emp.status)$!emp.status#else 0#end">
+										<option value="0">在职</option>
+										<option value="1">离职</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+					</div>
+			</div>
+		</div>
+				<!-- 001 end -->
+				<!-- 002 begin -->
+		<div class="margin-top-10 main-content-ry background-fff  add_message_two">
+			<div class=" person-container_box">
+				<div class="information"  style="padding-top: 15px">
+					<span>证件信息</span>
+					<span class="float-right add_size "><a>添加</a></span>
+				</div>
+				<!--------------------------------------新增证件------------------------------------------->
+				#foreach($cert in $certList)#set($index = $vCount - 1)
+				<div class="clear passanger-container passanger_model_msg"  style="position: relative;" >
+					<div class='label label-radio clear vertical float-left maring-distance #if("$!cert.isdefault" == "1")label-select-radio #end'>
+						<span class="show_choice"></span>
+						<input type="radio" name="default" #if($!cert.isdefault == 1)checked="checked" #end  value="$!cert.isdefault"/>
+						<input type="radio" name="certlist[$index].isdefault" value="$!cert.isdefault"/>
+						<span>默认</span>
+					</div>
+					<div class="passanger-model message ">
+						<div class="e-p-model font-size-12 " style="margin-left: 20px;margin-top: 20px">
+						</div>
+						<div class="clear margin-bottom-10"style="margin-left: 20px;">
+							<div class="float-left clear margn-bottom-5 document_type position">
+								<div class=" p-w-200 papers">证件类型</div>
+								<div class=" drop-centro" >
+									<select class="_select_ js_centro_type"  datatype="*" nullmsg="请选择证件类型" name="certlist[$index].certtype" data-value="$!cert.certtype">
+										<option value="1">身份证</option>
+										<option value="C">港澳通行证</option>
+										<option value="G">台湾通行证</option>
+										<option value="B">护照</option>
+										<option value="ID">其他</option>
+									</select>
+								</div>
+							</div>
+							<div class="float-left clear margn-bottom-5">
+								<div class=" p-w-200 papers">证件号码</div>
+								<div class=" p-w-200 papers input-centro">
+									<input type="text" class="input user_centro"  name="certlist[$index].certificate"  placeholder="证件号码" datatype="*" nullmsg="" value="$!cert.certificate">
+								</div>
+							</div>
+							<div class="float-left clear margn-bottom-5">
+								<div class=" p-w-200 papers">证件姓名</div>
+								<div class=" p-w-200 papers input-centro">
+									<input type="text" class="input user_centro" name="certlist[$index].username"  placeholder="证件姓名" datatype="*" nullmsg="" value="$!cert.username">
+								</div>
+							</div>
+							<div class="float-left clear margn-bottom-5 select_hide hide">
+								<div class=" p-w-200 papers">性别</div>
+								<div class=" drop-centro">
+									<select class="_select_"  name="certlist[$index].sex" data-value="$!cert.sex">
+										<option value="" >--请选择性别--</option>
+										<option value="M">男</option>
+										<option value="F">女</option>
+									</select>
+								</div>
+							</div>
+							<div class="float-left clear margn-bottom-5 select_hide hide">
+								<div class=" p-w-200 papers">有效期</div>
+								<div class=" p-w-200 papers input-centro">
+									<input type="text" class="input user_centro" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyyMMdd'})"  name="certlist[$index].passportdate" placeholder="请选择有效期"  value="$!cert.passportdate">
+								</div>
+							</div>
+							<div class="float-left clear margn-bottom-5 select_hide hide">
+								<div class=" p-w-200 papers">国籍</div>
+								<div class=" p-w-200 papers input-centro">
+									<input type="text" class="input user_centro nationality"  name="certlist[$index].guoji"  placeholder="请选择国籍" value="$!cert.guoji">
+								</div>
+							</div>
+							<div class="float-left clear margn-bottom-5 select_hide hide">
+								<div class=" p-w-200 papers">签发地</div>
+								<div class=" p-w-200 papers input-centro">
+									<input type="text" class="input user_centro issue_add" name="certlist[$index].placeIssue"  placeholder="请输入签发地"  value="$!cert.placeIssue">
+								</div>
+							</div>
+							<div class="float-left clear margn-bottom-5 select_hide hide">
+								<div class=" p-w-200 papers">出生日期</div>
+								<div class=" p-w-200 papers input-centro">
+									<input type="text" class="input user_centro" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyyMMdd'})"  name="certlist[$index].birthday" placeholder="请选择出生日期"  value="$!cert.birthday">
+								</div>
+							</div>
+						</div>
+						
+						<input type="hidden" name="certlist[$index].id" value="$!cert.id">
+						<input type="hidden" name="certlist[$index].companyid" value="$!cert.companyid">
+						<input type="hidden" name="certlist[$index].empid" value="$!cert.empid">
+						<br>
+						<div class="clear margin-bottom-10"style="margin-left: 20px;">
+						</div>
+					</div>
+					<div class="del_c"></div>
+				</div>
+				#end
+				
+				
+			<!--------------------------------------新增证件end------------------------------------------->
+			</div>
+		</div>
+		<!-- 002 end -->
+		<!-- 003 begin -->
+		<div class=" margin-top-10 background-fff main-content-ry  add_message_three">
+			<div class=" float-left"  >
+				<div class="platform">
+					<span>联系信息</span>
+					<div class="clear passanger-container">
+						<div class="passanger-model">
+							<div class="e-p-model font-size-12" >
+								<div class="float-left p-w-200 "style="margin-left: -20px">手机号</div>
+								<div class="float-left p-w-200 ">邮箱</div>
+							</div>
+							<br>
+							<div class="float-left p-w-200  input-centro">
+								<input type="text" class="input" placeholder="手机号" name="mobile" value="$!emp.mobile"
+								datatype=$!{mobileRegExp} errormsg=$!{mobileRegExpErr} ignore="ignore" />
+							</div>
+							<div class="float-left p-w-200 input-centro">
+								<input type="text" class="input" placeholder="邮箱" name="email" value="$!emp.email"
+								datatype=$!{emailRegExp} errormsg=$!{emailRegExpErr} ignore="ignore" />
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+				<!-- 003 end -->
+				<!-- 004 begin -->
+		<div class=" margin-top-10 background-fff  main-content-ry add_message_four">
+			<div class=" float-left">
+				<!-- 004 begin -->
+				<div class=" float-left" style="margin-top: 0px"  >
+					<div class="platform">
+						<span>平台信息</span>
+						<div class="clear passanger-container">
+							<div class="passanger-model">
+								<div class="e-p-model font-size-12 "  style="margin-top: 10px">
+									<div class="float-left p-w-200 " style="margin-left: -20px">用户名</div>
+									<div class="float-left p-w-200 ">密码</div>
+								</div>
+								<br>
+								<div class="float-left p-w-200  input-centro">
+									<input type="text" class="input" placeholder="用户名" name="username" value="$!emp.username" #if("$!emp.id"=="")ajaxurl="/crm/employee/checkName"#end />
+									#if(!$!emp.id)
+								</div>
+								<div class="float-left p-w-200 input-centro">
+									<input type="password" name="password" value="$!emp.password" class="input changePass" ignore="ignore" placeholder="密码" />
+									#end
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="reserve">
+						<span class="float-left">预订权限</span>
+						<div class="label label-radio ifallowbook #if($!emp.ifallowbook== 1)label-select-radio#end clear vertical float-left">
+							<span class="show_choice"></span>
+							<input type="radio" name="ifallowbook" value="1" #if($!emp.ifallowbook== 1)checked="checked" #end />
+							<span>可为他人预订</span>
+						</div>
+						<div class="label label-radio ifallowbook #if($!emp.ifallowbook!=1)label-select-radio#end clear vertical float-left">
+							<span class="show_choice"></span>
+							<input type="radio" name="ifallowbook" value="0" #if($!emp.ifallowbook!=1)checked="checked" #end />
+							<span>仅为自己预订</span>
+						</div>
+						<span class="width-250 cetr-this  isBookDepartment #if($!emp.ifapprove== 1)show#end">
+							<div class="float-left " style="margin-left:30px">代订范围</div>
+							<!--<option value="3">个人</option>-->
+							<select class="_select_" name="bookrange" data-value=#if("$!emp.bookrange"=="")1#else$!{emp.bookrange}#end>
+								<option value="0">全公司</option>
+								<option value="1">本部门</option>
+								<option value="2">指定部门</option>
+							</select>
+							<input type="hidden" id="_deptids" name="bookdept" value="$!emp.bookdept" />
+							#if("$!emp.id"=="")
+							<button	type='button' onclick='openZdpart("/crm/employee/showdept/0")' class='set_bm   sd-bm hide'>设定代订部门</button>
+							#else
+							<button	type='button' onclick='openZdpart("/crm/employee/showdept/$!emp.id")' class='set_bm   sd-bm hide'>设定代订部门</button>
+							#end
+						</span>
+					</div>
+					<br>
+					<div class="reserve clear" style="margin-top: 20px;">
+						<div class="clear canAdd float-left" style="margin-right: 80px;">
+							<span class="float-left">可添加员工</span>
+							<div class="label label-radio addempflage #if($!emp.addempflage== 1)label-select-radio#end clear vertical float-left">
+								<span class="show_choice"></span>
+								<input type="radio" name="addempflage" value="1" #if($!emp.addempflage== 1)checked="checked"#end/>
+								<span>允许</span>
+							</div>
+							<div class="label label-radio addempflage #if($!emp.addempflage != 1)label-select-radio#end clear vertical float-left">
+								<span class="show_choice"></span>
+								<input type="radio" name="addempflage" value="0" #if($!emp.addempflage!= 1)checked="checked"#end/>
+								<span>不允许</span>
+							</div>
+						</div>
+						
+						<div class="clear float-left ">
+							<span class="float-left width-250" >审批权限</span>
+							<div class="label label-radio ifapprove #if($!emp.ifapprove == 1)label-select-radio#end clear vertical float-left">
+								<span class="show_choice"></span>
+								<input type="radio" name="ifapprove" value="1" #if($!emp.ifapprove == 1)checked="checked" #end />
+								<span>是</span>
+							</div>
+							<span class="approveStyle float-left #if($!emp.ifapprove== 1)show#end">
+								<div class="label label-checkbox  cursor notice-margin float-left" style="margin-left: 20px" >
+									<span class="show_choice"></span>
+									<input type="checkbox"  name="approvesms" value="1" #if($!emp.approvesms== 1)checked="checked" #end >
+									<span>短信</span>
+								</div>
+								<div class="label label-checkbox cursor notice-margin float-left"  >
+									<span class="show_choice"></span>
+									<input type="checkbox" name="approveemail" value="1" #if($!emp.approveemail== 1)checked="checked" #end >
+									<span>邮件</span>
+								</div>
+							</span>
+							<div class="label label-radio ifapprove #if($!emp.ifapprove!= 1)label-select-radio#end clear vertical float-left">
+								<span class="show_choice"></span>
+								<input type="radio" name="ifapprove" value="0" #if($!emp.ifapprove!= 1)checked="checked" #end />
+								<span>否</span>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<!-- 004 end -->
+			</div>
+		</div>
+		<!-- 004 end -->
+			<!--005begin-->
+		<div class="margin-top-10 background-fff main-content-ry  add_message_five ">
+			<div style="margin-bottom:20px;" >
+				<div  class="platform" style="padding-top: 10px">
+					<span>抄送知情人</span>
+					<div class="copy" style="margin-top: 20px;">
+						<span class="float-left">抄送知情人</span>
+						<div class="label label-radio ifchaosong  #if('$!{emp.ifchaosong}'=='1') label-select-radio #end clear vertical float-left">
+							<span class="show_choice"></span>
+							<input type="radio" name="ifchaosong" value="1" #if("$!{emp.ifchaosong}"=="1") checked="checked"#end  />
+							<span>是</span>
+						</div>
+						<div class='label label-radio ifchaosong #if("$!{emp.ifchaosong}" == ""||"$!{emp.ifchaosong}"=="0") label-select-radio #end clear vertical float-left'>
+							<span class="show_choice"></span>
+							<input type="radio" name="ifchaosong" value="0" #if("$!{emp.ifchaosong}" == ""||"$!{emp.ifchaosong}"=="0") checked="checked"#end />
+							<span>否</span>
+						</div>
+					</div>
+					<br>
+					<div class="clear passanger-container ifchaosong_select hide">
+						<div class="passanger-model clear ">
+							<div class="e-p-model font-size-12 clear "  style="margin-top: 10px">
+								<div class="float-left p-w-200 " style="margin-left: -20px">用户名</div>
+								<div class="float-left p-w-200 ">电话</div>
+								<div class="float-left p-w-200 ">邮箱</div>
+							</div>
+							<br>
+							<div class="float-left p-w-200  input-centro">
+								<input type="text" name="insiderlist[0].username" value="" class="input radius getStaff" placeholder="姓名">
+							</div>
+							<div class="float-left p-w-200 input-centro">
+								<input type="text" name="insiderlist[0].mobile" value="" readonly class="input radius mobile" placeholder="手机号"
+									   datatype=$!{mobileRegExp} nullmsg=$!{mobileRegExpNull} errormsg=$!{mobileRegExpErr} ignore="ignore" />
+							</div>
+							<div class="float-left p-w-200 input-centro">
+								<input type="text" name="insiderlist[0].email" value="" readonly class="input radius email" placeholder="邮箱"
+									   datatype=$!{emailRegExp} nullmsg=$!{emailRegExpNull} errormsg=$!{emailRegExpErr} ignore="ignore" />
+							</div>
+						</div>
+						<div class="copy" style="margin-top: 10px;">
+							<span class="float-left" >知情业务</span>
+							<div class="label label-checkbox clear">
+								<span class="show_choice"></span>
+								<input type="checkbox" name="insiderlist[0].air" value="air/" >
+								<span>机票</span>
+							</div>
+							<div class="label label-checkbox clear">
+								<span class="show_choice"></span>
+								<input type="checkbox" name="insiderlist[0].train" value="train/">
+								<span>火车票</span>
+							</div>
+							<div class="label label-checkbox clear">
+								<span class="show_choice"></span>
+								<input type="checkbox" name="insiderlist[0].hotel" value="hotel/">
+								<span>酒店</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear margin-top-10 text-align" style="height:60px;">
+					<button type="submit" class="btn btn-default btn-big emp_submit" data-cno=$!company.bianhao style="margin-right: 30px">确定</button>
+					<a href="/crm/employee" class="btn btn-cancel btn-big">取消</a>
+				</div>
+				
+			</div>
+			<!--005end-->
+		</div>
+
+		<div class="emp-div">
+			<ul class="employee-wraper"></ul>
+		</div>
+		
+		<div id="menuContent" class="menuContent" style="display: none; position: absolute; background: #e9e9e9;">
+			<ul id="treeDemo" class="ztree" style="margin-top: 0; width: 250px; height: 240px; overflow: auto;"></ul>
+		</div>
+		<input type="hidden" name="id" value="$!emp.id">
+		<input type="hidden" id="deptpid" name="deptid" value="$!emp.deptid">
+		<input type="hidden" name="companyid" value="$!company.id">
+	</form>
+	</div>
+	<!-- 主体 end -->
+	#parse("common/foot.html")
+	<script type="text/javascript" src="/static/js/md5.min.js"></script>
+	<script type="text/javascript" src="/static/js/crm/employee/employee-add.js"></script>
+	<script type="text/javascript">
+		ztreeMain({ 'zNodes':$!{depttree} });
+////				<!--<div class="float-left option"><div class="circle"></div><span>默认</span></div>-->
+	
+	</script>
+</body>
+</html>

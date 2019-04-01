@@ -1,0 +1,62 @@
+/* .padding-30 {
+/* .padding-30 {
+  padding: 30px 0;
+}
+.padding-bottom-50 {
+  padding-bottom: 50px;
+}
+.padding-top-50 {
+  padding-top: 50px;
+}
+.content-right {
+  width: 1010px;
+}
+.content-right > ul li {
+  float: left;
+}
+.content-right > ul li span {
+  display: block;
+  height: 26px;
+  line-height: normal;
+}
+.content-right .my-infor .infor-part-1 {
+  width: 150px;
+}
+.content-right .my-infor .infor-part-2 {
+  width: 196px;
+}
+.content-right .my-infor .infor-part-3 {
+  width: 304px;
+}
+.content-right .my-infor .infor-part-4 {
+  width: 316px;
+}
+.content-right .every-model {
+  float: left;
+}
+.content-right .every-model p {
+  height: 36px;
+  line-height: 36px;
+}
+.content-right .every-model li {
+  height: 30px;
+  line-height: 30px;
+  text-overflow: ellipsis;white-space: nowrap;overflow: hidden;
+}
+.content-right .air-model {
+  width: 25%;
+}
+.content-right .hotel-model {
+  width: 30%;
+}
+.content-right .train-model {
+  width: 45%;
+}
+ */
+.main-myChailv-c{padding-top:20px}
+.row-line .drop{float:left}
+.table-line td{white-space: nowrap}
+
+
+
+

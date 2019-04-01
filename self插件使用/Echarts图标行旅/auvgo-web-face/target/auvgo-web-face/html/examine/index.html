@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>设置审批人</title>
+
+    <link rel="stylesheet" href="swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/colorStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/plugin.css"/>
+    <link rel="stylesheet" type="text/css" href="rule.css"/>
+    <style>
+
+    </style>
+</head>
+
+<body ontouchstart>
+
+<div style="width: 742px; background-color:#fff; margin: auto">
+    <div class="content-hend">
+        <div class="float-left speacile" >设置审批人</div>
+    </div>
+
+<div class="swiper-container">
+	<div class="my-pagination"><ul class="my-pagination-ul"></ul></div>
+	<div class="swiper-wrapper">
+        <div class="swiper-slide">
+        	<!--按部门级别GO-->
+            <div class="margin-top-20 margin-left-25">
+                <div class="label label-radio label-select-radio clear vertical  cert ">
+                    <span class="show_choice specifi"></span>
+                    <input type="radio" name="cert" value="1" />
+                    <span>指定部门审批</span>
+                </div>
+               <div class="label label-radio  clear vertical cert ">
+                    <span class="show_choice step-by"></span>
+                    <input type="radio" name="cert" value="0" />
+                    <span>逐级部门审批</span>
+                </div>
+                <span class="exclamation-mark-new"></span>
+                <span class="exclamation-mark-new "></span>
+            </div>
+            <div class=" droper-one-left margin-top-30 margin-left-25 show">
+                <span>审批类型：出行人的</span>
+                <select  name="certtype" class="_select_ certCard"  nullmsg="请选择" errormsg="请选择！" >
+                    <option value="">直接审批人</option>
+                    <option value="">直接审批人</option>
+                    <option value="">直接审批人</option>
+                </select>
+            </div>
+            <div  class="font-size padding-25 show">审批方式：审批人为多人时，一名审批人同意或者拒绝即可</div>
+            <div class="droper-one margin-top-30 margin-left-25 hide">
+                <span class="margin-right-10">审批人类型:</span>
+                <div class="label label-checkbox clear vertical ">
+                    <span class="show_choice"></span>
+                    <input type="checkbox"></div>
+                <span class="margin-left-10">同时不超过出行人向上的</span>
+                <select  name="certtype" class="_select_ certstep"  nullmsg="请选择" errormsg="请选择！" >
+                    <option value="">第三级审批人</option>
+                    <option value="">第三级审批人</option>
+                    <option value="">第三级审批人</option>
+                </select>
+            </div>
+            <div  class="font-size padding-25 hide">审批方式：依次审批（每一级部门中的审批人依次审批）</div>
+            <div class="margin-left-170">
+                <button type="text" class="btn btn-default  btn_set ">保存</button>
+                <button type="text" class="btn btn-cancel btn_set  btn_red margin-left-25">删除此规则</button>
+                <button type="text" class="btn btn-cancel btn_set margin-left-25">返回</button>
+            </div>
+            <!--按部门级别END-->
+        </div>
+        <div class="swiper-slide">
+            <!--指定人GO-->
+        <div class="header" >
+            <div class="ban" >小朋友</div>
+            <div class="ban" >张小花</div>
+            <div class="ban" >屈臣氏</div>
+            <div class="ban" >王老吉</div>
+            <div class="ban" >嘿嘿</div>
+            <div class="ban" >科颜氏</div>
+            <div class="ban" >张小花</div>
+            <div class="ban" >张小花</div>
+            <div class="ban" >张小花</div>
+            <div class="ban btn_color btn-default cursor" >修改审批人</div>
+        </div>
+            <div  class="font-size padding-50">审批方式：审批人为多人时，一名审批人同意或者拒绝即可</div>
+            <div class="margin-left-170">
+            <button type="text" class="btn btn-default  btn_set ">保存</button>
+            <button type="text" class="btn btn-cancel btn_set  btn_red margin-left-25">删除此规则</button>
+            <button type="text" class="btn btn-cancel btn_set margin-left-25">返回</button>
+            <!--指定人END-->
+        </div>
+        </div>
+        <div class="swiper-slide">
+            <!--按项目/成本中心GO-->
+            <div class="margin-left-25">
+                <div class="label label-checkbox clear vertical  label_new ">
+                    <span class="show_choice"></span>
+                    <input type="checkbox">
+                    <span>成本中心</span>
+                    <span class="exclamation-mark-new float-left"></span>
+                </div>
+                <div class="label label-checkbox clear vertical margin-left-60 margin-top-20 ">
+                    <span class="show_choice"></span>
+                    <input type="checkbox"  >
+                    <span>项目中心</span>
+                    <span class="exclamation-mark-new float-left"></span>
+                </div>
+            </div>
+            <div class="margin-left-25 margin-top-30">
+            <span>审批方式：</span>
+            <div class="label label-radio ifapprove clear vertical  label-select-radio">
+                <span class="show_choice"></span>
+                <input type="radio" name="ifapprove" value="1">
+                <span>出行人从审批人中自选</span>
+            </div>
+            <div class="optional" >设置后，提交人可以页面中选择项目/成本中心的审批人，进行审批。</div>
+            <br>
+            <div class="label label-radio ifapprove clear vertical   margin-left-75">
+                <span class="show_choice"></span>
+                <input type="radio" name="ifapprove" value="2" >
+                <span>或审</span>
+            </div>
+            <div class="review">一名审批人同意或者拒绝即可</div>
+            </div>
+            <div class="margin-top-50 margin-left-170">
+                <button type="text" class="btn btn-default  btn_set "  >保存</button>
+                <button type="text" class="btn btn-cancel btn_set  btn_red margin-left-25">删除此规则</button>
+                <button type="text" class="btn btn-cancel btn_set margin-left-25">返回</button>
+            </div>
+
+            <!--按项目/成本中心END-->
+        
+        </div>
+        <div class="swiper-slide">
+
+            <!--按指定条件绑定GO-->
+            <div class="margin-left-25">
+                <div class="margin-top-20 font-size">条件：违背差旅标准</div>
+                <div class="add_rank add_new_big" style="margin-left: 0px">添加审批人</div>
+                <div class="header-only"  >
+                    <div class="ban-only" >小朋友</div>
+                    <div class="ban-only" >张小花</div>
+                    <div class="ban-only" >屈臣氏</div>
+                    <div class="ban-only" >王老吉</div>
+                    <div class="ban-only" >嘿嘿</div>
+                </div>
+
+            </div>
+            <div  class="font-size padding-50">审批方式：审批人为多人时，一名审批人同意或者拒绝即可</div>
+                <button type="text" class="btn btn-default  btn_set margin-left-200"  >保存</button>
+                <button type="text" class="btn btn-cancel btn_set margin-left-25">返回</button>
+            <hr>
+            <!--按指定条件END-->
+            <!--按指定条件绑定GO-->
+            <div class="margin-left-25">
+                <div class="margin-top-20 font-size">条件：违背差旅标准</div>
+                <div class="add_rank add_new_big" style="margin-left: 0px">添加审批人</div>
+                <div class="add-card">
+                    <div class="margin-left-20">
+                        <div class="margin-top-20">
+                            <div style="padding-top: 15px">
+                        <span class="font-size-18" >张小花</span>
+                        <span class=" font-size margin-left-20 red cursor"  >删除</span>
+                        </div>
+                        </div>
+                        <div  class="margin-top-20"><span class="font-size">适用范围</span>
+                        <div style="margin-left: 70px;margin-top: -24px;">
+                            <sapn class="font-size purple">选择适用部门</sapn>
+                            <span class="font-size margin-left-10 ">产品部、技术二部</span>
+                            <br>
+                            <sapn class="font-size purple">选择适用人员</sapn>
+                            <span class="font-size margin-left-10">张小花、王美丽</span>
+                        </div></div>
+                    </div>
+                </div>
+
+            </div>
+            <div  class="font-size padding-50">审批方式：审批人为多人时，一名审批人同意或者拒绝即可</div>
+            <div class=" margin-left-170">
+                <button type="text" class="btn btn-default  btn_set "  >保存</button>
+                <button type="text" class="btn btn-cancel btn_set  btn_red margin-left-25">删除此规则</button>
+                <button type="text" class="btn btn-cancel btn_set margin-left-25">返回</button>
+            </div>
+        </div>
+
+	</div>
+</div>
+</div>
+<script src="swiper.min.js"></script>
+<script type="text/javascript" src="../../../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../../static/js/common/plugin.js"></script>
+<script> 
+var mySwiper = new Swiper('.swiper-container',{
+pagination: '.my-pagination-ul',
+paginationClickable: true,
+paginationBulletRender: function (index, className) {
+switch (index) {
+  case 0: name='按部门级别';break;
+  case 1: name='指定人';break;
+  case 2: name='按项目/成本中心';break;
+  case 3: name='按指定条件';break;
+  default: name='';
+}
+      return '<li class="' + className + '">' + name + '</li>';
+  }
+})
+//调用下拉框框
+new SelectMain().creatSelect($('.certCard'));
+new SelectMain().creatSelect($('.certstep'));
+
+//按部门级别（部门审批）切换
+$(document).on('click', '.cert', function () {
+    if($(this).find('input[name="cert"]').val()==0){
+        $('.hide').show();
+    }else{
+        $('.hide').hide();
+    }
+})
+$(document).on('click', '.cert', function () {
+    if($(this).find('input[name="cert"]').val()==1){
+        $('.show').show();
+    }else{
+        $('.show').hide();
+    }
+})
+//点击删除add-card
+$(document).on('click', '.red', function () {
+    $(this).parents('.add-card').remove();
+})
+
+</script>
+
+
+
+</body>
+
+</html>

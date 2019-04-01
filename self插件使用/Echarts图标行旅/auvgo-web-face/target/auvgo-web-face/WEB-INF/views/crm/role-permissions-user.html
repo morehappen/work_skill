@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>角色用户</title> #parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/role-permissions-user.css" />
+</head>
+<body class="background-6461e2">
+	#parse("/common/head.html")
+	<div class="bread-crums main-content margin-top-10">
+		#parse("/common/bread-crumbs.html") > <a href="/crm/role" class="normal_a">角色权限</a> > 角色用户
+	</div>
+	<!-- 主体 begin -->
+	<div class="main-content margin-top-10 background-fff auto_bottom">
+		<div class="content-only clear">
+			<form action="/crm/role/relationemployee/$!roleId" method="post" >
+				<div class="clear font-size-12">
+					<div class="float-left">
+						员工编号：
+						<input type="text" name="q_EQ_accno" value="$!q_EQ_accno" class="input" />
+					</div>
+					<div class="float-left">
+						员工姓名：
+						<input type="text" name="q_LIKE_name" value="$!q_LIKE_name" class="input" />
+					</div>
+					<div class="float-left">
+						部门：
+						<input type="text" id="citySel" onclick="showMenu();" class="input" title="" readonly="readonly"  />
+						<input type="hidden" id="deptpid" name="deptid" value="$!deptid" class="input">
+					</div>
+					<button type="submit" class="btn btn-default btn-big">查询</button>
+				</div>
+			</form>
+			<form action="/crm/role/saveemployee" method="post" id="saveRoleForm" >
+				<input type="hidden" name="cid" value="$!cid" />
+				<input type="hidden" name="roleid" value="$!roleId" />
+			<div class="clear margin-top-30">
+				<div class="associated">
+					<p class="background-f2  associated-title">未关联</p>
+					<select size="10"  multiple class="noSet">
+						#foreach($page in $!page)
+						<option value="$page.id">$page.name</option>
+						#end
+					</select>
+				</div>
+				
+				<div class="left-right-move">
+					<button type="button" class="float-left auvgo-approve-bg left-move leftMove"></button>
+					<button type="button" class="float-left auvgo-approve-bg right-move rightMove"></button>
+				</div>
+				
+				<div class="associated">
+					<p class="background-f2  associated-title">已关联</p>
+					<select size="10"  multiple class="alwaysSet">
+						#foreach($exist in $!existEmployee)
+						<option value="$exist.id">$exist.name</option>
+						#end
+					</select>
+				</div>
+			</div>
+			<input type="hidden" name="employeeids" class="alwaysRole">
+			<div class="clear margin-top-30 text-align">
+				<button class="btn btn-default btn-big">确定</button>
+				<a  href="/crm/role" class="btn btn-cancel btn-big">取消</a>
+			</div>
+			</form>
+			<div id="menuContent" class="menuContent" style="display: none; position: absolute; background: #f0f0f0;">
+				<ul id="treeDemo" class="ztree" style="margin-top: 0;width:200px; height: 240px; overflow: auto;"></ul>
+			</div>
+		</div>
+	</div>
+	<!-- 主体 end -->
+	#parse("/common/foot.html")
+	<script type="text/javascript" src="/static/js/crm/role/crm-role-user.js"></script>
+	<script type="text/javascript">
+	alertZtreeMain({'zNodes':$!{depttree}});
+	
+	$("#saveRoleForm").Validform({
+		ajaxPost : true,
+		callback : function(data) {
+			$("#Validform_msg").hide();
+			if (data.status == 200) {
+				zh.alerts({ title:"提示", text:"添加成功" });
+				$("body").on("click",".alert_event",function(){
+					top.location.reload();
+				});
+			} else {
+				zh.alerts({ title:"提示", text:"添加失败" });
+			}
+		}
+	});			
+	</script>
+</body>
+</html>

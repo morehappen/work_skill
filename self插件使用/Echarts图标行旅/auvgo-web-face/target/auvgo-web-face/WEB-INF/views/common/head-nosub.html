@@ -1,0 +1,89 @@
+<header>
+#if("$!p.get('traverorderno')" == "")
+#set($flagNav=0)
+#else
+#set($flagNav=1)
+#end
+<div class="background-fff nav-height" id="company-flag" data-bianhao="$!{company.bianhao}">
+	<div class="main-content clear">
+		<div class="logo float-left">
+			<a href="#if(!(($!company.bianhao == 'CLKJ') && ($!flagNav == 0)))/index#else#end">
+				<img style="max-width: 208px; max-height: 50px;" id="logopic_left"
+					 src=#if($!company.logopic)$!company.logopic#else"/static/project-resource/img/logo.png"#end/>
+			</a>
+			<input type="hidden" class="companyKH" value="$!company.bianhao">
+		</div>
+		<div class="float-right ">
+			<!--<div class="float-right">-->
+				<!--<a  href="/logout" class="color-333" title="退出登录">-->
+					<!--<div class="logout-btn font-size-16">-->
+						<!--<span class="logout auvgo-approve-bg"></span>退出登录-->
+					<!--</div>-->
+				<!--</a>-->
+			<!--</div>-->
+			<div class="float-right user-box clear position">
+				<input type="hidden" value="$!zhiwei.value" class="loginZhiji" />
+				<input type="hidden" value="$!user.id" class="loginid" />
+				<div class="clear">
+					<div class="float-left">
+						<img class="user-img-con" src="/resources/images/common/user_img.png" alt="">
+					</div>
+					<div class="float-right clear">
+						<div class="float-left username-text">$!user.name</div>
+						<div class="selectbox_arraw_con float-right">
+							<span class="selectbox_down hide selectbox_arrow">▲</span>
+							<span class="selectbox_up selectbox_arrow">▼</span>
+						</div>
+					</div>
+				</div>
+				<div class="position-ab user_drap hide">
+					<div class="user_drap_arrow_box position-ab">
+						<div class="user_drap_arrow"></div>
+					</div>
+					<a class="user_department user_active position" href="/personal/toInformation">
+						<div class="user_department_bumen">
+							<span class="user_department_tip position-ab">
+
+							</span>
+							<span class="text-ellipsis user_department_text">
+								$!user.deptname
+							</span>
+						</div>
+						<div class="role_flag">
+							$!zhiwei.name
+						</div>
+					</a>
+					<a class="position user_active user_out_box" href="/logout">
+						<span class="user_out_tip position-ab">
+						</span>
+						退出登录
+					</a>
+				</div>
+			</div>
+			<!--<div class="float-right user-content">-->
+				<!--<a href="/personal/toInformation">-->
+					<!--<div class="float-left font-size-12 user-name auvgo-approve-bg">$!user.name</div>-->
+				<!--</a>-->
+				<!--<div class="float-left zhiwei font-size-14">-->
+					<!--<div class="height-22 hoverTips hover_content">$!user.deptname</div>-->
+					<!--<div class="height-22 hoverTips hover_content">$!zhiwei.name</div>-->
+					<!--<input type="hidden" value="$!zhiwei.value" class="loginZhiji" />-->
+					<!--<input type="hidden" value="$!user.id" class="loginid" />-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<nav class="float-right">-->
+				<!--<div class="float-right">-->
+					<!--#foreach($!etabs in $!menus)-->
+						<!--#if("$!etabs.url"!="")-->
+						<!--<div class="tab font-size-16 position">-->
+							<!--<a href="$!etabs.url" class="nav_main normal_a position-ab ">$!etabs.name</a>-->
+						<!--</div>-->
+						<!--#end-->
+			<!--#end-->
+				<!--</div>-->
+			<!--</nav>-->
+		</div>
+	</div>
+	</div>
+</header>
+

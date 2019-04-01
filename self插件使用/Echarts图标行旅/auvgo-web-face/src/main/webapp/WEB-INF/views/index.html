@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>首页</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/resources/css/hotel/citySelector.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/hotel/hotel-common.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/common/city-plugin.css"/>
+		<link rel="stylesheet" type="text/css" href="/resources/js/plugin/autocomplete/jquery.autocomplete.css" />
+	</head>
+	<body class="background-f5f6f8 clear">
+		#parse("/common/head.html")
+		<input type="hidden" name="cid" value="$!user.companyid"/>
+		<input type="hidden" name="level" value="$!zhiwei.value"/>
+		<div class="bg-box" >
+			<div class="main-content main-body-content position index-content-policy" >
+				<div class="main-model position clear">
+					<div class="float-left model-content-left">
+						<div class="clear float-left">
+							<ul class="tab-model ">
+								#if($!companybusiness.get(1)==1)
+								<input type="hidden" name="airServer" value="air">
+								<li data-flag="air"  data-linshi="air" class="border-1-fff">
+									<!--<span class="icon-img svg icon-air-guonei "></span>-->
+									机票
+								</li>
+								#end
+								<!--<li data-flag="air" data-linshi="true">-->
+									<!--<a href='/air/international/xuqiudan?flag=guoji' data-linshi="true">-->
+										<!--<span class="svg icon-air-guoji" ></span>国际机票-->
+									<!--</a>-->
+								<!--</li>-->
+								#if($!companybusiness.get(2)==1)
+									<input type="hidden" name="hotelServer" value="hotel">
+									<li data-flag="hotel" >
+										<!--<span class="icon-img svg icon-hotel"></span>-->
+										酒店
+										<!--<div class="border"></div>-->
+									</li>
+								#end
+								#if($!companybusiness.get(0)==1)
+									<input type="hidden" name="trainServer" value="train" >
+									<li data-flag="train">
+										<!--<span class="icon-img svg icon-train"></span>-->
+										火车票
+									</li>
+								#end
+							</ul>
+						</div>
+						<div class="iframe-model float-left ">
+							#if($!companybusiness.get(1)!=1 && $!companybusiness.get(2)!=1 && $!companybusiness.get(0)!=1)
+							<input type="hidden" name=noserver value="noserver" />
+							您未开启任何服务
+							#end
+						</div>
+					</div>
+					<div class="float-right board-cantainer">
+						<div class="board index-board ">
+							<div class="board-title background-e2ecff color-fff">差旅标准</div>
+							#if($!companybusiness.get(1)==1)
+							<div class=" board-title-cs board-air-title color-D44A9F ">国内机票</div>
+							#end
+							#if($!companybusiness.get(0)==1)
+							<div class="  board-title-cs board-hotel-title color-D44A9F hide">酒店</div>
+							#end
+							#if($!companybusiness.get(2)==1)
+							<div class=" board-title-cs board-train-title color-D44A9F hide">火车票</div>
+							#end
+							<div class="board-content mCustomScrollbar color-fff">
+								#if($!companybusiness.get(1)!=1 && $!companybusiness.get(2)!=1 && $!companybusiness.get(0)!=1)您未开启任何服务
+								#else
+								<div class="showChailv hide" style="padding-top:20px;">
+									#if($!companybusiness.get(1)==1)
+									<div class="board-model board-air hide" data-type="air">
+										<input type="hidden" class="airController" value="1">
+										<!--<div class="board-tit">国内机票<span class="policy-dashed float-right"></span></div>-->
+										<div class="board-c"></div>
+									</div>
+									#end
+									#if($!companybusiness.get(0)==1)
+									<div class="board-model board-train hide" data-type="train">
+										<!--<div class="board-tit b-t-spe">火车票<span class="policy-dashed float-right"></span></div>-->
+										<div class="board-c">
+											<p class="b-c-t">高铁/城际可乘坐：</p>
+											<p class="gaotie-c"></p>
+											<p class="b-c-t">动车可乘坐：</p>
+											<p class="dongche-c"></p>
+											<p class="b-c-t">普通列车可乘坐：</p>
+											<p class="pukuai-c"></p>
+										</div>
+									</div>
+									#end
+									#if($!companybusiness.get(2)==1)
+										<div class="board-model board-hotel hide">
+											<!--<div class="board-tit">酒店<span class="policy-dashed float-right"></span></div>-->
+											<div class="board-c"></div>
+										</div>
+									#end
+								</div>
+								<div class="tipsChailv hide">
+									<div>
+										<div><span class="icon-edit"></span></div>
+										<div class="tip-resault">暂未设置差旅标准</div>
+										<a href="/crm/chailv/" class="cursor"></a>
+									</div>
+								</div>
+								#end
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--公告-->
+		<div class="notice-box">
+			<div class="float-left notice-left">
+				<h2>系统公告</h2>
+				<div class="notice-left-title">
+					关于网站部分页面改版升级公告
+				</div>
+				<div class="notice-left-conten">
+					为提升用户体验，给广大商旅用户提供更优质的服务，行旅国际于近期逐步对网站页面进行优化升级。此次改版主要对网站用户体验、页面美化、产品设计等方面进行调整，希望能够为各位用户带来更好的商旅体验！
+					<br/>
+					感谢您的支持，我们将继续以客户为中心，不断提升服务质量和用户体验。
+				</div>
+			</div>
+			<div class="float-right margin-left-11 notice-right ">
+				<img src="/resources/images/common/advertisement.png" alt="">
+			</div>
+		</div>
+		<!--底部-->
+		#parse("/common/footer-bottom.html")
+		
+		
+			<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/common/model-city.js"></script>
+		<script type="text/javascript" src="/static/js/hotel/hotel-common.js"></script>
+		<script type="text/javascript" src="/resources/js/common/policy.js"></script>
+		<script type="text/javascript" src="/static/js/index.js"></script>
+	</body>
+</html>

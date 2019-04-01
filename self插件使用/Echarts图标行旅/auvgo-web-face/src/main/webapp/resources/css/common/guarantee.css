@@ -1,0 +1,457 @@
+/* 公共样式 */
+/*html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%;font-weight:normal; }*/
+/*清除浮动*/
+.clear{clear: both;}
+.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+.clearfloat{zoom:1}
+/*body, html, a { font-size: 12px; font-family: "Microsoft YaHei"; }*/
+/*body,html{height:100%;}*/
+body{height:100%;}
+
+/* 基本样式 */
+.guarantee-box{
+    width:100%;
+}
+/*cvv*/
+.cvv-box{
+    width:100%;height:100%;position:absolute;top:0;z-index: 10000;display: none;
+}
+.cvv-box .cvv-msg{
+    width:100%;height:100%;opacity: 0.3;background: #000000;position:absolute;
+}
+.cvv-box  .cvv-content{
+    padding:10px 0 0 10px;position:fixed;left:50%;top:50%;bottom:50%;right:50%;transform:translate(-50%,-50%);background: #ffffff;width:700px;height:300px;
+}
+.cvv-box  .cvv-content h2{
+    font-width: 600;font-size: 20px;line-height:70px;margin-bottom:20px;border-bottom:1px dashed #ccc;height:70px;
+    position: relative;
+}
+.cvv-input{
+    line-height:20px;font-size: 20px;
+}
+#cvv-val{
+    margin-left:20px;width:500px;height:40px;border:1px solid #cccccc!important;
+}
+#cvv-btn{
+    width:100px;height:40px;margin-top:37px;margin-left:60px;color:#fff;
+}
+.delete{position:absolute;right:10px;top:20px;display:inline-block;width:30px;height:30px;line-height:30px;text-align: center;}
+
+.guarantee-box .gt-header{
+    width:1200px;
+    height:58px;
+    font-size:18px;
+    line-height: 58px;
+    padding-top:22px;
+    margin:0 auto;
+
+}
+.guarantee{
+    width:1200px;
+    margin:0 auto;
+    height:600px
+}
+/* 盒子阴影 */
+.aircraft-flie{
+	background: #ffffff;
+    box-shadow:0px 1px 13px -4px #763af4;
+    border-radius: 5px ;
+}
+.aircraft-gray{
+	background: #ffffff;
+    box-shadow:0px 1px 13px -4px #999999;
+    border-radius: 5px ;
+}
+/* 盒子阴影结束 */
+.guarantee .guarantee-top{
+    width:100%;
+    height:76px;
+    background: #ffffff;
+}
+.guarantee .guarantee-top .gt-name{
+    min-width:265px;
+    font-size: 24px;
+    padding:30px 0 0 30px;
+    float: left;
+    height:76px;
+    box-sizing: border-box;
+}
+.guarantee .guarantee-top .gt-detaile{
+    width:100%;
+    position:relative;
+    float: left;
+    height:76px;
+    box-sizing: border-box;
+    padding-left: 20px;
+    font-size:14px;
+    color:#333;
+}
+.guarantee .guarantee-top .gt-detaile .gt-right{
+    /*width:737px;*/
+    padding-top:41px;
+    float: left;
+    position: relative;
+    font-size:14px;
+    /*line-height:20px;*/
+}
+.guarantee .guarantee-top .gt-detaile .gt-right span{
+    display:inline-block;
+    float:left;
+}
+/* 商务间 */
+.guarantee .guarantee-top .gt-detaile .business{
+    /*width:79px;*/
+    white-space: nowrap;
+    border-right:1px solid #333333;
+    padding:0 10px;
+}
+/*入住人的样式*/
+.gt-occupant{
+    display: inline-block;
+    width:160px;
+    white-space: nowrap;
+    /*overflow: hidden;*/
+    text-overflow:ellipsis;
+    line-height:22px;
+    font-size:14px;
+}
+/*入住人悬浮样式*/
+.guarantee .guarantee-top .gt-detaile .gt-right .text-hover{
+    white-space: nowrap;
+    lin-height:20px;
+    position:absolute;
+    border:1px solid #ccc;
+    padding:0 5px;
+    z-index: 100;
+    background: #fff;
+    display: none;
+    
+}
+.guarantee .guarantee-top .gt-detaile .gt-night{
+    width:67px;
+    margin-right:20px;
+    text-align: right;
+    font-size:16px;
+
+}
+.gt-payment{
+    min-width:178px;
+    _width:178px;
+    float: right;
+    height:76px;
+    box-sizing: border-box;
+    text-align: right;
+    padding-right:30px;
+    position:absolute;
+    right:0;
+}
+.gt-payment .payment-nunber {
+    color:#d10773;
+    display:inline-block;
+    font-size:18px;
+    padding-top:37px;
+    white-space: nowrap;
+}
+.gt-payment .payment-nunber span{
+    display:inline-block;
+    color:#999999;
+    font-size:12px;
+    padding-top:11px;
+}
+/*  */
+.gt-box{
+    width:1200px;
+    /* height:600px; */
+    background: #ffffff;
+    border-top:2px solid #614dc2;
+}
+.gt-box .gt-prompt{
+    width:100%;
+    height:50px;
+    background: #fffee6;
+    color:#d10773; 
+    line-height:50px;
+    font-size:14px;
+     
+}
+.gt-box .gt-prompt .careful{
+    display:inline-block;
+    width:19px;
+    height:19px;
+    background: url("../../images/guarantee/careful-icon.png") no-repeat;
+    margin:16px 10px 0 60px;
+}
+.gt-box .guarantee-input{
+    color:#333333; 
+    font-size:14px;
+    background: #ffffff;
+    /* height:600px; */
+}
+/* 左侧 */
+.gt-box .guarantee-input .guarantee-left{
+    box-sizing: border-box;
+    padding-top:13px;
+    width:558px;
+    padding-top:16px;
+    background: url('../../images/guarantee/guarantee-icon.png') no-repeat right ;
+    background-position: 556px 23px;
+    float: left;
+    padding-left:60px;
+} 
+.gt-box .guarantee-input .guarantee-left .card-box{
+    width:314px;
+    box-sizing: border-box;
+    border-bottom:1px solid #e6e6e6;
+    height:55px;
+    line-height: 34px;
+    padding-top:20px;
+    display:inline-block;
+}
+ .card-box-input{
+    width: 300px ;
+    height:30px;
+}
+
+.gt-box .guarantee-input .guarantee-left .term-validity{
+    border:0;
+}
+.gt-box .guarantee-input .guarantee-left .term-validity .vd{
+    border:1px solid #d1d1d1;
+    width:78px;
+    height:30px;
+    margin-right:10px;
+}
+.gt-box .guarantee-input .guarantee-left .term-validity .vd-end{
+    margin-left:20px;
+}
+
+.gt-box .guarantee-input .guarantee-left  span{
+    display: inline-block;
+    width:88px;
+} 
+.gt-box .guarantee-input .guarantee-left .card-box input{
+    border:0;
+    outline:none;
+}
+ 
+/* button */
+.gt-box .guarantee-input .guarantee-left .btn-submit{
+    color:#ffffff;
+    background: #614dc1;
+}
+.gt-box .guarantee-input .guarantee-left .gt-btn{
+    margin-top:42px;
+    margin-left:95px;
+}
+.gt-box .guarantee-input .guarantee-left .gt-btn input{
+    width:100px;
+    height:40px;
+}
+.gt-box .guarantee-input .guarantee-left .btn-return{
+    margin-left:20px;
+}
+/* 右侧 */
+.gt-box .guarantee-input .guarantee-right{
+    width:642px;
+    float: left;
+    background: #ffffff;
+    box-sizing: border-box;
+    padding-left:80px;
+    height:473px;
+}
+/* 银联 */
+.gt-box .guarantee-input .guarantee-right .unionpay{
+    width:520px;
+    height:260px;
+    box-sizing: border-box;
+    padding-top:34px;
+}
+
+.gt-box .guarantee-input .guarantee-right .up{
+    width:220px;
+    height:140px;
+    border:1px solid #cccccc;
+    border-radius: 3px;
+    float:left;
+    font-size: 14px;
+    box-sizing: border-box; 
+}
+.up-number{
+    margin-top:29px;
+    margin-bottom:14px;
+    font-size:14px;
+    line-height:14px;
+    color:#999999;
+}
+.gt-box .guarantee-input .guarantee-right .unionpay .up-right{
+    margin-left:50px;
+    box-sizing: border-box;     
+    padding-top:27px;
+}
+.gt-box .guarantee-input .guarantee-right .unionpay .up-right .stripe{
+    height:30px;
+    background: #cccccc;
+    margin-bottom:26px;
+}
+.gt-box .guarantee-input .guarantee-right .unionpay .up-right  .stripe-number{
+    width:60px;
+    height:26px;
+    color:#999999;
+    box-sizing: border-box;
+    float: left;
+    text-align: center;
+    line-height:26px;
+}
+.gt-box .guarantee-input .guarantee-right .unionpay .up-right .stripe-left{
+    border:1px solid #999999;
+    background: #ffffff;
+    margin-left:78px;
+}
+.gt-box .guarantee-input .guarantee-right .unionpay .up-right .stripe-right{
+    background: #f5f5f5;
+    margin-left:10px;
+}
+.gt-box .guarantee-input .guarantee-right .unionpay .up-left{
+    box-sizing: border-box;
+    padding-left:15px;
+    color:#999999;
+}
+.gt-box .guarantee-input .guarantee-right .unionpay .up-left p{
+    color:#999999;
+    line-height:12px;
+}
+.gt-box .guarantee-input .guarantee-right .unionpay .up-left .up-icon{
+    height:41px;
+    padding-top:17px;
+    box-sizing: border-box; 
+}
+.gt-box .guarantee-input .guarantee-right .unionpay .up-left .up-p{
+    margin-bottom:10px;
+}
+.gt-box .guarantee-input .guarantee-right .unionpay .up-left .up-icon div{
+    width:43px;
+    height:24px;
+    background: url("../../images/guarantee/unionpay-icon.png") no-repeat;
+    margin-right:11px;
+    float: right;
+    color:#999999;
+}
+.gt-box .guarantee-input .guarantee-right .explain{
+    width:520px;
+    height:190px;
+    box-sizing: border-box;
+    padding-left:25px;
+    /* margin-top:91px; */
+}
+.gt-box .guarantee-input .guarantee-right .explain h2{
+    color:#614dc2;
+    font-size:18px;
+    padding-top:16px;
+    line-height:18px;
+    padding-bottom: 17px;
+    height:51px;
+    box-sizing: border-box;
+}
+.gt-box .guarantee-input .guarantee-right .explain span{
+    display: inline-block;
+    width:7px;
+    height:7px;
+    border-radius: 50%;
+    background: #614dc2;
+    float: left;
+    margin-right:10px;
+}
+
+.gt-box .guarantee-input .guarantee-right .explain p{
+    width:454px;
+    line-height:20px;
+    font-size:14px;
+    float: left;
+   
+}
+/*银联的样式*/
+.border-frame{
+    border-radius: 5px;
+    border-left:1px solid  #b3b3b3;
+    border-bottom:1px solid  #b3b3b3;
+}
+.month{
+    width:85px;
+    height:54px;
+    position: relative;
+    font-size:12px;
+    left:8px;
+}
+.year{
+    width:65px;
+    height:24px;
+    position: absolute;
+    right:0;
+    top:0;
+}
+.garden-right,.garden-left{
+    display: block;
+    width:5px;
+    height:5px;
+    background:  #b3b3b3;
+    border-radius: 50%;
+    position:absolute;
+}
+.garden-right{
+    right:0;
+    bottom:-2px;
+}
+.garden-left{
+    left:-2px;
+    top:0;
+}
+.year-text{
+    position:absolute;
+    right:-87px;
+    bottom:-5px;
+}
+.month-text{
+    position:absolute;
+    right:-87px;
+    bottom:-5px;
+    
+}
+/*卡验码*/
+.code-box{
+    position:relative;
+}
+.code{
+    width:58px;
+    height:47px;
+    border-bottom:1px solid  #b3b3b3;
+    border-right:1px solid  #b3b3b3;
+    position:absolute;
+    right:40px;
+    top:26px;
+    font-size:12px;
+    border-radius: 5px;
+    
+}
+.code-text{
+    position:absolute;
+    bottom:-8px;
+    left:-65px;
+}
+.code-left,.code-right{
+    display: block;
+    position:absolute;
+    width:5px;
+    height:5px;
+    background: #b3b3b3;
+    border-radius: 50%;
+}
+.code-left{
+    top:-2px;
+    left:56px;
+}
+.code-right{
+    bottom:-2px;
+    left:-2px;
+}
+
+

@@ -1,0 +1,134 @@
+#if($bookModel.customersModel)
+	#foreach($custom in $!bookModel.customersModel)
+		#set($gid = "temp_$!{custom.userId}")
+		#set($index = $vCount - 1)
+		#set($indexs = $vCount)
+				<ul class="passanger-model border-top-dashed" data-name="$!{custom.uname}" data-id="$!{custom.userId}" id="$!{gid}">
+			<li class="e-p-model font-size-12">
+				<div class="clear margin-bottom-10 alert_content">
+					<span class="float-left p-m-name clear position">
+						<span class=" pass-bg position-ab">$!{indexs}</span>
+						<input type="hidden" name="customersModel[$!{index}].userId" value="$!{custom.userId}" class="emp_id" />
+						<input type="hidden" name="customersModel[$!{index}].gender" value="$!{custom.gender}" />
+						<input type="hidden" name="customersModel[$!{index}].accountNo" value="$!{custom.accountNo}" />
+						<input type="hidden" name="customersModel[$!{index}].uname" value="$!{custom.uname}" class="emp_uname" />
+						<input type="hidden" name="customersModel[$!{index}].levelId" value="$!{custom.levelId}" class="emp_rank" />
+						<input type="hidden" name="customersModel[$!{index}].standard" value="$!{custom.standard}" class="emp_standard_$!{custom.userId}" />
+						<input type="hidden" name="customersModel[$!{index}].priceAvg" value="$!{custom.priceAvg}" class="emp_priceAvg" />
+						<input type="hidden" name="customersModel[$!{index}].overAvg" value="$!{custom.overAvg}" class="emp_overAvg_$!{custom.userId}" />
+						<input type="hidden" name="customersModel[$!{index}].costDeptId" value="$!{custom.costDeptId}" />
+						<input type="hidden" name="customersModel[$!{index}].costDeptName" value="$!{custom.costDeptName}" />
+						<input type="hidden" name="customersModel[$!{index}].language" value="$!{custom.language}" />
+						<input type="hidden" name="customersModel[$!{index}].mappring" value="$!{custom.mappring}" />
+						<input type="hidden" name="customersModel[$!{index}].commonLinkId" value="$!{custom.commonLinkId}" />
+						<input type="hidden" name="customersModel[$!{index}].vip" value="$!{custom.vip}" />
+						<span class="p-every-passes text-ellipsis" title="$!{custom.uname}">$!{custom.uname}</span>
+					</span>
+					<div class="float-left clear">
+						#if("$!{addempflageCustomer}" == "1" || (("$!{addempflageCustomer}" == "0" || "$!{addempflageCustomer}" == "")))
+							<span class="edit_p edit_p_s">编辑</span>
+							<span class="remove_p e-p-delete" data-gust="$!{gid}">
+								删除
+								<input type="hidden" name="indexSeq" value="$!{index}"/> <!-- 当前员工下表0开始 -->
+							</span>
+						#end
+					</div>
+				</div>
+				<div class="clear">
+					<div class="clear">
+					<div class="book-model-c-10 input-c position float-left p-w-50">
+						<div class="b-m-c-t">电话：</div>
+						<div class="input-c input-225">
+							<input type="text" name="customersModel[$!{index}].phone" class="input border-0" unselectable="on" readonly value="$!{custom.phone}" />
+						</div>
+					</div>
+					<div class="book-model-c-10 input-c position float-left p-w-50">
+						<div class="b-m-c-t">发送通知：</div>
+						<div class="input-c input-225">
+							#if("$!{custom.phone}" == "")
+							<div class="label label-checkbox cursor notice-margin click_select_qh show_choice_default" style="margin-top: 6px;" data-value="0" data-data="" data-type="sms">
+								<span class="show_choice"></span>
+								<input type="hidden" name="customersModel[$!{index}].isSend" value="0" />
+								<span class="color-666">短信</span>
+							</div>
+							#else
+							<div class="label label-checkbox cursor notice-margin click_select_qh #if('$custom.isSend'=='' || $custom.isSend) label-select-checkbox #end" style="margin-top: 6px;" data-value="#if('$custom.isSend'=='' || $custom.isSend)1#else()0#end" data-data="$!{custom.phone}" data-type="sms">
+								<span class="show_choice"></span>
+								<input type="hidden" name="customersModel[$!{index}].isSend" value="#if('$!{custom.isSend}'=='')1#else$!{custom.isSend}#end" />
+								<span class="color-666">短信</span>
+							</div>
+							#end
+							#if("$!{custom.email}" == "")
+							<div class="label label-checkbox cursor notice-margin click_select_qh show_choice_default" style="margin-top: 6px; margin-left: 60px;" data-value="0" data-data="" data-type="email">
+								<span class="show_choice"></span>
+								<input type="hidden" name="customersModel[$!{index}].isSendEmail" value="0" />
+								<span class="color-666">邮件</span>
+							</div>
+							#else
+							<div class="label label-checkbox cursor notice-margin click_select_qh #if('$custom.isSendEmail'=='' || $custom.isSendEmail) label-select-checkbox #end"" style="margin-top: 6px; margin-left: 60px;" data-value="#if('$custom.isSendEmail'=='' || $custom.isSendEmail)1#else()0#end" data-data="$!{custom.email}" data-type="email">
+							<span class="show_choice"></span>
+							<input type="hidden" name="customersModel[$!{index}].isSendEmail" value="#if('$!{custom.isSendEmail}'=='')1#else$!{custom.isSendEmail}#end" />
+							<span class="color-666">邮件</span>
+						</div>
+						#end
+						</div>
+					</div>
+					<div class="book-model-c-10 input-c position float-left p-w-50">
+						<div class="b-m-c-t">邮箱：</div>
+						<div class="input-c input-225">
+							<input type="text" name="customersModel[$!{index}].email" class="input border-0" unselectable="on" readonly value="$!{custom.email}" />
+						</div>
+					</div>
+					<div class="book-model-c-10 input-c position float-left p-w-50">
+						<div class="b-m-c-t">部门：</div>
+						<div class="input-c input-225">
+							<input type="hidden" name="customersModel[$!{index}].deptId" class="input" unselectable="on" readonly value="$!{custom.deptId}" />
+					<input type="text" name="customersModel[$!{index}].deptName" class="input border-0" unselectable="on" readonly value="$!{custom.deptName}" />
+						</div>
+					</div>
+				
+					<div class="book-model-c-10 input-c position float-left p-w-50">
+						<div class="b-m-c-t">国籍：</div>
+						<div class="input-c input-225">
+							<input type="text" name="customersModel[$!{index}].nationlity" class="input border-0" unselectable="on" readonly value="$!{custom.nationlity}">
+						</div>
+					</div>
+				</div>
+				<div class="clear">
+					<!-- 成本中心 -->
+					#if($!costCenter != "2")
+					<div class="book-model-c-10 input-c position float-left p-w-50">
+						<div class="b-m-c-t">成本中心：</div>
+						<div class="input-c input-225 costCenter-c">
+							<input type="text" name="customersModel[$!{index}].costName" placeholder='请#if($costcenterinput=="1")选择或输入#else选择#end' class="input #if("$!{modifyCustomer}" != "0")costCenter-input#end" depid="$!{custom.deptId}" empid="$!{custom.userId}" value="$!{custom.costName}" autocomplete="off"/>
+							<input type="hidden" name="customersModel[$!{index}].costId" class="costCenterId" value="$!{custom.costId}" />
+						</div>
+					</div>
+					
+					#end
+					<!-- 项目编号 -->
+					#if($!projectCenter != "2")
+					<div class="book-model-c-10 input-c position float-left p-w-50">
+						<div class="b-m-c-t isHuiChuan_text">#if($!{comType} == "1")SHOWNAME#else项目中心#end：</div>
+						<div class="input-c input-225 project-c">
+							<input type="text" name="customersModel[$!{index}].itemNumber" placeholder='请#if($!{comType} == "1")SHOWNAME#else#if($projectinfoinput=="1")选择或输入#else选择#end#end' class="input #if($!{comType} != '1')#if("$!{modifyCustomer}" != "0")project-input#end#end" value="$!{custom.itemNumber}" autocomplete="off"/>
+							<input type="hidden" name="customersModel[$!{index}].itemNumberId" value="$!{custom.itemNumberId}" class="projectId" />
+						</div>
+					</div>
+					
+					#if($!{comType} == "1")
+					<div class="book-model-c-10 input-c position float-left p-w-50">
+						<div class="b-m-c-t">SHOWCODE：</div>
+						<div class="input-c input-225 costCenter-c">
+							<input type="text" autocomplete="off" datatype="*" nullmsg="请填写SHOWCODE" name="customersModel[$!{index}].showCode" class="input" value="$!{custom.showCode}">
+						</div>
+					</div>
+					#end
+					
+					#end
+				</div>
+				</div>
+			</li>
+		</ul>
+	#end
+#end

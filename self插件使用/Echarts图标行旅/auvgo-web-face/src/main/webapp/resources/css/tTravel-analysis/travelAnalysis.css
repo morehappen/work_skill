@@ -1,0 +1,493 @@
+body {
+    background: #F4F6F8;
+    font-family: "MicrosoftYaHei";
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #F4F6F8;
+    font-family: "MicrosoftYaHei";
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+h4, h5 {
+    margin: 0;
+    padding: 0;
+}
+
+/*公用样式*/
+.display-inline-block {
+    display: inline-block;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.margin-bottom-50 {
+    margin-bottom: 50px;
+}
+
+.margin-top-25 {
+    margin-top: 25px;
+}
+
+.margin-right-5 {
+    margin-right: 5px;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
+}
+
+.margin-right-30 {
+    margin-right: 30px;
+}
+
+.padding-top-20 {
+    padding-top: 20px;
+}
+
+.padding-left-25 {
+    padding-left: 25px;
+}
+
+.padding-left-30 {
+    padding-left: 30px;
+}
+
+.padding-left-40 {
+    padding-left: 40px;
+}
+
+.box-sizing {
+    box-sizing: border-box;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.font-size-12 {
+    font-size: 12px;
+}
+
+.font-size-14 {
+    font-size: 14px;
+}
+
+.font-size-16 {
+    font-size: 16px;
+}
+
+.font-size-18 {
+    font-size: 18px;
+}
+
+.font-size-24 {
+    font-size: 24px;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.color-333 {
+    color: #333;
+}
+
+.color-999 {
+    color: #999;
+}
+
+.color-D44A9F {
+    color: #D44A9F;
+}
+
+.background-fff {
+    background: #fff;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.clear {
+    zoom: 1
+}
+
+.clear:after {
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0
+}
+
+.border-right-e6e6e6 {
+    border-right: 1px solid #e6e6e6;
+}
+
+.border-bottom-fff {
+    border-bottom: 1px solid #fff;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.vertical-middle {
+    vertical-align: middle;
+}
+
+/*头部*/
+.analysis {
+    width: 1007px;
+    height: auto;
+    position: relative;
+    background: #F4F6F8;
+    padding-bottom: 10px;
+}
+
+.analysis .anal_top {
+    height: 40px;
+    line-height: 40px;
+}
+
+.analysis .anal_top em {
+    font-style: normal;
+    width: 11px;
+    height: 11px;
+    background: url(../../images/common/svg-common.png) no-repeat -78px -315px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.aggregate {
+    height: 100px;
+}
+
+.aggregate > div {
+    width: 100px;
+    line-height: 100px;
+}
+
+.aggregate > ul {
+    width: 767px;
+    height: 100px;
+    line-height: 100px;
+}
+
+.aggregate > ul > li {
+    width: 250px;
+    height: 56px;
+    line-height: 0;
+}
+
+.pink-btn {
+    height: 100px;
+    line-height: 100px;
+}
+
+.pink-btn:hover {
+    box-shadow: 0px 2px 10px 0px rgba(212, 74, 159, 0.45);
+}
+
+.pink-btn em {
+    width: 30px;
+    height: 30px;
+    background: url(../../images/common/svg-common.png) no-repeat 0 -428px;
+}
+
+.pink-btn.clickUp em {
+    background-position: -34px -428px;
+}
+
+.aggr-table {
+    height: auto;
+    background: #DEE7F3;
+    line-height: 50px;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.aggr-table > div > div {
+    width: 100px;
+}
+
+.aggr-table > div > ul > li {
+    width: 250px;
+}
+
+.sectoral {
+    height: 640px;
+    font-size: 14px;
+}
+
+.sectoral ul > li {
+    width: 250px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.sectoral div div.time-tit, .sectoral div div.year-tit {
+    width: 210px;
+    height: 40px;
+    line-height: 40px;
+}
+
+#analy-echarts {
+    width: 950px;
+    height: 450px;
+    margin-left: -50px;
+}
+
+/*差旅超标损耗*/
+.aggr-table em, .aggregate em {
+    font-style: normal;
+}
+
+.aggr-table i, .aggregate i {
+    width: 5px;
+    height: 11px;
+    display: inline-block;
+    font-style: normal;
+    margin-left: 22px;
+    margin-right: 5px;
+    background: url(../../images/common/svg-common.png) no-repeat -83px -396px;
+}
+
+.aggr-table b, .aggregate b {
+    font-weight: normal;
+    font-size: 12px;
+    color: #d44a9f;
+}
+
+.decline i {
+    background-position: -91px -396px;
+}
+
+.decline b {
+    color: #333;
+}
+
+.sectoral .time-plugin .i_item_input #daterange-btn {
+    width: 180px;
+    height: 32px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+/*差旅超标损耗*/
+.time-plugin {
+    width: 470px;
+    height: 38px;
+    line-height: 38px;
+}
+
+.time-plugin input[type="text"] {
+    width: 180px;
+    height: 32px;
+    border: 1px solid #e8e8e8;
+    margin-right: 20px;
+    margin-left: 5px;
+}
+
+.time-plugin input[type="button"] {
+    width: 102px;
+    height: 38px;
+    border: none;
+    background: #d44a9f;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.time-plugin input.export {
+    margin-right: 0;
+    border: 1px solid #d44a9f;
+    color: #d44a9f;
+    background: #fff;
+}
+
+/*里程分析*/
+.total-mileage {
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+}
+
+.total-mileage em, .total-mileage i {
+    font-style: normal;
+}
+
+.mileage {
+    width: 370px;
+    height: 300px;
+    float: left;
+}
+
+.mileage ul li {
+    height: 44px;
+    line-height: 44px;
+}
+
+.mileage ul li em, .mileage ul li i {
+    font-style: normal;
+}
+
+#mileage-echarts {
+    width: 626px;
+    height: 300px;
+    background: #fff;
+    float: right;
+}
+
+.right-container {
+    width: 350px;
+    height: 80px;
+    background: rgba(0, 0, 0, 0.7);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+    position: absolute;
+    right: 0;
+    top: 50px;
+}
+
+.right-container .right-title {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 100px;
+    font-size: 16px;
+    color: #fff;
+    position: relative;
+}
+
+.right-container .right-title.expansion h4 {
+    display: none;
+}
+
+.right-container .right-title.expansion h5 {
+    display: block;
+}
+
+.right-container .right-title.expansion em {
+    top: 30px;
+    right: 20px;
+    background-position: -68px -449px;
+}
+
+.right-container .right-title h4 {
+    font-weight: normal;
+    position: absolute;
+    left: 40px;
+    top: 20px;
+}
+
+.right-container .right-title h5 {
+    font-weight: normal;
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+    position: absolute;
+    left: 0px;
+    top: 80px;
+    display: none;
+}
+
+.right-container .right-title em {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url(../../images/common/svg-common.png) no-repeat -68px -428px;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.right-panel {
+    padding-left: 30px;
+    color: #fff;
+    display: none;
+}
+
+.right-panel table {
+    width: 100%;
+}
+
+.right-panel table tr {
+    height: 45px;
+}
+
+.right-panel table tr td {
+    width: 25%;
+}
+
+/*弹窗样式*/
+.bullet_window {
+    max-width: 589px;
+    height: auto;
+    left: 20px;
+    top: 30px;
+    z-index: 1001;
+}
+
+.bullet_content {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    border-radius: 3px;
+    position: relative;
+    box-shadow: 1px 3px 10px 0px rgba(193, 193, 193, 0.61);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.bullet_content p {
+    font-size: 14px;
+    color: #999;
+    height: 36px;
+    line-height: 20px;
+}
+
+.bullet_content p b {
+    font-weight: normal;
+    display: inline-block;
+    width: auto;
+    vertical-align: top;
+}
+
+.bullet_content p u {
+    max-width: 465px;
+    display: inline-block;
+    text-decoration: none;
+    vertical-align: top;
+}

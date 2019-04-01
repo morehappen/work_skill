@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>酒店-房型列表</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/hotel/hotel-common.css">
+		<link rel="stylesheet" href="/static/css/hotel/hotel-list-detail.css">
+	</head>
+
+	<body class="background-6461e2 clear">
+
+		#parse("/common/head.html")
+		<div class="main-content clear">
+			<input type="hidden" value="$!paymentType" id="pay-type">
+			<div class="margin-bottom-20"></div>
+			<div class="r-head margin-bottom-20 background-fff font-size-12 clear">
+				<div class="r-head-l float-left">
+					<div class="font-size-16 r-head-l-t margin-bottom-20" id="hotel-id" data-hotelid="$!{hotelView.hotelId}">
+						$!{hotelView.hotelName}
+						#if($!{hotelView.type}=='sign')<span class="xieyi-flag">协议</span>#end
+					</div>
+					<div class="color-666 r-head-l-a margin-bottom-30" id="city-id" data-cityid="$!{hotelView.cityId}">$!{hotelView.address}</div>
+					<div class="clear r-head-l-f">
+					
+						#set($card = $!hotelInfoDetail.creditCards.split("、") )
+						#if($!card.contains("Visacard"))<span class="card-bg hotel-bg card-01"></span>#end
+						#if($!card.contains("牡丹卡") || $!card.contains("长城卡") || $!card.contains("龙卡"))<span class="card-bg hotel-bg card-02"></span>#end
+						#if($!card.contains("万事达卡"))<span class="card-bg hotel-bg card-03"></span>#end
+						#if($!card.contains("JCBcard"))<span class="card-bg hotel-bg card-04"></span>#end
+						#if($!card.contains("运通卡"))<span class="card-bg hotel-bg card-05"></span>#end
+						<div class="float-left clear" style="margin-left: 30px;">
+							#set($str=$hotelView.facilities.split(","))
+							#if($str.contains("1") || $str.contains("2"))
+							<div class="e-faciligy">
+								<span class="facility-bg icon-img f-b-01"></span><span class="facility-text">无线网</span>
+							</div>
+							#end
+							#if($str.contains("5"))
+							<div class="e-faciligy">
+								<span class="facility-bg icon-img f-b-02"></span><span class="facility-text">包含停车</span>
+							</div>
+							#end
+							#if($str.contains("-1"))
+							<div class="e-faciligy">
+								<span class="facility-bg icon-img f-b-03"></span><span class="facility-text">行李寄存</span>
+							</div>
+							#end
+							#if($str.contains("13"))
+							<div class="e-faciligy">
+								<span class="facility-bg icon-img f-b-04"></span><span class="facility-text">会议室</span>
+							</div>
+							#end
+						</div>
+					</div>
+				</div>
+				<div class="r-head-r float-right text-align-r">
+					<div class="r-head-r-btn">
+						<form action="/hotel/query" method="post" accept-charset="utf-8">
+							<input type="hidden" name="cityName" value="$!{hotelView.cityName}" />
+							<input type="hidden" name="cityId" value="$!{hotelView.cityId}" />
+							<input type="hidden" name="queryText" value="$!{pagerReq.queryText}" />
+							<input type="hidden" name="arrivalDate" value="$!{hotelView.arrivalDate}" />
+							<input type="hidden" name="departureDate" value="$!{hotelView.departureDate}" />
+							<button type="submit" class="btn btn-default btn-big">返回</button>
+						</form>
+					</div>
+					<div class="r-head-r-phone clear">
+						<span class="r-head-r-text float-right">$!{hotelView.phone}</span>
+						<span class="r-head-r-bg icon-img r-h-r-01 float-right"></span>
+					</div>
+					<div class="r-head-r-tips clear">
+						<span class="r-head-r-text float-right">服务设施信息仅供参考，请以实际住店为准</span>
+						<span class="r-head-r-bg icon-img r-h-r-02 float-right"></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="margin-bottom-20 float-left w-860">
+				#set($allSize = $!{hotelView.hotelImageList.size()})
+				#set($outerSize = $!{imageMap.get("outer").size()})
+				#set($lobbySize = $!{imageMap.get("lobby").size()})
+
+				#set($isAllExist = $allSize > 0)
+				#set($isOuterExist = $outerSize > 0)
+				#set($isLobbyExist = $lobbySize > 0)
+
+				<div class="slider-big" style="background-image: url(#if(${isAllExist})'$!{hotelView.hotelImageList[0].url}'#else'/static/img/hotel/hotel-rt-big-replace.png'#end);">
+					<div class="tab-bg-wraper"></div>
+					<div class="tab-wraper clear font-size-14">
+						#if($isAllExist)
+						<span class="float-left e-tab active" data-tab="all">全部图片（$allSize）</span>
+						#end
+						#if($isOuterExist)
+                        <span class="float-left">|</span>
+						<span class="float-left e-tab" data-tab="outer">外观（$outerSize）</span>
+						#end
+						#if($isLobbyExist)
+                        <span class="float-left">|</span>
+						<span class="float-left e-tab" data-tab="lobby">大堂（$lobbySize）</span>
+						#end
+					</div>
+				</div>
+
+				#set($width = 125)
+				#set($imgCount = 7)
+				#set($allW = $allSize * $width)
+				#set($outerW = $outerSize * $width)
+				#set($lobbyW = $lobbySize * $width)
+				<div class="slider-small margin-bottom-20">
+					<div class="slider-arrow left-arrow"><span class="hotel-bg l-arrow"></span></div>
+					<div class="slider-arrow right-arrow"><span class="hotel-bg r-arrow"></span></div>
+					<div class="slider-small-wraper position">
+
+						#if($isAllExist)
+						<div class="e-slider-con position-ab active" data-ishavenext=#if($allSize>$imgCount)"true"#else"false"#end data-con="all" style="width: ${allW}px;height: 65px;">
+							#foreach($list in $!{hotelView.hotelImageList})
+							<div class="e-img #if($!{vCount}==1)active#end" data-index="$!{vCount}">
+								<div class="small-mask"></div>
+								<img src="$!{list.url}">
+							</div>
+							#end
+						</div>
+						#end
+
+						#if($isOuterExist)
+						<div class="e-slider-con position-ab" data-ishavenext=#if($outerSize>$imgCount)"true"#else"false"#end data-con="outer" style="width: ${outerW}px;height: 65px;">
+							#foreach($list in $!imageMap.get("outer"))
+							<div class="e-img #if($!{vCount}==1)active#end">
+								<div class="small-mask"></div>
+								<img src="$!{list.url}">
+							</div>
+							#end
+						</div>
+						#end
+
+						#if($isLobbyExist)
+						<div class="e-slider-con position-ab" data-ishavenext=#if($lobbySize>$imgCount)"true"#else"false"#end data-con="lobby" style="width: ${lobbyW}px;height: 65px;">
+							#foreach($list in $!imageMap.get("lobby"))
+							<div class="e-img #if($!{vCount}==1)active#end">
+								<div class="small-mask"></div>
+								<img src="$!{list.url}">
+							</div>
+							#end
+						</div>
+						#end
+					</div>
+				</div>
+
+				<div class="introduction-wraper background-fff margin-bottom-20">
+					<div class="font-size-16 margin-bottom-10">酒店介绍</div>
+					<div class="intro-con font-size-12 color-666 overflow-hidden">$!{hotelView.traffic}</div>
+					#if($!{hotelView.traffic.length()} && $!{hotelView.traffic.length()} > 146)
+					<div class="text-align-r"><span class="intro-more font-size-12 color-6461e2 more-active">更多»</span></div>
+					#end
+				</div>
+
+				<div class="date-wraper background-fff clear font-size-12 margin-bottom-20">
+					<div class="float-left position date-ctrl">
+						<span class="position-ab icon-date icon-p"></span>
+						<input type="text" value="$!{hotelView.arrivalDate}" readonly id="beginDate" class="input border-radius float-left" onfocus="var endDate=$dp.$('endDate');WdatePicker({doubleCalendar:true,minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+179}',onpicked:function(){endDate.focus();countInterval()},isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})">
+					</div>
+					<div class="float-left position date-ctrl">
+						<span class="position-ab icon-date icon-p"></span>
+						<input type="text" value="$!{hotelView.departureDate}" readonly id="endDate" class="input border-radius float-left" onfocus="WdatePicker({doubleCalendar:true,minDate:'#F{$dp.$D(\'beginDate\', {d:1})}',maxDate:'%y-%M-{%d+179}',onpicked:function(){countInterval()},isShowClear:false,isShowToday:false,readOnly:true})">
+					</div>
+					<div class="float-left date-count color-999">
+						入住 <span class="color-333" id="interval">$!{hotelView.intervalDay}</span> 晚
+					</div>
+					<div class="float-right">
+						<button type="button" class="btn btn-default btn-big" id="query-room">确定</button>
+					</div>
+				</div>
+
+				<!-- 房型列表 begin -->
+				<div class="room-type-list margin-bottom-30"></div>
+				<!-- 房型列表 end -->
+
+			</div>
+
+			<div class="w-320 float-right">
+				<div class="evaluation margin-bottom-10 clear">
+					<div class="float-left text-align evaluation-left hotel-bg">
+						<span class="icon-img thumb icon-img"></span>好评率
+					</div>
+					<div class="float-right evaluation-right color-purple font-600 text-align-r">$!{hotelView.review.score}</div>
+				</div>
+				<div class="baidu-map margin-bottom-20" id="map-container" data-longtitude="$!{hotelView.longitude}" data-latitude="$!{hotelView.latitude}"></div>
+			</div>
+		</div>
+		#set($isNeedBaiduMap = true)
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/hotel/hotel-common.js"></script>
+		<script type="text/javascript" src="/static/js/hotel/hotel-list-detail.js"></script>
+	</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>酒店审批结果通知</title>
+	<style type="text/css">
+		html,body,div,ul,ol,li,dl,dt,dd,input,button,select,option,textarea,label,h1,h2,h3,h4,h5,h6,table,td,tr,th,p,a{
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 0;
+			margin: 0;
+		}
+		html{background: #fff;min-height: 100%;color: #333;font-size:14px;font-family: "微软雅黑","Helvetica Neue",Helvetica,Tahoma,Arial,sans-serif;}
+		
+		.text-l{text-align:left;}/*水平居左*/
+		.text-r{text-align:right;}/*水平居中*/
+		.text-c{text-align:center;}/*水平居右*/
+		
+		.cl:after{content: '';display: block;height: 0;overflow: hidden;zoom:1;clear: both;}
+		.cl{zoom:1;}
+		.f-l{float:left!important;_display:inline;}
+		.f-r{float:right!important;_display:inline;}
+		
+		.cursor-default{cursor: default;}
+		.cursor-pointer{cursor: pointer;}
+		
+		a{text-decoration: none;}
+		
+		.f-12{font-size:12px;}
+		
+		.pt-20{padding-top: 20px;}
+		.pt-30{padding-top: 30px;}
+		.pb-10{padding-bottom: 10px;}
+		
+		.mt-30{margin-top: 30px;}
+		.mb-5{margin-bottom: 5px;}
+		.mb-10{margin-bottom: 10px;}
+		.mb-20{margin-bottom: 20px;}
+		.mb-40{margin-bottom: 40px;}
+		
+		.m-b-c{background: #614ec2;}
+		.m-f-c{color: #614ec2;}
+		.c-b-c{background: #faf5dc;}
+		
+		.c-fff{color: #fff;}
+		.b-c-f5{background: #f5f5f5;}
+		
+		.main-content{padding-left: 20px;padding-right: 20px;}
+		
+		.w-110{width: 110px;}
+		
+		.table{width: 100%;border-collapse: separate;border-spacing: 0;}
+		.table tr:hover{background: rgba(97, 78, 197, .02);cursor: pointer;}
+		.table th{background: #f5f5f5;text-align: left;padding: 10px 0;font-weight: 400;}
+		.table td{border-bottom: 1px solid #f5f5f5;padding: 20px 0 10px;}
+		.table th,.table td{padding-left: 20px;}
+		
+		.email-title{font-size: 20px;font-weight: 600;}
+		.email-title-e{font-size: 18px;}
+		.ej-t{display: inline-block;margin-top: 20px;margin-bottom: 10px;padding: 0 15px;border-radius: 3px;height: 32px;line-height: 32px;color: #fff;}
+		
+		#header{padding-top: 40px;padding-bottom: 10px;border-bottom: 2px solid #614ec2;}
+		.logo-w{margin-top: 18px;margin-right: 10px;padding-right: 10px;border-right: 1px solid #f5f5f5;}
+		.logo-w img{width: 84px;height: 42px;}
+		.qrcode-w{margin-top: -15px;}
+		.qrcode-w img{width: 109px;height: 109px;}
+		
+		.b-b-1{border-bottom: 1px solid #f5f5f5;}
+		
+		.tips-w{padding: 20px;font-weight: 200;}
+		.tips-w p{line-height: 20px;}
+		
+		.w-18-p{width: 18%;}
+		
+		#footer{margin-top: 40px;margin-bottom: 20px;}
+		.failure{
+			padding:0 15px;
+			height:32px;
+			line-height:32px;
+			color:#ffffff;
+			border-radius: 3px;
+		}
+	</style>
+</head>
+<body>
+<div class="main-content cl" id="header">
+	<div class="f-l logo-w">
+		<img src="http://60.205.188.251/auvgo_pic.png"/>
+	</div>
+	<div class="f-l">
+		<div class="mb-5">行旅网站：<a class="m-f-c" href="http://www.auvgo.com/">www.auvgo.com</a></div>
+		<div class="mb-10">official website：<a class="m-f-c" href="http://www.auvgo.com/">www.auvgo.com</a></div>
+		<div class="mb-5">公司地址：北京市朝阳区安慧里四区五矿大厦606</div>
+		<div>Asian Games Village,Chaoyang District,Beijing Minmetals Building 606</div>
+	</div>
+	<div class="f-r qrcode-w">
+		<img src="http://60.205.188.251/wechat_pic.png"/>
+	</div>
+</div>
+
+<div id="content">
+	<div class="b-b-1">
+		<div class="main-content pt-30 pb-10 text-c">
+			<div class="email-title mb-5">酒店审批结果通知</div>
+			<div class="email-title-e">Notification of hotel approval result</div>
+			<div class="f-l m-b-c failure">支付失败原因 | Approval information</div>
+			<div class="text-r mb-5">订单号：</div>
+			<div class="text-r f-12">Order NO.：</div>
+			<div style="text-align: left;padding-left:20px;font-size:24px; line-height:50px;">
+				审批结果： 审批通过<br>
+				Approval result
+			</div>
+		</div>
+	</div>
+	
+	<div>
+		<div class="main-content">
+			<div class="cl">
+				<span class="f-l ej-t cursor-default m-b-c">酒店信息  | Hotel information</span>
+				<div class="f-r text-r" style="margin-top: 15px;">
+					<div>支付方式：#if($!payType == 2) 现金支付 #elseif($!payType == 1) 企业月结  #else 所有方式 #end</div>
+					<div>Payment:#if($!payType == 1) Business monthly knot  #elseif($!payType == 2) Online Payment #else All Method #end</div>
+				</div>
+			</div>
+			<table class="table mb-20">
+				<thead>
+				<tr>
+					<th>入住城市<br/>City</th>
+					<th>酒店电话<br/>Hotel Phone</th>
+					<th>酒店名称<br/>Hotel name</th>
+					<th>酒店地址<br/>Hotel address</th>
+					<th>房型<br/>Room type</th>
+					<th>含早<br/>Breakfast</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>$!CityName<br/><!-- Shanghai --></td>
+					<td>$!HotelPhone</td>
+					<td>$!HotelName<br/><!-- Shanghai Zhangjiang Hanting hotel --></td>
+					<td>$!HotelAddress</td>
+					<td>$!RoomName<br/><!-- VIP room --></td>
+					<td>$!RatePlanName<br/><!-- Double --></td>
+				</tr>
+				</tbody>
+			</table>
+			<div class="tips-w c-b-c mb-10">
+				<div>
+					<p>取消规则/Cancel rules</p>
+					<p>$!cancelDesc</p>
+				</div>
+			</div>
+			
+			<span class="ej-t cursor-default m-b-c">入住信息  | Check-in information</span>
+			<div class="cl mb-10">
+				<div class="w-18-p f-l">
+					<div>入住日期：$!ArrivalDate</div>
+					<div>Check-in date</div>
+				</div>
+				<div class="w-18-p f-l">
+					<div>离店日期：$!DepartureDate</div>
+					<div>Leave date</div>
+				</div>
+				<div class="w-18-p f-l">
+					<div>最晚到店：$!LatestArrivalTime</div>
+					<div>The latest time</div>
+				</div>
+			</div>
+			<table class="table mb-20">
+				<thead>
+				<tr>
+					<th class="w-110">姓名<br/>Name</th>
+					<th>证件号<br/>ID</th>
+					<th>手机号<br/>Cellphone NO.</th>
+					<th class="w-110">所在部门<br/>Department</th>
+					<th class="w-110">成本中心名称<br/>Cost center</th>
+					<th class="w-110">项目名称<br/>Project name</th>
+					<th>房费<br/>Room costs</th>
+					<th>保险<br/>Insurance</th>
+					<th>服务费<br/>Service fee</th>
+					<th>小计<br/>Subtotal</th>
+				</tr>
+				</thead>
+				<tbody>
+				#foreach($user in $!userList)
+				#if($!passengerId == "1")
+				<tr>
+					<td>$!user.name</td>
+					<td>$!user.certno</td>
+					<td>#if($!user.mobile =="") -- #else $!user.mobile #end</td>
+					<td>#if($!user.deptname == "") -- #else $!user.deptname #end</td>
+					<td>#if($!costcenter == "") -- #else $!costcenter #end</td>
+					<td>#if($!project == "") -- #else $!project #end</td>
+					<td>￥$!user.saleprice</td>
+					<td>0</td><!-- 保险默认值为0 -->
+					<td>￥$!fuwufei</td>
+					#set($saleprice = $!{user.saleprice} * $!{intervalDay} + $!fuwufei + 0)
+					<td>￥$!saleprice</td>
+				</tr>
+				#elseif($!passengerId == $!user.employeeid)
+				<tr>
+					<td>$!user.name</td>
+					<td>$!user.certno</td>
+					<td>#if($!user.mobile =="") -- #else $!user.mobile #end</td>
+					<td>#if($!user.deptname == "") -- #else $!user.deptname #end</td>
+					<td>#if($!costcenter == "") -- #else $!costcenter #end</td>
+					<td>#if($!project == "") -- #else $!project #end</td>
+					<td>￥$!user.saleprice</td>
+					<td>0</td><!-- 保险默认值为0 -->
+					<td>￥$!fuwufei</td>
+					#set($saleprice = $!{user.saleprice} * $!{intervalDay} + $!fuwufei + 0)
+					<td>￥$!saleprice</td>
+				</tr>
+				#end
+				#end
+				#if($!passengerId == "1")
+				<tr>
+					<td class="text-r"  colspan="11">费用总计/Total cost：￥$!TotalPrice</td>
+				</tr>
+				#else
+				<tr>
+					<td class="text-r"  colspan="11">费用总计/Total cost：￥$!saleprice</td>
+				</tr>
+				#end
+				</tbody>
+			</table>
+			
+			<span class="ej-t cursor-default m-b-c">联系人信息 | Contact information</span>
+			<table class="table mb-20">
+				<thead>
+				<tr>
+					<th>姓名<br/>Name</th>
+					<th>手机号码<br/>Cellphone NO.</th>
+					<th>邮箱<br/>Email</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>$!username</td>
+					<td>$!phone</td>
+					<td>$!email</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="cl" id="footer">
+	<div class="main-content">
+		<div class="tips-w c-b-c">
+			<p class="mb-5">该邮件为系统自动发送，请勿直接回复，如需帮助可联系行旅国际客服热线：400-606-0011</p>
+			<p>The mail is sent automatically by the system, do not reply directly, if you need help, please contact the International Travel Service Hotline：400-606-0011</p>
+		</div>
+	</div>
+</div>
+<div style="padding-left:20px;">
+	<div class="cl" >
+		<div class="f-l m-b-c failure">出差事由 | Travel Reason</div>
+	</div>
+	<div style="line-height:50px;font-size:14px;" class="b-b-1"> 深圳项目对接</div>
+	<div class="cl" style="padding-top:10px;">
+		<div class="f-l m-b-c failure">超标原因 | Beyond Reason</div>
+	</div>
+	
+	<div class="b-b-1" style="line-height:50px;font-size:14px;">超标第三条规定</div>
+</div>
+
+
+
+
+</body>
+</html>

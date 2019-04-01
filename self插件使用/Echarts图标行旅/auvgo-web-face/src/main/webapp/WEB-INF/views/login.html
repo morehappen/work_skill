@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录</title>
+    #parse("/common/styleSheetCommon.html")
+    #parse("/project-html/html-config.html")
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
+</head>
+<body>
+<div class="lg_main">
+    <div class="lg_header">
+        <div class="lg_container clear">
+            <div class="lg_logo float-left">
+                <a href="/index.html">
+                    <!--<div class="lg_img">-->
+                    <!--</div>-->
+                    <img class="lg_img" src="../../static/img/lg_logo.png">
+                </a>
+            </div>
+            <div class="lg_mobile float-right">
+                <a class="clear phone_qrentry" href="javacript:void(0);">
+                    <img class="lg_ph_img float-left" src="../../static/img/lg_phone.png" alt="">
+                    <div class="lg_ph_txt float-right">
+                        APP下载
+                    </div>
+                    <img class="lg_erwei_img hide" src="../../static/img/lg_erwei.png" alt="">
+                </a>
+                <a class="clear phone_ajump hide" href="javacript:void(0);">
+                    <img class="lg_ph_img float-left" src="../../static/img/lg_phone.png" alt="">
+                    <div class="lg_ph_txt float-right">
+                        APP下载
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="lg_container clear">
+        <div class="lg_slogan">
+            <p class="lg_slogan1">企业商旅管理平台</p>
+            <p class="lg_slogan2">Business travel management platform</p>
+        </div>
+        <div class="lg_form">
+            <div class=" heigh-80 font-size-30 color-fff">$!{projectTitle}</div>
+            <div class="form-wraper">
+                <p class="text-align height-70 margin-initial errorwraper animated shake" style="color: red;">
+
+                </p>
+                <form action="/login" method="POST" id="login">
+                    <div class="padding-50-auto input_box">
+                        <div class="kaohao_img">
+
+                        </div>
+                        <div class="usename_img">
+
+                        </div>
+                        <div class="usenameDele_img">
+
+                        </div>
+                        <div class="password_img">
+
+                        </div>
+                        <input type="text" name="kahao" id="kahao_" value="" placeholder="商旅卡号" class=" font-size-16 border-radius card-num" />
+                        <div class="kahao_tip lg_tip">
+                            #if($!error && $!errortype==0)
+                            $!error
+                            #end
+                        </div>
+                        <input type="text" name="username"id="userName_" value="" autocomplete="on" placeholder="用户名" class=" font-size-16 border-radius username" />
+                        <div class="userName_tip lg_tip">
+                            #if( $!error&&$!errortype==1)
+                            $!error
+                            #end
+                        </div>
+                        <input type="password" name="password" id="passWord_" value="" placeholder="登录密码" class=" font-size-16 border-radius password" />
+                        <div class="passWord_tip lg_tip ">&nbsp;&nbsp;
+                            #if( $!error&&($!errortype==1||$!errortype==2))
+                            $!error
+                            #end
+                        </div>
+                        <button type="button" class="font-size-16 color-fff border-radius submitForm" >开启商旅</button>
+                        <div class="color-fff  ret-password clear"><a href="javascript:void(0)" class="font-size-14">忘记密码？</a></div>
+
+                    </div>
+                    <div class="form-bottom height-70 background-fff">
+                        <div class="padding-50-auto clear">
+                            <div class="float-right">
+                                <!--<div class="label label-checkbox clear user_name">	-->
+                                <!--<span class="show_choice"></span>	-->
+                                <!--<input type="checkbox" name="autologin" value="0">-->
+                                <!--<span>自动登录</span>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="lg_footer">
+    <div class="lg_container">
+        <div class="lg_connect clear">
+            <div class="hot_phone">客服热线：400-606-0011</div>
+            <div class="joint_phone">合作电话：010-6491-6188</div>
+        </div>
+        <div class="lg_copyright">
+            Copyright © 2018 Auvgo.com All Rights Reserved.
+            <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备14044777号</a>
+        </div>
+    </div>
+</div>
+    #parse("/common/foot.html")
+    <script type="text/javascript" src="/static/js/md5.min.js"></script>
+    <script type="text/javascript" src="/static/js/login.js"></script>
+</body>
+</html>

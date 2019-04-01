@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>火车票订单-详情-正常单</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<input type='hidden' class='project-code-shut' value='1'>
+		<!--BKJT判断标志-->
+		<input type="hidden" class="getShowname">
+		<div class="main-content">
+			<div class="margin-bottom-20"></div>
+
+			#set($accountName = $!trainOrder.users[0].accountName)
+			#parse("/crm/my-chailv/order-detail-train-bind12306.html")
+
+			<div class="order-status-wraper background-fff margin-bottom-20 border-r5">
+				## $flag 区分 
+					## 机票模块$!airOrder || 火车票模块$!trainOrder || 酒店模块$!hotelOrder
+				#set($flag = $!trainOrder)
+				<div class="clear">
+					<div class="float-left tarin-bg order-status text-align font-size-14 color-fff">$!trainUtil.gettrainfaceStatus($!trainOrder.showStatus)</div>
+					<div class="clear float-left font-size-12">
+						<div class="float-left order-num">
+							<div class="color-gray">订单号</div>
+							<div id="order-no" data-orderno="$!trainOrder.orderNo" class="font-size-14">$!trainOrder.orderNo</div>
+						</div>
+					</div>
+					<!-- 支付审批状态 begin -->
+					<div class="float-right">
+						#set($progressFlag = 'train')
+						#parse("/common/progress.html")
+					</div>
+					<!-- 支付审批状态 end -->
+				</div>
+			</div>
+
+			<div class="clear">
+				<div class="float-left">
+
+					<!-- 车次信息 begin -->
+					#set($route = $!trainOrder.route)
+					#set($seatType = $!trainOrder.users[0].seatType)
+					#parse("/crm/my-chailv/order-detail-train-checi-infor.html")
+					<!-- 车次信息 end -->
+
+					<!-- 乘车人 begin -->
+					<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+						<div class="o-title font-size-18">乘车人</div>
+						<div class="o-content">
+							#foreach($user in $!trainOrder.users)
+							<div class="clear margin-bottom-20">
+								<div class="o-e-pass clear margin-b-14">
+									#if($!user.gaiqianstatus != 0)
+									<button type="button" class="btn btn-danger btn-small-small">改</button>
+									#end
+									#if($!user.tuipiaostatus != 0)
+									<button type="button" class="btn btn-default btn-small-small">退</button>
+									#end
+									<div class="float-left">$!user.userName</div>
+								</div>
+								<div class="o-e-cert  float-left">
+									<div class="color-gray margin-b-14">座位号</div>
+									<div>$!user.trainBox$!user.seatNo</div>
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">
+										#if($!user.idsType == "1")
+										二代身份证
+										#elseif($!user.idsType == "C")
+										港澳通行证
+										#elseif($!user.idsType == "G")
+										台湾通行证
+										#elseif($!user.idsType == "B")
+										护照
+										#else
+										其他
+										#end
+									</div>
+									<div>$!user.userIds</div>
+								</div>
+
+
+								<div class="o-e-cert  float-left">
+									<div class="color-gray margin-b-14">保险</div>
+									<div>
+										#if("$!user.bxName" != "")
+											$!user.bxName
+										#else
+											--
+										#end
+									</div>
+								</div>
+
+
+							</div>
+							<div class="clear margin-bottom-20">
+								#if("$!user.costName" != "")
+								<div class="o-e-cert  float-left">
+									<div class="color-gray margin-b-14">成本中心</div>
+									<div class="hoverTips hover_content" style="width: 130px;">
+										$!user.costName
+									</div>
+								</div>
+								#end
+								#if("$!user.itemNumber" != "")
+								<div class="o-e-cert  float-left">
+									<div class="color-gray margin-b-14 detail-title isHuiChuan_text">项目中心</div>
+									<div class="hoverTips hover_content" style="width: 130px;">
+										$!user.itemNumber</div>
+								</div>
+								#end
+								#if("$!user.showCode"!="")
+								<div class="o-e-cert float-left showNameCode">
+									<div class="float-left p-w-160 showNameCode">SHOWCODE：</div>
+									<div class="hoverTips hover_content" style="width: 110px;">
+										<div class="float-left p-w-160 input-email"  style="height:16px;">$!user.showCode</div>
+									</div>
+								</div>
+								#end
+								<div class="o-e-cert  float-left">
+									<div class="color-gray margin-b-14">发送通知</div>
+									<div class="hoverTips hover_content"style="width: 110px;">
+										#if($!user.isSend == true)
+										短信
+										#else
+										--
+										#end
+										#if($!user.isSendEmail == true)
+										邮件
+										#else
+										--
+										#end
+									</div>
+								</div>
+							</div>
+							<div class="clear margin-bottom-20">
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">手机号</div>
+									<div>
+										#if("" != "$!user.userPhone")
+										$!user.userPhone
+										#else
+										--
+										#end
+									</div>
+								</div>
+								<div class="o-e-cert  float-left">
+									<div class="color-gray margin-b-14">邮箱</div>
+									<div class="hoverTips hover_content" style="width: 110px;">
+										#if("$!user.email" != "")
+										$!user.email
+										#else
+										--
+										#end
+									</div>
+								</div>
+								<div class="o-e-cert  float-left">
+									<div class="color-gray margin-b-14">部门</div>
+									<div class="hoverTips hover_content">
+										#if("" != "$!user.deptname")
+										$!user.deptname
+										#else
+										--
+										#end
+									</div>
+								</div>
+
+							</div>
+							#end
+						</div>
+					</div>
+					<!-- 乘车人 end -->
+
+					<!-- 差旅信息 begin -->
+					#parse("/crm/my-chailv/chailv-common.html")
+					<!-- 差旅信息 end -->
+
+					<!-- 联系人 begin -->
+					#set($model = 'train')
+					#set($linkName = $!trainOrder.linkName)
+					#set($linkPhone = $!trainOrder.linkPhone)
+					#set($linkEmail = $!trainOrder.linkEmail)
+					#set($isSend = $!trainOrder.isSend)
+					#set($isSendEmail = $!trainOrder.isSendEmail)
+					#parse("/crm/my-chailv/order-detail-link.html")
+					<!-- 联系人 end -->
+
+					<div class="text-align margin-bottom-20">
+						#if($!trainOrder.showStatus == 6)<!-- 已出票 -->
+							<button type="button" class="btn btn-default btn-middle" id="refund-order">申请退票</button>
+							<button type="button" class="btn btn-default btn-middle" id="endorse-order">申请改签</button>
+						#elseif($!trainOrder.showStatus == 3)<!-- 待出票 -->
+							<a href="javascript:;" id="endorse-order_confirm" class="btn btn-danger btn-middle">确认出票</a>
+							<button type="button" class="btn btn-cancel btn-middle" id="cancel-order">取消订单</button>
+						#elseif($!trainOrder.showStatus == 1)<!-- 审批中 -->
+							<button type="button" class="btn btn-cancel btn-middle" id="cancel-order-approve">取消订单</button>
+						#end
+						<button type="button" class="btn btn-cancel btn-middle train-order-cancle">返回</button>
+					</div>
+				</div>
+				<div class="float-right">
+					<div class="order-right background-fff margin-bottom-20 border-r5">
+						#set($price = $!trainOrder.users[0].amount)
+						#set($pSize = $!trainOrder.users.size())
+						#set($tPrice = $!price*$!pSize)
+						#set($bxPrice = $!trainOrder.users[0].bxPayMoney)
+						#set($tbxPrice = $bxPrice*$pSize)
+						#set($fuwu = $!trainOrder.users[0].fuwufei)
+						#set($fuwuTotal = $fuwu*$pSize)
+						#set($total = $!trainOrder.users[0].totalprice*$pSize)
+						<div class="clear yingfu">
+							<div class="float-left">应付金额</div>
+							<div class="float-right color-purple">
+								<span class="font-size-12">￥</span><span>$!totalPrice</span>
+							</div>
+						</div>
+						<div class="yingfu-detail font-size-12">
+							<!-- 票价相同 -->
+							#if($!Amountflag == 0)
+							<div class="clear margin-b-14">
+								<span class="float-left yf-detail-left">票价</span>
+								<span class="float-left yf-detail-mid">$!price*$!pSize</span>
+								<span class="float-left yf-detail-right text-align-r">$tPrice</span>
+							</div>
+							#else
+							<!-- 票价不同 -->
+							#foreach($users in $!trainOrder.users)
+							<div class="clear margin-b-14">
+								<span class="float-left yf-detail-left">#if($!{vCount} == 1)票价 #else&nbsp;#end</span>
+								<span class="float-left yf-detail-mid">$!users.amount * 1</span>
+								<span class="float-left yf-detail-right text-align-r">$!users.amount</span>
+							</div>
+							#end
+							#end
+							<div class="clear margin-b-14">
+								<span class="float-left yf-detail-left">保险</span>
+								<span class="float-left yf-detail-mid">$bxPrice*$pSize</span>
+								<span class="float-left yf-detail-right text-align-r">$tbxPrice</span>
+							</div>
+							<div class="clear">
+								<span class="float-left yf-detail-left">服务费</span>
+								<span class="float-left yf-detail-mid">
+									<!-- 订单 -->
+									$fuwu*$pSize
+									
+									<!-- 百分比 -->
+									<!-- 总价*百分比 -->
+								</span>
+								<span class="float-left yf-detail-right text-align-r">$fuwuTotal</span>
+							</div>
+						</div>
+					</div>
+					#parse("/crm/my-chailv/approve-common.html")
+				</div>
+			</div>
+		</div>
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/common/order-details-common.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/train-order-detail.js"></script>
+		<script type="text/javascript" src="/static/js/common/chailv-controller.js"></script>
+	</body>
+	
+</html>

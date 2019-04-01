@@ -1,0 +1,73 @@
+<div class="clear">
+	<div class="float-left">
+		<select class="_select_" data-value="" data-addr='province' value="" id="chose-city"  data-bandid=$!bandId>
+			<option value="">请选择</option>
+			<option value="0100">北京市</option>
+			<option value="0200">上海市</option>
+			<option value="0300">天津市</option>
+			<option value="0400">重庆市</option>
+			<option value="0500">河北省</option>
+			<option value="0600">山西省</option>
+			<option value="0700">内蒙古自治区</option>
+			<option value="0800">辽宁省</option>
+			<option value="0900">吉林省</option>
+			<option value="1000">黑龙江省</option>
+			<option value="1100">江苏省</option>
+			<option value="1200">浙江省</option>
+			<option value="1300">安徽省</option>
+			<option value="1400">福建省</option>
+			<option value="1500">江西省</option>
+			<option value="1600">山东省</option>
+			<option value="1700">河南省</option>
+			<option value="1800">湖北省</option>
+			<option value="1900">湖南省</option>
+			<option value="2000">广东省</option>
+			<option value="2100">广西壮族自治区</option>
+			<option value="2200">海南省</option>
+			<option value="2300">四川省</option>
+			<option value="2400">贵州省</option>
+			<option value="2500">云南省</option>
+			<option value="2600">西藏自治区</option>
+			<option value="2700">陕西省</option>
+			<option value="2800">甘肃省</option>
+			<option value="2900">宁夏回族自治区</option>
+			<option value="3000">青海省</option>
+			<option value="3100">新疆维吾尔自治区</option>
+			<option value="3200">香港特别行政区</option>
+			<option value="3300">澳门特别行政区</option>
+			<option value="3400">台湾省</option>
+		</select>
+	</div>
+	<div class="float-left">
+		<input type="text" name="cityName" value="$!cityName" class="input" placeholder="城市名称">
+	</div>
+	
+	<button type="button" id="searchCity" class="btn btn-default btn-big">查询</button>
+</div>
+
+<div class="clear margin-top-30">
+	<div class="associated">
+		<p class="background-f2  associated-title">未关联</p>
+		<select size="10"  multiple class="noSet"></select>
+	</div>
+	
+	<div class="left-right-move">
+		<button type="button" class="float-left auvgo-approve-bg left-move leftMove"></button>
+		<button type="button" class="float-left auvgo-approve-bg right-move rightMove"></button>
+	</div>
+	<div class="associated">
+		<p class="background-f2  associated-title">已关联</p>
+		<select size="10"  multiple class="alwaysSet">
+			#if("$!{citychooseList}"!="")
+				#foreach($alwaysCity in $!{citychooseList})
+				<option value="$!{alwaysCity.cityCode}">$!{alwaysCity.cityName}</option>
+				#end
+			#end
+		</select>
+	</div>
+</div>
+
+<div class="clear margin-top-30 text-align">
+	<button  id="saveCityId" class="btn btn-default btn-big">确定</button>
+	<a href=#if($!flag == 'policy')"/crm/data/tovaluelist/2"#else"/crm/data/city/2"#end class="btn btn-cancel btn-big">取消</a>
+</div>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>首页</title> #parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/air/air-book-success.css">
+<link rel="stylesheet" type="text/css" href="/static/css/common/demand-success.css">
+</head>
+<body class="background-fff clear">
+	#parse("/common/head.html")
+	<div class="main-content">
+		<div class="success-model background-fff">
+			<div class="clear success-m-tips">
+				<div class="float-left">
+					<img src="/static/img/airImg/success-flag.png" alt="">
+				</div>
+				<div class="float-left s-t-c">
+					<div class="s-text">提交成功</div>
+				</div>
+			</div>
+			<div class="order-detail font-size-14">
+				#if($!flag == "R")
+				#set($urldetail = "rent/detail")
+				#set($returnurl = "/rent/car")
+				#elseif($!flag == "V")
+				#set($urldetail = "visa/detail")
+				#set($returnurl = "/visa/demand")
+				#elseif($!flag == "I")
+				#set($urldetail = "airInternationalOrderDetail")
+				#set($returnurl = "/air/international/xuqiudan")
+				#else
+				#set($urldetail = "meeting/detail")
+				#set($returnurl = "/metting/demand")
+				#end
+				<div class="clear o-r-de">
+					<div class="float-left o-d-l">订单号：<a href="/myChailv/$!urldetail/$!orderno?flag=personal">$!orderno</a></div>
+				</div>
+			</div>
+			<div class="btn-group text-align">
+				<a href="$returnurl" title="" class="btn btn-default btn-big">继续提交</a> 
+				<a href="/myChailv/$!urldetail/$!orderno?flag=personal" title="" class="btn btn-default btn-big">查看订单</a>
+			</div>
+		</div>
+	</div>
+	<!-- 主体 end -->
+	#parse("/common/foot.html")
+</body>
+</html>

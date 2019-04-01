@@ -1,0 +1,75 @@
+<!-- 订单酒店信息 -->
+<div class="order-left background-fff margin-bottom-10 border-r5 font-size-12">
+	<div class="clear o-title">
+		<span class="float-left">$!{orderDetail.hotelName}</span>
+		#if($!orderDetail.platform == "PROTOCOL" || $!orderDetail.platform == "SELF")
+			<span class="xieyi-flag float-left">协议</span>
+		#end
+		<!--<div class="float-left  animated bounceInRight latest-arrival-time">-->
+			<!--<span class="icon-img warn-mark" ></span></span>-->
+			<!--通常酒店$!{orderDetail.arrivalTime}:00点办理入住，早到可能等待-->
+		<!--</div>-->
+	</div>
+	<div class="o-content font-size-12">
+		<!--<div class="margin-bottom-10 font-size-14"></div>-->
+		<div class="margin-bottom-10 clear line-height-30 clear">
+			<div class="float-left margin-right-35">
+				<div>
+					<span class="color-888">入住时间：</span>
+					<span class="color-000">$!{orderDetail.checkIn}</span>
+				</div>
+				<div>
+					<span class="color-888">离店时间：</span>
+					<span class="color-000">$!{orderDetail.checkOut}</span>
+				</div>
+				<div>
+					<span class="color-888">最晚到店：</span>
+					<span class="color-000">$!{orderDetail.auxiliary.lastCheckTime}</span>
+				</div>
+			</div>
+			<div class="float-left font-size-12 margin-right-35">
+				<div>
+					<span class="color-888">早餐：</span>
+					<span class="color-000">$!{orderDetail.auxiliary.breakFast}</span>
+				</div>
+				<div>
+					<span class="color-888">房间数：</span>
+					<span class="color-000">$!{orderDetail.roomCount}间/$!{dayNum}夜</span>
+				</div>
+				<div>
+					<span class="color-888">产品名称：</span>
+					<span class="color-000 product-name">$!{orderDetail.auxiliary.planName} | #if($!orderDetail.payment=="Prepay")预付#else现付#end #if($!orderDetail.isGuarantee) （担保）#end</span>
+				</div>
+			</div>
+			<div class="float-left">
+				<!--<div class="" >
+					<span class="color-888">均价：</span>
+					<span >
+						<span class="color-000 border-bottom-1">￥$!{orderDetail.averageDaily}</span>
+					</span>
+				</div>-->
+				<div>
+					<span class="color-888">酒店电话：</span>
+					<span class="color-000">$!{orderDetail.auxiliary.hotelTel}</span>
+				</div>
+				<div class="clear">
+					<span class="color-888 float-left">酒店地址：</span>
+					<span class="color-000 float-left hotels-address-w ">$!{orderDetail.auxiliary.hotelAddress}</span>
+				</div>
+			</div>
+			<!--<div class="float-left">-->
+			<!--<span class="prompt-violet warn-mark"></span>通常酒店${detail.arrivalTime}:00点办理入住，早到可能等待-->
+			<!--</div>-->
+		</div>
+		<div class="clear">
+			<!--<div class="chailv-cell">-->
+			<!--<div class="color-gray margin-b-14">酒店电话</div>-->
+			<!--<div>$!{detail.phone}</div>-->
+			<!--</div>-->
+			<!--<div class="chailv-cell">-->
+			<!--<div class="color-gray margin-b-14">酒店地址</div>-->
+			<!--<div class="hoverTips hover_content" style="width: 100%;">$!{detail.addressCn}</div>-->
+			<!--</div>-->
+		</div>
+	</div>
+</div>

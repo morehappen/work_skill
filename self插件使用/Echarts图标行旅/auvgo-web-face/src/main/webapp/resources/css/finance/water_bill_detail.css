@@ -1,0 +1,67 @@
+.detail_title {
+    text-align: center;
+    color: #6461E2;
+    font-size: 20px;
+}
+
+.time_switch {
+    background-color: #fff;
+    padding: 20px 30px 20px 30px;
+    /*margin-bottom: 20px;*/
+    box-shadow: 0 4px 4px 0 rgba(227, 227, 227, 0.50);
+}
+
+.time_switch .input_items {
+    float: left;
+    width: 245px;
+    margin-right: 69px;
+    margin-bottom: 20px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.input_item_text {
+    width: 66px;
+    padding-right: 4px;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 4px;
+    color: #999;
+}
+
+.query_form .input_items .i_item_input {
+    width: 130px;
+    height: 32px;
+    float: left;
+}
+
+.input_items input[type="text"], .input_items input[type="password"] {
+    width: 100px;
+    height: 30px;
+    border-radius: 2px;
+    line-height: 30px;
+    padding-left: 8px;
+    border: 1px solid #ddd;
+}
+
+.input_items input[type="text"].department {
+    width: 116px;
+    height: 32px;
+}
+
+.query_form .input-model .i-m-text {
+    width: 62px;
+    height: 32px;
+    line-height: 32px;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 4px;
+    color: #999;
+}
+
+.query_form .input-model .i-m-input {
+    width: 100px;
+    height: 32px;
+    float: left;
+}
+

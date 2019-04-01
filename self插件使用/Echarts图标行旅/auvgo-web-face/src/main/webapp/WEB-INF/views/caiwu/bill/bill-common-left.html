@@ -1,0 +1,65 @@
+<div class="float-left second-side-nav-box">
+	<div class="second-side-nav">
+		<dl>
+			<dt class="position">
+				<a href="/caiwu/bill/total?tag=bill_default" class=" position ss-link ss-every-model" data-tag="bill_default">
+					<span class="position-ab tip_img business_bill_img"></span>
+					企业账单
+				</a>
+			</dt>
+		</dl>
+		#if("$!{company.serverNo}"=="FXS_ADMIN")
+		<dl>
+			<dt class="position">
+				<a href="javascript:void(0);" class="ss-every-model">
+					<span class="position-ab tip_img fenxiao_img_first "></span>
+					分销预存款
+					<span class="position-ab tip_img fenxiao_img_second s-jt-bg"></span>
+				</a>
+			</dt>
+			<dd>
+				<a href="/prepay/trade/tecord/list?tag=liushui&flag=caiwu" data-tag="liushui" class="">流水记录</a>
+			</dd>
+			<dd>
+				<a href="/prepay/topup/tecord/list?tag=chongzhi&flag=caiwu" data-tag="chongzhi" class="">充值记录</a>
+			</dd>
+		</dl>
+		#end
+		<dl>
+			<dt class="position">
+				<a href="/caiwu/bill/list?tag=list" data-tag="list" class=" position ss-link ss-every-model">
+					<span class="position-ab tip_img waterbill_img"></span> 流水单列表
+				</a>
+			</dt>
+		</dl>
+		<dl>
+			<dt class="position">
+				<a href="javascript:void(0);" class="ss-every-model">
+					<span class="position-ab tip_img jiesuan_img"></span>
+					结算管理
+					<span class="position-ab tip_img jiesuan_img_second s-jt-bg"></span>
+				</a>
+			</dt>
+			<dd>
+				<a href="/caiwu/jiesuan/list/daijie?tag=daijie" data-tag="daijie" >
+					待结算列表
+				</a>
+			</dd>
+			<dd>
+				<a href="/caiwu/jiesuan/paylist/0?tag=tobe" data-tag="tobe">
+					待付款列表
+				</a>
+			</dd>
+			<dd>
+				<a href="/caiwu/jiesuan/paylist/1?tag=be" data-tag="be" >
+					已付款列表
+				</a>
+			</dd>
+			<dd>
+				<a href="/caiwu/jiesuan/list/qiankuan?tag=leiji" data-tag="leiji" >
+					累计欠款列表
+				</a>
+			</dd>
+		</dl>
+	</div>
+</div>

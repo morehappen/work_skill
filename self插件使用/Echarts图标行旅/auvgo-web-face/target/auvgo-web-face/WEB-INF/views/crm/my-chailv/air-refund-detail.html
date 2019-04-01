@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>机票订单-详情-退票单</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-new-order-detail.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<input type='hidden' class='project-code-shut' value='1'>
+		<!--BKJT判断标志-->
+		<input type="hidden" class="getShowname">
+		<div class="main-content">
+			<div class="margin-bottom-20"></div>
+			<div class="order-status-wraper background-fff margin-bottom-20 border-r5">
+				<div class="clear">
+					<div class="float-left tarin-bg order-status text-align font-size-14 color-fff">
+						$!airUtil.getFaceTuipiao($!tuipiaoOrder.showStatus)
+					</div>
+					<div class="clear float-left font-size-12">
+						<div class="float-left" style="width: 275px;">
+							<div class="color-gray">原订单</div>
+							<div class="font-size-14"><a class="y_order" href="/myChailv/toAirOrderDetail/$!tuipiaoOrder.oldorderno?flag=">$!tuipiaoOrder.oldorderno</a></div>
+						</div>
+						<div class="float-left" style="width: 270px;">
+							<div class="color-gray">退票单号</div>
+							<div class="font-size-14">$!tuipiaoOrder.tporderno</div>
+						</div>
+						<div class="float-left">
+							<div class="color-gray">申请时间</div>
+							<div class="font-size-14">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!tuipiaoOrder.createtime)</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="clear">
+				<div class="float-left">
+
+					<!-- 航班信息 begin -->
+					#set($routeList = $!tuipiaoOrder.routes)
+					#parse("/crm/my-chailv/order-detail-air-airline-infor.html")
+					<!-- 航班信息 end -->
+
+					<!-- 乘机人 begin -->
+					<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+						<div class="o-title font-size-18">乘机人</div>
+						<div class="o-content">
+							#foreach($pass in $!tuipiaoOrder.tuipiaoPassengers)
+							#foreach($routePass in  $!routePass)
+							#foreach($airorderePass in  $!airOrder.passengers)
+							#if($!pass.passid == $!routePass.passid)
+							#if($!pass.passid == $!airorderePass.id)
+							<div class="clear margin-bottom-20">
+								#if("$!pass.costName" != "")
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">成本中心</div>
+									<div class="hoverTips hover_content" style="width: 130px;">
+										$!pass.costName
+
+									</div>
+								</div>
+								#end
+								#if("$!pass.itemNumber" != "")
+								<div class="o-e-cert float-left ">
+									<div class="color-gray margin-b-14 detail-title isHuiChuan_text">项目中心</div>
+									<div class="hoverTips hover_content" style="width: 130px;">
+										$!pass.itemNumber
+									</div>
+								</div>
+								#end
+								#if("$!pass.showCode"!="")
+								<div class="o-e-cert float-left showNameCode">
+									<div class="float-left p-w-160 showNameCode">SHOWCODE：</div>
+									<div class="hoverTips hover_content" style="width: 110px;">
+										<div class="float-left p-w-160 input-email"  style="height:16px;">$!pass.showCode</div>
+									</div>
+								</div>
+								#end
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">发送通知</div>
+									<div class="hoverTips hover_content"style="width: 110px;">
+										#if($!pass.isSend == true)
+										短信
+										#else
+										--
+										#end
+										#if($!pass.isSendEmail == true)
+										邮箱
+										#else
+										--
+										#end
+									</div>
+								</div>
+							</div>
+							<div class="clear margin-bottom-20">
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">手机号</div>
+									<div>
+										#if("$!pass.mobile" != "")
+										$!pass.mobile
+										#else
+										--
+										#end
+									</div>
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">部门</div>
+									<div>
+										#if("$!airorderePass.depname" != "")
+										$!airorderePass.depname
+										#else
+										--
+										#end
+									</div>
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">邮箱</div>
+									<div class="hoverTips hover_content" style="width:126px">
+										#if("$pass.email" != "")
+											$pass.email
+										#else
+										--
+										#end
+									</div>
+								</div>
+							</div>
+							#end
+							#end
+							#end
+							#end
+							#end
+						</div>
+					</div>
+					<!-- 乘机人 end -->
+					<!-- 联系人 begin -->
+					#set($model = 'air')
+					#set($linkName = $!tuipiaoOrder.linkName)
+					#set($linkPhone = $!tuipiaoOrder.linkPhone)
+					#set($linkEmail = $!tuipiaoOrder.linkEmail)
+					#parse("/crm/my-chailv/order-detail-link.html")
+					<!-- 联系人 end -->
+					<div class="text-align margin-bottom-20">
+						<button type="button" class="btn btn-cancel btn-middle air-order-cancle">返回</button>
+					</div>
+				</div>
+				<div class="float-right">
+					<div class="order-right background-fff margin-bottom-20 border-r5 font-size-16">
+						<div class="clear margin-b-14">
+							<div class="float-left">退款金额</div>
+							<div class="float-right color-purple">
+							#if($!tuipiaoOrder.showStatus == 1)
+								<span class="font-size-12">￥</span><span>$!tuiTotal</span>
+								#else -- #end
+							</div>
+						</div>
+						<div class="clear">
+							<div class="float-left">退款手续费</div>
+							<div class="float-right color-purple">
+								#if($!tuipiaoOrder.showStatus == 1)
+									<span class="font-size-12">￥</span><span>$!tuiPrice</span>
+								#else -- #end
+							</div>
+						</div>
+					</div>
+					<div class="order-right background-fff margin-bottom-20 border-r5 font-size-16">
+						<div class="clear margin-b-14">
+							<div class="float-left">退票原因：<span>#if($!tuipiaoOrder.ziyuantp == 1) 自愿 #else 非自愿 #end</span></div>
+						</div>
+						<div class="clear font-size-12 o-r-content">
+							<span class="o-r-title">$!tuipiaoOrder.tpreason</span>
+						</div>
+						<!-- <div class="clear font-size-12">
+							<span class="o-r-title float-left">附件图片：</span>
+							<span class="float-left">
+								<img src="" class="fujian-img">
+							</span>
+							<span class="float-left btn-down-c">
+								<button type="button" class="btn btn-default btn-small">下载</button>
+							</span>
+						</div> -->
+					</div>
+				</div>
+			</div>
+
+		</div>
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/common/order-details-common.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/air-refund-detail.js"></script>
+	</body>
+	
+</html>

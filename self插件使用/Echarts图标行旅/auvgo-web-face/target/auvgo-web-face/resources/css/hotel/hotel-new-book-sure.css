@@ -1,0 +1,70 @@
+/*酒店订单详情页*/
+.line-height-30{line-height:30px;}
+.margin-right-35{margin-right:35px;}
+.xieyi-flag {
+    display: inline-block;
+    margin-left: 30px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 2px;
+    cursor: default;
+    background: #D44A9F;
+    color: #fff;
+    font-size: 12px;
+    padding: 0 5px;
+}
+.btn-middle{font-size:14px;}
+.pass-bg {
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 22px;
+    font-size: 14px;
+    margin-right: 14px;
+}
+.b-m-c-t {
+    color: #666;
+    width: 94px;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+}
+.b-m-c-c {
+    height: 30px;
+    line-height: 30px;
+}
+.o-e-cert-email {
+    width: 225px;
+    color: #666;
+}
+.o-e-cert {
+    width: 140px;
+    margin-right: 60px;
+}
+.order-left {width: 786px; padding: 30px 24px 20px 30px;}
+.order-right{background: #E7EBFA;}
+/*# sourceMappingURL=hotel-book-sure.css.map */
+/*酒店订单详情*/
+.o-content{color:#888;}
+.chailv-cell{width:auto; margin-right:30px; margin-bottom:0;}/**/
+.order-left{width:840px; box-sizing:border-box;}
+.o-title{font-weight:bold; font-size:16px;}
+.order-right{width:350px; box-sizing:border-box;}
+.Occupant-box-list .o-content .chailv-cell{width:50%; margin-right:0; line-height:30px;}
+.b-m-c-c{margin-right:10px;}
+.approve-title-ch{width:auto; margin-right:10px;}
+.product-name{width:125px; display:inline-block; vertical-align:top;}
+.main-content .status{width:1200px; height:60px; line-height:60px; background:#fff; margin:10px 0; box-shadow:0 1px 2px 0px rgba(0,0,0,0.1); padding:0 10px 0 30px; box-sizing:border-box;}
+.main-content .status em{font-style:normal; color:#888;}
+.main-content .status b{color:#000;}
+.main-content .status .state{margin-right:30px;}
+.main-content .btn-cancel{border:1px solid #d44a9f; color:#d44a9f; height:38px; line-height:38px; font-size:14px; border-radius:3px; margin-left:10px; padding:0 32px; box-sizing:border-box;}
+.main-content .btn-cancel:hover{background:#f9f9f9;}
+.main-content .btn-default{background:#d44a9f;}
+.main-content .btn-middle{height:38px; line-height:38px; padding:0 32px; margin-left:10px;}
+.hotels-address-w {display: inline-block; width: 300px;}

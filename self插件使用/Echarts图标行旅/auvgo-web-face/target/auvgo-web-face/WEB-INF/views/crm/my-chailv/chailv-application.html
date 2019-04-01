@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>出差申请单列表</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/my-chailv.css"/>
+
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/train-order-list.css"/>
+
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<!-- 主体 begin -->
+		<div class="main-content main-myChailv-c clear">
+			<div class="float-left">
+				#parse("/common/second-nav.html")
+			</div>
+			<div class="float-left list-content">
+				<ul class="tab-model clear">
+					<li class="float-left"><a href="/myChailv/toNewChailvApp/personal?tag=chailv"  data-flag="personal" class="position float-left">个人订单</a></li>
+					<li class="float-left"><a href="/myChailv/toNewChailvApp/all?tag=chailv"  data-flag="all" class="position float-left">全部订单</a></li>
+				</ul>
+				<form action="/myChailv/toNewChailvApp/personal?tag=chailvapp" method="POST" id="ChailvApplicationForm" class="query_form" data-query="queryForm">
+					<input id="pageNo" type="hidden" name="pageNum">
+					<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+					<div class="input-select clear">
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">日期类型：</div>
+							<div class="i-m-input">
+								<select class="_select_" id="select_date" data-ele="datetype" name="dateType" data-value="$!dateType">
+									<option value="shenqing">申请时间</option>
+									<option value="start">开始时间</option>
+									<option value="end">结束时间</option>
+								</select>
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b middle-line position-rel">
+							<div class="i-m-text">起始日期：</div>
+							<div class="i-m-input">
+								<input type="text" id="GTE_date" name="gte_date" data-ele="sdate" value="$!gte_date" readonly="readonly" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">截止日期：</div>
+							<div class="i-m-input">
+								<input type="text" id="LTE_date" name="lte_date"  data-ele="edate" value="$!lte_date" readonly="readonly" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<!--<div class="i-m-text">出差单号：</div>-->
+							<div class="i-m-text">申请单号：</div>
+							<div class="i-m-input">
+								<input type="text" name="q_LIKE_approvalno" data-ele="travelorder" value="$!q_LIKE_approvalno" autocomplete="off"/>
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">申请人：</div>
+							<div class="i-m-input">
+								<input type="text" name="q_LIKE_empname" data-ele="applyperson" value="$!q_LIKE_empname" autocomplete="off"/>
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">出差人：</div>
+							<div class="i-m-input">
+								<input type="text" name="q_LIKE_approvalempname" data-ele="applyperson" value="$!q_LIKE_approvalempname" autocomplete="off"/>
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">审批状态：</div>
+							<div class="i-m-input">
+								<select class="_select_" name="q_EQ_approvestatus" data-ele="approvestatus" data-value="$!q_EQ_approvestatus">
+									<option value="">全部</option>
+									<option value="1">审批通过</option>
+									<option value="2">审批否决</option>
+									<option value="4">审批中</option>
+								</select>
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b train_query_box">
+							<div class="i-m-text"></div>
+							<div class="i-m-input">
+								<button type="submit" class="btn btn-default btn-big">查询</button>
+							</div>
+						</div>
+					</div>
+				</form>
+		
+				<!-- table 表格部分 begin -->
+				<div class="margin-top-30 orde-table-wraper">
+					#if($!page.list.size() == 0)
+					<!-- 列表数据不存在时渲染此行 -->
+					#parse("/common/no-data.html")				
+				#else
+					<table class="table table-align">
+						<thead>
+							<!--<tr>-->
+								<!--<th>序号</th>-->
+								<!--<th>出差单号</th>-->
+								<!--<th>申请人</th>-->
+								<!--<th>申请时间</th>-->
+								<!--<th>出差开始日期</th>-->
+								<!--<th>出差结束日期</th>-->
+								<!--<th>审批状态</th>-->
+							<!--</tr>-->
+							<tr>
+								<th>序号</th>
+								<th>出差单号</th>
+								<th>出差时间</th>
+								<th>出差人</th>
+								<th>申请人</th>
+								<th>申请时间</th>
+								<!--<th>出差开始日期</th>-->
+								<!--<th>出差结束日期</th>-->
+								<th>状态</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach($app in $!page.list)
+							<tr>
+								<td>$!vCount</td>
+								<td>
+									 <a data-href_="/myChailv/toChailvAppDetail/$!app.companyid/$!app.approvalno" href="javascript:void(0);" class="orderToDetail">$!app.approvalno</a>
+								</td>
+								<td>
+									$!dateTool.format("yyyy-MM-dd",$!app.travelstart)
+									<br>
+									$!dateTool.format("yyyy-MM-dd",$!app.travelend)
+								</td>
+								<td>$!app.approvalempname</td>
+								<td>$!app.empname</td>
+								<td>$!dateTool.format("yyyy-MM-dd",$!app.approvaltime)</td>
+								<!--<td>$!dateTool.format("yyyy-MM-dd",$!app.travelstart)</td>-->
+								<!--<td>$!dateTool.format("yyyy-MM-dd",$!app.travelend)</td>-->
+								#if($!app.approvestatus==1)
+								<td class="color-ching-ab">$!baseStatus.getApproveStatus($!app.approvestatus)</td>
+								#elseif($!app.approvestatus==2) <td class="color-red-ab">$!baseStatus.getApproveStatus($!app.approvestatus)</td>
+								#else
+								<td>$!baseStatus.getApproveStatus($!app.approvestatus)</td>
+								#end
+							</tr>
+							#end
+							<!-- <tr>
+								<td>1</td>
+								<td><a href="/myChailv/toChailvAppDetail">10981512112121215</a></td>
+								<td>庄旭锐 13789898989</td>
+								<td>2017-07-11 11:08</td>
+								<td>2017-07-11</td>
+								<td>2017-07-11</td>
+								<td>审批通过</td>
+							</tr> -->
+						</tbody>
+					</table>
+				#end
+				</div>
+				<!-- table 表格部分 end -->
+				
+				#if($!page.list.size() > 0)
+				<!-- 列表数据存在时渲染此行 -->
+				<div id="kkpager"></div>
+				#end
+				<input type="hidden" data-ele="pagenum" value="$!page.pageNum">
+				<input type="hidden" data-ele="pages" value="$!page.pages">
+				<input type="hidden" data-ele="total" value="$!page.total">
+				<input type="hidden" data-ele="pagesize" value="$!pageSize">
+			</div>
+		</div>
+			
+			
+		
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/my-chailv/queryCookie.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/orderCommon.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/application-order.js"></script>
+		<script type="text/javascript">
+			kkpagerMain({'pno':$!page.pageNum,'total':$!page.pages,'totalRecords':$!page.total,'pageSize':$!pageSize,'pageNo':$("#pageNo"),'submit_element':$("#ChailvApplicationForm")}); //初始化分页
+		</script>
+	</body>
+</html>
+
+

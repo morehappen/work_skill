@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>火车票正常单</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/my-chailv.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/train-order-list.css"/>
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<!-- 主体 begin -->
+		<div class="main-content main-myChailv-c clear">
+			<div class="float-left">
+				#parse("/common/second-nav.html")
+			</div>
+			<div class="float-left list-content">
+				<ul class="tab-model clear">
+					<li class="float-left"><a href="/myChailv/toNewTrainOrder/personal?tag=train" data-flag="personal" class="position float-left">个人订单</a></li>
+					<li class="float-left"><a href="/myChailv/toNewTrainOrder/all?tag=train" data-flag="all" class="position float-left">全部订单</a></li>
+				</ul>
+				<form action="/myChailv/toNewTrainOrder/personal?tag=train" method="POST" id="TrainOrderForm" data-query="queryForm" class="query_form">
+					<input id="pageNo" type="hidden" name="pageNum">
+					<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+					<div class="input-select clear">
+						<div class="clear">
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">日期类型：</div>
+							<div class="i-m-input">
+								#if("$!dateType" == "")
+								#set($dateTypes = 'createtime')
+								#else
+								#set($dateTypes = $!dateType)
+								#end
+								<select class="_select_" id="date_select" data-ele="datetype" name="dateType" data-value="$!dateTypes">
+									<option value="createtime">预订日期</option>
+									<option value="deptdate">出发日期</option>
+								</select>
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b middle-line position-rel">
+							<div class="i-m-text">起始日期：</div>
+							<div class="i-m-input">
+								<input type="text" data-ele="sdate" id="GTE_date" value="$!GTE_date" name="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">截止日期：</div>
+							<div class="i-m-input">
+								<input type="text" data-ele="edate" id="LTE_date" value="$!LTE_date" name="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">预订人：</div>
+							<div class="i-m-input">
+								<input type="text" data-ele="bookperson" name="q_LIKE_orders.book_user_name" value="$!q_LIKE_orders_book_user_name">
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">乘车人：</div>
+							<div class="i-m-input">
+								<input type="text" data-ele="passengerp" name="q_LIKE_users.user_name" value="$!q_LIKE_users_user_name">
+							</div>
+						</div>
+
+					</div>
+					<div class="clear">
+						#if($!fengxiaoFlag=="2")
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">成本中心：</div>
+							<div class="i-m-input">
+								<select class="_select_" name="q_EQ_orders.costid" data-ele="costcenter" data-value="$!q_EQ_orders_costid">
+									<option value="">全部</option>
+									#foreach($cost in $!costCenters)
+									$!cost.name
+									<option value="$!cost.id" class="text-ellipsis">$!cost.name</option>
+									#end
+								</select>
+							</div>
+						</div>
+						#end
+						<div class="input-model margin-default-r margin-10-b middle-line position-rel">
+							<div class="i-m-text">出发站：</div>
+							<div class="i-m-input">
+								<input type="text" data-ele="sstation" name="q_LIKE_route.from_station" value="$!q_LIKE_route_from_station">
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">到达站：</div>
+							<div class="i-m-input">
+								<input type="text" data-ele="estation" name="q_LIKE_route.arrive_station" value="$!q_LIKE_route_arrive_station">
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">订单状态：</div>
+							<div class="i-m-input">
+								<select class="_select_" name="q_IN_orders.status" data-ele="orderstatus" data-value="$!q_IN_orders_status">
+									<option value="">全部</option>
+									<option value="0">未订座</option>
+									<option value="1">已订座</option>
+									<option value="2">已出票</option>
+									<option value="3">已取消</option>
+									<!-- <option value="4">订座失败</option> -->
+									<!-- <option value="5">出票失败</option> -->
+									<option value="6,5">出票中</option>
+									<option value="7,4">订座中</option>
+								</select>
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b train_query_box">
+							<div class="i-m-text"></div>
+							<button type="submit" class="btn btn-default btn-big">查询</button>
+							<!--<div class="i-m-input">-->
+
+							<!--</div>-->
+						</div>
+					</div>
+					</div>
+				</form>
+		
+				<!-- table 表格部分 begin -->
+				<div class="margin-top-30 orde-table-wraper">
+					## 全局变量-没有数据
+					#set ($noData = ($!page.list.size() == 0))
+					#if($noData)
+					#parse("/common/no-data.html")
+					#else
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<!-- <th class="table_caozuo">操作</th> -->
+								<th>订单编号</th>
+								<th>乘客</th>
+								<th>车次</th>
+								<th>出发</th>
+								<th>到达</th>
+								<th>出发日期</th>
+								<th>票价</th>
+								<th>服务费</th>
+								<th>保险</th>
+								<th>应付金额</th>
+								<th>预订时间</th>
+								<th>审批状态</th>
+								<th>支付状态</th>
+								<th>是否送审</th>
+								<th>订单状态</th>
+							</tr>
+						</thead>
+						<tbody>
+						#foreach($train in $!page.list)
+							<tr>
+								<td>$!vCount</td>
+								<!-- <td class="table_caozuo">
+									<div class="clear table-btn-div">
+										<button type="button" class="btn btn-disabled btn-small">支付</button>
+										<button type="button" class="btn btn-disabled btn-small">改签</button>
+										<button type="button" class="btn btn-disabled btn-small">退票</button>
+										<button type="button" class="btn btn-disabled btn-small">取消</button>
+									</div>	
+								</td> -->
+								<td>
+									<a data-href_="/myChailv/toTrainOrderDetail/$!train.order_no" href="javascript:void(0);" class="orderToDetail">$!train.order_no</a>
+									<!-- <button class="btn btn-default btn-small-small">改</button> -->
+								</td>
+								<td><div class="hoverTips hover_content">$!train.chencheRen.replace(",","/")</div></td>
+								<td>$!train.trainCode</td>
+								<td class="line-height-td">$!train.fromStation<br/>$!train.fromTime</td>
+								<td class="line-height-td">$!train.arriveStation<br/>$!train.arriveTime</td>
+								<td>$!train.travelTime<br />
+								#if($!train.fromTime > $!train.arriveTime)
+								次日达
+								#else
+								当日达
+								#end
+								</td>
+								<td>$!train.Amount</td>
+								<td>$!train.fuwufei</td>
+								<td>$!train.bxMoney</td>
+								<td>$!train.totalprice</td>
+								<td class="line-height-td">$!train.createTime</td>
+								<td>$!baseStatus.getApproveStatus($!train.approvestatus)</td>
+								<td>$!baseStatus.getPaystatus($!train.pay_status)</td>
+								<td>
+									#if($!train.approvestatus == 3)
+										否
+									#else
+										是
+									#end
+								</td>
+								<td>
+									#if($!train.statu == 2)
+										<span class="color-ching">$!statusUtil.getStatus($!train.statu)</span>
+									#elseif($!train.statu == 4)
+									    <span class="color-red">订座中</span>
+									#else
+										$!statusUtil.getStatus($!train.statu)
+									#end
+								</td>
+							</tr>
+						#end
+						</tbody>
+					</table>
+					#end
+				</div>
+				<!-- table 表格部分 end -->
+				
+				#if(!$noData)
+				<div id="kkpager"></div>
+				#end
+				<input type="hidden" data-ele="pagenum" value="$!page.pageNum">
+				<input type="hidden" data-ele="pages" value="$!page.pages">
+				<input type="hidden" data-ele="total" value="$!page.total">
+				<input type="hidden" data-ele="pagesize" value="$!pageSize">
+			</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/my-chailv/queryCookie.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/orderCommon.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/train-order.js"></script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>酒店-预订失败</title>
+	<link rel="icon" sizes="any" href="/resources/images/common/favicon.ico">
+
+	<link rel="stylesheet" type="text/css" href="/resources/css/hotel/hotel-book-success.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/common.css"/>
+	<style>
+		.s-text-fail{
+			padding-top:10px;
+			font-size: 26px;
+			height: 26px;
+			line-height: 26px;
+			margin-bottom: 8px;
+		}
+		.padding-top-80{
+			padding-bottom:10px;
+			background-color: rgba(255,255,255,0.5)!important;background-color: #000;filter:Alpha(opacity=50);
+		}
+		body{
+			background: url('/resources/images/common/hotel-icon.png') no-repeat right bottom;
+		}
+	</style>
+</head>
+
+
+<body class="clear background-f4f6f8">
+#parse("/common/head.html")
+<div class="main-content padding-top-80 main-bg">
+	<div class="success-model background-opcity background-fff clear" style="height:361px;">
+		<div class="clear success-m-tips">
+			<div class="float-left">
+				<img src="/resources/images/common/fail.png">
+			</div>
+			<div class="float-left s-t-c">
+				<div class="s-text-fail">提交失败</div>
+				
+			</div>
+		</div>
+		<div class="order-detail clear font-size-14" style="margin:0;">
+			<p style="width:338px;font-size:14px;border:none;margin:0;padding:0;">$!{code} : $!{error}</p>
+		</div>
+		<div class="btn-group text-align-l" style="margin-top:38px;text-align: inherit;">
+		    #if($!code=="timeout")
+		       <a href="/hotel/order/my/list" title="" class="btn btn-default btn-big text-align" >我的订单</a>
+		    #else
+		       <a href="/index?flag=hotel" title="" class="btn btn-default btn-big text-align" >重新预订</a>
+		    #end
+		</div>
+	</div>
+</div>
+</body>
+</html>

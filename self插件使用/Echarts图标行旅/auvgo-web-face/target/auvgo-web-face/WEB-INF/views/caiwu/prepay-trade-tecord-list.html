@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>流水记录</title> #parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+</head>
+<body class="background-6461e2">
+	#parse("/common/head.html")
+	<div class="bread-crums main-content margin-top-10">
+		<a href="/caiwu/zhangdan" class="normal_a">企业账单</a>
+	</div>
+	<!-- 主体 begin -->
+	<div class="main-content margin-top-10 clear">
+		<div class="aside-nav float-left background-fff auto_bottom">
+			<ul id="order-left-nav">
+				<li class="aside-nav-tab" onclick="location.href='/prepay/trade/tecord/list'" data-orderflag="toAirGaiOrder">预存款流水记录</li>
+				<li class="aside-nav-tab" onclick="location.href='/prepay/topup/tecord/list'" data-orderflag="toAirGaiOrder">预存款充值记录</li>
+				<li class="aside-nav-tab" data-orderflag="toAirGaiOrder">已结算</li>
+			</ul>
+		</div>
+		<div class="aside-content float-left background-fff auto_bottom">
+			<form action="/prepay/trade/tecord/list" method="POST" id=trade_tecord_form>
+				<div class="input-select clear">
+					<input type="hidden" name="index" id="pageNo" value="$!{page.index}">
+					<input type="hidden" name="size" id="pageSize" value="$!{page.size}">
+					<input type="hidden" id="totalPage" value="$!{page.totalPage}">
+					<input type="hidden" id="total" value="$!{page.total}">
+					<input type="hidden" id="customer_no_i" value="$!{model.customerNo}">
+					
+					<div class="margin-bottom-10 clear">
+						创建日期<input type="text" class="input border-radius" id="start_time" name="startTime" value="$!{model.startTime}" readonly="readonly"
+							onfocus="var checkOut=$dp.$('end_time');WdatePicker({isShowClear:false,readOnly:true,errDealMode:1,lang:'zh-cn',doubleCalendar:true,dateFmt:'yyyy-MM-dd',onpicked:function(){checkOut.focus();},maxDate:'%y-%M-%d'})"> 
+						-
+						<input type="text" class="input border-radius" id="end_time" name="endTime" value="$!{model.endTime}" readonly="readonly"
+							onfocus="WdatePicker({isShowClear:false,readOnly:true,errDealMode:1,lang:'zh-cn',doubleCalendar:true,dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-{%d+1}',minDate:'#F{$dp.$D(\'start_time\',{M:0,d:0})}'})" > 
+							
+						<button type="submit" class="btn btn-default btn-big">查询</button>
+						<button type="button" class="btn btn-default btn-big" onclick="exportReport()">导出</button>
+					</div>
+				</div>
+			</form>
+			<div style="margin-top:-20px; margin-bottom:20px; color:red;">
+				预存款余额：#if("$!{prepayAccount.totalPrice}"=="")0#else$!{prepayAccount.totalPrice}#end元
+			</div>
+			<div class="margin-top-30 orde-table-wraper">
+				<table class="table table-align">
+					<thead class="thead-checked">
+						<tr style="white-space: nowrap">
+							<th>序号</th>
+							<th>支付单号</th>
+							<th>业务订单号</th>
+							<th>业务模块</th>
+							<th>交易金额</th>
+							<th>剩余金额</th>
+							<th>交易类型</th>
+							<th>交易描述</th>
+							<th>创建时间</th>
+						</tr>
+					</thead>
+					<tbody class="tbody-checked">
+						#foreach($!ptr in $!page.items)
+							<tr class="text-c" style="white-space: nowrap">
+								<td>${vCount}</td>
+								<td>$!{ptr.orderNo}</td>
+								<td>$!{ptr.businessNo}</td>
+								<td>
+									#if("$!{ptr.businessType}" == "hotel")酒店#end
+									#if("$!{ptr.businessType}" == "air")机票#end
+									#if("$!{ptr.businessType}" == "train")火车票#end
+								</td>
+								<td>$!{ptr.tradeAmount}</td>
+								<td>$!{ptr.surplusAmount}</td>
+								<td>$!{ptr.tradeType}</td>
+								<td>$!{ptr.tradeMsg} $!{ptr.remark}</td>
+								<td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!{ptr.createTime})</td>
+							</tr>
+						#end
+					</tbody>
+				</table>
+			</div>
+			#if($page && $page.items && $!{page.items.size()}>0)
+				<div id="kkpager"></div>
+			#end
+		</div>
+	</div>
+	<!-- 主体 end -->
+	#parse("/common/foot.html")
+	<script type="text/javascript" src="/resources/js/plugin/page/pager.min.js"></script>
+	<script type="text/javascript">
+		// 初始化分页  当前页数，  总页数， 总条数，  没页显示数据大小，  form表单， 模式
+		kkpagerMain({'pageNo':$("#pageNo"), 'totalPage':$("#totalPage"), 'totalRecords':$("#total"), 'pageSize':$("#pageSize"), 'submit_element':$("#trade_tecord_form"), 'mode':'click'});
+		
+		function exportReport(){
+			var startTime = $("#start_time").val();
+			var endTime = $("#end_time").val();
+			var customerNo = $("#customer_no_i").val();
+			if(startTime == "" || endTime == ""){
+				layer.msg("日期为空");
+				return false;
+			}
+			location.href="/report/trade/tecord/download?startTime="+startTime+"&endTime="+endTime+"&customerNo="+customerNo;
+		}
+	</script>
+</body>
+</html>

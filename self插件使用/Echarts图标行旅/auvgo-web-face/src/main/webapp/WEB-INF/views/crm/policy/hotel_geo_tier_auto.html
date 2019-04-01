@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>客户管理</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<div class="bread-crums main-content margin-top-10">
+			#parse("/common/policy.html") > 城市级别
+		</div>
+		<!-- 主体 begin -->
+		<div class="main-content margin-top-10 clear">
+			<div class="aside-content float-left background-fff auto_bottom">
+				<a class="btn btn-default btn-big" onclick="showGeoLayer('新增城市级别','/chailv/hotel/geo/input/geotierauto/0')">
+					添加城市级别
+				</a>
+				
+				<div class="margin-top-10">
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>级别名称</th>
+								<th>城市级别</th>
+								<th class="table_caozuo">操作</th>
+							</tr>
+						</thead>
+						<tbody id="ajax-table">
+						#foreach($m in $!model)
+							<tr>
+								<td>$!{m.alias}</td>
+								<td>$!{m.level}</td>
+								<td class="table_caozuo">
+									<div class="clear table-btn-div">
+										<button type="button" class="btn btn-default btn-small edit" onclick="showGeoCityLayer('关联城市','/chailv/hotel/geo/city/list/$!{m.level}')">关联城市</button>
+										<button type="button" class="btn btn-default btn-small edit" onclick="showGeoLayer('修改城市级别','/chailv/hotel/geo/input/geotierauto/$!{m.id}')">编辑</button>
+										<button type="button" class="btn btn-danger btn-small" onclick="removeGeoById('/chailv/hotel/geo/delete/geotierauto/$!{m.level}')">删除</button>
+									</div>
+								</td>
+							</tr>
+						#end
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+	</body>
+	<script type="text/javascript"  src="/resources/js/common/jquery.js"></script>
+	<script type="text/javascript" src="/resources/js/plugin/layer/layer.js"></script>
+	<script type="text/javascript" src="/resources/js/crm/policy/hotel_geo_tier_auto.js"></script>
+	
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>酒店-支付失败</title>
+	<link rel="icon" sizes="any" href="/resources/images/common/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/resources/css/hotel/hotel-book-success.css">
+</head>
+
+<body class="clear">
+<div class="main-content">
+	<div class="success-model background-fff clear">
+		<div class="clear success-m-tips">
+			<div class="float-left">
+				<img src="/resources/images/common/fail.png">
+			</div>
+			<div class="float-left s-t-c">
+				<div class="s-text">支付失败</div>
+				<div class="font-size-12">
+					<p style="margin-bottom: 5px;font-size:14px;">$!{data.msg}</p>
+				</div>
+			</div>
+		</div>
+		<div class="btn-group text-align-l" style="margin-top:38px;text-align: inherit;">
+			<a href="/hotel/order/per/input/$!{orderNo}" class="btn btn-default btn-big text-align">返回订单</a>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-oa.js"></script>
+</html>

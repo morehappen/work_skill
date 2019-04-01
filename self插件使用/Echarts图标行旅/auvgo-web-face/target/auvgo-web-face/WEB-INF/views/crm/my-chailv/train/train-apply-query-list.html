@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>火车票-改签查询列表</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/air/air-query-list.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/train/train-query-list.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/common/city-plugin.css"/>
+</head>
+
+<body class="background-6461e2 clear">
+	
+	#parse("/common/head.html")
+	<div class="main-content">
+		
+		<div id="isendorse"
+			 data-isendorse="1"
+			 data-from="$!{train_gaiqian_query.from}"
+			 data-fromName="$!{train_gaiqian_query.fromName}"
+			 data-arrive="$!{train_gaiqian_query.arrive}"
+			 data-arriveName="$!{train_gaiqian_query.arriveName}"
+			 data-empIds="$!{train_gaiqian_query.empIds}"
+			 data-levels="$!{train_gaiqian_query.levels}"
+			 data-orignorderno="$!{zOrderno}"
+			 data-id="$!{train_gaiqian_query.id}"
+		></div>
+		
+		<div class="query_form background-fff margin-bottom-10" data-traintype="$!train_query_con.trainType">
+			<div class="clear">
+				<div class="float-left position">
+					<span class="icon-img icon-search position-ab icon-position-ccc"></span>
+					<input type="text" class="show-city city-name from-city input float-left" name="fromName" value="$!{train_gaiqian_query.fromName}" autocomplete="off" disabled />
+					<input type="hidden" class="city-code from-city-code" name="from" value="$!{train_gaiqian_query.from}" />
+				</div>
+				<div class="float-left">
+					<button class="tab-city float-left">
+						<img src="/static/img/airImg/tab-city-img.png">
+					</button>
+				</div>
+				<div class="float-left position">
+					<span class="icon-img icon-search position-ab icon-position-ccc"></span>
+					<input type="text" class="show-city city-name to-city input float-left" name="arriveName" value="$!{train_gaiqian_query.arriveName}" autocomplete="off" disabled />
+					<input type="hidden" class="city-code to-city-code" name="arrive" value="$!{train_gaiqian_query.arrive}"/>
+				</div>
+				<div class="float-left position">
+					<span class="icon-search icon-img position-ab icon-date-ccc"></span>
+					<input type="text" name="startDate" value="$!{train_gaiqian_query.startDate}" id="beginDate" class="input float-left" onfocus="var endDate=$dp.$('endDate');WdatePicker({doubleCalendar:true,minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+29}',onpicked:function(){endDate.focus()},onpicking:function(dp){date_lock(dp.cal.getNewDateStr())},isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})" />
+				</div>
+				<div class="float-left">
+					<button type="button" class="btn btn-default btn-big float-left train-query">重新查询</button>
+				</div>
+			</div>
+		</div>
+		#parse("/train/train-query-list-content.html")
+	</div>
+	#parse("/train/train-query-list-modal.html")
+	#parse("/common/foot.html")
+	<script type="text/javascript" src="/static/js/common/model-city.js"></script>
+	<script type="text/javascript" src="/static/js/common/seven_date.js"></script>
+	<script type="text/javascript" src="/static/js/train/train-common.js"></script>
+	<script type="text/javascript" src="/static/js/train/train-query-list.js"></script>
+</body>
+</html>

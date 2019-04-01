@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>机票订单-正常</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		
+		<div class="bread-crums main-content margin-top-10">
+			#parse("/common/air-order.html")
+		</div>
+		
+		<!-- 主体 begin -->
+		<div class="main-content margin-top-10 clear">
+			<div class="aside-nav float-left background-fff auto_bottom">
+				#parse("/common/my-chailv-air-left.html")
+			</div>
+			<div class="aside-content float-left background-fff auto_bottom">
+				<form action="/myChailv/toAirOrder" method="POST" id="AirOrderForm">
+					<div class="input-select clear">
+						<input id="pageNo" type="hidden" name="pageNum">
+						<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+						<div class="margin-bottom-10 clear">
+							<select id="date_select" class="_select_" name="dateType" value="$!dateType" data-value="$!dateType">
+								<option value="">日期类型</option>
+								<option value="createtime">预订日期</option>
+								<option value="deptdate">出发日期</option>
+							</select>
+							
+							<input type="text" class="input border-radius" id="GTE_date" name="GTE_date" value="$!GTE_date" 
+								placeholder="请选择起始日期" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+							<input type="text" class="input border-radius" id="LTE_date" name="LTE_date" value="$!LTE_date" 
+								placeholder="请选择截止日期" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+							<input type="text" class="input border-radius" name="q_LIKE_orders.opusername" 
+								value="$!q_LIKE_orders_opusername" placeholder="预订人">
+						</div>
+						<div class="margin-bottom-10 clear">
+							<input type="text" class="input border-radius" name="q_LIKE_users.name" value="$!q_LIKE_users_name" placeholder="乘机人">
+							<select class="_select_" name="q_EQ_orders.costid" data-value="$!q_EQ_orders_costid">
+								<option value="">成本中心</option>
+								#foreach($cost in $!costCenters)
+									<option value="$!cost.id" class="text-ellipsis">$!cost.name</option>
+								#end
+								</select>
+							<select class="_select_" name="q_EQ_orders.proid" data-value="$!q_EQ_orders_proid">
+								<option value="">项目</option>
+								#foreach($project in $!projects)
+									<option value="$!project.id">$!project.name</option>
+								#end
+							</select>
+							<button type="submit" class="btn btn-default btn-big">查询</button>
+						</div>
+					</div>
+				</form>
+		
+				<!-- table 表格部分 begin -->
+				<div class="margin-top-30 orde-table-wraper">
+					## 全局变量-没有数据
+					#set ($noData = ($!page.list.size() == 0))
+					#if($noData)
+					#parse("/common/no-data.html")
+					#else
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<!-- <th class="table_caozuo">操作</th> -->
+								<th>订单编号</th>
+								<th>乘机人</th>
+								<th>航程</th>
+								<th>起飞时间</th>
+								<th>航班号</th>
+								<th>舱位</th>
+								<th>应付金额</th>
+								<th>预订时间</th>
+								<th>审批状态</th>
+								<th>支付状态</th>
+								<th>订单状态</th>
+								<th>是否送审</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							#foreach($order in $!page.list)
+							<tr>
+								<td>$!vCount </td>
+								<!-- <td class="table_caozuo">
+									<div class="clear table-btn-div">
+										<button type="button" class="btn btn-default1 btn-small">支付</button>
+										<button type="button" class="btn btn-disabled btn-small">改签</button>
+										<button type="button" class="btn btn-disabled btn-small">退票</button>
+										<button type="button" class="btn btn-danger btn-small">退票</button>
+										<button type="button" class="btn btn-default btn-small">退票</button>
+									</div>	
+								</td> -->
+								<td>
+									<a href="/myChailv/toAirOrderDetail/$!order.orderno">$!order.orderno</a>
+									<!-- <button class="btn btn-default btn-small-small">退</button> -->
+								</td>
+								<td><div class="hoverTips hover_content">$!order.username</div></td>
+								<td>$!{order.orgname}-$!{order.arriname}</td>
+								<td class="line-height-td">$!order.deptdate<br>$!order.depttime</td>
+								<td>$!order.airline</td>
+								<td>$!{order.code}舱</td>
+								<td>$!order.totalprice</td> 
+								<td class="line-height-td" >$!dateTool.format("yyyy-MM-dd hh:mm:ss",$!order.createtime)</td>
+								<td>$!baseStatus.getApproveStatus($!order.approvestatus)</td>
+								
+								#if($!order.paystatus == 1)
+									#if($!order.pay_type == 1)
+										<td>$!baseStatus.getPaystatus($!order.paystatus) - 企业月结</td>
+									#else
+										<td>$!baseStatus.getPaystatus($!order.paystatus)</td>
+									#end
+									
+								#else
+									<td>$!baseStatus.getPaystatus($!order.paystatus)</td>
+								#end
+								
+								<td>
+									#if($!order.status == 2)
+									<span class="color-green">$!airUtils.getairOrderStatus($!order.status)</span>
+									#elseif($!order.status == 5)
+									<span class="color-green">$!airUtils.getairOrderStatus(6)</span>
+									#elseif($!order.status == 4)
+									<span class="color-green">$!airUtils.getairOrderStatus(7)</span>
+									#else
+									$!airUtils.getairOrderStatus($!order.status)
+									#end
+								</td>
+								<td>#if($!order.approvestatus == 3)否#else是#end</td>
+							</tr>
+							#end
+						</tbody>
+					</table>
+					
+					#end
+				</div>
+				<!-- table 表格部分 end -->
+				
+				#if(!$noData)
+				<div id="kkpager"></div>
+				#end
+				
+			</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/my-chailv/my-chailv.js"></script>
+		<script type="text/javascript">
+			kkpagerMain({'pno':$!page.pageNum,'total':$!page.pages,'totalRecords':$!page.total,'pageSize':$!pageSize,'pageNo':$("#pageNo"),'submit_element':$("#AirOrderForm")}); //初始化分页
+		</script>
+	</body>
+</html>

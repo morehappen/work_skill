@@ -1,0 +1,149 @@
+<div class="clear">
+	<div class="float-left filter-tj font-size-12">
+		<div class="filter-show margin-bottom-10 clear">
+			<input type="text" class="input filter-input float-left" style="text-transform: uppercase" placeholder="指定车次" />
+			<button type="button" class="btn btn-default btn-big filter-btn float-left filter-traintype">查询</button>
+		</div>
+		<div class="e-filter">
+			<div class="e-f-title background-fff position">
+				<span class="icon-img position-ab train-flag"></span>车次类型
+			</div>
+			<ul class="hide train-type">
+				<li>
+					<div class="label label-checkbox label-margin-right #if($!train_query_con.trainType.indexOf('G')>-1)label-select-checkbox#end clear">
+						<span class="show_choice"></span>
+						<span>CG-城际/高铁</span>
+						<input type="checkbox" value="CG" #if($!train_query_con.trainType.indexOf('G')>-1)checked#end>
+					</div>
+				</li>
+				<li>
+					<div class="label label-checkbox label-margin-right #if($!train_query_con.trainType.indexOf('D')>-1)label-select-checkbox#end clear">
+						<span class="show_choice"></span>
+						<span>D-动车</span>
+						<input type="checkbox" #if($!train_query_con.trainType.indexOf('D')>-1)checked#end value="D">
+					</div>
+				</li>
+				<li>
+					<div class="label label-checkbox label-margin-right #if($!train_query_con.trainType.indexOf('K')>-1)label-select-checkbox#end clear">
+						<span class="show_choice"></span>
+						<span>Z/T/K-普通</span>
+						<input type="checkbox" #if($!train_query_con.trainType.indexOf('K')>-1)checked#end value="ZTK">
+					</div>
+				</li>
+				<li>
+					<div class="label label-checkbox label-margin-right traintype #if($!train_query_con.trainType.indexOf('L')>-1)label-select-checkbox#end clear">
+						<span class="show_choice"></span>
+						<span>L/Y等-其他</span>
+						<input type="checkbox" #if($!train_query_con.trainType.indexOf('L')>-1)checked#end value="LY0123456789">
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="e-filter">
+			<div class="e-f-title background-fff position">
+				<span class="icon-img position-ab start-station-flag"></span>始发车站
+			</div>
+			<ul class="hide start-station js_start-station"></ul>
+		</div>
+		
+		<div class="e-filter">
+			<div class="e-f-title background-fff position">
+				<span class="icon-img position-ab end-station-flag"></span>终点车站
+			</div>
+			<ul class="hide end-station js_end-station"></ul>
+		</div>
+		
+		<div class="e-filter">
+			<div class="e-f-title background-fff position">
+				<span class="icon-img position-ab start-time-flag"></span>出发时间
+			</div>
+			<ul class="hide start-time">
+				<li>
+					<div class="label label-checkbox label-margin-right clear">
+						<span class="show_choice"></span>
+						<span>00:00-06:00</span>
+						<input type="checkbox" value="00:00-06:00">
+					</div>
+				</li>
+				<li>
+					<div class="label label-checkbox label-margin-right clear">
+						<span class="show_choice"></span>
+						<span>06:00-12:00</span>
+						<input type="checkbox" value="06:00-12:00">
+					</div>
+				</li>
+				<li>
+					<div class="label label-checkbox label-margin-right clear">
+						<span class="show_choice"></span>
+						<span>12:00-18:00</span>
+						<input type="checkbox" value="12:00-18:00">
+					</div>
+				</li>
+				<li>
+					<div class="label label-checkbox label-margin-right clear">
+						<span class="show_choice"></span>
+						<span>18:00-24:00</span>
+						<input type="checkbox" value="18:00-24:00">
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="e-filter">
+			<div class="e-f-title background-fff position">
+				<span class="icon-img position-ab train-flag end-time-flag"></span>到达时间
+			</div>
+			<ul class="hide end-time">
+				<li>
+					<div class="label label-checkbox label-margin-right clear">
+						<span class="show_choice"></span>
+						<span>00:00-06:00</span>
+						<input type="checkbox" value="00:00-06:00">
+					</div>
+				</li>
+				<li>
+					<div class="label label-checkbox label-margin-right clear">
+						<span class="show_choice"></span>
+						<span>06:00-12:00</span>
+						<input type="checkbox" value="06:00-12:00">
+					</div>
+				</li>
+				<li>
+					<div class="label label-checkbox label-margin-right clear">
+						<span class="show_choice"></span>
+						<span>12:00-18:00</span>
+						<input type="checkbox" value="12:00-18:00">
+					</div>
+				</li>
+				<li>
+					<div class="label label-checkbox label-margin-right clear">
+						<span class="show_choice"></span>
+						<span>18:00-24:00</span>
+						<input type="checkbox" value="18:00-24:00">
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="float-right airline-content">
+		<div class="tips margin-bottom-10 animated bounceInRight hide">
+			温馨提示：系统23:00-06:00为维护时间，在此期间如需办理购票、改签或退票，请到铁路车站窗口办理，祝您旅途愉快~
+		</div>
+		<div class="clear sevenDateContent font-size-12 margin-bottom-10" style="display: none;">
+			<div class="prev_date prev_date_t"></div>
+			<ul class="train-ulTabs" id="date_train_tab"></ul>
+			<div class="next_date"></div>
+		</div>
+		<div class="filter">
+			<span class="filter-train-xinxi">车次信息</span>
+			<span class="stg-sort start-btn" data-sflag="0" data-flag="fromTime">出发</span>
+			<span class="stg-sort arrive-btn" data-sflag="0" data-flag="toTime">到达</span>
+			<span class="stg-sort times-btn" data-sflag="0" data-flag="runTimeSpan">运行时长</span>
+			<span class="price-btn" data-sflag="0" data-flag="price">价格</span>
+		</div>
+		<div class="train-list-content mCustomScrollbar clear">
+			<ul class="train-list"></ul>
+			#parse("/common/no-data.html")
+		</div>
+	</div>
+</div>

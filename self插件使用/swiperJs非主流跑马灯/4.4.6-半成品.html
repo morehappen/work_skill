@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Swiper demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="./swiper.css">
+
+    <!-- Demo styles -->
+    <style>
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+        
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .car_list_box .car_list_top {
+            overflow: hidden;
+            position: relative;
+            width: 22.19rem;
+            /* height: 7.81rem; */
+            border-radius: 0.5rem;
+            background-color: #fff;
+            margin: 4.23rem auto 0 auto;
+            /* display: flex; */
+            /* display: -webkit-flex; */
+        }
+        /* .car_list_box .car_list_top .car_swipe_container {
+            width: 20.37rem;
+            margin: 0 auto;
+            height: 5.41rem;
+        }
+        
+        .car_list_box .car_list_top .car_swipe_container img {
+            width: 100%;
+        } */
+        
+        .swiper-container {
+            width: 100%;
+            /* height: 100%; */
+        }
+        
+        .swiper-wrapper {
+            min-height: 0;
+            height: 1.91rem;
+            margin-top: 2.72rem;
+            /* margin-bottom: 3.19rem; */
+            margin-bottom: 2.19rem;
+        }
+        
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            opacity: 0.5;
+            position: relative;
+        }
+        
+        .swiper-slide .item_img_tip {
+            position: absolute;
+            top: -1.55rem;
+            width: 100%;
+            text-align: center;
+            opacity: 0.5;
+            font-size: 0.63rem;
+            color: #999;
+        }
+        
+        .swiper-slide-active {
+            opacity: 1;
+        }
+        
+        .swiper-slide img {
+            /* width: 100%; */
+            width: 3.78rem;
+            height: 1.53rem;
+            display: block;
+        }
+        
+        .swiper-slide-active img {
+            width: 4.78rem;
+            height: 1.91rem;
+            display: block;
+        }
+        
+        .swiper-slide-active .item_img_tip {
+            font-size: 0.75rem;
+            color: #333;
+            opacity: 1;
+        }
+        /* 此处分割底部的信息 */
+        
+        .car_list_box .car_list_top .car_detail_info {
+            /* margin-top: 3.19rem; */
+            /* position: absolute; */
+            width: 100%;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            bottom: 0rem;
+            color: #333333;
+            font-size: 0.69rem;
+            text-align: center;
+        }
+        
+        .car_list_box .car_list_top .car_detail_info .car_detail_txt {
+            width: 20rem;
+            margin: 0 auto;
+        }
+        
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+            background: #333;
+        }
+    </style>
+</head>
+
+<body class="car_list_box">
+
+    <div class="car_list_top">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="./home.png" alt="">
+                    <div class="item_img_tip">
+                        豪华型
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="./home_banner_0.png" alt="">
+                    <div class="item_img_tip">
+                        舒适型
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="./home_banner_1.png" alt="">
+                    <div class="item_img_tip">
+                        简约型
+                    </div>
+                </div>
+
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="car_detail_info">
+            <div class="car_detail_txt">
+                乘坐4人 | 行李2件 时长约44分钟 | 里程约30.2公里
+            </div>
+        </div>
+    </div>
+
+    <!-- Swiper -->
+    <!-- <div class="swiper-container"> -->
+    <!-- <div class="swiper-wrapper"> -->
+    <!-- <div class="swiper-slide"> -->
+    <!-- <img src="./home.png" alt=""> -->
+    <!-- </div> -->
+    <!-- <div class="swiper-slide"> -->
+    <!-- <img src="./home_banner_0.png" alt=""> -->
+    <!-- </div> -->
+    <!-- <div class="swiper-slide"> -->
+    <!-- <img src="./home_banner_1.png" alt=""> -->
+    <!-- </div> -->
+
+    <!-- </div> -->
+    <!-- Add Pagination -->
+    <!-- <div class="swiper-pagination"></div> -->
+    <!-- </div> -->
+
+    <!-- Swiper JS -->
+    <script src="./swiper.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/Swiper/4.4.6/js/swiper.js"></script> -->
+    <script src="../jquery-1.12.4.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        // var swiper = new Swiper('.swiper-container', {
+        //     slidesPerView: 4,
+        //     centeredSlides: true,
+        //     spaceBetween: 30,
+        //     grabCursor: true,
+        //     pagination: {
+        //         el: '.swiper-pagination',
+        //         clickable: true,
+        //     },
+        // });
+        $(function() {
+            var myswiper = new Swiper('.swiper-container', {
+                slidesPerView: 4,
+                centeredSlides: true,
+                spaceBetween: 30,
+                grabCursor: true,
+                // 如果需要 分页器
+                // pagination: '.swiper-pagination',
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                on: {
+                    click: function() {
+                        console.log("clcik")
+                        console.log(this.clickedIndex);
+                    },
+                    slideChangeEnd: function() {
+                        console.log('slideChangeEnd')
+                        console.log(this.activeIndex);
+                    },
+                    touchEnd: function() {
+                        console.log(199);
+                        alert(this.activeIndex);
+                    }
+                },
+                // onSlideChangeStart: function(swiper) {
+                //     console.log(299)
+                //     alert(1);
+                // },
+                // onTransitionEnd: function(swiper) {
+                //     console.log(872);
+                //     alert(swiper.activeIndex) //切换结束时，告诉我现在是第几个slide
+                // }
+
+            });
+        })
+    </script>
+</body>
+
+</html>
+
+</html>

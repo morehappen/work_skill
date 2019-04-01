@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>机票政策</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/policy/add-policy.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("common/head.html")
+		<!-- breadcrumbs -->
+		<div class="bread-crums main-content margin-top-10">
+			#parse("/common/policy.html") > 添加机票差旅政策
+		</div>
+		<!-- 主体 begin -->
+		<div class="main-content background-fff margin-top-10 auto_bottom" style="padding-bottom: 150px;">
+			<form action="/crm/chailv/guoneisave" method="post" id="chailvguoneiForm">
+				<input type="hidden" name="id" value="$!policy.id" />
+				<input type="hidden" name="type" value="$!company.chailvbiaozhun" />
+			    <input type="hidden" name="companyid" value="$!cid" />
+					<!-- 001 begin -->
+					<div class="every-model border-bottom-1">
+						#if("$!company.chailvbiaozhun"== "level")
+							<div class="">
+								<span class="title">员工职级</span>
+								<select class="_select_" name="startlevel" data-value="$!policy.startlevel" data-rule="required" datatype="n" nullmsg="请选择员工职级">
+									<option value="">-请选择职级-</option>
+									#foreach($!staff in $!AllStaff)
+										<option value="$!staff.value">$!staff.name</option>
+									#end
+								</select>
+								<span>至</span>
+								<select class="_select_" name="endlevel" data-value="$!policy.endlevel" data-rule="required" datatype="n" nullmsg="请选择员工职级">
+									<option value="">-请选择职级-</option>
+									 #foreach($!staff in $!AllStaff)
+										<option value="$!staff.value">$!staff.name</option>
+									 #end
+								</select>
+							</div>
+						#end
+					<!-- 	<input type="hidden" value="0" name="startmile" />
+						<input type="hidden" value="999999" name="endmile" /> -->
+					</div>
+					<!-- 001 end -->
+					<!-- 002 begin -->
+					<div class="every-model border-bottom-1 clear">
+						<span class="title">乘机限制</span>
+						<div class="licheng">
+						#set($zhekou=[30,40,50,60,70,80,90,100,120,150,200])
+							<div class="clear">
+							#set($milesstart=[0,500,600,700,800,1000,1500]) #set($milesend=[500,600,700,800,1000,1500,10000])
+								<div class="float-left">
+									<span class="title">里程范围</span>
+									<select class="_select_" name="startmile_0" datatype="*" nullmsg="请选择里程范围！">
+										<option value="">-请选择范围-</option>#foreach($!m in $!milesstart)
+										<option value="$!m">$!m</option> #end
+									</select>
+									至
+									<select class="_select_" name="endmile_0" datatype="*" nullmsg="请选择里程范围！">
+										<option value="">-请选择范围-</option>
+										#foreach($!m in $!milesend)
+										<option value="$!m">$!m</option>
+										#end
+									</select>
+								</div>
+								<div class="float-right">
+									<button type="button" class="btn btn-default btn-middle add-licheng">添加</button>
+								</div>
+							</div>
+							<div class="clear">
+								<div class="air-rank can-allow float-left">
+									<div class="label label-radio margin-right-30 label-select-radio clear">
+										<span class="show_choice"></span>
+										<input type="radio" class="" name="allowfly_0" value="1">
+										<span>允许乘坐飞机</span>
+									</div>
+									<div class="label label-radio margin-right-30 clear">
+										<span class="show_choice"></span>
+										<input type="radio" class="" name="allowfly_0" value="0">
+										<span>不允许乘坐飞机</span>
+									</div>
+								</div>
+								<div class="ctrl-type allowfly-ctr float-right">
+									<div class="label label-radio label-select-radio clear">
+										<span class="show_choice"></span>
+										<input type="radio" name="controller_0_0" value="1">
+										<span>超标审批</span>
+									</div>
+									<div class="label label-radio clear">
+										<span class="show_choice"></span>
+										<input type="radio" name="controller_0_0" value="0">
+										<span>不允许预订</span>
+									</div>
+								</div>
+							</div>
+							<div class="can-fly">
+								<div class="clear">
+									<div class="air-rank float-left">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="cabinlimit_0" value="1" #if($!policy.cabinlimit== 1)checked#end>
+											<span>不得高于</span>
+										</div>
+										<select class="_select_" name="cabinzhekou_0" data-value="">
+											<option value="">-请选择范围-</option>
+											#foreach($!zk in $!zhekou)
+											<option value="$!zk">#if($!zk < 100) $!zk折 #elseif($!zk==100) 全价舱 #elseif($!zk==120) 公务舱 #elseif($!zk==150) 头等舱 #end</option>
+											#end
+										</select>
+									</div>
+									<div class="ctrl-type float-right">
+										<div class="label label-radio label-select-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="controller_0_1" value="1">
+											<span>超标审批</span>
+										</div>
+										<div class="label label-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="controller_0_1" value="0">
+											<span>不允许预订</span>
+										</div>
+										<div class="label label-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="controller_0_1" value="2">
+											<span>只提醒,无需审批</span>
+										</div>
+									</div>
+								</div>
+								<div class="clear">
+									<div class="air-rank float-left">
+										<div class="float-left">
+											<div class="label label-checkbox margin-right-30 clear">
+												<span class="show_choice"></span>
+												<input type="checkbox" name="flightlimit_0" value="1" #if($!crmPolicyAir.flightlimit== 1)checked#end>
+												<span>最低价限制</span>
+											</div>
+										</div>
+										<div class="float-left isfilterStop_ls" >
+											<div class="label label-radio  margin-right-20 clear isfilterStop_label">
+												<span class="show_choice"></span>
+												<input type="radio" name="flightlowtype_0" value="0" #if(($!crmPolicyAir.flightlowtype== 0) || ("$!policy.flightlowtype"== ""))checked#end>
+												<span>航班最低价</span>
+											</div>
+										</div>
+										<div class="float-left isfilterStop_ls">
+											<div class="label label-radio margin-right-20 clear isfilterStop_label">
+												<span class="show_choice"></span>
+												<input type="radio" name="flightlowtype_0" value="1" #if($!crmPolicyAir.flightlowtype== 1)checked#end>
+												<span>全天最低价</span>
+												
+											</div><br/>
+											<div class="isfilterStop_box label label-checkbox margin-top-20 #if($!newlist.flightlowtype!= 1)hide#end">
+												<span class="show_choice"></span>
+												<input type="checkbox" class="isfilterStop" #if($!crmPolicyAir.flightlowtype== 1)  name="isfilterStop_$!{index}"value="1"  #if($!crmPolicyAir.isfilterStop==1)  checked #end #end > 不推荐经停航班
+											</div>
+										</div>
+										<div class="float-left isfilterStop_ls">
+											<div class="label label-radio clear isfilterStop_label">
+												<span class="show_choice"></span>
+												<input type="radio" name="flightlowtype_0" value="2" #if($!policy.flightlowtype== 2)checked#end>
+												<span>前后</span>
+											</div>
+											<input type="text" class="input" datatype="n" ignore="ignore" name="flighthour_0" nullmsg="请输入时间！" errormsg="请输入合法时间数值" value="$!policy.flighthour"/>小时最低价
+											<br/>
+											<div class='label label-checkbox margin-top-10 isfilterStop_box #if($!policy.flightlowtype!=2)hide #end' >
+												<span class="show_choice"></span>
+												<input type="checkbox" class="isfilterStop" #if($!policy.flightlowtype== 2)name="isfilterStop_$!{index}" value="1" #if($!policy.isfilterStop==1)  checked #end #end >不推荐经停航班
+											</div>
+										</div>
+									</div>
+									<div class="ctrl-type float-right">
+										<div class="label label-radio label-select-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="controller_0_2" value="1">
+											<span>超标审批</span>
+										</div>
+										<div class="label label-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="controller_0_2" value="0">
+											<span>不允许预订</span>
+										</div>
+										<div class="label label-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="controller_0_2" value="2">
+											<span>只提醒,无需审批</span>
+										</div>
+									</div>
+								</div>
+								<div class="clear">
+									<div class="air-rank float-left">
+										<div class="label label-checkbox">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="allowbefore_0" value="1">
+											<span>提前</span>
+										</div>
+										<input type="text" class="input" name="beforeday_0" datatype="n" ignore="ignore" nullmsg="请输入提前天数！" errormsg="请输入合法天数数值" value="$!policy.beforeday" />天预订
+									</div>
+									<div class="ctrl-type float-right">
+										<div class="label label-radio label-select-radio">
+											<span class="show_choice"></span>
+											<input type="radio" name="controller_0_3" value="1">
+											<span>超标审批</span>
+										</div>
+										<div class="label label-radio">
+											<span class="show_choice"></span>
+											<input type="radio" name="controller_0_3" value="0">
+											<span>不允许预订</span>
+										</div>
+										<div class="label label-radio">
+											<span class="show_choice"></span>
+											<input type="radio" name="controller_0_3" value="2">
+											<span>只提醒,无需审批</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<input type="hidden" name="chailvSize" value="1"/>
+					<!-- 002 end -->
+					<!-- 按钮 begin -->
+					<div class="clear margin-top-20 margin-bottom-30 text-align">
+						<button type="button" class="btn btn-default btn-big" id="save-btn">确定</button>
+						<a href="/crm/chailv/" class="btn btn-cancel btn-big">取消</a>
+					</div>
+					<!-- 按钮 end -->
+			</form>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/policy/policy-add-common.js"></script>
+		<script type="text/javascript" src="/static/js/crm/policy/add-air-policy.js"></script>
+	</body>
+</html>

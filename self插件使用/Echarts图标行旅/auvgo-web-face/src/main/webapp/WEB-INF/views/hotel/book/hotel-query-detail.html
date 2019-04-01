@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>酒店-列表</title>
+	<link rel="icon" sizes="any" href="/resources/images/common/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/scrollbar.css"/>
+	<link rel="stylesheet" type="text/css" href="/resources/css/hotel/hotel-query-roomtype.css">
+	<style>
+		.room_rname{
+			height: 110px;
+			line-height: 110px;
+		}
+		.room_information{
+			width: 100px;
+		}
+		.low-price-wraper{
+			width: 274px;
+		}
+		.e-room-t-head img{
+			margin-top: 10px;
+		}
+		.star-level{
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+			background: url(/resources/images/hotel/star-level.png);
+		}
+		.nothing-star-level {
+			 display: inline-block;
+			 width: 12px;
+			 height: 12px;
+			 background: url(/resources/images/hotel/nothing-star-level.png);
+		 }
+	</style>
+</head>
+<body class="background-f4f6f8 clear">
+#parse("/common/head.html")
+<div class="main-content clear">
+	<div class="clear" style="padding-top:20px;">
+		<input type="hidden" value="All" id="pay-type">
+		<input type="hidden" value="$!{hotel.geoId}" id="geoCode_i">
+		<input type="hidden" value="$!{cityLevel}" id="city_level_i">
+		<div class="r-head margin-bottom-20 background-fff font-size-12 clear">
+			<div class="r-head-l float-left">
+				<div class="font-size-16 r-head-l-t margin-bottom-20" id="hotel-id" data-hotelid="$!{hotel.hotelNo}">
+				$!{hotel.nameCn}
+				#if($!hotel.category==5)
+				<span class="star-level"></span>
+				<span class="star-level"></span>
+				<span class="star-level"></span>
+				<span class="star-level"></span>
+				<span class="star-level"></span>
+				#elseif($!hotel.category==4)
+				<span class="star-level"></span>
+				<span class="star-level"></span>
+				<span class="star-level"></span>
+				<span class="star-level"></span>
+				<span class="nothing-star-level"></span>
+				#elseif($!hotel.category==3)
+				<span class="star-level"></span>
+				<span class="star-level"></span>
+				<span class="star-level"></span>
+				<span class="nothing-star-level"></span>
+				<span class="nothing-star-level"></span>
+				#elseif($!hotel.category==2)
+				<span class="star-level"></span>
+				<span class="star-level"></span>
+				<span class="nothing-star-level"></span>
+				<span class="nothing-star-level"></span>
+				<span class="nothing-star-level"></span>
+				#end
+				</div>
+
+				<div class="color-666 r-head-l-a margin-bottom-30" id="city-id" data-cityid="$!{hotel.geoId}">$!{hotel.addressCn}</div>
+				<div class="clear r-head-l-f">
+					<div class="float-left clear">
+						<div class="float-left faciligy-box clear">
+						  #if($!hotel.creditCards.indexOf("JCB")>-1)
+							<span class="facility-bg icon-img f-b-01 jcb-icon" ></span>
+						  #end
+						  #if($!hotel.creditCards.indexOf("Visa")>-1)
+							<span class="facility-bg icon-img f-b-01 visa-icon" ></span>
+						  #end
+						  #if($!hotel.creditCards.indexOf("Unionpay")>-1)
+							<span class="facility-bg icon-img f-b-01 unionpay-icon" ></span>
+						  #end
+						  #if($!hotel.creditCards.indexOf("Master")>-1)
+							<span class="facility-bg icon-img f-b-01 cmd-icon" ></span>
+						  #end
+						</div>
+						<div class="e-faciligy">
+							<span class="facility-bg icon-img f-b-01"></span><span class="facility-text">无线网</span>
+						</div>
+						<div class="e-faciligy">
+							<span class="facility-bg icon-img f-b-02"></span><span class="facility-text">包含停车</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="r-head-r float-right text-align-r">
+				<div class="r-head-r-btn">
+					<form action="/hotel/list" method="post" accept-charset="utf-8">
+						<input type="hidden" name="geoName" value="$!{hotel.cityName}">
+						<input type="hidden" name="geoCode" value="$!{hotel.geoId}">
+						<input type="hidden" name="checkIn" value="${checkIn}">
+						<input type="hidden" name="checkOut" value="${checkOut}">
+						<button type="submit" class="btn btn-default-new  btn-return">返回</button>
+					</form>
+				</div>
+				<div class="r-head-r-phone clear">
+					<span class="r-head-r-text float-right">$!{hotel.phone}</span>
+					<span class="r-head-r-bg icon-img r-h-r-01 float-right"></span>
+				</div>
+				<div class="r-head-r-tips clear">
+					<span class="r-head-r-text float-right">服务设施信息仅供参考，请以实际住店为准</span>
+					<span class="r-head-r-bg icon-img r-h-r-02 float-right"></span>
+				</div>
+			</div>
+		</div>
+		<div class="float-left clear" style="position:relative;">
+		  	#set($first="")
+		  		#if($hotel.images && $!hotel.images.size()!=0)
+		      		<input type="hidden" id="hotelImages" name="hotelImages" value='#foreach($img in $!hotel.images) #set($index =$vCount) #if("$!{img.roomNo}"!="" || "$!{img.roomNo}"!="null") #foreach($imgUrl in $!img.imageLocations)#if($!{imgUrl.sizeType}==7)#if($index==1)#set($first=$!{imgUrl.url.replace("Mobile640_960","Hotel795_325")})#else,#end${imgUrl.url}#end #end #end #end'/>
+		      	#end
+			  	<div class="slider-big" title="$!vCount" style='background-image: url(#if("$!{first}"!="")$!first#else /resources/images/hotel/detaile-default-icon.png #end)'></div>
+			  	<div class="slider-small margin-bottom-20" style="position: absolute;bottom:0;width:939px;">
+					<div class="slider-arrow left-arrow"><span class="hotel-bg l-arrow"></span></div>
+					<div class="slider-arrow right-arrow"><span class="hotel-bg r-arrow"></span></div>
+					<div class="slider-small-wraper position">
+						<div id="slider_con" class="e-slider-con position-ab active" data-ishavenext="true" data-con="lobby" style="height: 90px;">
+						</div>
+					</div>
+				</div>
+		</div>
+		<!--地图容器-->
+		<div class="map-c float-right">
+			<div class="font-size-12 clolor-B4B4B4 padding-5-15">交通</div>
+			<div class="baidu-map margin-bottom-20" id="map-container" data="$!{hotel.hotelNo}" data-longtitude="$!{hotel.longitude}" data-latitude="$!{hotel.latitude}" style="overflow: hidden; position: relative;">
+			</div>
+		</div>
+	</div>
+	<div class="clear hotelIntroduction">
+		<div class="introduction-box margin-bottom-20">
+			<div class="font-size-16 margin-bottom-10">酒店简介</div>
+			<div class="introduction-wraper  position">
+				<p class="intro-con font-size-12 color-666">
+					$!{hotel.introEditorCn}
+				</p>
+				<!--<div class="slide_shut position-ab cursor"></div>-->
+			</div>
+			<div class="font-size-16 margin-bottom-10 facilities">酒店设施</div>
+			<div class="introduction-wraper  position">
+				<p class="intro-con font-size-12 color-666">$!{hotel.generalAmenitiesCn}</p>
+				<!--<div class="slide_shut position-ab cursor"></div>-->
+			</div>
+		</div>
+		<div class="date-wraper background-fff clear font-size-12 margin-bottom-20">
+			<div class="float-left position date-ctrl">
+				<span class="icon-img icon-search position-ab icon-date-ccc"></span>
+				#if("$!{isCanModify}" == "0")
+					<input type="text" name="checkIn" id="checkIn" value="$!{checkIn}" readonly class="input border-radius float-left"/>
+				#else
+					<input type="text" name="checkIn" id="checkIn" value="$!{checkIn}" readonly class="input border-radius float-left" onfocus="var checkOut=$dp.$('checkOut');WdatePicker({isShowClear:false,readOnly:true,errDealMode:1,lang:'zh-cn',doubleCalendar:true,dateFmt:'yyyy-MM-dd',onpicked:function(){checkDate('checkIn', 'checkOut', 1, 22); checkOut.focus();},minDate:'$!{minCheckIn}',maxDate:'#F{$dp.$DV(\'$!{minCheckIn}\',{M:0,d:90})}'})"/>
+				#end
+			</div>
+			<div class="float-left">
+				<div class="l-connector"></div>
+			</div>
+			<div class="float-left position date-ctrl margin-right-23">
+				<span class="icon-img icon-search position-ab icon-date-ccc"></span>
+				#if("$!{isCanModify}" == "0")
+					<input type="text" name="checkOut" id="checkOut" value="$!{checkOut}" readonly class="input border-radius float-left"/>
+				#else
+					<input type="text" name="checkOut" id="checkOut" value="$!{checkOut}" readonly class="input border-radius float-left" onfocus="WdatePicker({isShowClear:false,readOnly:true,errDealMode:1,lang:'zh-cn',doubleCalendar:true,dateFmt:'yyyy-MM-dd',onpicked:function(){checkDate('checkIn', 'checkOut', 1, 22);countNight();loadRoom();},maxDate:'#F{$dp.$DV(\'$!{minCheckIn}\',{M:0,d:91})}',minDate:'#F{$dp.$D(\'checkIn\',{M:0,d:1})}',})"/>
+				#end
+			</div>
+			<div class="float-left date-count color-333">
+				入住 <span class="color-000 font-size-14" id="interval">1</span> 晚
+			</div>
+			<div class="float-right">
+				<button type="button" class="btn btn-default-new btn-big-big" id="query-room">确定</button>
+			</div>
+		</div>
+		<!-- 房型列表 begin -->
+	    <form method="post" id="bookForm">
+		<ul id="hotelRooms" class="room-type-list margin-bottom-30">
+			<!--<div class="no-data-wraper">-->
+				<!--&lt;!&ndash;<div class="no-data animated rotateIn">&ndash;&gt;-->
+				<!--<div class="auvgo-approve-bgs no-data-pics" title=""></div>-->
+				<!--<div class="no-data-text"></div>-->
+				<!--&lt;!&ndash;</div>&ndash;&gt;-->
+			<!--</div>-->
+		</ul>
+		<div id="placeholder"></div>
+		
+		</form>
+		<!-- 房型列表 end -->
+	</div>
+</div>
+<!-- 遮罩层 begin -->
+<div class="position-ab Screen-full hide">
+	<div class="Screen-zhezhao"></div>
+	<div class="position-ab query-loading">
+		<div class="text-align">请稍等...</div>
+		<div class="loadingImg text-align">
+			<img src="../../static/project-resource/img/loading-line.gif" style="width: 555px;height: 22px;">
+		</div>
+		<div class="font-size-14 text-align query-status">正在努力为您查询实时的酒店信息</div>
+		<div class="font-size-14 text-align query-tips"></div>
+		<div class="query-hc">
+			<span class="float-left wait-icon icon-hotel"></span>
+			<span class="float-left wait-city mask-arrive-date"></span>
+			<span class="float-left a-l-point wait-jiantou position">
+						<span class="wait-hb-date position-ab text-align mask-location"></span>
+			</span>
+			<span class="float-left wait-city mask-depart-date text-align-r"></span>
+		</div>
+	</div>
+</div>
+<!--底部-->
+#parse("/common/footer-bottom.html")
+<!-- 遮罩层 end -->
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/layer/layer.js"></script>
+<script type="text/javascript" src="/resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="/resources/js/common/My97DatePicker/WdatePicker.js" defer="defer" charset="utf-8"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18&services=&t=20180323171755"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18"></script>
+<script type="text/javascript" src="/resources/js/hotel/hotel-policy.js"></script>
+<script type="text/javascript" src="/resources/js/hotel/hotel-query-detail.js"></script>
+<script type="text/javascript" src="/resources/js/common/date.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-oa.js"></script>
+<script>
+    (function(){
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        };
+        if(!($(".guoji-needs").is("div"))){
+            var flag_check = $.getUrlParam("flag");
+            var pathname=window.location.pathname.split("/")[1];
+            $(".target_a").removeClass("target_a");
+            $(".sub-active").removeClass("sub-active");
+
+            $(".nav_main[href^='/"+pathname+"']").addClass("target_a");
+
+            $(".sub-nav a[href='/"+pathname+"']").not(".go-home").addClass("sub-active");
+            if (!flag_check && (pathname == 'air'||pathname == 'hotel'||pathname == 'train')) {
+
+                $(".sub-nav a[href^='/" + pathname + "']").removeClass("sub-active");
+                $(".sub-nav a[href^='/index']").addClass("sub-active");
+
+            };
+            $(".sub-nav a[data-default='/" + pathname + "']").addClass("sub-active");
+            // 订单列表页面控制左侧导航
+            var _pathname = window.location.pathname.split("/")[2];
+            $('#order-left-nav').find('[data-orderflag="' + _pathname + '"]').addClass('color-6461e2');
+            //icon-up-jt-second
+            // 数据管理页面控制左侧导航
+            var __pathname = window.location.pathname.split("/")[3];
+            __pathname == 'design' && (__pathname = 'city');
+            $('#data-manage-left').find('[data-manageflag="' + __pathname + '"]').addClass('color-6461e2');
+        }else{
+            $('[data-flag="guoji"]').addClass("sub-active");
+        }
+    })();
+    $(function () {
+        // 右上角个人中心悬停事件
+
+        $('body').on('mouseenter', '.user-box', function () {
+            $('.user_drap').removeClass("hide");
+            $('.selectbox_arrow').removeClass('hide');
+            $('.selectbox_up').addClass('hide');
+        });
+        $('body').on('mouseleave', '.user-box', function () {
+            $('.user_drap').addClass("hide");
+            $('.selectbox_arrow').removeClass('hide');
+            $('.selectbox_down').addClass('hide');
+        });
+
+    })
+</script>
+</body>
+</html>

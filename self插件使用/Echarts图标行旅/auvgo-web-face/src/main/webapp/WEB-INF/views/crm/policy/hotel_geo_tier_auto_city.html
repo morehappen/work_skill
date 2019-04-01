@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>城市关联</title>
+		#parse("/common/styleSheetCommon.html")
+		<style>
+			body,html{
+				height:100%;
+			}
+			.form-row-button-box{
+				height:100%;
+				position:relative;
+			}
+			.pos-a{
+				margin-bottom:40px;
+				width:100%;
+				height:85%;
+			}
+			.form-row-button{
+				text-align: center;
+				width:100%;
+				position:absolute;
+				bottom:10px;
+			}
+			.form-left{
+				height:100%;
+				width:100%;
+				
+			}
+			.ztree{
+				width:80%;
+				margin:auto;
+				height:100%;
+				overflow: auto;
+				
+			}
+		</style>
+	</head>
+	<body >
+	<div class="form-row-button-box">
+		<div class="form-left float-left">
+			<div class="pos-a">
+				<ul id="treeDemo" class="ztree"></ul>
+			</div>
+		</div>
+		<div class="form-row-button">
+			<button type="submit" class="btn btn-default btn-big" onclick="submitId()">确定</button>
+			<button type="button" class="btn btn-cancel btn-big alert_close_">取消</button>
+		</div>
+		
+		<input type="hidden" name="cityCodes" value="$!{cityCodes}" id="cityCodes">
+		<input type="hidden" name="customerNo" value="$!{customerNo}" id="customerNo_i">
+		<input type="hidden" name="level" value="$!{level}" id="level_i">
+		<input type="hidden" name="alias" value="$!{model.alias}" id="alias_i">
+	</div>
+	
+	</body>
+	#parse("/common/foot.html")
+</html>
+<script type="text/javascript"  src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/layer/layer.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/zTree/jquery.ztree.all-3.5.min.js"></script>
+
+<script type="text/javascript">
+	var zNodes = $!{geoJson};
+	$(document).ready(function() {
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	});
+	var setting = {
+		view : {dblClickExpand : false,showLine : false,selectedMulti : false},
+		data: {simpleData: {enable: true}},
+		check : {
+			autoCheckTrigger : true,
+			chkboxType : {
+				"Y" : "ps",
+				"N" : "ps"
+			},
+			enable : true,
+			nocheckInherit : true,
+			chkDisabledInherit : true,
+		},
+		callback : {
+			onCheck:function(e, treeId, treeNode) {
+				var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+				var nodes = treeObj.getCheckedNodes(true);
+				var ids="";
+				for(var i=0;i<nodes.length;i++){
+					if(nodes[i].pId != undefined && nodes[i].pId != null){
+						if(ids!=""){
+							ids += "/";
+						}
+						ids += nodes[i].id;
+					}
+				}
+				$("#cityCodes").val(ids);
+			}
+		}
+	};
+	
+	function submitId(){
+		var cityCodes = $("#cityCodes").val();
+		var customerNo = $("#customerNo_i").val();
+		var level = $("#level_i").val();
+		var alias = $("#alias_i").val();
+		if(cityCodes==""){
+			layer.msg("请选择城市");
+			return false;
+		}
+		$.ajax({
+			type:'POST',
+			url:'/chailv/hotel/geo/save/city',
+			data:{'cityCodes':cityCodes, "customerNo":customerNo, "level":level, "alias":alias},
+			success:function(data){
+				if(data.status==200){
+					layer.msg("保存成功");
+					if(data.status==200){
+						setTimeout(function(){
+							top.location.reload();
+						}, 1000);
+					}
+				}else{
+					layer.msg(data.msg);
+				}
+			},
+			error:function(err){
+				layer.msg("系统出现异常！请联系管理员")
+			}
+		});
+	}
+</script>

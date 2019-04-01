@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>火车票订单-时刻表</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/order-detail.css" />
+	</head>
+	<body>
+		<!-- 主体 begin -->
+		<div class="time-table-wraper">
+			<table class="table table-thead">
+				<thead>
+					<tr>
+						<th>车站名</th>
+						<th>到达时间</th>
+						<th>发车时间</th>
+						<th>停留时间</th>
+					</tr>
+				</thead>
+			</table>
+			<table class="table table-tbody">
+				<tbody>
+				#set($start = 0)
+				#set($end = 0)
+				#foreach($!train in $!maps.data)
+			    #set($tax1 = $!train.station_name)
+			    #if($!tax1 == $!fromStation)
+					<tr class="color-6461e2">
+						<td>$!train.station_name</td>
+						<td>--</td>
+						<td>$!train.arrive_time</td>
+						<td>--</td>
+					</tr>
+					#set($start = 1)
+				#elseif($!tax1 == $!arriveStation)
+				    <tr class="color-6461e2">
+						<td>$!train.station_name</td>
+						<td>$!train.arrive_time</td>
+						<td>$!train.start_time</td>
+						<td>$!train.stop_over_time</td>
+					</tr>
+					#set($end = 1)
+				#elseif($!start == 1 && $!end == 0)
+				<tr class="color-333">
+					<td>$!train.station_name</td>
+					<td>$!train.arrive_time</td>
+					<td>$!train.start_time</td>
+					<td>$!train.stop_over_time</td>
+				</tr>
+				#elseif($!end == 1)
+				<tr class="color-bbb">
+					<td>$!train.station_name</td>
+					<td>$!train.arrive_time</td>
+					<td>$!train.start_time</td>
+					<td>$!train.stop_over_time</td>
+				</tr>
+			    #end
+				#end
+				</tbody>
+			</table>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+	</body>
+</html>

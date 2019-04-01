@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>酒店合租页面的js结构分析</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 酒店合租页面的js结构分析
+
+    // 1，全局构造函数分布
+    // 	（1）hotel_obj：专属js脚本
+    // 	（2）Contact：联系人模块构造函数
+    // 	（3）Approve：审批实例
+    // 	（4）PassengerModel：初始乘客选择模块
+    // 	（5）ApplicationPassengerModel：初始乘客选择模块
+    // 	（6）HotelPolicy：差旅政策实例
+
+    // 2，在专属脚本中的js执行大致步骤
+    // 	（1）初始化常用联系人
+    // 	（2）初始化乘客模块【此处需要根据不同的情况】
+    // 	（3）初始化出差单号，出差事由
+    // 	（4）调取审批政策
+
+    // 3，代码结构对应分析
+    // 	（1）hotel_obj是一个控制类，该类型往往仅仅是一个入口对象而已，是小写的对象变量。
+    // 		在改变量内部，对应有init初始化，各种组件类的实例化（比如选择乘客的弹框就是一个组件），
+    // 		各种基本类的实例化，基本类的实例化过程，一般不会在控制类中直接调用，往往是组件内进行调用。因为控制类往往是在进行功能上的应用。
+    // 	（2）组件封装：PassengerModel乘客选择模块的弹框封装，这是一个标准的组件封装。
+    // 		内部进行了各种基本类调用：
+    // 		1，比如下拉选择的构造函数SelectMain的初始化。
+    // 		2，比如操作历史距离的构造函数CookieMain的初始化
+    // 	（3）基本类：比如selectMain这种作为公共复用的下拉框插件【可以称为插件，但是在行旅这个项目中，我更觉得是个基本类】
+    // 		基本类中本身，也是有类似插件的书写方式的。
+    // 		var IComponent = function() {
+    // 			this.init = function(context){};
+    // 			this.uiRender = function(context){};
+    // 			this.dataRender = function(context){};
+    // 			this.eventRender = function(context){};
+    // 			this.reload = function(){};
+    // 		}
+    // 	（4）工具类：比如很多方法，既不是属于组件的，也不是属于基本类的，这个时候，该方法被直接
+    // 		放置于对象的某个属性里。
+    // 		比如前面所述的控制类对象hotel_obj，如果作为对象属性，既可以直接在对象内部写入，也可以作为属性hotel_obj.sky=function(){}来写入。
+
+    // 4，组件书写技巧：比较常见的几种必有属性挂载
+    // 	（1）constructor，很多时候，需要制定给属性指向。
+    // 	（2）viewMain：主视图初始化，比如将获取ajax的数据拼接完成后插入主视图
+    // 	（2）viewUp:主视图更新
+    // 	（3）getData:比如主视图需要ajax请求数据，在viewMain内部可以调用该方法去获取到数据进行拼接。
+    // 	（4）Events：极其重要的属性方法。在整个组件中，肯定有非常多的按钮需要添加事件，该方法内部用来绑定这些事件。
+    // 	（5）this的不可忽视性：比如，在events内部最底部进行return this，使得即便初始化事件绑定后，我们可以返回实例。
+</script>
+
+</html>

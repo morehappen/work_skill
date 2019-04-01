@@ -1,0 +1,101 @@
+dl, dt, dd {
+    margin: 0;
+    padding: 0;
+}
+
+.second-side-nav {
+    width: 180px
+}
+
+.second-side-nav dt, .second-side-nav dt a {
+    height: 60px;
+    line-height: 60px;
+    background: #fff;
+    display: block;
+    cursor: pointer
+}
+
+.second-side-nav dd, .second-side-nav dd a {
+    height: 60px;
+    line-height: 60px;
+    display: block;
+    cursor: pointer
+}
+
+.second-side-nav dd {
+    background: #fff;
+    display: none
+}
+
+.second-side-nav a {
+    font-size: 14px;
+    color: #949494;
+    padding-left: 49px;
+    font-weight: 500;
+    /*border-left: 4px solid #e6e4ee*/
+    border-top: 1px solid #f3f3f3
+}
+
+/*.second-side-nav dt a{border-left-color:#949494}*/
+.second-side-nav dd a:hover, .second-side-nav dt a.ss-link:hover, .second-side-nav dd a.target, .second-side-nav dt a.target {
+    color: #D44A9F;
+    background: rgba(236,236,236,1);
+    /*border-left: 4px solid #614ec2*/
+}
+
+.s-nav-bg {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    overflow: hidden;
+    top: 22px;
+    left: 19px;
+}
+
+.target .icon-hotel-second {
+    background-position: -17px -234px;
+}
+
+.target .icon-international-second {
+    background-position: -15px -410px;
+}
+
+.target .icon-rent-second {
+    background-position: -17px -282px;
+}
+
+.target .icon-visa-second {
+    background-position: -15px -298px;
+}
+
+.target .icon-metting-second {
+    background-position: -17px -315px;
+}
+
+.target .icon-travel-apply-second {
+    background-position: -16px -392px;
+}
+
+.s-jt-bg {
+    top: 24px;
+    left: 155px
+}
+
+.input-model-two {
+    width: 200px;
+}
+
+.input-model-two input[type="text"], .input-model-two input[type="password"] {
+    width: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+

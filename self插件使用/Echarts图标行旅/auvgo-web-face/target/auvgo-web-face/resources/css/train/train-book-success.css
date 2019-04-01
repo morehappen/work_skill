@@ -1,0 +1,122 @@
+.main-content {
+    overflow: initial;
+}
+
+.success-model {
+    /*padding-top: 78px;*/
+    width: 1200px;
+    min-height: 414px;
+    _height: 414px;
+    padding-bottom: 20px;
+    margin: 0px auto 0 auto;
+    -moz-box-shadow: 0 0 34px 0 #e3e0f5;
+    -webkit-box-shadow: 0 0 34px 0 #e3e0f5;
+    box-shadow: 0 0 34px 0 #e3e0f5;
+    color: #888888;
+}
+
+.process_tip {
+    color: #A8A8A8;
+}
+
+.success-model a {
+    color: #888888;
+}
+
+.s-t-c {
+    padding-left: 25px;
+}
+
+.success-m-tips {
+    height: 50px;
+    margin: 15px 0 20px 0;
+    padding: 78px 0 0 108px;
+}
+
+.s-text {
+    font-size: 20px;
+    height: 36px;
+    line-height: 36px;
+    margin-bottom: 8px;
+    color: #000;
+}
+
+.order-detail {
+    padding: 0 0 0 185px;
+    margin-bottom: 66px
+}
+
+.o-r-de {
+    height: 34px;
+    line-height: 34px
+}
+
+.p-r-ctr {
+    padding-right: 70px;
+}
+
+.p-r-ctr2 {
+    padding-right: 55px;
+}
+
+.qc-flag {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    margin: 9px 16px 0 0;
+    background: #614EC2;
+    color: #fff;
+}
+
+.o-d-date {
+    margin-left: 55px;
+}
+
+.option_box {
+    margin-bottom: 25px;
+}
+
+.success-model .process_continue {
+    padding-right: 22px;
+    color: #6BA8F3;
+}
+
+.qc-point {
+    width: 24px;
+    height: 5px;
+    margin: 14px 10px 0 10px;
+    background: url(../../../static/img/airImg/air-bg.png) no-repeat 0 -123px;
+    /*background: url(../../../img/airImg/air-bg.png) no-repeat 0 -123px;*/
+}
+
+.jincheng-wraper {
+    min-height: 71px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

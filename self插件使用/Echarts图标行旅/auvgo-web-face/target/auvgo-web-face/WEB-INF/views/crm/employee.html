@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>员工管理</title>
+	#parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/staff-manage.css" />
+</head>
+<body class="background-6461e2">
+	<!-- breadcrumbs -->
+	#parse("/common/head.html")
+	<div class="main-content margin-top-10 ">
+		#parse("/crm/company/company-left.html")
+	<!--<div class="bread-crums-new main-content-new margin-top-10">-->
+		<!--#parse("/common/bread-crumbs.html")  员工管理-->
+	<!--</div>-->
+	<!-- 主体 begin -->
+	<div class="main-content-new margin-top-10 float-left " style="display: flex">
+		<!--组织架构-->
+		<div class=" framework" >
+			<div class=" float-left" >
+				<ul id="treeDemo" class="ztree"></ul>
+			</div>
+		</div>
+		<!--员工信息-->
+		<div class="tree-nav-content " style="width: 100%;">
+		<form action="/crm/employee" method="POST" id="empForm"style="min-width: 990px">
+			<input id="pageNo" type="hidden" name="pageNum">
+			<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+			<div class="input-select clear">
+				<div class="container">
+					<button type="button" class="float-left choice-cjr" data-limit="30"  id="relevation-person"  data-model="air" data-relation="relation">组织架构</button>
+					<input type="text" name="where" value="$!where" class="input border-radius" id="inquire" placeholder="姓名/手机号">
+					<button type="submit" class="search"></button>
+				</div>
+			</div>
+				<div class="clear passanger-container" style="margin-top: 20px">
+					<div class="passanger-model">
+						<div class="e-p-model font-size-12 ">
+							<div class="float-left p-w-200">员工编号</div>
+							<div class="float-left p-w-200">员工姓名</div>
+							<div class="float-left p-w-200">手机号码</div>
+							<div class="float-left p-w-200">员工职级</div>
+						</div>
+						<br>
+						<div class="clear margin-bottom-10">
+							<div class="float-left p-w-200 ">
+								<input type="text" placeholder="工号" name="q_EQ_accno" value="$!q_EQ_accno"  class="input border-radius" />
+							</div>
+
+							<div class="float-left p-w-200 ">
+								<input type="text" placeholder="姓名" name="q_LIKE_name" value="$!q_LIKE_name"  class="input border-radius" />
+							</div>
+							<div class="float-left   p-w-200 ">
+								<input type="text" placeholder="手机号"  name="q_EQ_mobile" value="$!q_EQ_mobile"  class="input border-radius" />
+							</div>
+							<div class="float-left p-w-200 ">
+								<select class="_select_" name="q_EQ_zhiwei" data-value="$!q_EQ_zhiwei">
+									<option value="">员工职级</option>
+									#foreach($!staff in $!AllStaff)
+									<option value="$!staff.value">$!staff.name</option>
+									#end
+								</select>
+							</div>
+						</div>
+					</div>
+					</div>
+
+			<div class="clear passanger-container">
+				<div class="passanger-model">
+					<div class="e-p-model font-size-12 ">
+						<div class="float-left p-w-200">在职状态</div>
+						<div class="float-left p-w-200">账号状态</div>
+						<div class="float-left p-w-200">审批权限</div>
+
+					</div>
+					<br>
+					<div class="clear margin-bottom-10">
+						<div class="float-left drop-centro ">
+							<select class="_select_" name="q_EQ_status" datatype="*" nullmsg="在职状态" data-value="$!q_EQ_status">
+								<option value="">--请选择--</option>
+								<option value="0">在职</option>
+								<option value="1">离职</option>
+							</select>
+						</div>
+						<div class="float-left p-w-200 ">
+							<input type="text" placeholder="账号状态" name="q_LIKE_name" value="$!q_LIKE_name"  class="input border-radius" />
+						</div>
+
+						<div class="float-left p-w-200 ">
+							<select class="_select_"  name="q_EQ_kaitong" data-value="$!q_EQ_kaitong">
+								<option value="">是否开通</option>
+								<option value="0">未开通</option>
+								<option value="1">已开通</option>
+							</select>
+						</div>
+						<div class="float-left p-w-200 ">
+						<button type="submit" class="btn btn-default btn-big float-left inquire">查询</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+			<div class="margin-top-20 clear btn-right">
+				<a href="/crm/employee/add" class="btn  btn-big btn-new float-left" style="margin-left: 10px" ><img src="../../../static/img/common/tianjia.png"> 添加员工</a>
+				<a href="/crm/employee/toEmplevel" class="btn  btn-new btn-big float-left"><img src="../../../static/img/common/tianjia.png">添加职级</a>
+				<button type="button" class="btn btn-big batch-modify btn-new-big float-left"><img src="../../../static/img/common/dr.png">批量修改员工</button>
+				<a onclick="editDaoru('/crm/employee/empupload')" class="btn  btn-new btn-big float-left"><img src="../../../static/img/common/dr.png">员工导入</a>
+				<a href="/crm/employee/download" class="btn  btn-big btn-new float-left"><img src="../../../static/img/common/dr.png">下载模板</a>
+			</div>
+			<!-- table 表格部分 begin -->
+			<div class="margin-top-10 big-list">
+			
+				## 全局变量-没有数据
+				#set ($noData = ($!page.list.size() == 0))
+				#if($noData)
+				#parse("/common/no-data.html")
+				#else
+				<table class="table">
+					<thead border="0" align="center" cellpadding="0" cellspacing="0">
+						<tr class="text-c">
+							<th>
+								<div class="label label-checkbox vertical clear" id="checkedAll">
+									<span class="show_choice"></span>
+									<input type="checkbox" name="" value="">
+								</div>
+							</th>
+							<th>工号</th>
+							<th>员工姓名</th>
+							<th>部门</th>
+							<th>员工职级</th>
+							<th>数据权限</th>
+							<th>角色</th>
+							<th>联系方式</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody  border="0" align="center" cellpadding="0" cellspacing="0">
+						#foreach($emp in $page.list)
+						<tr class="text-c">
+							<td>
+								<div class="label label-checkbox everyChecked vertical clear">
+									<span class="show_choice"></span>
+									<input type="checkbox" value="$!emp.id" name="ids" class="everyChecked">
+								</div>
+							</td>
+							<td><div class='hoverTips hover_content'>$!emp.accno</div></td>
+							<td>$!emp.name</td>
+							<td><div class='hoverTips hover_content'>$!emp.deptname</div></td>
+							<td>$!levelmap.get($!emp.zhiwei)</td>
+							<td><div class='hoverTips hover_content'>#if($!emp.level=="dept") 本部门及以下 #elseif($!emp.level=="all") 全部 #else 个人 #end</div></td>
+							<td><div class='hoverTips hover_content'>$!roles.get($!emp.id)</div></td>
+							<td>$!emp.mobile</td>
+							<td class="f-14 td-manage xtgl">
+							#if($!emp.kaitong=='1') 
+							<a class="close" href='/crm/employee/editStatus/$!{emp.id}/$!emp.companyid/0'>关闭</a>
+								<a class="compile btn-small" href="/crm/employee/edit/1/$!{emp.id}" >编辑</a>
+								<a class="delete" onclick="removeEmp($!{emp.id})">删除</a>
+						        #else
+						        <a class=" open" href='/crm/employee/editStatus/$!{emp.id}/$!emp.companyid/1'>开启</a>
+						         <a class="compile btn-disabled btn-small" href="javascript:void(0);">编辑</a>
+						         <a class=" delete btn-disabled" href="javascript:void(0);">删除</a>
+						         #end
+							</td>
+						</tr>
+						#end
+				</table>
+				#end
+			</div>
+			<!-- table 表格部分 end -->
+
+			#if(!$noData)
+			<div id="kkpager"></div>
+			#end
+			
+		</div>
+	</div>
+	</div>
+	</div>
+
+
+	<!-- 主体 end -->
+	#parse("common/foot.html")
+	<script type="text/javascript" src="/static/js/crm/employee/employee.js"></script>
+	<script type="text/javascript">
+		kkpagerMain({'pno':$!page.pageNum,'total':$!page.pages,'totalRecords':$!page.total,'pageSize':$!pageSize,'pageNo':$("#pageNo"),'submit_element':$("#empForm")}); //初始化分页
+		ztreeMain({'zNodes':${depttree},'href0':'/crm/employee/emp','href1':'/crm/employee/emp'}); //初始化树
+        $(document).ready(function(){
+            $("#relevation-person").click(function(){
+                $(".framework").slideToggle();
+            });
+        });
+        $('#relevation-person').click(function(){
+            if($(this).text() == '收起')
+            {$(this).text('组织架构').css({"background":'white',"color":'#6461e2'})}
+            else
+            {$(this).text('收起').css({"background":'#6461e2',"color":'white'})}
+        })
+	</script>
+</body>
+</html>

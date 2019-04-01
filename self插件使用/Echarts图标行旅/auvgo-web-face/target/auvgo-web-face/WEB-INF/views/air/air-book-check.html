@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>机票-校验订单</title> 
+#parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/air/air-book.css" />
+</head>
+<body class="background-6461e2 clear">
+<input type='hidden' class='project-code-shut' value='1'>
+<!--BKJT判断标志-->
+<input type="hidden" class="getShowname">
+	#parse("/common/head.html")
+	## $flag 区分 
+		## 机票模块airOrder || 火车票模块order 
+	#set($flag = 'airOrder')
+	<input type="hidden" class="fanxian" value="false">
+	<div class="main-content clear air-book-s" id="model-flag" data-modelflag="${flag}">
+		<input type="hidden" value="" class="cid">
+		<form  method="POST" id="createForm">
+			<input type="hidden" value="${auvgo_token}" name="auvgo_token" />
+			<div class="float-left background-fff book-model">
+				<div class="person-model" data-editctr="1">
+					<div class="p-m-title font-size-18 clear">
+						<span class="p-m-t float-left">乘机人</span> 
+						<span class="font-size-12 float-right choice-cjr cursor globalColor position" data-limit="9" data-model="air">
+						</span>
+					</div>
+					<div class="clear passanger-container">
+					#foreach($airUser in $!model.airUser)
+						<div class="passanger-model" >
+							<div class="e-p-model font-size-12" style="border-bottom: 1px dashed #e5dfff;" >
+							<div class="clear margin-bottom-10"><span class="float-left p-m-name clear position">
+                                <!--<span class="icon-img pass-bg position-ab"></span>-->
+								   <span class="loginName p-every-passes text-ellipsis" > $!airUser.name </span></span>
+								<div class="float-left clear">
+								
+								</div>
+							</div>
+								<div class="clear margin-bottom-10 p-t-999">
+									<div class="float-left p-w-160">证件类型</div>
+									<div class="float-left p-w-160">证件号码</div>
+									#if("$!airUser.costName"!="")
+									<div class="float-left p-w-160">成本中心</div>
+									#end
+									#if("$!airUser.itemNumber"!="")
+									<div class="float-left p-w-160 detail-title isHuiChuan_text">项目中心</div>
+									#end
+								</div>
+								<div class="clear margin-bottom-10">
+									<div class="float-left p-w-160 drop-centro " style="min-height:16px;word-wrap: break-word; word-break: normal;">
+										#if($!airUser.certtype == "1") 二代身份证
+										#elseif($!airUser.certtype == "ID") 其他
+										#elseif($!airUser.certtype == "C") 港澳通行证
+										#elseif($!airUser.certtype == "G") 台湾通行证
+										#elseif($!airUser.certtype == "B") 护照 #end
+									</div>
+									<div class="float-left p-w-160 drop-centro " style="min-height:16px;_height:16px;word-wrap: break-word; word-break: normal;">$!airUser.certno</div>
+									#if("$!airUser.costName"!="")
+									<div class="float-left p-w-160 input-mobile " style="min-height:16px; _height:16px; word-wrap: break-word; word-break: normal;">$!airUser.costName</div>
+									#end
+									#if("$!airUser.itemNumber"!="")
+									<div class="float-left p-w-160 " style="min-height:16px;_height:16px;word-wrap: break-word; word-break: normal;">$!airUser.itemNumber</div>
+									#end
+								</div>
+								<div class="clear margin-bottom-10 p-t-999">
+									<div class="float-left p-w-160">手机号码</div>
+									<div class="float-left p-w-160">邮箱</div>
+									<div class="float-left p-w-160">所属部门</div>
+									<div class="float-left p-w-160">发送通知</div>
+								</div>
+								<div class="clear margin-bottom-10">
+								<div class="float-left p-w-160 input-mobile " style="height:16px;">$!airUser.mobile</div>
+                                <div class="float-left p-w-160 input-email"  style="height:16px;">$!airUser.email</div>
+								<div class="float-left p-w-160 " style="height:16px;">$!airUser.depname</div>
+								<div class="float-left p-w-160 " style="height:16px;">#if($!airUser.isSend ==true)短信 #end&nbsp;#if($!airUser.isSendEmail == true)邮件 #end</div>
+								</div>
+								<div class="clear margin-bottom-10 p-t-999">
+									<div class="float-left p-w-160 showNameCode">SHOWCODE：</div>
+								</div>
+								<div class="clear margin-bottom-10">
+									<div class="float-left p-w-160 input-email"  style="height:16px;">$!airUser.showCode</div>
+								</div>
+							</div>
+						</div>
+						#end
+					</div>
+				</div>
+                <!--<div class="e-p-bx font-size-12" style="margin-top: 10px">-->
+                    <!--<h3 class="e-bx-parent float-left position" >选择保险:</h3>-->
+                <!--</div>-->
+				<div class="chailv-mation" style="margin-top: 10px">
+				<div class="chailv-mation">
+				<div class="chailv-mation chailv-mation-remove">
+					<div class="p-m-title">
+						<span class="p-m-t">差旅信息</span>
+					</div>
+					<div class="cl-m-content font-size-12">
+                        <div class="chailv-cs clear animated bounceInRight"></div>
+						<div class="clear padding-bottom-14">
+							#if("$!model.airOrder.shenqingno" !="")
+							<div class="float-left input-150 travelorder-c input-c position " style="width:30%;">
+								<span>出差单号：</span>
+								<span></span>
+								$!model.airOrder.shenqingno
+							</div>
+							#end
+							#if("$!model.airOrder.chailvitem" !="")
+							<div class="float-left input-c input-r-c chailvR-c fenxiao-chailvR-c position">
+								<span >出差事由：</span>
+								$!model.airOrder.chailvitem
+							</div>
+							#end
+						</div>
+						#if("$!model.airOrder.bookpolicy" !="")
+						<div class="clear padding-bottom-14">
+							<div class="float-left input-150 project-c input-c position project-shut" style="width:70%;">
+								<span >超标事项：</span>
+								$!model.airOrder.bookpolicy
+							</div>
+						</div>
+						#end
+						#if("$!model.airOrder.wbreason" !="")
+						<div class="clear padding-bottom-14">
+							<div class="float-left input-150 project-c input-c position project-shut" style="width:30%;">
+								<span >超标原因：</span>
+								$!model.airOrder.wbreason
+							</div>
+						</div>
+						#end
+						#if("$!model.airOrder.peisongaddr" !="")
+						<div class="clear padding-bottom-14">
+							<div class="float-left input-150 project-c input-c position project-shut" style="width:30%;">
+								<span >配送地址：</span>
+								$!model.airOrder.peisongaddr
+							</div>
+						</div>
+						#end
+						#if("$!model.approves" != "")
+						<div class="clear padding-bottom-20 approve_content drop-float drop-150">
+							<span class="float-left sp-guize-name">审批规则：</span>
+							<span class="approve_rule" style="line-height: 34px;">$!approvename</span>
+						</div>
+                <div class="sp-show clear">
+					#foreach($approve in $!model.approves)
+                    <div class="clear"></div>
+                    <div class="sp-jb float-left ">
+                        <div class="clear"></div>
+                        <div style="margin-top: 10px">  $!approve.level级审批</div>
+                    </div><div class=" float-left">
+                    <div class="sp-jb-person"><div class="sg-jb-p" data-sprid="1640">
+						$!approve.name
+					</div>
+				</div>
+				</div>
+				#end
+			</div>
+						#end
+	</div>
+				</div>
+				<div class="p-m-title">
+					<span class="p-m-t">联系人</span>
+				</div>
+				<div class="clear font-size-12 book-relations padding-bottom-14">
+					<div class="clear margin-bottom-10 p-t-999">
+
+						<div class="float-left p-w-160">联系人</div>
+						<div class="float-left p-w-160">手机号码</div>
+						<div class="float-left p-w-160">邮箱</div>
+						<div class="float-left p-w-120">发送通知</div>
+					</div>
+					<div class="clear margin-bottom-10">
+
+
+						<div class="float-left p-w-160" style="height: 16px;">
+							$!model.airOrder.LinkName
+						</div>
+						<div class="float-left p-w-160 " style="height: 16px;">
+							$!model.airOrder.linkPhone
+						</div>
+						<div class="float-left p-w-160 " style="height: 16px;">
+							$!model.airOrder.linkEmail
+						</div>
+						<div class="float-left p-w-120" style="height: 16px;">
+							#if($!model.airOrder.isSend ==true)短信 #end #if($!model.airOrder.isSendEmail ==true)邮件#end
+					</div>
+					</div>
+				</div>
+				<input type="hidden" name="signature" value="$!model.signature">
+				<input type="hidden" name="peisongName" value="$!peisongName">
+				<input type="hidden" name="peisongphone" value="$!peisongphone">
+				<div class="clear btn-submit text-align">
+					<button class="btn btn-cancel btn-big book-submit" data-do="pre" type="button" >上一步</button>
+					<button class="btn btn-default btn-big book-submit" data-do="next" type="button" style="margin-left: 30px">提交订单</button>
+				</div>
+			</div>
+				</div>
+			</div>
+		</form>
+		
+		<div class="float-right">
+			<div class="book-xingcheng position margin-bottom-10">
+                <span class="position-ab xingcheng-flag text-align">去程</span>
+                <input type="hidden" class="air-policys" data-airline="#if('$!bookRoutes.get(0).codeShare'=='1')$!bookRoutes.get(0).sharecarrier#else $!bookRoutes.get(0).airline #end" data-lowprice="$!bookRoutes.get(0).lowprice" data-price="$!bookRoutes.get(0).price"
+                data-farebase="$!bookRoutes.get(0).farebase" data-dayprice="$!bookRoutes.get(0).dayprice" data-discount="$!bookRoutes.get(0).discount">
+                <div class="clear font-size-12 " style="margin-bottom:17px;margin-top:6px;">
+					<div class="clear font-size-12" >
+						<span class="float-left hoverTips"  style="white-space: nowrap;margin-left: 20px;text-overflow:ellipsis">$!bookRoutes.get(0).carriername $!bookRoutes.get(0).airline |  $!bookRoutes.get(0).code/$!bookRoutes.get(0).codeDes $!bookRoutes.get(0).disdes |
+						#if($!bookRoutes.get(0).mealcode==1)有餐#elseif($!bookRoutes.get(0).mealcode==0)无餐#else$!bookRoutes.get(0).mealcode#end</span>
+						<!--<span class="float-right">#if($!bookRoutes.get(0).codeShare=="1")实际承运 $!bookRoutes.get(0).sharecarrier#end</span>-->
+						#if($!bookRoutes.get(0).ischeap==1)
+						<span class="float-left  cheap">廉</span>
+						#end
+						<span class="float-right b-j-time  timer_run_" data-timer ="$!bookRoute.get(0).flytime" data-value="$!bookRoutes.get(0).deptdate" >
+						$!bookRoute.get(0).flytime
+						</span>
+					</div>
+					
+					#if($!bookRoutes.get(0).codeShare=="1")
+						<div class="margin-left-20 clear" style="mrgin-top:5px;">
+							<div class="beijing float-left"></div>
+							<span class="float-left" style="color:rgba(209,7,115,1)">实际承运 &nbsp;</span>
+							<span class="float-left">$!bookRoutes.get(0).sharecarriername $!bookRoutes.get(0).airline</span>
+						</div>
+					#end
+                </div>
+                <!--<div class="b-x-cityName clear air-from-date">-->
+                    <!--&lt;!&ndash;<span class="float-left qc-point"></span>&ndash;&gt;-->
+                    <!--<span class="float-left margin-left-20" >$!bookRoutes.get(0).deptdate</span>-->
+                    <!--<span class="float-left margin-left-90">$!bookRoutes.get(0).deptdate</span>-->
+                <!--</div>-->
+                <div class="clear font-size-12"style="padding-bottom: 10px">
+                    <div class="float-left book-time text-align" >
+						<div class="" >$!bookRoutes.get(0).deptdate</div>
+						<div class="book-times">$!bookRoutes.get(0).depttime</div>
+						<div>$!bookRoutes.get(0).orgname#if($!bookRoutes.get(0).deptterm!="")($!bookRoutes.get(0).deptterm)#end</div>
+                    </div>
+					<div class="float-left">
+							<div class="position book-jiantou">
+								#if($!bookRoutes.get(0).stopnumber==1)
+								<span class="transit hover_control_jt" data-shiji="#if($!bookRoutes.get(0).sharecarrier=='')$!bookRoutes.get(0).airline#else$!bookRoutes.get(0).sharecarrier #end">
+									<span class="color-6461e2">经停</span>
+									<div class="hidedg" style="position:relative;"></div>
+									<input type="hidden" class='air-form-date' value='$!bookRoutes.get(0).deptdate'>
+								</span>
+								#end
+								#if($!bookRoutes.get(0).distance)
+								<span class="position-ab b-j-time">$!{bookRoutes.get(0).distance}KM</span>
+								#end
+								<!--#if($!bookRoutes.get(0).stopnumber==1)-->
+								<!--&lt;!&ndash;<span class="position-ab b-j-site"> $!bookRoutes.get(0).stopCity</span>&ndash;&gt;-->
+								<!--#end-->
+						</div>
+					</div>
+					<!--<div class="hide-jt" >经停城市</div>-->
+					<div class="float-left text-align" style="width:136px;">
+						<div class="">$!bookRoutes.get(0).deptdate</div>
+						<div class="book-times">$!bookRoute.get(0).arritime</div>
+						<div>$!bookRoute.get(0).arriname#if($!bookRoute.get(0).arriterm!="")($!bookRoute.get(0).arriterm)#end</div>
+					</div>
+				</div>
+				<div style="padding-top: 10px;height:42px;" class="dotte">
+					<span style="margin-left: 19px;display:inline-block;font-size: 12px;font-family: MicrosoftYaHei;font-weight: 400;color: rgba(100,97,226,1);padding:12px 0 14px;" class="position hover_control  color-default #if($!bookRoutes.get(0).luggageDetail)cursor air-tgq #end">$!bookRoute.get(0).isluggage
+							<div class="hover-content hotel-c-big position-ab background-fff" style="left:-90px;width:208px;">
+							<!--<img src="/static/img/common/top_jt.png" class="position-ab top-jiantou mCS_img_loaded" alt="up" style="left:305px;">-->
+							<div class="table-content">
+							<table>
+								<tr>$!bookRoutes.get(0).luggageDetail</tr>
+							</table>
+							</div>
+							</div>
+							</span>
+					<span  class="position hover_control air-tgq float-right cursor color-default" style="padding:12px 14px 14px 0;"> 退改签
+							<div class="hover-content hotel-c-big position-ab background-fff">
+							<img src="/static/img/common/top_jt.png" class="position-ab top-jiantou mCS_img_loaded" alt="up" style="left:305px;">
+							<div class="table-content">
+							<table>
+							<tbody>
+							<tr>
+							<td class="table-c-title">退票：</td>
+							<td class="tdc">$!bookRoutes.get(0).refundrule</td>
+							</tr>
+							<tr>
+							<td class="table-c-title">改签：</td>
+							<td class="tdc">$!bookRoutes.get(0).changerule</td>
+							</tr>
+							<tr>
+							<td class="table-c-title">签转：</td>
+							<td class="tdc">$!bookRoutes.get(0).signrule</td>
+							</tr>
+							</tbody>
+							</table>
+							</div>
+							</div>
+							</span>
+				</div>
+
+			</div>
+			#if($!model.airOrder.ordertype=="rt")
+			<input type="hidden" class="setNumReturn" value="$!bookRoute.get(1).seatNum">
+			<div class="book-xingcheng position margin-bottom-10">
+                <span class="position-ab xingcheng-flag text-align">返程</span> <input type="hidden" class="air-policys" data-airline="#if($!bookRoutes.get(1).codeShare=='1')$!bookRoutes.get(1).sharecarrier#else$!bookRoutes.get(1).airline#end" data-lowprice="$!bookRoutes.get(1).lowprice" data-price="$!bookRoutes.get(1).price"
+                data-farebase="$!bookRoutes.get(1).farebase" data-dayprice="$!bookRoutes.get(1).dayprice" data-discount="$!bookRoutes.get(1).discount">
+                <div class="clear font-size-12 b-x-cangwei"  style="margin-top:6px;" >
+					<span class="float-left" style="white-space: nowrap;margin-left: 20px;">$!bookRoutes.get(1).carriername $!bookRoutes.get(1).airline |  $!bookRoutes.get(1).code/$!bookRoutes.get(1).codeDes $!bookRoutes.get(1).disdes |
+						#if($!bookRoutes.get(1).mealcode==1)有餐#elseif($!bookRoutes.get(1).mealcode==0)无餐#else$!bookRoutes.get(1).mealcode#end</span>
+					<!--<span class="float-right">#if($!bookRoutes.get(1).codeShare=="1")实际承运 $!bookRoutes.get(1).sharecarrier#end</span>-->
+					#if($!bookRoutes.get(1).ischeap==1)
+					<div class="float-left  cheap">廉</div>
+					#end
+					<span class="float-right b-j-time timer_run_" data-timer ="$!bookRoute.get(1).flytime" >$!bookRoutes.get(1).flytime</span>
+					#if($!bookRoutes.get(1).codeShare=="1")
+					<div class="margin-left-20">
+						<div class="beijing float-left"></div>
+						<span class="float-left" style="color:rgba(209,7,115,1)">实际承运 &nbsp;</span>
+						<span class="float-left">$!bookRoutes.get(1).sharecarriername $!bookRoutes.get(1).airline</span></div>
+					#end
+                </div>
+                <!--<div class="b-x-cityName clear">-->
+					<!--<span class="float-left air-from-date margin-left-20" data-value="$!bookRoutes.get(1).deptdate" >$!bookRoutes.get(1).deptdate</span>-->
+					<!--<span class="float-left air-from-date margin-left-88" data-value="$!bookRoutes.get(1).deptdate" >$!bookRoutes.get(1).deptdate</span>-->
+
+                <!--</div>-->
+
+				<div class="clear font-size-12" style="padding-bottom: 10px">
+					<div class="float-left book-time text-align" >
+						<div class=" air-from-date " data-value="$!bookRoutes.get(1).deptdate" >$!bookRoutes.get(1).deptdate</div>
+						<div class="book-times">$!bookRoutes.get(1).depttime</div>
+						<div>$!bookRoutes.get(1).orgname#if($!bookRoutes.get(1).deptterm!="")($!bookRoutes.get(1).deptterm)#end</div>
+					</div>
+					<div class="float-left">
+						<div class="position book-jiantou">
+							#if($!bookRoutes.get(1).stopnumber==1)
+							<span class="transit hover_control_jt" data-shiji="#if($!bookRoutes.get(1).sharecarrier=='')$!bookRoutes.get(1).airline#else$!bookRoutes.get(1).sharecarrier #end">
+									<span class="color-6461e2">经停</span>
+								<div class="hidedg" style="position:relative;"></div>
+								<input type="hidden" class='air-form-date' value='$!bookRoutes.get(1).deptdate'>
+							</span>
+							#end
+							#if($!bookRoutes.get(1).distance)
+							<span class="position-ab b-j-time">$!{bookRoutes.get(1).distance}KM</span>
+							#end
+							<!--#if($!bookRoutes.get(1).stopnumber==1)-->
+							<!--<span class="position-ab b-j-site"> $!bookRoutes.get(1).stopCity</span>-->
+							<!--#end-->
+						</div>
+					</div>
+					<!--<div class="hide-jt" >经停城市</div>-->
+					<div class="float-left text-align" style="width:136px;">
+						<div class=" air-from-date" data-value="$!bookRoutes.get(1).deptdate" >$!bookRoutes.get(1).deptdate</div>
+						<div class="book-times">$!bookRoutes.get(1).arritime</div>
+						<div>$!bookRoutes.get(1).arriname#if($!bookRoutes.get(1).arriterm!="")($!bookRoutes.get(1).arriterm)#end</div>
+					</div>
+				</div>
+				<div style="padding-top: 10px;height:42px;" class="dotte ">
+					<span style="margin-left: 19px;font-size: 12px;font-family: MicrosoftYaHei;font-weight: 400;color: rgba(100,97,226,1);padding: 12px 0 14px;" class="float-left position hover_control  color-default #if($!bookRoutes.get(1).luggageDetail)cursor air-tgq #end">$!bookRoutes.get(1).isluggage
+							<div class="hover-content hotel-c-big position-ab background-fff" style="left:-90px;width:208px;">
+							<!--<img src="/static/img/common/top_jt.png" class="position-ab top-jiantou mCS_img_loaded" alt="up">-->
+							<div class="table-content">
+							<table>
+								<tr>$!bookRoutes.get(1).luggageDetail</tr>
+							</table>
+							</div>
+							</div>
+							</span>
+					<span class="float-right position hover_control air-tgq cursor color-default" style="display:inline-block;padding:12px 14px 14px 0;">
+						退改签
+							<div class="hover-content hotel-c-big position-ab background-fff">
+							<img src="/static/img/common/top_jt.png" class="position-ab top-jiantou mCS_img_loaded" alt="up" style="left:305px;">
+							<div class="table-content">
+							<table>
+							<tbody>
+							<tr>
+							<td class="table-c-title">退票：</td>
+							<td class="tdc">$!bookRoutes.get(1).refundrule</td>
+							</tr>
+							<tr>
+							<td class="table-c-title">改签：</td>
+							<td class="tdc">$!bookRoutes.get(1).changerule</td>
+							</tr>
+							<tr>
+							<td class="table-c-title">签转：</td>
+							<td class="tdc">$!bookRoutes.get(1).signrule</td>
+							</tr>
+							</tbody>
+							</table>
+							</div>
+							</div>
+							</span></div>
+			</div>
+			#end
+			<div class="price-model">
+				<div class="p-m-title p-m-tprice clear">
+					<span class="float-left" >应付金额</span> <span class="float-right"> <span class="font-size-12 p-m-mp">￥</span> <span class="p-m-price">$!model.airOrder.totalprice</span>
+					</span>
+				</div>
+				<div class="cost-show font-size-12">
+					<div class="p-m-t-p position">
+						去程费用 <span class="position-ab cs-dashed"></span>
+					</div>
+					<div class="clear e-p-count">
+						<div class="float-left e-p-title">票价</div>
+						#set($price=$!bookRoute.get(0).price * $!model.airUser.size())
+						<div class="float-left e-p-num">
+							<span class="unit-price" data-everyprice="$!bookRoute.get(0).price">$!bookRoute.get(0).price</span>*<span class="personNum">$!model.airUser.size()</span>人
+						</div>
+						<div class="float-left text-align-r e-p-total">$!price</div>
+					</div>
+					<div class="clear e-p-count">
+						<div class="float-left e-p-title">机建/燃油</div>
+						#set($fueltax=$!bookRoute.get(0).airporttax + $!bookRoute.get(0).fueltax)
+						#set($fueltaxs=$!fueltax * $!model.airUser.size())
+						<div class="float-left e-p-num">
+							<span class="unit-fueltax" data-everyprice="$!fueltax">$!fueltax</span>*<span class="personNum">$!model.airUser.size()</span>人
+						</div>
+						<div class="float-left text-align-r e-p-total">$!fueltaxs</div>
+					</div>
+					<div class="clear e-p-count fanxian-hide hide">
+						<!--&#45;&#45;$!bookRoutes.get(0)-->
+						<div class="float-left e-p-title">现返</div>
+						#set($customprice=  $!bookRoutes.get(0).customprice)
+						<div class="float-left e-p-num">
+							<span class="unit-xianfan" data-everyprice="$!{customprice}">$!{customprice}</span>*<span class="personNum">$!model.airUser.size()</span>人
+						</div>
+						#set($custompricesp= $!bookRoutes.get(0).customprice*$!model.airUser.size())
+						<div class="float-left text-align-r e-p-total">-$custompricesp</div>
+					</div>
+					<div class="clear e-p-count">
+						<div class="float-left e-p-title">保险</div>
+						#set($bx=$!model.airUser.get(0).bxPayMoney * $!model.airUser.size())
+						<div class="float-left e-p-num">
+							<span class="unit-baoxian" data-everyprice="0">$!model.airUser.get(0).bxPayMoney</span>*<span class="personNum">$!model.airUser.size()</span>人
+						</div>
+						<div class="float-left text-align-r e-p-total">#if("$!baoxian" =="") 0 #else $!bx #end</div>
+					</div>
+
+					<div class="clear e-p-count server-baifenbi">
+						<div class="float-left e-p-title">服务费</div>
+						<div class="float-left e-p-num">
+							<span class="e-server-cost"></span>*<span class='serverSub'>$!model.airUser.size()</span>人
+						</div>
+						#set($fwf = $!model.routePass.get(0).fuwufee * $!model.airUser.size())
+						<div class="float-left text-align-r e-p-total">$!fwf</div>
+					</div>
+				</div>
+				#if($!model.airOrder.ordertype=="rt")
+				<div class="cost-show font-size-12">
+					<div class="p-m-t-p position e-p-last">
+						返程费用 <span class="position-ab cs-dashed"></span>
+					</div>
+					<div class="clear e-p-count">
+						<div class="float-left e-p-title">票价</div>
+						<div class="float-left e-p-num">
+							<span class="unit-price" data-everyprice="$!bookRoute.get(1).price">$!bookRoute.get(1).price</span>*<span class="personNum">$!model.airUser.size()</span>人
+						</div>
+						<div class="float-left text-align-r e-p-total">$!bookRoute.get(1).price</div>
+					</div>
+					<div class="clear e-p-count">
+						#set($fueltax=$!bookRoute.get(1).airporttax + $!bookRoute.get(1).fueltax)
+						<div class="float-left e-p-title">机建/燃油</div>
+						<div class="float-left e-p-num">
+							<span class="unit-fueltax" data-everyprice="$!fueltax">$!fueltax</span>*<span class="personNum">$!model.airUser.size()</span>人
+						</div>
+						<div class="float-left text-align-r e-p-total">$fueltax</div>
+					</div>
+					<div class="clear e-p-count fanxian-hide hide">
+						
+						<div class="float-left e-p-title">现返</div>
+						#set($customprice= $!bookRoutes.get(1).customprice)
+						<div class="float-left e-p-num">
+							<span class="unit-xianfan" data-everyprice="#if('$!baoxian' == '')0  #else $!{customprice} #end ">$!{customprice}</span>*<span class="personNum">$!model.airUser.size()</span>人
+						</div>
+						#set($custompricesp= $!bookRoutes.get(0).customprice*$!model.airUser.size())
+						<div class="float-left text-align-r e-p-total">-$custompricesp</div>
+					</div>
+					<div class="clear e-p-count">
+						<div class="float-left e-p-title">保险</div>
+						#set($bx=$!model.airUser.get(0).bxPayMoney * $!model.bxNum)
+						<div class="float-left e-p-num">
+							
+							<span class="unit-baoxian" data-everyprice="0">$!model.airUser.get(0).bxPayMoney</span>*<span class="personNum">$!model.bxNum</span>人
+						</div>
+						<div class="float-left text-align-r e-p-total">#if("$!baoxian" == "")0 #else $!bx #end</div>
+					</div>
+					<!--<div class="clear e-p-count server-baifenbi">
+						<div class="float-left e-p-title">服务费</div>
+						<div class="float-left e-p-num">
+							<span class="e-server-cost"></span>*<span class='serverSub'>$!model.airUser.size()</span>人
+						</div>
+						#set($fwf = $!model.routePass.get(1).fuwufee * $!model.airUser.size())
+						<div class="float-left text-align-r e-p-total">$!fwf</div>
+					</div>-->
+				</div>
+				#end
+				<div class="e-server-cost serverCost-none"></div>
+				<div class='order-server font-size-12'>
+					<div class="p-m-t-p position e-p-last">
+						服务费 <span class="position-ab cs-dashed"></span>
+					</div>
+					<div class="float-left e-p-title">服务费</div>
+					<div class="float-left e-p-num">
+						<span class="e-server-cost"></span>*<span>$!bookRoute.size()程</span>*<span class="e-num">$!model.airUser.size()</span>人
+					</div>
+					<div class="float-left text-align-r e-p-total-s"></div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 主体 end -->
+	#parse("/common/foot.html")
+	<!--<script type="text/javascript" src="/static/js/air/air-policy.js"></script>-->
+	<!--<script type="text/javascript" src="/static/js/common/getLoginUser.js"></script>-->
+	<script type="text/javascript" src="/resources/js/common/numbers.js"></script>
+	<script type="text/javascript" src="/static/js/common/chailv-controller.js"></script>
+	<script type="text/javascript">
+		//判断是否是分销公司
+		$.ajax({
+			url:"/crm/jiesuan",
+			type:"post",
+			success:function(data){
+				// console.log(data);
+				if(data.data.fukuankemu=="4"){
+					//判断是否是分销公司  是分销的不显示出差事由
+					$('.chailv-mation-remove').remove();
+				};
+			}
+		});
+		$("body").on("click", ".book-submit", function(){
+			var descStr = $(this).attr('data-do');
+			var signature = $('input[name="signature"]').val();
+			var sign = false;
+			var actionStr = descStr == 'pre' ? '/air/checkOrder' : '/air/createOrder';
+			$.ajax({
+				type:"post",
+				url:"/shareAcc/check",
+				async:false,
+				data:{signature:signature,type:"air"},
+				success:function(data){
+					if(data.status=='200'){
+						$("#loading_main").remove();
+						$('#createForm').attr('action', actionStr).submit();
+						return sign=true;
+					}else if(data.status =='300'){
+						$("#loading_main").remove();
+						layer.alert(data.msg);
+						return sign=false;
+					}else{
+						$("#loading_main").remove();
+						layer.alert(data.msg);
+						return sign=false;
+					}
+				},
+				error:function(err){
+					$("#loading_main").remove();
+					layer.alert(data.msg);
+					return sign=false;
+				}
+			});
+			return signs
+		});
+//	 初始化判断是否为分销的公司
+	 $.ajax({
+		 url:"/crm/jiesuan",
+		 type:"post",
+		 success:function(data){
+			 // console.log(data);
+			 if(data.data.fukuankemu=="4"){
+				 $(".fanxian").val("true");
+				 $(".fanxian-hide").show();
+			 }
+			
+		 }
+	 });
+	 $.ajax({
+		 type: "POST",
+		 url:"/getCompanyconfig",
+		 success: function(data) {
+//			 console.log(JSON.stringify(data.data));
+			 if(data.status===200){ //数据请求成功
+				 var projectData=JSON.parse(data.data);
+//				 companySet(projectData.productSet);
+				 serverCostSet(projectData.fuwufei); //服务费设置
+//				 autoCountPrice();//自动计算价格
+			 }else{
+				 zh.alerts({
+					 title:"提示",
+					 text: data.msg
+				 });
+			 }
+		 },
+		 error:function(XMLHttpRequest){
+			 zh.alerts({
+				 title:"提示",
+				 text: XMLHttpRequest
+			 });
+			 console.log(XMLHttpRequest);
+		 }
+	 });
+	 function serverCostSet(data){
+		 var size=$(".book-xingcheng").size(),
+			 persons = $(".e-p-model").size();
+		 
+		 if(data.gntype==="order"){ //按每单收费
+			 $(".server-baifenbi").remove();
+			 $(".serverCost-none").remove();
+			 $(".e-server-cost").text(data.gnweb).attr({"data-type":"order","data-cost":data.gnweb});
+			 $(".e-p-total-s").text(data.gnweb*size*persons).attr("data-cost",data.gnweb*size*persons);
+			 var sun=$(".p-m-price").html();
+			 $(".e-p-total").each(function () {
+				 sun =sub(sun*100/100,$(this).html()*100/100);
+			 });
+//			 $(".e-p-total-s").html(sun);
+		 }else{
+			 $(".order-server").remove();
+			 if(data.gnpertype==="2"){ //月流水收费，服务费为0
+				 $(".server-baifenbi").remove();
+				 $(".serverCost-none").attr({"data-type":"0","data-cost":"0"}).hide();
+				 var sun=$(".p-m-price").html();
+				 $(".e-p-total").each(function () {
+					 sun =sub(sun*100/100,$(this).html()*100/100);
+				 });
+//				 $(".e-p-total-s").html(sun);
+			 }else{ //按百分比收费
+				 $(".serverCost-none").remove();
+				 $(".e-server-cost").text(data.gnper+"%").attr({"data-type":"0","data-cost":data.gnper});
+				 var sun=$(".p-m-price").html();
+				 
+				 $(".e-p-total").each(function () {
+					 sun =sub(sun*100/100,$(this).html()*100/100);
+				 });
+//				 $(".e-p-total-s").html(sun);
+			 }
+		 }
+	 };
+		
+		
+		//退改签事件
+		$("body").on("mouseover mouseout",".air-tgq",function(e){
+			var this_=$(this).find(".hover-content");
+			if(e.type=="mouseover"){
+				this_.show();
+			}else{
+				this_.hide();
+			}
+		});
+//		经停
+		$(".hover_control_jt").hover(function(e){
+			jingting({airline:$(this).attr("data-shiji"),date:$(this).find(".air-form-date").val()},$(this));
+			$(this).find('.hidedg').show();
+			// is_jt_show = true;
+		},function(){
+			$(this).find('.hidedg').hide();
+		});
+		function jingting(data,obj){
+			$.ajax({
+				type: "POST",
+				url:'/air/getAirStop',
+				data:{
+					airline:data.airline,
+					date:data.date
+				},
+				success: function(data) {
+					if(data.status===200){ //数据请求成功
+						var data_=JSON.parse(data.data);
+						fullData(data_,obj);
+					}else{
+						zh.alerts({
+							title:"提示",
+							text: "请求经停站异常("+data.status+")!"
+						});
+					}
+				},
+				error:function(XMLHttpRequest){
+					zh.alerts({
+						title:"提示",
+						text: XMLHttpRequest
+					});
+					console.log(XMLHttpRequest);
+				}
+			});
+			function fullData(dataArr,obj){
+//		console.log(dataArr);
+				var list="";
+				/*$.each(dataArr,function(index,item){
+				 var orgcode=item.orgcode,
+				 depttime=item.depttime.split(" ")[1],
+				 arritime=item.arritime.split(" ")[1];
+				 list+='<div class="jt_xinxi jt_xinxi_t">经停机场：'+item.orgcode+'</div>'+
+				 '<div class="jt_xinxi jt_bottom_12">经停时间：'+depttime+'-'+arritime+'</div>';
+				 
+				 });*/
+				list+='<div class="jt_container hide-jt" >'+
+					'<div class="jt_xinxi jt_xinxi_t jt_bottom_12">经停机场：'+dataArr.airstop+'</div>'+
+					'<div class="jt_xinxi jt_bottom_12">到达时间：'+dataArr.arrivetime+'</div>'+
+					'<div class="jt_xinxi jt_bottom_12">起飞时间：'+dataArr.flighttime+'</div>'+ '</div>';
+				obj.find(".hidedg").html(list);
+			}
+			
+		}
+//	 运行时长的转换
+//		初始化时间转换
+		timerRun();
+		function timerRun(){
+			$('.timer_run_').each(function(){
+				var val = $.trim($(this).data('timer'));
+				$(this).html(runTimer(val));
+			})
+		}
+		function runTimer(val){
+			var list= val.split(":");
+			var html = '';
+			html = list[0]+"小时"+list[1]+"分";
+			return html;
+		}
+	</script>
+</body>
+</html>

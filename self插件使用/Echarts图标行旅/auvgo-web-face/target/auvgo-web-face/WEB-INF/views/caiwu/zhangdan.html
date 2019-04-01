@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>机票订单-正常</title> #parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+</head>
+<body class="background-6461e2">
+	#parse("/common/head.html")
+	<div class="bread-crums main-content margin-top-10">
+		<a href="/caiwu/zhangdan" class="normal_a">企业账单</a>
+	</div>
+	<!-- 主体 begin -->
+	<div class="main-content margin-top-10 clear">
+		<div class="aside-nav float-left background-fff auto_bottom">
+			<ul id="order-left-nav">
+				<li class="aside-nav-tab" onclick="location.href='/caiwu/zhangdan'" data-orderflag="toAirOrder">待核对</li>
+				<li class="aside-nav-tab" onclick="location.href='/caiwu/jiesuan/0'" data-orderflag="toAirTuiOrder">待结算</li>
+				<li class="aside-nav-tab" onclick="location.href='/myChailv/jiesuan/1'" data-orderflag="toAirGaiOrder">已结算</li>
+			</ul>
+		</div>
+		<div class="aside-content float-left background-fff auto_bottom">
+			<form action="/caiwu/zhangdan" method="POST" id="caiWuOrderForm">
+				<div class="input-select clear">
+					<input id="pageNo" type="hidden" name="pageNum"> <input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+					<div class="margin-bottom-10 clear">
+						<input type="text" class="input border-radius" id="_GTE_date" name="q_GTE_t_chupiaotime" value="$!q_GTE_t_chupiaotime" placeholder="请选择出票开始日期"
+							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly"> - <input type="text" class="input border-radius" id="_LTE_date" name="q_LTE_t_chupiaotime"
+							value="$!q_LTE_t_chupiaotime" placeholder="请选出票结束日期" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly"> 产品类型 <select class="_select_"
+							data-value="$!q_EQ_t_protype" name="q_EQ_t_protype">
+							<option value="">所有</option>
+							<option value="机票">机票</option>
+							<option value="酒店">酒店</option>
+							<option value="火车票">火车票</option>
+						</select> 票证状态 <select class="_select_" data-value="$!q_EQ_t_tickettype" name="q_EQ_t_tickettype">
+							<option value="">所有</option>
+							<option value="正常">正常</option>
+							<option value="退票">退票</option>
+							<option value="改签">改签</option>
+						</select>
+						<button type="submit" class="btn btn-default btn-big">查询</button>
+					</div>
+					<div class="margin-bottom-10 clear">
+						<input type="text" class="input border-radius" name="q_LIKE_t_empname" value="$!q_LIKE_t_empname" placeholder="乘机人"> <input type="text" id="citySel"
+							name="q_LIKE_t_deptname" value="$!q_LIKE_t_deptname" onclick="showMenu();" placeholder="所属部门" class="input">
+						<div id="menuContent" class="menuContent" style="display: none; position: absolute; background: #e9e9e9;">
+							<ul id="treeDemo" class="ztree" style="margin-top: 0; width: 250px; height: 240px; overflow: auto;"></ul>
+						</div>
+						<button type="button" class="btn btn-default btn-big export_zhangdan">导出账单</button>
+						<!-- <button type="button" class="btn btn-danger btn-big checksubmit">提交核对</button> -->
+					</div>
+				</div>
+			</form>
+			<input type="hidden" class="ids_content" name="khcheckids">
+			<!-- table 表格部分 begin -->
+			<div class="margin-top-30 orde-table-wraper">
+				<table class="table table-align">
+					<thead class="thead-checked">
+						<tr style="white-space: nowrap">
+							<th><input type="checkbox" class="cursor allcheck"></th>
+							<th>序号</th>
+							<th>产品类型</th>
+							<th>票证状态</th>
+							<th>票号</th>
+							<th>应收金额</th>
+							<th>欠款金额</th>
+							<th>出票时间</th>
+							<th>所属部门</th>
+							<th>乘机人/乘客/入住人</th>
+							<th>航程/车程/城市</th>
+							<th>航班/车次/酒店名称</th>
+							<th>舱位/席别房型</th>
+							<th>预订时间</th>
+							<th>起飞/出发/入住时间</th>
+							<th>降落/到达/离店时间</th>
+							<th>机建/入住天数</th>
+							<th>燃油/入住人数</th>
+							<th>成本中心</th>
+							<th>项目</th>
+							<th>订票员</th>
+						</tr>
+					</thead>
+					<tbody class="tbody-checked">
+						#foreach($!bill in $!page.list)
+						<tr class="text-c" style="white-space: nowrap">
+							<td><input type="checkbox" class="cursor every-checked" value="$!bill.id"></td>
+							<td>${vCount}</td>
+							<td>$!bill.tProType</td>
+							<td>$!bill.tTicketType</td>
+							<td>$!bill.tPiaoHao</td>
+							<td>$!bill.sJiesuanAmount</td>
+							<td class="qkPrice">$!bill.sJiesuanAmount</td>
+							<td>$!bill.tChupiaoTime</td>
+							<td>$!bill.tDeptName</td>
+							<td>$!bill.tEmpName</td>
+							<td>$!bill.tRouteName</td>
+							<td>$!bill.tAirline</td>
+							<td>$!bill.tCode/$!bill.tCodeDes</td>
+							<td>$!bill.khBookDateTime</td>
+							<td>$!bill.tDeptDateTime</td>
+							<td>$!bill.tArriveDateTime</td>
+							<td>$!bill.tAirportTax</td>
+							<td>$!bill.tFuelTax</td>
+							<td>$!bill.khCostName</td>
+							<td>$!bill.khProName</td>
+							<td>$!bill.khBookUserName</td>
+						</tr>
+						#end
+					</tbody>
+				</table>
+			</div>
+			<!-- table 表格部分 end -->
+			#if(!$noData)
+			<div id="kkpager"></div>
+			#end
+		</div>
+	</div>
+	<!-- 主体 end -->
+	#parse("/common/foot.html")
+	<script type="text/javascript" src="/static/js/crm/my-chailv/my-chailv.js"></script>
+	<script type="text/javascript">
+			kkpagerMain({'pno':$!page.pageNum,'total':$!page.pages,'totalRecords':$!page.total,'pageSize':$!page.pageSize,'pageNo':$("#pageNo"),'submit_element':$("#caiWuOrderForm")}); //初始化分页
+	</script>
+	<script type="text/javascript">
+		ztreeMain({
+			'zNodes':$!{depttree}
+		});
+		function ztreeMain(data){
+			$(function(){
+				var setting = {
+					view: {dblClickExpand: false},
+					data: {simpleData: {enable: true}},
+					callback: {onClick: onClick}
+				};
+				var zNodes =data.zNodes;
+				function onClick(e, treeId, treeNode) {
+					$("#citySel").val(treeNode.name);
+					$("#deptpid").val(treeNode.id);
+				}
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+				var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+			});
+		}
+		//全选,全不选
+		$("body").on("click",".thead-checked input[type='checkbox']",function(){
+			var this_ = $(this),
+				this_val = this_.prop("checked");
+			$("tbody input[type='checkbox']").prop("checked",this_val);
+			getValue();
+		});
+		function getValue(){
+			var ids="";
+			$("input[type='checkbox']:checked").each(function(){
+				ids+=$(this).val()+"-";
+			});
+		    $(".ids_content").val(ids);
+		}
+		//提交核对
+		$('body').on("click",".export_zhangdan",function(){
+			var starttime = $("input[name='q_GTE_t_chupiaotime']").val();
+			var endtime =$("input[name='q_LTE_t_chupiaotime']").val();
+			if(""==starttime || ""==endtime){
+				zh.alerts({
+   				title:"提示",
+   				text: "请选择要导出的起始日期或截止日期"
+   				});
+				return;
+			}
+			$("#caiWuOrderForm").attr("action","/caiwu/zhangdan/export")
+			$("#caiWuOrderForm").submit();
+		});
+		$('body').on("click",".checksubmit",function(){
+			var checkvalue= $("input[name='khcheckids']").val();
+			$.ajax({
+				url:'/caiwu/zhangdan/check',
+				type:'POST',
+				data:{'khcheckids':checkvalue},
+				success:function(data){
+					if(data.status==200){
+						zh.alerts({
+		    				title:"提示",
+		    				text: data.msg
+		    			});
+					setTimeout("location.reload()", 1000)
+					}else{
+						zh.alerts({
+		    				title:"提示",
+		    				text: data.msg
+		    			});
+					}
+				}
+			});
+		});
+	</script>
+</body>
+</html>

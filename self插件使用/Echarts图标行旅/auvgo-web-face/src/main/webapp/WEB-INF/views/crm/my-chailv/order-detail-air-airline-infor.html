@@ -1,0 +1,167 @@
+## 机票航班信息模块
+<link rel="stylesheet" type="text/css" href="../../../../static/css/air/air-book.css"/>
+<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+    <div class="o-title font-size-18">航班信息</div>
+
+    <div>
+
+        #foreach($route in $routeList)
+        <div class="clear#if($!{vCount}==1) air-to-content#else margin-bottom-20#end">
+            <div class="clear airline-mation">
+                <div class="clear font-size-14  position">
+                    #if($!route.ischeap==1)
+                    <span class=" cheap airlian-flag float-left " style="margin-right:12px;margin-left:0;">廉</span>
+                    #end
+                    <button class="float-left btn btn-default btn-small-small  airline-flag" style="margin-right:12px;">#if($route.xuhao==1)返#else去#end</button>
+                    <span class="float-left"><img src="/static/img/airImg/airline/$!{route.carriecode}.png" class="aircom-img"></span>
+                    <span class="float-left airline-name">$!route.carriername$!route.airline|</span>
+                    <span class="float-left"> $!route.code/$!route.codeDes $!route.disdes|</span>
+                    <span class="float-left">#if($!route.mealcode == 1)有餐#elseif($!route.mealcode == 0)无餐#else$!route.mealcode#end</span>
+                    <div style="display: inline-block;float: right">
+                        <div class="tuigai-des position float-left" style="margin-right: 20px;" data-value="true">
+                            <a href="javascript:void(0);">退改签</a>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="table-c-title">退票规定:</td>
+                                    <td class="tdc">$!route.refundrule</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-c-title">更改规定:</td>
+                                    <td class="tdc">$!route.changerule</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-c-title">签转规定:</td>
+                                    <td class="tdc">$!route.signrule</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tuigai-des  position float-left" data-value='#if("$!route.luggageDetail"!="")true#else false #end'>
+                            <span class='color-6461e2 #if($!route.luggageDetail!="")cursor#end'>$!route.isluggage</span>
+                            #if($!route.luggageDetail&&$!route.luggageDetail!="")
+                            <table style="width: 240px">
+                                <tbody>
+                                <tr style="width: 100px">
+                                    <td class="td-content"  style="padding: 10px">$!route.luggageDetail</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            #end
+                        </div>
+                    </div>
+               </div>
+               
+                #if($!route.codeShare=="1")
+                <div class=" clear" style="line-height:16px;margin-left:37px;">
+                    <div class="beijing float-left"></div>
+                    <span class="float-left" style="color:rgba(209,7,115,1);margin-left:9px;">实际承运 &nbsp;</span>
+                    <span class="float-left">$!route.sharecarriername $!route.airline</span>
+                </div>
+                #end
+            </div>
+           
+            <div class="clear">
+                <!--<span class="float-left">$!route.orgcityname</span>-->
+                <!--<span class="float-left point-litte-img"></span>-->
+                <!--<span class="float-left">$!route.dstcityname</span>-->
+                <!--<span class="float-left air-f-date">$!route.deptdate</span>-->
+                <div class="order-from float-left" style="margin-right:28px;">
+                    <div class="font-size-12 margin-b-14 text-align">$!route.orgname$!route.deptterm</div>
+                    <div class="font-size-20 margin-b-14 air-time-show text-align">$!route.depttime</div>
+                    <div class="font-size-12 air-airport text-align">$!route.deptdate</div>
+                </div>
+                <div class="order-mid float-left text-align">
+                     #if($!route.stopnumber==1)
+                     <span class=" hover_control_jt color-6461e2 cursor" data-value="$!route.arridate" data-shiji="$!route.airline">
+                         经停
+                     <div class="hidedg" style="position:relative;"></div>
+                     </span>
+                     #end
+                    
+                    <div class="tarin-bg arrow-big"></div>
+                    <div class="tuigai-des position">
+                     #if( $!route.distance ) $!{route.distance}KM#end                        
+                    </div>
+                </div>
+                <div class="order-from float-left" style="margin-left:28px;">
+                    <div class="font-size-12 margin-b-14 text-align">$!route.arriname$!route.arriterm</div>
+                    <div class="font-size-20 margin-b-14 air-time-show text-align">$!route.arritime</div>
+                    <div class="font-size-12 air-airport text-align">$!route.arridate</div>
+                </div>
+            </div>
+        </div>
+        #end
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script>
+    //经停
+    $(".hover_control_jt").hover(function(e){
+		var is_jt_show = $(this);
+		
+//        if (one) {
+            jingting({airline:$(this).attr("data-shiji"),date:$(this).data("value")});
+//            one = false;
+//        }
+//        if (is_jt_show) {
+//            $(".hidedg").hide();
+//            is_jt_show = false;
+//        } else  {
+            $(".hidedg").show();
+//            is_jt_show = true;
+//        }
+    },function(){
+//    	$(this).parents('')
+		$(".hidedg").hide();
+    });
+
+    function jingting(data){
+        $.ajax({
+            type: "POST",
+            url:'/air/getAirStop',
+            data:{
+                airline:data.airline,
+                date:data.date
+            },
+            success: function(data) {
+                if(data.status===200){ //数据请求成功
+                    var data_=JSON.parse(data.data);
+                    fullData(data_);
+                }else{
+                    zh.alerts({
+                        title:"提示",
+                        text: "请求经停站异常("+data.status+")!"
+                    });
+                }
+            },
+            error:function(XMLHttpRequest){
+                zh.alerts({
+                    title:"提示",
+                    text: XMLHttpRequest
+                });
+            }
+        });
+        function fullData(dataArr){
+            var list="";
+            /*$.each(dataArr,function(index,item){
+                var orgcode=item.orgcode,
+                    depttime=item.depttime.split(" ")[1],
+                    arritime=item.arritime.split(" ")[1];
+                list+='<div class="jt_xinxi jt_xinxi_t">经停机场：'+item.orgcode+'</div>'+
+                      '<div class="jt_xinxi jt_bottom_12">经停时间：'+depttime+'-'+arritime+'</div>';
+
+            });*/
+            list+='<div class="jt_container hide-jt" >'+
+                '<div class="jt_xinxi jt_xinxi_t jt_bottom_12">经停机场：'+dataArr.airstop+'</div>'+
+                '<div class="jt_xinxi jt_bottom_12">到达时间：'+dataArr.arrivetime+'</div>'+
+                '<div class="jt_xinxi jt_bottom_12">起飞时间：'+dataArr.flighttime+'</div>'+ '</div>';
+            $(".hidedg").html(list);
+        }
+
+    }
+
+
+
+
+</script>

@@ -1,0 +1,33 @@
+<div class="h-infor-f background-E7EBFA margin-10-b h-infor-f-box">
+	<div class="font-size-16 margin-bottom-20 clear">
+	    <!-- 每日价格 -->
+	    #foreach($rate in $bookModel.rates)
+			 #set($index = $vCount - 1)
+			<input type="hidden" id="$!{rate.date}" class="dailyPrice" data-rate="$!{rate.rate}" data-cost="$!{rate.cost}" data-breakFast="$!{rate.breakFast}" value="$!{rate.rateCode}"/>
+		#end
+		<span class="float-left font-weight-600">房费</span>
+		<span class="float-right color-D44A9F">
+		   <span class="font-size-12">￥</span>
+		   <span id="s_room_rate">
+		   <!-- 产品价格*房间数量 -->
+		   #set($balance=$!{bookModel.total} * $!{bookModel.roomCount})  
+           $!{balance}
+           </span>
+		</span>
+	</div>
+    #if($!bookModel.paymentType=="SelfPay")	
+	<div class="font-size-12 clear line-height-20">
+		<span class="float-left ">担保费</span>
+		<span class="float-right color-000" id="span_guarantee">$!{bookModel.guaranteeRate}</span><!-- 担保金额 -->
+	</div>
+	#end
+	<div class="font-size-12 clear line-height-20">
+		<span class="float-left ">服务费</span>
+		<span class="float-right color-000" id="span_coverCharge">$!{bookModel.coverCharge}</span><!-- 服务费 -->
+	</div>
+	<div class="font-size-12 clear line-height-20">
+		<span class="float-left">小计</span>
+	     #set($total=$balance + $bookModel.coverCharge)  
+		<span class="float-right color-000" id="s_room_subtotal">￥$!{bookModel.total} * $!{bookModel.roomCount} + $!{bookModel.coverCharge} = $!{total}</span>
+	</div>
+</div>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>酒店-填写订单</title>
+	<link rel="icon" sizes="any" href="/resources/images/common/favicon.ico"/>
+	<link rel="stylesheet" href="/resources/js/plugin/zTree/zTreeStyle.css"/>
+	<link rel="stylesheet" href="/resources/js/plugin/Validform/5.3.2/Validform_style.css"/>
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/common.css"/>
+	<link rel="stylesheet" href="/resources/css/common/layer-common.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/animate.css"/>
+	<link rel="stylesheet" type="text/css" href="/resources/css/hotel/hotel-book.css"/>
+	<link rel="stylesheet" type="text/css" href="/resources/js/plugin/autocomplete/jquery.autocomplete.css"/>
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/hotel-order-popup.css">
+	<style>
+		.star-level{
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+			background: url(/resources/images/hotel/star-level.png);
+		}
+		.nothing-star-level {
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+			background: url(/resources/images/hotel/nothing-star-level.png);
+		}
+	</style>
+</head>
+
+<body class="background-6461e2 clear">
+<!--判断业务线hotel-->
+<input type="hidden" value="hotel" class="module">
+<input type="hidden" value="$!dept.id" class="module" id="defaultDeptId">
+<input type="hidden" value="$!dept.name" class="module" id="defaultDeptName">
+
+#parse("/common/head.html")
+
+<div class="main-content mains-content clear" id="model-flag">
+	<input type="hidden"   class="approve_id" value="#if ($!approve.id=='')0 #else $!approve.id #end">
+	<input type="hidden"   class="approve_name" value="#if ($!approve.id=='')0 #else $!approve.name #end">
+
+	<!--<div class="main-content margin-bottom-10 ">-->
+		<!--<div class="bind-tips clear">-->
+			<!--<span class="flag-text">温馨提示：请务必保证证件姓名和证件号码与本人证件信息一致，且旅行结束日期最好比证件有效期早三个月以上。如信息有误或减少，请联系您的差旅负责人更新信息</span>-->
+		<!--</div>-->
+	<!--</div>-->
+
+	<form method="POST" id="hotel-confirm-form">
+		<div class="float-left book-model">
+			<!-- 订单填写页参数 -->
+			#parse("/hotel/book/hotel-book-param.html")
+			<div class="hotel-infor background-fff margin-bottom-10 clear">
+				<input type="hidden" name="signature" value="$!{bookModel.signature}"/>
+				<div class="p-m-title">$!{bookModel.planName}</div>
+				<div class="font-size-12 clear h-infor-con margin-bottom-30">
+					<div class="float-left ">
+						<div class="h-i-time font-size-12 color-888 margin-bottom-30">入住时间：<span class="color-000">$!{bookModel.checkIn}</span></div>
+						<div class="h-i-time font-size-12 color-888">离店时间：<span class="color-000">$!{bookModel.checkOut}</span></div>
+					</div>
+					<div class="float-left w-p-s-185">
+						<div class="h-i-time margin-bottom-30 color-888">早餐：<span class="color-000">$!{bookModel.breakfast}</span></div>
+						<div class="clear position">
+							<span class="h-i-hnum float-left color-666">房间数：</span>
+							<span class="float-left clear count-ctrl">
+								<span class="float-left hotel-bg ctrl ctrl-l"></span>
+								<input type="text" name="roomCount" data-limit="$!{bookModel.currentalloment}" id="roomCount"
+									   value="$!{bookModel.roomCount}" class="float-left ctrl-m" readonly>
+								<span class="float-left hotel-bg ctrl ctrl-r"></span>
+							</span>
+						
+						</div>
+						
+					</div>
+					<span class="float-left h-i-time padding-top-44" style="position:relative;">
+						<span class="color-666">均价：</span><b class="font-size-14 font-600  suspension-frame-box color-000 border-bottom-1" >$!{bookModel.averageDaily}</b><div class="suspension-frame hide"></div>
+						#foreach($re in $bookModel.rates)
+							<input type="hidden" class="everyday_rate" value="$!{re.rate}" data-date="$!{re.date}" data-cost="$!{re.cost}" data-code="$!{re.rateCode}"/>
+						#end
+					</span>
+					
+					
+					<div class="float-left animated shake hide padding-top-44">
+						<span class="icon-img warn-mark"></span>1间房最少入住1人
+					</div>
+				</div>
+			</div>
+			<!--入住人选择-->
+			#parse("/hotel/book/hotel-book-checkin.html")
+			
+			
+			<!--差旅信息-->
+			<div class="chailv-mation background-fff margin-bottom-10 clear chailv-mation-remove" id="container_travel"
+				 data-violate="container">
+				<div class="p-m-title">
+					<span class="p-m-t">差旅信息</span>
+				</div>
+				<div class="cl-m-content font-size-12 remove-hotel-flag">
+					<!--<div class="cl-m-show  bounceInRight hide" style="width:750px" data-violate="showMation"></div>-->
+					<div class="clear">
+						<div class="margin-bottom-17 input-c position hide p-w-50 float-left" data-travel="travelinput">
+							<div class="b-m-c- b-m-c-t">出差单号：</div>
+							<div class="input-c  position input-225">
+								#if("$!{bookModel.travelNo}" == "" && "$!{bookModel.custOrderNo}" != "")
+									<input type="text" maxlength="100" name="custOrderNo" class="input" value="$!{bookModel.custOrderNo}">
+								#else
+									<input type="text" maxlength="20" name="travelNo" id="travelNo_i" datatype="*1-20" class="input" ignore="ignore" errormsg="请输入正确的出差单号" nullmsg="请输入出差单号"  value="$!{bookModel.travelNo}">
+								#end
+								<b class="position-ab danger-p hide red">*</b>
+							</div>
+						</div>
+						<div class="margin-bottom-17 input-c position p-w-50  float-left " data-travel="travelreason">
+							<div class="b-m-c-t float-left b-m-c-t">出差事由：</div>
+							<div class="input-c position float-left input-225">
+								<input type="text" maxlength="100"  name="travelReason" id="travelReason_i" ignore="ignore" datatype="*1-100" class="input" nullmsg="请输入出差事由"  value="$!{bookModel.travelReason}">
+								<b class="position-ab danger-p hide red">*</b>
+							</div>
+						</div>
+					</div>
+					<div class="cl-m-show  bounceInRight margin-bottom-17 hide showMation_title clear">
+						<div class="b-m-c-t float-left b-m-c-t ">超标事项：</div>
+						<div class="input-c position float-left input-225 color-666" data-violate="showMation">
+						</div>
+					</div>
+					<div class="weibei-container hide clear" data-violate="content">
+						<div class="clear margin-bottom-17">
+							<div class="b-m-c-t float-left b-m-c-t">超标原因：</div>
+							<div class=" input-all float-left drop-225" data-violate="reason"></div>
+						</div>
+						<div class="book-model-c position clear " data-violate="other">
+							<div class="b-m-c-t float-left b-m-c-t">填写原因：</div>
+							<div class="input-667  position float-left">
+								<input type="text" class="input" maxlength="50" name="" datatype="*" ignore="ignore" nullmsg="请填写超标原因" placeholder="50个字符以内">
+								<b class="position-ab danger-p hide red">*</b>
+							</div>
+						</div>
+					</div>
+					<!--审批 -->
+					#parse("/hotel/book/hotel-book-approval.html")
+				</div>
+			</div>
+			
+			
+			<!-- 现付并且不需要是否担保 -->
+			<div class="last-time-model background-fff clear margin-bottom-10">
+				<div class="p-m-title clear">
+					<span class="p-m-t" style="display: block;float:left;">最晚到店</span>
+				</div>
+				<div class="cl-m-content font-size-12 clear ">
+					<div class="float-left clear aircraft-gray" style="height:30px;line-height:30px;border-radius: 15px;">
+						<input type="hidden" id="startTime" name="startTime" value="$!{bookModel.startTime}"/>
+						<input type="hidden" name="endTime" value="$!{bookModel.endTime}"/>
+						<div id="box" class="box">
+							<span id='parameter' class="parameter"></span>
+						</div>
+					</div>
+				</div>
+				<div class="float-left animated bounceInRight latest-arrival-time" style="font-size: 12px;">
+					<span class="icon-img warn-mark" style="top:0;"></span>通常酒店$!{detail.arrivalTime}:00点办理入住，早到可能等待。超时将会被取消，为了不影响您入住请核对最晚到店时间
+				</div>
+			</div>
+			#if($!bookModel.paymentType=="SelfPay" && (!$bookModel.isGuarantee || $bookModel.guaranteeType!="FORCE"))
+			#end
+			<!--联系人 -->
+			#parse("/hotel/book/hotel-book-contacts.html")
+			<div class="clear btn-submit text-align">
+				<button type="button" class="btn btn-cancel btn-big hotel-book-cancle goback" id="btn-hotel-go" data-weibeiflag="1" data-ctr="1">上一步
+				</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="submit" class="btn btn-default-new btn-big book-submit" id="btn-hotel-book" data-weibeiflag="1" data-ctr="1">下一步</button>
+			</div>
+		</div>
+		<div class="float-right">
+			<!--酒店、房型摘要 -->
+			#parse("/hotel/book/hotel-book-outline.html")
+			<!--费用-->
+			#parse("/hotel/book/hotel-book-expenses.html")
+			<!--预订须知 -->
+			#parse("/hotel/book/hotel-book-rule.html")
+		</div>
+		
+	</form>
+</div>
+<div id="menuContent" class="menuContent" style="display: none; position: absolute; background: #e9e9e9;z-index: 9999;">
+	<ul id="treeDemo" class="ztree" style="margin-top: 0; width: 182px; height: 240px; overflow: auto;"></ul>
+</div>
+<!--底部-->
+#parse("/common/footer-bottom.html")
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/zTree/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="/resources/js/common/jquery.splendid.textchange.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/autocomplete/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="/resources/js/common/cookie.js"></script>
+<script type="text/javascript" src="/resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="/resources/js/common/common.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-oa.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/layer/layer.js"></script>
+<script type="text/javascript" src="/resources/js/common/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-passenger.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-approve.js"></script>
+<script type="text/javascript" src="/resources/js/hotel/hotel-policy.js"></script>
+<script type="text/javascript" src="/resources/js/common/chailv-controller.js"></script>
+<script type="text/javascript" src="/resources/js/common/numbers.js"></script>
+<script type="text/javascript" src="/resources/js/hotel/hotel-book-detail.js"></script>
+<script type="text/javascript" src="/resources/js/hotel/hotel-book-time.js"></script>
+<script type="text/javascript" src="/resources/js/common/data-auto-page.js"></script>
+<script type="text/javascript" src="/resources/js/common/date.js"></script>
+<script type="text/javascript" src="/resources/js/common/validate.js"></script>
+<script type="text/javascript">
+	$(function () {
+		(function(){
+			'$!{bookModel.startTime}' != '' ? bookTime('$!{bookModel.start}','$!{bookModel.startTime}') : bookTime('$!{bookModel.start}');
+		})();
+		//判断是否是分销公司
+		$.ajax({
+			url:"/crm/jiesuan",
+			type:"post",
+			success:function(data){
+				// console.log(data);
+				if(data.data.fukuankemu=="4"){
+					//判断是否是分销公司  是分销的不显示出差事由
+					$('.chailv-mation-remove').remove();
+				};
+			}
+		});
+		
+	});
+    // 国籍and签发地
+    $("body").on("click keyup",'.nationality',function (e) {
+        e.stopPropagation();
+        var _this = $(this);
+        var keyword = $(this).val(); // 关键字
+        //初始化自动下拉数据模块
+        var addrData=new DropAutoData({
+            analyzerData:analyzerData, 	// 分析器
+            eventMain:eventMain, 		// 单击列表的主函数
+            url:'/component/country',   // 请求url
+            this_:$(this), 				// 当前元素
+            showField:"countryNameCn",			// 要展示在当前触发元素里的字段
+            hideField:"id",				// 要展示在其他位置的字段
+            model:"paging", 			// 判断是否为分页模式。paging代表分页模式
+            keyword:keyword,// 关键字
+            index:3000
+        });
+        addrData.interceptor();
+        /*****分析模块*用于得到[{},{}]结构的数组，然后传到volidate验证模块****/
+        function analyzerData(data){
+            var data=data.data;
+            this.pagingIn(data); //初始化分页参数
+            this.volidate(data.items); //执行
+        }
+        /***********数据处理器*单击下拉项，向页面指定位置铺值************/
+        function eventMain(this_,active){ //,this_被点击的列表项，active当前输入框
+            _this.val(this_.text());
+//				_this.siblings('input[name$="itemNumberId"]').val(this_.attr('data-id'))
+        }
+    });
+</script>
+</body>
+</html>

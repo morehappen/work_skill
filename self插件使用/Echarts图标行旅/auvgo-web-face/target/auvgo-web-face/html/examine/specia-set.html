@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加特殊设置</title>
+    <link rel="stylesheet" type="text/css" href="rule.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/colorStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/plugin.css"/>
+</head>
+<body>
+<div class="main-content-new margin-top-5 clear">
+    <div class="content-hend">
+        <div class="float-left speacile" >添加特殊设置</div>
+    </div>
+    <div class="main-content-new">
+    <div class="float-left flow">
+        <div style="margin-top: -20px">
+        <span  class="add_person" style="font-size: 14px;font-weight: bold">选择人员</span>
+        <div class="add_new  add_rank">修改</div>
+        </div>
+            <div class="add_set margin-top-20 margin-left-20 font-size-14 "> 张小花</div>
+           <div class="add_set margin-top-20 margin-left-20 font-size-14 "> 王美丽</div>
+
+    </div>
+    <div class="float-left flow">
+            <div  class="add_person" style="font-size: 14px;font-weight: bold">规则设置</div>
+        <span class="adj"></span>
+        <div class="add_rank add_new_big">添加</div>
+
+    </div>
+    </div>
+    <div class=" margin-top-30">
+        <button type="text" class="btn btn-default  btn_set "  style="margin-left: 350px">保存</button>
+        <button type="text" class="btn btn-cancel btn_set margin-left-10">返回</button>
+    </div>
+</div>
+<script type="text/javascript" src="../../resources/js/common/jquery.js"></script>
+<script>
+    //点击规则设置——添加 增加人员
+    var n = 0;
+    $(".add_new_big").click(function () {
+        n++;
+        var _html = '';
+        var nextImgSrc = '../../static/img/common/next_.png';
+        if (n % n === 0&&n!=1) {
+            _html = "<div class='add_set_box'><img style='padding:0px 10px' class='close-button' src="+ nextImgSrc +"><div class=\"add_set font-size-14\"> 上一级领导</div></div>";
+        } else {
+            _html = "<div class='add_set_box' style='margin-left: 20px'><div class=\"add_set font-size-14\"> 上一级领导</div></div>";
+        }
+        $(".adj").append(_html);
+    })
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>组织架构</title>
+		#parse("/common/styleSheetCommon.html")
+	</head>
+	<body>
+		<form action="/crm/employee/editEmpList" class="alert-form" id="editEmplist">
+			<div class="form-row">
+				<span class="input-desc">所属部门</span>
+				<input type="text" id="citySel" name="deptname" onclick="showMenu();" class="input" readonly="readonly" >
+				<input type="hidden" id="deptpid" name="deptid"> 
+				<input type="hidden" name="companyid"  value="$!company.id"> 
+			</div>
+			<div class="form-row">
+				<span class="input-desc">权限级别</span>
+				<select class="_select_" name="level" data-value="">
+					<option value="">请选择</option>
+					<option value="geren">个人</option>
+					<option value="dept">本部门及以下</option>
+					<option value="all">全部</option>
+				</select>
+			</div>
+			<div class="form-row">
+				<span class="input-desc">员工职级</span>
+					<select class="_select_" name="zhiwei"  data-value="$!staff.id">
+						<option value="">请选择</option>
+						 #foreach($!staff in $!AllStaff)
+						<option value="$!staff.value">$!staff.name</option>
+						 #end
+					</select>
+			</div>
+			
+			<div class="form-row">
+				<span class="input-desc">平台登录</span>
+				 <select class="_select_" name="kaitong" data-value="">
+							<option value="">请选择</option>
+							<option value="0">关闭</option>
+							<option value="1">开通</option>
+					</select>
+			</div>
+			
+			<div class="form-row">
+				<span class="input-desc">预订人</span>
+				 <select class="_select_" name="ifallowbook" data-value="">
+							<option value="">请选择</option>
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select>
+			</div>
+			<div class="form-row">
+				<span class="input-desc">登录密码</span>
+				<input type="text" name="password"  class="input" value=""/>
+			</div>
+			<div class="form-row-button">
+				<input	type="hidden" name='id' class='empids'/>
+				<button type="button" class="btn btn-default btn-big emp_submit">确定</button>
+				<button type="button" class="btn btn-cancel btn-big alert_close_">取消</button>
+			</div>
+		</form>	
+		<div id="menuContent" class="menuContent" style="display: none; position: absolute; background: #f8f8f8;">
+		<ul id="treeDemo" class="ztree" style="margin-top: 0; width: 250px; height: 240px; overflow: auto;"></ul>
+		</div>
+		#parse("common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/employee/employee-deitlist.js"></script>
+		<script type="text/javascript">
+			parent.$(".everyChecked input:checked").length==0 ? zh.alerts({"title":"提示","text":"请选择需要修改的员工!"}) : "";
+			alertZtreeMain({'zNodes':$!{depttree}});
+			$("body").on("click",".emp_submit",function(){
+				if(parent.$(".everyChecked input:checked").length==0){
+					zh.alerts({"title":"提示","text":"请选择需要修改的员工!"})
+					return false;
+				}
+				$(this).attr("type","submit");
+			});
+			$("#editEmplist").Validform({
+				ajaxPost : true,
+				callback : function(data) {
+					$.Hidemsg();
+					if (data.status == 200) {
+						zh.alerts({
+							title:"提示",
+							text:"批量修改成功"
+						})
+						$("body").on("click",".alert_event",function(){
+							top.location.reload();
+						});
+					} else {
+						zh.alerts({
+							title:"提示",
+							text:"批量修改成功"
+						})
+					}
+				}
+			});			
+		</script>
+	</body>
+</html>

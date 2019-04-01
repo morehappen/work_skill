@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>财务管理-结算单明细</title> #parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/finance/finance_common.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/finance/bussiness_bill.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/finance/tobe_payment_detail.css" />
+<style>
+form {
+	padding: 0px 0px 0px 0px;
+}
+.orde-table-wraper table {
+	min-width: 2180px;
+}
+</style>
+</head>
+<body class="background-6461e2">
+	#parse("/common/head.html")
+	<!-- 主体 begin -->
+	<div class="main-content margin-top-10 clear">
+		<div class="detail_tip">
+			<div class="detail_title">$!{jiesuan.companyName}-$!{jiesuan.jiesuanNo}-结算单明细</div>
+			<div class="detail_money">
+				此单结算总额：¥ <span>$!{jiesuan.totalPrice}</span>
+			</div>
+		</div>
+		<form action="/caiwu/jiesuan/detail/$!{jiesuan.jiesuanNo}" method="POST" id="caiWuOrderForm" class="query_form ">
+			<input id="pageNo" type="hidden" name="pageNum"> <input id="pageSize" type="hidden" name="pageSize" value="$!page.size">
+		</form>
+		<div class="detail_list_box">
+			<div class=" list_table_box">
+				<div class="btn_box">
+					<div class="i_item_input float-right anlysis_btn_box">
+						<button type="submit" class="btn close_btn">关闭</button>
+					</div>
+					<div class="i_item_input float-right anlysis_btn_box">
+						<button type="submit" class="btn export_detail_btn">导出全部明细</button>
+					</div>
+				</div>
+				<!-- table 表格部分 begin -->
+				<div class="margin-top-30 orde-table-wraper">
+					<table class="table table-align">
+						<thead class="thead-checked">
+						<tr style="white-space: nowrap;">
+							<th style="font-size: 10px">序号</th>
+							<th style="font-size: 10px">结算状态</th>
+							<th style="font-size: 10px">出票时间</th>
+							<th style="font-size: 10px">产品类型</th>
+							<th style="font-size: 10px">票证状态</th>
+							<th style="font-size: 10px">票号</th>
+							<th style="font-size: 10px; text-align: center;">机建/入住天数</th>
+							<th style="font-size: 10px; text-align: center;">燃油/入住人数</th>
+							<th style="font-size: 10px">销售价</th>
+							<th style="font-size: 10px">服务费</th>
+							<th style="font-size: 10px">退票费</th>
+							<th style="font-size: 10px">应付金额</th>
+							<th style="font-size: 10px">所属部门</th>
+							<th style="font-size: 10px; text-align: center;">出行人/入住人</th>
+							<th style="font-size: 10px; text-align: center;">航程/入住城市</th>
+							<th style="font-size: 10px; text-align: center;">航班车次/ 酒店名称</th>
+							<th style="font-size: 10px; text-align: center;">舱位/席别房型</th>
+							<th style="font-size: 10px">预订时间</th>
+							<th style="font-size: 10px; text-align: center;">起飞出发/入住时间</th>
+							<th style="font-size: 10px; text-align: center;">降落到达/离店时间</th>
+							<th style="font-size: 10px">成本中心</th>
+							<th style="font-size: 10px">项目</th>
+							<th style="font-size: 10px">订票员</th>
+						</tr>
+						</thead>
+						<tbody class="tbody-checked">
+						#foreach($!bill in $!page.items)
+						<tr class="text-c" style="white-space: nowrap;">
+							<td>${vCount}</td>
+							<td><span style="color: red;">$!bill.balStatusName</span></td>
+							<td>$!dateTool.format('yyyy-MM-dd',$!bill.chupiaoTime)</td>
+							<td>$!bill.proTypeName</td>
+							<td>$!bill.ticketStatusName</td>
+							<td>$!bill.ticketNo</td>
+							<td style="text-align: center;">$!bill.routeAirTax</td>
+							<td style="text-align: center;">$!bill.routeFuelTax</td>
+							<td>$!bill.routeTotalTicketPrice</td>
+							<td>$!{bill.fuwuFee}/$!bill.roomDays</td>
+							<td>$!{bill.refundFee}/$!bill.roomNum</td>
+							<td class="qkPrice">$!bill.yingShouPrice</td>
+							<td>$!bill.passDeptName</td>
+							<td style="text-align: center;">$!bill.passName</td>
+							<td style="text-align: center;">$!bill.routeAirportName</td>
+							<td style="text-align: center;">$!bill.routeFlightNo</td>
+							<td style="text-align: center;">$!bill.CabinDes</td>
+							<td>$!dateTool.format('yyyy-MM-dd',$!bill.bookDateTime)</td>
+							<td style="text-align: center;">$!bill.routeDeptDateTime</td>
+							<td style="text-align: center;">$!bill.routeArrDateTime</td>
+							<td>$!bill.costName</td>
+							<td>$!bill.proName</td>
+							<td>$!bill.bookUserName</td>
+						</tr>
+						#end
+						</tbody>
+					</table>
+				</div>
+				<div id="kkpager"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 主体 end -->
+	<!--#parse("/common/foot.html")-->
+	<script type="text/javascript" src="/static/js/crm/my-chailv/my-chailv.js"></script>
+	<script type="text/javascript" src="/resources/js/order/orderCommon.js"></script>
+	<script type="text/javascript" src="/resources/js/finance/finance_common.js"></script>
+	<script type="text/javascript" src="/resources/js/plugin/fix_table_head/jquery.ba-throttle-debounce.min.js"></script>
+	<script type="text/javascript" src="/resources/js/plugin/fix_table_head/jquery.stickyheader.js"></script>
+
+	<script type="text/javascript">
+			kkpagerMain({'pno':$!page.index,'total':$!page.totalPage,'totalRecords':$!page.total,'pageSize':$!page.size,'pageNo':$("#pageNo"),'submit_element':$("#caiWuOrderForm")}); //初始化分页
+	</script>
+	<script type="text/javascript">
+		//导出数据
+		$('body').on("click", ".export_detail_btn", function() {
+			$("#caiWuOrderForm").attr("action", "/caiwu/jiesuan/download/$!{jiesuan.jiesuanNo}");
+			$("#caiWuOrderForm").submit();
+			$("#caiWuOrderForm").attr("action", "/caiwu/jiesuan/detail/$!{jiesuan.jiesuanNo}");
+		});
+		$(".close_btn").on("click", function() {
+			window.close();
+		})
+	</script>
+</body>
+</html>

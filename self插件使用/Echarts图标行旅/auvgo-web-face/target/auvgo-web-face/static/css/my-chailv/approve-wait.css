@@ -1,0 +1,26 @@
+.list-content {
+    width: 968px;
+    min-height: 560px;
+    background: #fff;
+    margin-left: 10px;
+    padding: 17px 20px 0 20px;
+}
+.approve-tab-model {
+    margin-bottom: 30px;
+}
+
+.tab-model {
+    height: 40px;
+    line-height: 40px;
+     border-bottom: 1px solid #e6e6e6;
+    background-color: #fff;
+    /*padding: 1px 0 0 2px;*/
+}
+.tab-model li a {
+    min-width: 0px;
+    text-align: center;
+}
+.tab-model a.tab-target, .tab-model a:hover {
+    color: #614ec2;
+    border-bottom: 2px solid #614ec2;
+}

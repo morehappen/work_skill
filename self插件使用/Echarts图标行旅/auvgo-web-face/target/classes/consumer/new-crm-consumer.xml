@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-lazy-init="true">
+	<!--CRM -->
+	<!-- 前台公司 -->
+    <dubbo:reference id="crmCompanyWSService" interface="com.auvgo.crm.api.ws.ICrmCompanyWSService" />
+
+	<!-- 公司酒店渠道 -->
+    <dubbo:reference id="clientProductWSService"  interface="com.auvgo.crm.api.ws.IClientProductWSService" />
+
+</beans>  

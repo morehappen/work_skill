@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>首页</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/common/city-plugin.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/server/demand.css"/>
+	</head>
+	<body class="background-f0f4ff clear">
+		#parse("/common/head.html")
+		<div class="main-content main-body-content position index-content-policy demand-c" data-value="metting">
+			<div class="main-model position clear">
+				 <form action="/metting/create" method="post" id="meeting">
+					<div class="iframe-model">
+						<div class="title-type clear">
+							<span>活动类型：</span>
+							#foreach($type in $!findzdMsg)
+							<div class="label label-radio #if($!{vCount} == 1)label-select-radio#else#end label-margin-right clear">
+								<span class="show_choice"></span>
+								<input type="radio" name="type" checked value="$!type.value">	
+								<span>$!type.name</span>	
+							</div>
+							#end
+						</div>
+						<div class="clear">
+							<div class="float-left position e-input">
+								<div>出发城市</div>
+								<b style="color:red;" class="position-ab">*</b>
+								<input type="text" name="fromCityName" value="" datatype="*" nullmsg="请输入出发城市" placeholder="请输入出发城市" class="input from-city">
+							</div>
+							<div class="float-left position e-input">
+								<div>目的城市</div>
+								<b style="color:red;" class="position-ab">*</b>
+								<input type="text" name="arriveCityName" placeholder="请输入目的城市"  datatype="*" nullmsg="请输入目的城市" value="" class="input des-city">
+							</div>
+						</div>
+						<div class="clear margin-bottom-10">
+							<div class="float-left position e-input">
+								<div>联系人</div>
+								<b style="color:red;" class="position-ab">*</b>
+								<input type="text" name="linkMan" value=""  datatype="*"  nullmsg="请输入联系人姓名" placeholder="请输入联系人姓名" class="input">
+							</div>
+							<div class="float-left position e-input">
+								<div>联系电话</div>
+								<b style="color:red;" class="position-ab">*</b>
+								<input type="text" name="mobile" value=""  datatype="/^(0|86|17951)?(13[0-9]|15[012356789]|16[6]|17[03678]|18[0-9]|14[5678]|19[89])[0-9]{8}$/"  nullmsg="请输入联系电话" placeholder="请输入联系电话" class="input">
+							</div>
+							<div class="float-left position e-input e-margin-cancle">
+								<div>人数区间</div>
+								<b style="color:red;" class="position-ab">*</b>
+								<input type="text" name="People" datatype="/[0-9]{1,2}-[0-9]{1,2}/" value="" class="input" nullmsg="请输入人数区间" placeholder="请输入人数区间（例如：1-20）" />
+							</div>
+						</div>
+						<div class="clear position textarea-c">
+							<div class="textarea-title">需求描述</div>
+							<textarea name="remark" rows="3" cols="160" value="" maxlength="200" maxlength="200" placeholder="不能超过200个字符" style="width: 1130px;height:100px;padding: 5px 10px;border: 2px solid #e2ecff;resize:none;"></textarea>
+						</div>
+						<div class="clear text-align btn-group">
+							<input type="hidden" data-istype="$!findzdMsg" class="findzdMsg_hidden">
+							#if($!findzdMsg != 1)
+							<button type="submit" class="btn btn-default btn-big radius validform-submit">提交需求</button>
+							#end
+							<!-- <button type="button" class="btn btn-hollow btn-big radius">查看订单</button> -->
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/demand/common-demand.js"></script>
+		<script type="text/javascript" src="/static/js/demand/metting-demand.js"></script>
+	</body>
+</html>

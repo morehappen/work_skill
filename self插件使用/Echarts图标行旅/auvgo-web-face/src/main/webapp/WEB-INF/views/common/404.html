@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>您要找的资源不存在</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/common/common.css" />
+	</head>
+
+	<body class="background-6461e2 clear" style="background: #e2e2e2;">
+		#parse("/common/head.html")
+
+		<div class="main-content">
+			<div class="text-align position" id="error-content" style="padding-top: 115px;">
+				
+				<div style="width: 269px;height: 138px;background: url('/static/img/common/404.png') no-repeat;margin: 0 auto"></div>
+				
+				<p style="color: #6461e2;font-size: 22px;margin-bottom: 10px;">$!Msg</p>
+			
+				<p style="font-size: 12px;"><span id="second"></span> 秒后跳转到首页，如果没有跳转，请 <a href="javascript: (0);" class="go-index" onclick="location.replace('/index')">点击这里</a></p>
+				
+				<div style="width: 635px;height: 271px;background: url('/static/img/common/can-no-find.png') no-repeat;margin: 0 auto;position: absolute;bottom: 0;left: 0;right: 0;"></div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="/static/js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript">
+			(function(){
+				var $dom = $('#error-content');
+				var _height = $(window).height();
+				var _top = $dom.offset().top;
+				var domHeight = (_height - _top) + 'px';
+				$dom.css('height', domHeight);
+			}());
+			
+			var countSecond = 5; // 倒计时
+			$('#second').text(countSecond);
+			var timer = setInterval(function() {
+				if (countSecond <= 0) {
+					$('.go-index').trigger('click');
+					clearInterval(timer);
+					timer = 0; 
+				} 
+				else {
+					$('#second').text(--countSecond);
+				}
+			}, 1000);		
+			
+		</script>
+	</body>
+
+</html>

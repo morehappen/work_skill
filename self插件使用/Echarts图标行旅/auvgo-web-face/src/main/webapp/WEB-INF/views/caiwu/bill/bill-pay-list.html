@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>财务管理-客户#if("$!type"=="0")待付款#else已付款#end列表</title> #parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/finance/finance_common.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/finance/bussiness_bill.css" />
+</head>
+<body class="background-6461e2">
+	#parse("/common/head.html")
+	<!-- 主体 begin -->
+	<div class="main-content margin-top-10 clear">
+		#parse("/caiwu/bill/bill-common-left.html")
+		<div class="aside-content float-left background-fff auto_bottom content_show">
+			<form action="/caiwu/jiesuan/paylist/${type}" method="POST" id="caiWuOrderForm" class="query_form ">
+				<div class="input-select clear">
+					<div class=" clear">
+						<div class="input_items middle-line position-rel float-left clear">
+							<input type="text" class="input border-radius float-left" id="_GTE_date" name="startDate" value="$!recode.startDate" placeholder="请选择制单开始日期"
+								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+						</div>
+						<input type="hidden" name="queryType" value="create">
+						<div class="input_items middle-line position-rel float-left clear">-</div>
+						<div class="input_items middle-line position-rel float-left clear">
+							<input type="text" class="input border-radius float-left" id="_LTE_date" name="endDate" value="$!recode.endDate" placeholder="请选制单结束日期"
+								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+						</div>
+						<div class="input_items middle-line position-rel float-left clear">
+							<div class="input_item_text float-left">结算单号：</div>
+							<div class="i_item_input float-left">
+								<input type="text" class="input border-radius" name="jiesuanNo" value="$!recode.jiesuanNo" placeholder="结算单号">
+							</div>
+						</div>
+						<div class="i_item_input float-left anlysis_btn_box">
+							<button type="submit" class="btn btn-default-new btn-big radius float-left">查询</button>
+						</div>
+					</div>
+				</div>
+				<input id="pageNo" type="hidden" name="pageNum"> <input id="pageSize" type="hidden" name="pageSize" value="$!page.size">
+			</form>
+			<input type="hidden" class="ids_content" name="khcheckids">
+			<!-- table 表格部分 begin -->
+			<div class="margin-top-30 orde-table-wraper">
+				#if($!{page.items.size()}==0)
+				<div class="no-data-wraper">
+					<div class="no-data animated rotateIn">
+						<div class="auvgo-approve-bg no-data-pic" title="暂无数据"></div>
+						<div class="no-data-text">暂无数据</div>
+					</div>
+				</div>
+				#else #if("$!type"=="0")
+				<div style="color: red; font-size: 10px; margin-bottom: 15px">状态为“待付款”的均需要您尽快走对公汇款流程，以免因欠款导致“暂停服务”</div>
+				#end
+				<table class="table table-align">
+					<thead class="thead-checked">
+					<tr style="white-space: nowrap;">
+						<th style="font-size: 10px">序号</th>
+						<th style="font-size: 10px">付款状态</th>
+						<th style="font-size: 10px">结算单号</th>
+						<th style="font-size: 10px">结算金额</th>
+						<th style="font-size: 10px">正常张数</th>
+						<th style="font-size: 10px">应付金额</th>
+						<th style="font-size: 10px">退票张数</th>
+						<th style="font-size: 10px">退回金额</th>
+						<th style="font-size: 10px">制单人</th>
+						<th style="font-size: 10px">制单时间</th>
+					</tr>
+					</thead>
+					<tbody class="tbody-checked">
+					#foreach($!bill in $!page.items)
+					<tr class="text-c" style="white-space: nowrap;">
+						<td>${vCount}</td>
+						<td>#if("$!bill.khBalStatus"=="0")<span style="color: red;">待付款</span>#else<span style="color: green;">已汇款</span>#end
+						</td>
+						<td><a href="/caiwu/jiesuan/detail/$!bill.jiesuanNo" target="_blank">$!bill.jiesuanNo</a></td>
+						<td>$!bill.totalPrice</td>
+						<td>$!bill.ticketNum</td>
+						<td>$!bill.yingshouPrice</td>
+						<td>$!bill.tuipiaoNum</td>
+						<td>$!bill.tuipiaoPrice</td>
+						<td>$!bill.empName</td>
+						<td>$!dateTool.format('yyyy-MM-dd HH:mm',$!bill.createTime)</td>
+					</tr>
+					#end
+					</tbody>
+				</table>
+				<!-- table 表格部分 end -->
+				#end
+			</div>
+			#if($!{page.items.size()}>0)
+			<div id="kkpager"></div>
+			#end
+		</div>
+	</div>
+	<!-- 主体 end -->
+	#parse("/common/foot.html")
+	<script type="text/javascript" src="/static/js/crm/my-chailv/my-chailv.js"></script>
+	<script type="text/javascript" src="/resources/js/order/orderCommon.js"></script>
+	<script type="text/javascript" src="/resources/js/finance/finance_common.js"></script>
+	<script type="text/javascript" src="/resources/js/plugin/fix_table_head/jquery.ba-throttle-debounce.min.js"></script>
+	<script type="text/javascript" src="/resources/js/plugin/fix_table_head/jquery.stickyheader.js"></script>
+
+	<script type="text/javascript">
+			kkpagerMain({'pno':$!page.index,'total':$!page.totalPage,'totalRecords':$!page.total,'pageSize':$!page.size,'pageNo':$("#pageNo"),'submit_element':$("#caiWuOrderForm")}); //初始化分页
+	</script>
+	<script type="text/javascript">
+		//全选,全不选
+		$("body").on("click",".thead-checked input[type='checkbox']",function(){
+			var this_ = $(this),
+				this_val = this_.prop("checked");
+			$("tbody input[type='checkbox']").prop("checked",this_val);
+			getValue();
+		});
+		function getValue(){
+			var ids="";
+			$("input[type='checkbox']:checked").each(function(){
+				ids+=$(this).val()+"-";
+			});
+		    $(".ids_content").val(ids);
+		}
+		//提交核对
+		$('body').on("click",".checksubmit",function(){
+			getValue();
+			var checkvalue= $("input[name='khcheckids']").val();
+			$.ajax({
+				url:'/caiwu/jiesuan/paycheck',
+				type:'POST',
+				data:{'khcheckids':checkvalue},
+				success:function(data){
+					zh.alerts({title:"提示",text: data.msg});
+					if(data.status==200){
+						setTimeout("location.reload()", 800)
+					}
+				},error:function(){
+					zh.alerts({title:"提示",text:"提交失败，网络异常"});
+				}
+			});
+		});
+	</script>
+</body>
+</html>

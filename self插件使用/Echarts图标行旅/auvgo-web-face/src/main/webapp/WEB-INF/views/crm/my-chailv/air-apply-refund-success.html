@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>首页</title> #parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/air/air-book-success.css">
+</head>
+<body class="background-fff clear">
+#parse("/common/head.html")
+<div class="main-content">
+	<div class="success-model background-fff">
+		<div class="clear jincheng-wraper"></div>
+		<div class="clear success-m-tips">
+			<div class="float-left">
+				<img src="/static/img/airImg/success-flag.png" alt="">
+			</div>
+			<div class="float-left s-t-c">
+				<div class="s-text">申请退票成功</div>
+				<div class="font-size-12">
+					您的退票申请已提交，退票结果将在2小时内以短信方式通知您，退款以航司实退金额为准~<br/>
+					如您是在线支付，退款将在1-15个工作日退至您原支付账户。
+				</div>
+			</div>
+		</div>
+		<div class="order-detail font-size-14"></div>
+		<div class="btn-group text-align">
+			#if(!(($!company.bianhao == 'CLKJ') && ("$!p.get('traverorderno')" == "")))
+			<a href="/toBook" title="" class="btn btn-default btn-big">继续预订</a>
+			#end
+			#if($!tuiResult.status == "200")
+			<a href="/myChailv/toAirRefundDetail/$!tuiResult.data?flag=personal" title="" class="btn btn-default btn-big">查看订单</a>
+			#end
+		</div>
+	</div>
+</div>
+<!-- 主体 end -->
+#parse("/common/foot.html")
+</body>
+</html>

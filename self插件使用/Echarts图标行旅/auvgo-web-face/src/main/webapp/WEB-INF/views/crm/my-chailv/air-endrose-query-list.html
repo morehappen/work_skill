@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>机票-列表</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/air/air-query-list.css">
+</head>
+<body class="background-6461e2 clear">
+#parse("/common/head.html")
+<div class="main-content">
+	<input type="hidden" class="carriecode" value="$!routes.carriecode">
+	<input type="hidden" class="change-query-list" value="1">
+	<input type="hidden" class="search_str" data-orderno="$!routes.orderno" data-gqreason="$!gqReason" data-passid="$!passid" data-routeid="$!routes.id">
+	<input type="hidden" class="cid_" value="$!routes.companyid">
+	<input type="hidden" id="line-choice" value="ow">
+	<div class="query_form background-fff margin-bottom-10 clear">
+		<div class="clear">
+			<div class="float-left position">
+				<span class="icon-search icon-qifei icon-img position-ab"></span>
+				<input type="text" class="show-city city-name fromCity input float-left" readonly name="fromCityName" value="$!routes.orgcityname" autocomplete="off" />
+				<input type="hidden" class="city-code from-city-code" name="from" value="$!routes.orgcitycode"/>
+			</div>
+			<div class="float-left position">
+				<span class="icon-search icon-img position-ab icon-jiangluo"></span>
+				<input type="text" class="show-city city-name toCity input float-left" name="arriveName" readonly value="$!routes.dstcityname" autocomplete="off" />
+				<input type="hidden" class="city-code to-city-code" name="arrive" value="$!routes.dstcitycode"/>
+			</div>
+			<div class="float-left position">
+				<span class="icon-search icon-img position-ab icon-date-ccc"></span>
+				<input type="text" name="startdate" value="$!querydate" id="beginDate" class="input float-left" onfocus="WdatePicker({doubleCalendar:true,minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+365}',onpicked:function(){},onpicking:function(dp){date_lock(dp.cal.getNewDateStr())},isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})" />
+			</div>
+			<div class="float-left">
+				<button type="button" class="btn btn-default btn-big float-left air-query">重新查询</button>
+			</div>
+			<div class="float-left">
+				<a href="/myChailv/toAirOrderDetail/$!routes.orderno?flag=personal" class="btn btn-default btn-big" style="vertical-align:text-bottom;margin-left:14px;">返回</a>
+			</div>
+		</div>
+	</div>
+	<div class="clear">
+		<div class="float-left filter-tj filter-tj-air font-size-12">
+			<div class="filter-show clear"></div>
+			<div class="e-filter">
+				<div class=" background-fff clear only-and-share" style="height: 50px;line-height: 50px;padding-left: 20px;cursor: pointer;">
+					<span class="label label-checkbox label-margin-right clear float-left" style="position:relative;width:50%;line-height:50px;">
+						<span class="show_choice float-left" style="left:0;top:15px;"></span>
+						<input type="checkbox" name="stopnumber" value="0">
+						<span class="float-left" >仅看直飞</span>
+					</span>
+					<span class="label label-checkbox label-margin-right clear float-left" style="position:relative;width:50%;line-height:50px;">
+						<span class="show_choice float-left" style="left:0;top:15px;"></span>
+						<input type="checkbox" name="sharecarrier" value="">
+						<span class="float-left" >隐藏共享</span>
+					</span>
+				</div>
+			</div>
+			<div class="e-filter">
+				<div class="e-f-title background-fff position">
+					<span class="icon-img position-ab icon-time"></span>
+					起飞时段
+				</div>
+				<div class="hide filter-e-content">
+					<div class="mCustomScrollbar scroll_filter" style="height:180px">
+						<ul class="js_qifeiTime">
+							<li>
+								<div class="label label-checkbox label-margin-right clear">
+									<span class="show_choice"></span>
+									<span>00:00-06:00</span>
+									<input type="checkbox" name="qifeiTime" value="00:00-06:00">
+								</div>
+							</li>
+							<li>
+								<div class="label label-checkbox label-margin-right clear">
+									<span class="show_choice"></span>
+									<span>06:00-12:00</span>
+									<input type="checkbox" name="qifeiTime" value="06:00-12:00">
+								</div>
+							</li>
+							<li>
+								<div class="label label-checkbox label-margin-right clear">
+									<span class="show_choice"></span>
+									<span>12:00-18:00</span>
+									<input type="checkbox" name="qifeiTime" value="12:00-18:00">
+								</div>
+							</li>
+							<li>
+								<div class="label label-checkbox label-margin-right clear">
+									<span class="show_choice"></span>
+									<span>18:00-24:00</span>
+									<input type="checkbox" name="qifeiTime" value="18:00-24:00">
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="e-filter e-fliter-dongtai">
+				<div class="e-f-title background-fff position">
+					<span class="icon-img icon-air-guonei position-ab"></span>
+					航空公司
+				</div>
+				<div class="hide filter-e-content">
+					<div class="mCustomScrollbar scroll_filter">
+						<ul class="filter-ul airlineFilter js_airlineFilter"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="e-filter e-fliter-dongtai">
+				<div class="e-f-title background-fff position">
+					<span class="icon-img icon-qifei-ccc position-ab"></span>
+					起飞机场
+				</div>
+				<div class="hide filter-e-content">
+					<div class="mCustomScrollbar scroll_filter">
+						<ul class="filter-ul startAirPort js_startAirPort"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="e-filter e-fliter-dongtai">
+				<div class="e-f-title background-fff position">
+					<span class="icon-img icon-jiangluo-ccc position-ab"></span>
+					到达机场
+				</div>
+				<div class="hide filter-e-content">
+					<div class="mCustomScrollbar scroll_filter">
+						<ul class="filter-ul arriveAirPort js_arriveAirPort"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="e-filter">
+				<div class="e-f-title background-fff position">
+					<span class="icon-img icon-air-seat position-ab"></span>
+					舱位类型
+				</div>
+				<div class="hide filter-e-content">
+					<div class="mCustomScrollbar scroll_filter" style="height:135px">
+						<ul class="js_cangwei">
+							<li>
+								<div class="label label-checkbox label-margin-right clear">
+									<span class="show_choice"></span>
+									<span>经济舱</span>
+									<input type="checkbox" name="cangwei" value="Y">
+								</div>
+							</li>
+							<li>
+								<div class="label label-checkbox label-margin-right clear">
+									<span class="show_choice"></span>
+									<span>头等舱</span>
+									<input type="checkbox" name="cangwei" value="F">
+								</div>
+							</li>
+							<li>
+								<div class="label label-checkbox label-margin-right clear">
+									<span class="show_choice"></span>
+									<span>公务舱</span>
+									<input type="checkbox" name="cangwei" value="B">
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="e-filter e-fliter-dongtai">
+				<div class="e-f-title background-fff position">
+					<span class="icon-img icon-airline position-ab"></span>
+					计划机型
+				</div>
+				<div class="hide filter-e-content">
+					<div class="mCustomScrollbar scroll_filter">
+						<ul class="filter-ul projectStyle js_projectStyle"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="float-right airline-content">
+			<div class="clear sevenDateContent font-size-12 margin-bottom-10">
+				<div class="prev_date prev_date_t"></div>
+				<ul class="train-ulTabs air-ulTabs" id="date_train_tab"></ul>
+				<div class="next_date"></div>
+			</div>
+			<div class="margin-bottom-10 qc-xinxi background-fff hide">
+				<input type="hidden" class="go-airline" value="$!bookRoutes.get(0).carriecode">
+				<span class="float-left qc-flag text-align font-size-12">去</span>
+				<span class="float-left">$!bookRoutes.get(0).carriername $!bookRoutes.get(0).airline</span>
+				<span class="float-left fengexian">|</span>
+				<span class="float-left">$!bookRoutes.get(0).orgname#if($!bookRoutes.get(0).deptterm!="")($!bookRoutes.get(0).deptterm)#end</span>
+				<span class="qc-point float-left"></span>
+				<span class="float-left">$!bookRoutes.get(0).arriname#if($!bookRoutes.get(0).arriname!="")($!bookRoutes.get(0).arriterm)#end</span>
+				<span class="qc-date float-left"><span class="cf-name">出发：</span><span>$!bookRoutes.get(0).deptdate $!bookRoutes.get(0).depttime</span></span>
+				<span class="qc-date float-left"><span class="dd-name">到达：</span><span>$!bookRoutes.get(0).arridate $!bookRoutes.get(0).arritime</span></span>
+				<!-- <span class="float-right"><a href="" title="">重选去程</a></span> -->
+			</div>
+			<div class="filter background-fff font-size-12 margin-bottom-10">
+				<span class="filter-hb-xinxi">航班信息</span>
+				<span class="stg-sort stg-sort-time" data-flag='0'>起飞时间</span>
+				<span class="stg-sort stg-sort-price" data-flag='0'>航班价格</span>
+			</div>
+			<input type="hidden" class='ajaxCanshu' value='$!{query}'>
+			<input type="hidden" class="bookReturnPara" data-value=$!queryagain value="$!queryagain">
+			<input type="hidden" class='air-form-date' value=''>
+			<input type="hidden" class="backLine" value="$!backflag">
+			<div class="air-list-content clear">
+				<ul class="air-list background-fff font-size-12"></ul>
+				#parse("/common/no-data.html")
+			</div>
+		</div>
+	</div>
+</div>
+<div class="position-ab Screen-full hide">
+	<div class="Screen-zhezhao"></div>
+	<div class="position-ab query-loading hide">
+		<div class="text-align">请稍等...</div>
+		<div class="loadingImg text-align">
+			<img src="/static/project-resource/img/loading-line.gif" style="width: 555px;height: 22px;">
+		</div>
+		<div class="font-size-14 text-align query-status">正在努力为您筛选最优的航班信息</div>
+		<div class="font-size-14 text-align query-tips">温馨提示：国内航班建议提前5-7天以上预订，价格更优！</div>
+		<div class="query-hc">
+			<span class="float-left wait-icon icon-airline"></span>
+			<span class="float-left wait-city wait-c-from">北京</span>
+			<span class="float-left a-l-point wait-jiantou position">
+				<span class="wait-hb-date position-ab text-align">2017-08-03</span>
+			</span>
+			<span class="float-left wait-city wait-city-after text-align-r wait-c-to">上海</span>
+		</div>
+	</div>
+	<div class="tuijiao-line position-ab background-fff hide">
+		<div class="tuijian-title clear text-align position">
+			选择推荐航班节省<span class="tj_t-price"></span>
+			<span class="position-ab icon-img close-tuijian close_class icon-close cursor"></span>
+		</div>
+		<div class="policy_show font-size-14 text-align">
+			<div class="volidate_text"></div>
+		</div>
+		<div class="hb_container mCustomScrollbar margin-bottom-20">
+			<ul class="tuijian-list-ul clear"></ul>
+		</div>
+		<div class="text-align">
+			<a class="btn btn-default btn-big font-size-14 continue-book cursor" data-lowc="1">继续预订</a>
+		</div>
+	</div>
+	<div class="position-ab background-fff timeoutpage raidus-10 hide">
+		<div class="clear">
+			<div class="float-left danger_img"></div>
+			<p class="float-left font-size-12 timeoutText">当前页面长时间未操作，航班价格可能变动，请重新查询航班。</p>
+		</div>
+		<div class="text-align repeatQuery">
+			<button class="btn btn-default btn-big font-size-14 repeat-query radius cursor" data-value=$!{query} >重新查询航班</button>
+		</div>
+	</div>
+</div>
+
+<!-- 主体 end -->
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/js/common/seven_date.js"></script>
+<script type="text/javascript" src="/static/js/air/air-policy.js"></script>
+<script type="text/javascript" src="/static/js/air/air-query-list.js"></script>
+</body>
+</html>

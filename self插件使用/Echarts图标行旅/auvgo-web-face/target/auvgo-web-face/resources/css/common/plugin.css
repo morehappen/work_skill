@@ -1,0 +1,108 @@
+@charset "UTF-8";
+/*字体样式*/
+/*字体大小开始*/
+/*字体大小结束*/
+/**按钮组高度，内边距开始**/
+/*大型按钮左右边距*/
+/*中型小型按钮左右边距*/
+/*小型按钮左右边距*/
+/**按钮组高度，内边距结束**/
+/*table开始*/
+/*table开始*/
+/*表单控件开始*/
+/*表单控件结束*/
+/*select 下拉 start*/
+/*select 下拉 end*/
+/*弹出窗口 start*/
+/***alert***/
+/*弹出窗口 end*/
+/*按钮组尺寸开始*/
+.btn{box-sizing: content-box;}
+.btn-big { font-size: 16px; height: 30px; line-height: 30px; padding: 0 24px;}
+
+.btn-middle { font-size: 16px; height: 30px; line-height: 30px; padding: 0 16px; }
+
+.btn-small { font-size: 14px; height: 20px; line-height: 20px; padding: 0 8px; }
+
+.btn-cancel {height:28px;line-height: 28px;border: 1px solid #6461e2; }
+
+/*按钮组尺寸结束*/
+/*table开始*/
+table.table { font-family: "微软雅黑"; width: 100%; border-collapse: collapse; text-align: left; }
+
+.table th { font-weight: normal; height: 40px; line-height: 40px; }
+
+.table th, .table td { font-size: 12px; height: 32px; line-height: 32px; padding: 0 10px; white-space: nowrap}
+
+.table th { font-size: 14px; }
+
+.table_caozuo { text-align: center; }
+
+.table-btn-div { padding-left: 5px; display: inline-block; vertical-align: text-top; }
+
+.table_caozuo .btn { float: left; margin-right: 5px; }
+
+/*table开始*/
+/*表单控件开始*/
+/* label{width:$size14;height:$size14;display:$displayInlineBlock} */
+.label{height:18px;line-height:18px;position:relative;display: inline-block; *zoom:1;*display: inline;vertical-align:middle;cursor:pointer;}
+/* label:before { content: ""; width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-bottom: 3px; } */
+/* label span {vertical-align: middle; margin-bottom: 3px; display: inline-block; } */
+.label span{height:18px;line-height:18px;line-height:20px \9;float:left;padding-left:4px;}
+.label .show_choice{width:18px;height:18px;line-height:18px;vertical-align:middle;padding-left:0;background:url(../../img/common/check_groups.png) no-repeat 0px -57px;float:left;}
+.label-select-radio .show_choice {background-position:0 0;}
+.label-checkbox .show_choice {background-position: 0 -95px}
+.label-select-checkbox .show_choice{background-position: 0 -76px}
+.label > input { display: none; }
+/*表单控件结束*/
+/*select 下拉 start*/
+._select_ { display: none; }
+
+.drop { width: 250px; position: relative; }
+
+.drop_title { font-size: 14px; height: 30px; line-height: 30px; text-align: left; padding-left: 10px; position: relative; cursor: pointer; -ms-border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	padding-right: 15px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+
+.drop_title:after { display: inline; width: 0px; height: 0px; content: ""; border: solid; border-width: 5px; border-color: #333 transparent transparent transparent; position: absolute; right: 9px; top: 13px; }
+
+.drop_option { width: 100%; max-height: 250px; padding: 0; margin: 0; display: none; position: absolute; left: 0px; z-index: 5; overflow: auto; }
+
+.drop_option li { font-size: 14px; text-align: left; float: none; height: 30px; line-height: 30px;white-space: nowrap;list-style-type: none; padding: 0 8px; cursor: pointer; }
+
+/*select 下拉 end*/
+/*弹出窗口 start*/
+iframe { width: 100%; height: 100%; border: none; padding: 0; margin: 0; }
+
+.alert_window { display: none; position: fixed; margin: auto;top:50%;left:50%;margin-left:-150px;margin-top:-89px;z-index: 100005; }
+.new_alert_window {border-radius:5px;overflow: hidden}
+.alert_title { height: 40px; line-height: 40px; text-align: center; position: relative; }
+.new_alert_window .alert_title{height:16px;line-height:16px;text-align:left;padding:20px 30px;}
+.alert_title .alert_close_ { width: 12px; height: 12px; background: url(../../img/plugin/window_close.png) no-repeat center; position: absolute; right: 20px; top: 14px; cursor: pointer; }
+
+.alert_content { position: relative; }
+.new_alert_window .alert_content {padding:0 30px}
+
+.alert_btn { text-align: center; }
+
+.alert_btn_fixed { font-size: 16px; height: 32px; line-height: 32px; width: 80px; }
+
+.btn_group { position: absolute; bottom: 20px; left: 0; right: 0; margin: auto; }
+.btn_group .btn { margin: 0 2.5px; }
+
+.alert_mengceng { width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: 100004; }
+
+/*alert样式*/
+.alert_main_, .confirm_main_ { width: 300px; height: 178px; }
+.alert_main_ .alert_content, .confirm_main_ .alert_content { width: 260px;height:88px; padding: 30px 20px 20px 20px; }
+
+.alert_main_ .main_content { font-size: 14px; }
+
+/*弹出窗口 end*/
+/*hover悬浮窗 start*/
+.hover_content { width: 70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/*hover悬浮窗 end*/
+/*悬浮提示 start*/
+/*悬浮提示 end*/
+
+/*# sourceMappingURL=plugin.css.map */

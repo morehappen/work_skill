@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>员工管理</title> #parse("/common/styleSheetCommon.html")
+    <link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/add-staff.css"/>
+</head>
+<body class="background-6461e2">
+#parse("/common/head.html")
+<!-- breadcrumbs -->
+<div class="bread-crums main-content margin-top-10">
+    #parse("/common/bread-crumbs.html") > <a href="/crm/employee" class="normal_a">员工管理</a> > 添加员工
+</div>
+<form action="/crm/employee/save" method="POST" id="employeeForm">
+    <!-- 主体 begin -->
+    <div class="main-content margin-top-10 background-fff auto_bottom">
+        <div class="content-only" style="padding-left: 0;">
+            <!-- 001 begin -->
+            <div class="auvgo-approve-bg arrow-button">账号信息</div>
+            <div class="margin-top-20 clear padding-left-66">
+                <input type="text" name="name" value="$!emp.name" class="input" placeholder="证件姓名(必填)"
+                       datatype="*2-70"/>
+                <input type="text" id="citySel" name="deptname" value="$!emp.deptname" onclick="showMenu();"
+                       placeholder="部门(必填)" class="input" readonly="readonly" datatype="*2-50" nullmsg="请选择部门">
+                <input type="hidden" id="deptpid" name="deptid" value="$!emp.deptid">
+                <input type="hidden" name="companyid" value="$!company.id">
+                <input type="hidden" name="id" value="$!emp.id" id="emp-id">
+                <input type="hidden" name="accno" value="$!emp.accno" id="emp-accno">
+                <input type="hidden" name="username" value="$!emp.username" id="emp-username">
+            </div>
+            <div class="auvgo-approve-bg arrow-button margin-top-30">证件信息</div>
+            <div class="margin-top-20 clear padding-left-66">
+                <div class="float-left select_role switch-certtype">
+                    <select class="_select_" name="certtype" data-value=$!{emp.certtype}>
+                        <option value="">证件类型</option>
+                        <option value="1">身份证</option>
+                        <option value="C">港澳通行证</option>
+                        <option value="G">台湾通行证</option>
+                        <option value="B">护照</option>
+                        <option value="ID">其他</option>
+                    </select>
+                </div>
+                <input type="text" class="input" placeholder="证件号码(必填)" name="certno" value="$!emp.certno"/>
+                <input type="text" name="birthday" value="$!emp.birthday"
+                       class="input birthday #if($!{emp.certtype} == 1)hide#end" placeholder="出生日期"
+                       onclick="WdatePicker({dateFmt: 'yyyyMMdd',maxDate: '%y-%M-%d',readOnly: true})" ignore="ignore"
+                       nullmsg="请选择出生日期"/>
+            </div>
+            <!-- 002 end -->
+            <!-- 003 begin -->
+            <div class="auvgo-approve-bg arrow-button margin-top-30">联系信息</div>
+            <div class="margin-top-20 clear padding-left-66">
+                <input type="text" class="input  mobileValue" placeholder="手机号" name="mobile" value="$!emp.mobile"
+                       datatype=$!{mobileRegExp} errormsg=$!{mobileRegExpErr} ignore="ignore"/>
+            </div>
+            <!-- 003 end -->
+            <div class="emp-div">
+                <ul class="employee-wraper"></ul>
+            </div>
+
+            <div class="clear margin-top-30 text-align">
+                <button type="submit" class="btn btn-default btn-big emp_submit" data-cno=$!company.bianhao>确定</button>
+                <a href="/crm/employee" class="btn btn-cancel btn-big">取消</a>
+            </div>
+            <div id="menuContent" class="menuContent" style="display: none; position: absolute; background: #e9e9e9;">
+                <ul id="treeDemo" class="ztree"
+                    style="margin-top: 0; width: 250px; height: 240px; overflow: auto;"></ul>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- 主体 end -->
+#parse("common/foot.html")
+<script type="text/javascript" src="/static/js/md5.min.js"></script>
+<script type="text/javascript" src="/static/js/crm/employee/employee-add.js"></script>
+<script type="text/javascript">
+    ztreeMain({'zNodes': $!{depttree}});
+</script>
+</body>
+</html>

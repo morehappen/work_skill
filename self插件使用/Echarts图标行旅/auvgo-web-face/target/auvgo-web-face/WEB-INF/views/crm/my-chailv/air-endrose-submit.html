@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>机票改签提交</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-apply-common.css" />
+</head>
+<body>
+<form action="/ticketChange/createGaiqian" method="post" target="_top" id="changeQueryForm">
+	<div class="tips-content">
+		<p>*改签操作在线仅支持一次操作，二次改签需拨打客服电话4006060011</p>
+		<p>*改签手续费及最终改签金额以航司实际改签为准</p>
+	</div>
+	<div class="apply-line">
+		<div class="clear">
+			<span class="float-left e-l-c-newline">新航班信息</span>
+			<div class="o-content">
+				<div class="clear air-to-content">
+					<div class="clear font-size-14 airline-mation position">
+						<span class="position-ab cheap " style="left:-62px;top:3px;">廉</span>
+						<span class="text-align btn btn-default btn-small-small position-ab airline-flag">去</span>
+						<span class="float-left"><img src="/static/img/airImg/airline/$!{gqRoute.carriecode}.png"
+													  class="aircom-img"></span>
+						<span class="float-left airline-name">$!gqRoute.carriername$!gqRoute.airline</span>
+						<span class="float-left">#if($!gqRoute.mealcode==1)有餐#elseif($!gqRoute.mealcode==0)无餐#else$!gqRoute.mealcode#end</span>
+					</div>
+					<div class="clear">
+						<div class="order-from float-left">
+							<div class="font-size-14 margin-b-14">$!gqRoute.orgname机场$!gqRoute.deptterm</div>
+							<div class="font-size-20 margin-b-14 air-time-show">$!gqRoute.depttime</div>
+							<div class="font-size-14 air-airport">$!gqRoute.deptdate</div>
+						</div>
+						<div class="order-mid float-left text-align">
+							<div class="">$!gqRoute.codeDes $!gqRoute.disdes</div>
+							<div class="tarin-bg arrow-big"></div>
+							<div class="tuigai-des position">
+								<a href="javascript:void(0);">退改签</a>
+								<table>
+									<tbody>
+									<tr>
+										<td class="td-title">退票规定</td>
+										<td class="td-content">$!gqRoute.refundrule</td>
+									</tr>
+									<tr>
+										<td class="td-title">更改规定</td>
+										<td class="td-content">$!gqRoute.changerule</td>
+									</tr>
+									<tr>
+										<td class="td-title">签转规定</td>
+										<td class="td-content">$!gqRoute.signrule</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="order-arrive float-left">
+							<div class="font-size-14 margin-b-14">$!gqRoute.arriname机场$!gqRoute.arriterm</div>
+							<div class="font-size-20 margin-b-14 air-time-show">$!gqRoute.arritime</div>
+							<div class="font-size-14 air-airport">$!gqRoute.arridate</div>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" data-approve="is" value="$!jgkai" data-need="$!jgneed">
+			</div>
+		</div>
+		<div class="clear margin-bottom-40">
+			<span class="float-left e-l-c-p">乘机人</span>
+			<span class="e-p-model" data-passtype="1" data-id="$!guserId">$!guser</span>
+		</div>
+		<!--<div class="clear padding-bottom-20 approve_content drop-float drop-150">-->
+			<!--<span class="float-left sp-guize-name">审批规则：</span>-->
+			<!--<span class="approve_rule"></span>-->
+		<!--</div>-->
+		<!--<div class="sp-show clear"></div>-->
+		<!--<div class="clear">-->
+			<!--<span class="float-left e-l-c-cost">改签费</span>-->
+			<!--<span>120元/人</span>-->
+		<!--</div>-->
+		<div class="btnGrounp">
+			<button type="submit" class="btn btn-default btn-big">提交改签</button>
+		</div>
+	</div>
+</form>
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/js/crm/my-chailv/air-apply-common.js"></script>
+<script type="text/javascript" src="/static/js/crm/my-chailv/air/air-endrose-submit.js"></script>
+</body>
+</html>

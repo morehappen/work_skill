@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>机票订单-详情-改签单</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-new-order-detail.css" />
+	</head>
+	<body class="background-6461e2">
+	<input type='hidden' class='project-code-shut' value='1'>
+	<!--BKJT判断标志-->
+	<input type="hidden" class="getShowname">
+		#parse("/common/head.html")
+		<div class="main-content">
+			<div class="margin-bottom-20"></div>
+			<div class="order-status-wraper background-fff margin-bottom-20 border-r5">
+				<div class="clear">
+					<div class="float-left tarin-bg order-status text-align font-size-14 color-fff">$!airUtil.getAirGaiqianFaceStatus($!gaiqianOrder.showStatus)</div>
+					<div class="clear float-left font-size-12">
+						<div class="float-left" style="width: 275px;">
+							<div class="color-gray">原订单</div>
+							<div class="font-size-14"><a class="y_order" href="/myChailv/toAirOrderDetail/$!gaiqianOrder.oldorderno?flag=">$!gaiqianOrder.oldorderno</a></div>
+						</div>
+						<div class="float-left" style="width: 270px;">
+							<div class="color-gray">改签单号</div>
+							<div class="font-size-14">$!gaiqianOrder.gqorderno</div>
+						</div>
+						<div class="float-left">
+							<div class="color-gray">申请时间</div>
+							<div class="font-size-14">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!gaiqianOrder.createtime)</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="clear">
+				<div class="float-left">
+
+					<!-- 车次信息 begin -->
+					#set($routeList = $!gaiqianOrder.routes)
+					#parse("/crm/my-chailv/order-detail-air-airline-infor.html")
+					<!-- 车次信息 end -->
+
+					<!-- 乘车人 begin -->
+					<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+						<div class="o-title font-size-18">乘机人</div>
+						<div class="o-content">
+							#foreach($pass in $!gaiqianOrder.passengers) 
+							#foreach($rPass in $!routePass)
+							#foreach($orderpass in  $!airOrder.passengers)
+							#if($!pass.passid == $!rPass.passid)
+							#if($!orderpass.id == $!pass.passid)
+							<div class="clear margin-bottom-20">
+								<div class="o-e-pass">
+									<div class="margin-b-14 font-size-16">$!pass.name</div>
+								</div>
+								<div class="o-e-cert float-left ">
+									<div class="color-gray margin-b-14">票号</div>
+									<div>
+										#if("$!pass.piaohao" != "")
+										$!pass.piaohao
+										#else
+										--
+										#end
+									</div>
+								</div>
+
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">
+										#if($!pass.certype == "1")
+										二代身份证
+										#elseif($!pass.certype == "C")
+										港澳通行证
+										#elseif($!pass.certype == "G")
+										台湾通行证
+										#elseif($!pass.certype == "B")
+										护照
+										#else
+										其他
+										#end
+									</div>
+									<div>$!pass.certno</div>
+								</div>
+
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">保险</div>
+									<div>
+										#if($!bxFlag)
+											$!pass.bxName
+										#else
+											--
+										#end
+									</div>
+								</div>
+
+							</div>
+							<div class="clear margin-bottom-20">
+
+								#if("$!pass.costName" != "")
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">成本中心</div>
+									<div class="hoverTips hover_content" style="width: 130px;">
+										$!pass.costName
+									</div>
+								</div>
+								#end
+								#if("$!pass.itemNumber" != "")
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14 detail-title isHuiChuan_text">项目中心</div>
+									<div class="hoverTips hover_content" style="width: 130px;">
+										$!pass.itemNumber
+									</div>
+								</div>
+								#end
+								#if("$!pass.showCode"!="")
+								<div class="o-e-cert float-left showNameCode" style="margin-top:20px;">
+									<div class="float-left p-w-160 showNameCode">SHOWCODE：</div>
+									<div class="hoverTips hover_content" style="width: 110px;">
+										<div class="float-left p-w-160 input-email"  style="height:16px;">$!pass.showCode</div>
+									</div>
+								</div>
+								#end
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">发送通知</div>
+									<div class="hoverTips hover_content"style="width: 110px;">
+										#if($!pass.isSend == true)
+										短信
+										#else
+										--
+										#end
+										#if($!pass.isSendEmail == true)
+										邮箱
+										#else
+										--
+										#end
+									</div>
+								</div>
+							</div>
+							<div class="clear margin-bottom-20">
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">手机号</div>
+									<div>
+										#if("$!orderpass.mobile" != "")
+										$!orderpass.mobile
+										#else
+										--
+										#end
+									</div>
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">部门</div>
+									<div>
+										#if("$!orderpass.depname" != "")
+										$!orderpass.depname
+										#else
+										--
+										#end
+									</div>
+								</div>
+
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">邮箱</div>
+									<div>
+										#if("$!orderpass.email" != "")
+											$!orderpass.email
+										#else
+											--
+										#end
+									</div>
+								</div>
+								#if("$!orderpass.showCode"!="")
+								<div class="o-e-cert float-left showNameCode">
+									<div class="float-left p-w-160 showNameCode">SHOWCODE：</div>
+									<div class="hoverTips hover_content" style="width: 110px;">
+										<div class="float-left p-w-160 input-email"  style="height:16px;">$!orderpass.showCode</div>
+									</div>
+								</div>
+								#end
+							</div>
+							#end
+							#end
+							#end
+							#end
+							#end
+						</div>
+					</div>
+					<!-- 乘车人 end -->
+
+					<!-- 联系人 begin -->
+					#set($model = 'air')
+					#set($linkName = $!gaiqianOrder.linkName)
+					#set($linkPhone = $!gaiqianOrder.linkPhone)
+					#set($linkEmail = $!gaiqianOrder.linkEmail)
+					#parse("/crm/my-chailv/order-detail-link.html")
+					<!-- 联系人 end -->
+
+					<div class="text-align margin-bottom-20">
+						<button type="button" class="btn btn-cancel btn-middle air-order-cancle">返回</button>
+					</div>
+				</div>
+				<div class="float-right">
+					<div class="order-right background-fff margin-bottom-20 border-r5 font-size-16">
+						<div class="clear">
+							<div class="float-left">改签手续费</div>
+							<div class="float-right color-purple">
+								#if($!gaiqianOrder.showStatus ==6)
+									<span class="font-size-12">￥</span><span>#set($gqFee = $!gaiqianOrder.passengers[0].khYinshou * $!gaiqianOrder.passengers.size()) $!gqFee</span>
+								#else --
+								#end
+							</div>
+						</div>
+					</div>
+					#parse("/crm/my-chailv/approve-common.html")
+					<div class="order-right background-fff margin-bottom-20 border-r5 font-size-16">
+						<div class="clear margin-b-14">
+							<div class="float-left">改签原因：</div>
+						</div>
+						<div class="clear font-size-12">
+							$!gaiqianOrder.gqreason
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/common/order-details-common.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/air-endrose-detail.js"></script>
+		<script type="text/javascript" src="/static/js/common/chailv-controller.js"></script>
+		<script type="text/javascript">
+		</script>
+	</body>
+	
+</html>

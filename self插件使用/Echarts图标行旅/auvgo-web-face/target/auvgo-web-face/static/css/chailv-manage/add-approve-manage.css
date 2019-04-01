@@ -1,0 +1,18 @@
+.span-input {
+  margin-right: 20px;
+}
+table {
+  text-align: center;
+}
+table th,
+table td {
+  text-align: center;
+}
+table .input {
+  width: 250px;
+  height: 26px;
+  margin: 0;
+}
+
+.input-td{position:relative;}
+.input-ul{display: none;position: absolute;top: 28px;left: 240px;background: #fff;border: 1px solid #eee;width: 250px;max-height: 96px;overflow-y: auto;z-index: 99;}

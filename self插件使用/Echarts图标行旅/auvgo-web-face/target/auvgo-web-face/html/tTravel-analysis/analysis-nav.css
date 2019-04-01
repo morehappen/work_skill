@@ -1,0 +1,364 @@
+/*公共部分*/
+/*时间日期插件*/
+.bjui-pageContent{
+
+}
+.bjui-pageContent .btn{
+    padding: 4px 4px;
+}
+#daterange-btn {
+    /*width: 180px;*/
+    padding: 4px 2px 4px 6px;
+}
+#daterange-btn{
+    font-size: 12px;
+}
+
+/*次数时长页面，th上的三角形*/
+.arrow_down_tip,.arrow_up_tip{
+    position: relative;
+}
+.arrow_down_tip:after{
+    content: "";
+    display: block;
+    top:23px;
+    left: 73px;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 5px solid #333;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+.arrow_up_tip:after{
+    content: "";
+    display: block;
+    top:24px;
+    left: 73px;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-bottom: 5px solid #333;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+.cost_th:after{
+    left: 48px;
+}
+/*次数时长页面，th上的三角形结束*/
+/*分页*/
+#changePages {
+    background-color: #D44A9F;
+}
+.table th, .table td {
+    text-align: left;
+    background: #fff;
+    border: none;
+}
+#kkpager span{
+    color: #888;
+}
+
+#kkpager span.disabled{
+    border: none;
+    color: #888;
+}
+/*分页结束*/
+.block_switch {
+    display: block;
+}
+
+body {
+    background-color: #F4F6F8;
+}
+
+.main-content {
+    width: 1200px;
+    padding-top: 20px;
+    margin: 0 auto;
+}
+
+.main-content .second-side-nav {
+    width: 180px;
+}
+.second-side-nav dl{
+    margin-bottom: 0px;
+}
+.second-side-nav dt, .second-side-nav dt a, .second-side-nav dd a {
+    height: 60px;
+    line-height: 60px;
+    background: #fff;
+    display: block;
+    cursor: pointer;
+}
+
+.second-side-nav a {
+    display: block;
+    padding-left: 49px;
+    font-size: 14px;
+    color: #949494;
+    font-weight: 500;
+}
+
+.tip_img {
+    font-size: 14px;
+    height: 14px;
+    overflow: hidden;
+    background: url(../../resources/images/common/svg-common.png) no-repeat 0 0;
+}
+
+.save_img_first {
+    top: 22px;
+    left: 19px;
+    width: 20px !important;
+    background-position: -40px -350px;
+}
+
+.save_img_second {
+    top: 24px;
+    left: 155px;
+    width: 14px;
+}
+
+.s-jt-bg {
+    background-position: -86px -334px;
+}
+
+.icon-up-jt-second {
+    background-position: -86px -355px;
+}
+
+.loss_img_first {
+    top: 22px;
+    left: 19px;
+    width: 20px !important;
+    background-position: -41px -367px;
+}
+
+.second-side-nav dd a:hover, .second-side-nav dt a.ss-link:hover, .second-side-nav dd a.target, .second-side-nav dt a.target {
+    color: #D44A9F;
+    background: rgba(236, 236, 236, 1);
+    /*border-left: 4px solid #614ec2*/
+}
+
+.target .save_img_first {
+    background-position: -63px -350px;
+}
+
+.loss_img_second {
+    top: 24px;
+    left: 155px;
+    width: 14px;
+}
+
+.second-side-nav dd a:hover,
+.second-side-nav dd a.target,
+.second-side-nav dt a.target {
+    color: #D44A9F;
+    background: rgba(236, 236, 236, 1);
+}
+
+.time_img_first {
+    top: 22px;
+    left: 19px;
+    width: 20px !important;
+    background-position: -41px -408px;
+}
+
+.time_img_second {
+    top: 24px;
+    left: 155px;
+    width: 14px;
+}
+
+.travel_img_first {
+    top: 22px;
+    left: 19px;
+    width: 20px !important;
+    background-position: 0px -349px;
+}
+
+.travel_img_second {
+    top: 24px;
+    left: 155px;
+    width: 14px;
+}
+
+/*右下角的展示区*/
+/*右下tab*/
+.content_show {
+    width: 1010px;
+    min-height: 560px;
+    background: #fff;
+    margin-left: 10px;
+}
+
+.tab_model {
+    height: 40px;
+    line-height: 40px;
+    background-color: #D8E3F1;
+    padding: 1px 0 0 2px;
+}
+
+.tab_model a.tab_target, .tab_model a:hover {
+    background-color: #fff;
+}
+
+.tab_model a {
+    font-size: 14px;
+    height: 38px;
+    line-height: 38px;
+    boder-bottom: 2px solid #fff;
+    padding: 0 22px;
+    color: #333;
+    top: 2px;
+    z-index: 2;
+}
+
+.tab_model li a {
+    min-width: 186px;
+    text-align: center;
+}
+
+/*右下搜素输入框区*/
+.input_select {
+    padding: 20px 12px 12px 30px;
+}
+
+.input_select .input_items {
+    float: left;
+    /*width: 194px;*/
+    margin: 14px 0 0px 0;
+    padding-right: 15px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.input_item_text {
+    /*width: 62px;*/
+    float: left;
+    font-size: 12px;
+    margin-bottom: 4px;
+    color: #999;
+}
+
+.query_form .input_items .i_item_input {
+    width: 116px;
+    height: 32px;
+    float: left;
+}
+
+.input_items input[type="text"], .input_items input[type="password"] {
+    width: 100px;
+    height: 30px;
+    border-radius: 2px;
+    line-height: 30px;
+    padding-left: 8px;
+    border: 1px solid #ddd;
+}
+
+.input_items .input, .input_items .drop {
+    width: 100%;
+}
+
+.drop {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.anlysis_btn_export_box, .anlysis_btn_box {
+    padding-top: 6px;
+}
+
+.anlysis_btn {
+    font-size: 14px;
+    background-color: #D44A9F;
+    box-sizing: border-box;
+    width: 102px;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 24px;
+}
+
+.anlysis_btn_export {
+    margin-left: 10px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #D44A9F;
+    box-sizing: border-box;
+    width: 102px;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 24px;
+    border: 1px solid #D44A9F;
+}
+.query_form .input_items .time_section_box{
+    width: 168px;
+}
+/*表格区域*/
+.content_show .list_table_box {
+    width: 940px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.list_table_box table {
+    width: 100%;
+    color: #888;
+    text-align: left;
+}
+
+.table th {
+    color: #666666;
+    background-color: #fff;
+    border-bottom: 2px solid #eaeaea;
+}
+
+.table tbody td {
+    color: #888;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.txt_underline {
+    text-decoration: underline;
+}
+
+/*分页*/
+#kkpager {
+    padding-right: 35px;
+    padding-top: 30px;
+}
+
+#kkpager .pageBtnWrap {
+    float: right;
+    display: inline-block;
+}
+
+#kkpager .infoTextAndGoPageBtnWrap {
+    margin-left: 42px;
+    float: right;
+    display: inline-block;
+}
+#kkpager .infoTextAndGoPageBtnWrap .btn{
+    color: #fff;
+    background-color: #D44A9F;
+}
+.input_items input[type="text"].department {
+    width: 116px;
+    height: 32px;
+}
+
+.table th, .table td {
+    height: 50px;
+    line-height: 50px;
+}
+.analy_wait,.analy_finish,.analy_cancle{
+    text-decoration: underline;
+}
+.table tbody .analy_wait{
+    color: #F77F7F;
+}
+.table tbody .analy_finish{
+    color: #6BA8F3;
+}
+

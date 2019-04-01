@@ -1,0 +1,56 @@
+##${flag} 为变量标识
+<div class="p-m-title">
+	<span class="p-m-t">联系人</span>
+</div>
+<div class="clear font-size-12 book-relations padding-bottom-14">
+	<div class="clear margin-bottom-10 p-t-999">
+		<div  class="float-left p-w-160">联系人</div>
+		<div class="float-left p-w-160">手机号码</div>
+		<div class="float-left p-w-160">邮箱</div>
+		<div  class="float-left p-w-120">发送通知</div>
+	</div>
+	<div class="clear margin-bottom-10" id="link_info_d">
+		<div class="float-left p-w-160" style="position: relative;">
+			#if(${flag} == "airOrder")
+				<input type="text" name="${flag}.linkName" class="input link-name " placeholder="请输入联系人" value="$!model.airOrder.linkName">
+			#elseif(${flag} == "order")
+				<input type="text" name="${flag}.linkName" class="input link-name " placeholder="请输入联系人" value="$!model.order.linkName">
+			#else
+				<input type="text" name="${flag}.linkName" class="input link-name " placeholder="请输入联系人" value="">
+			#end
+		</div>
+		<div class="float-left p-w-160" style="position: relative;">
+			#if(${flag} == "airOrder")
+				<input type="text" name="${flag}.linkPhone" class="input link-phone " placeholder="请输入联系电话"  value="$!model.airOrder.linkPhone">
+			#elseif(${flag} == "order")
+				<input type="text" name="${flag}.linkPhone" class="input link-phone " placeholder="请输入联系电话" value="$!model.order.linkPhone">
+			#else
+				<input type="text" name="${flag}.linkPhone" class="input link-phone" placeholder="请输入联系电话" value="">
+			#end
+
+		</div>
+		<div class="float-left p-w-160 " style="position: relative;">
+			#if(${flag} == "airOrder")
+				<input type="text" name="${flag}.linkEmail" class="input link-email " placeholder="请输入邮箱"  value="$!model.airOrder.linkEmail">
+			#elseif(${flag} == "order")
+				<input type="text" name="${flag}.linkEmail" class="input link-email " placeholder="请输入邮箱" value="$!model.order.linkEmail">
+			#else
+				<input type="text" name="${flag}.linkEmail" class="input link-email " placeholder="请输入邮箱" value="">
+			#end
+		</div>
+		<div class="float-left p-w-120" style="position: relative;">
+			<!--<input type="checkbox" name="airOrder.isSend" value="$!model.airOrder.isSend" checked="#if('$!model.${flag}.isSend' == 1)checked #end">短信-->
+			<!--<input type="checkbox" name="airOrder.isSendEmail" value="$!model.airOrder.isSendEmail" checked="#if('$!model.${flag}.isSendEmail' == 1)checked #end">邮箱-->
+			<div class="label label-checkbox cursor notice-margin label-select-checkbox"  style="padding-top:5px;" id="link_sms_sel">
+				<span class="show_choice"></span>
+				<input type="hidden" name="${flag}.isSend" data-is="isSend-isSendEmail" value="1">
+				<span>短信</span>
+			</div>
+			<div class="label label-checkbox cursor notice-margin label-select-checkbox"style="padding-top:5px;" id="link_email_sel">
+				<span class="show_choice"></span>
+				<input type="hidden" name="${flag}.isSendEmail" data-is="isSend-isSendEmail" value="1">
+				<span>邮件</span>
+			</div>
+		</div>
+	</div>
+</div>

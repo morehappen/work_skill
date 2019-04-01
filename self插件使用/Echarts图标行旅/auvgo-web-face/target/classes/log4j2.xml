@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Configuration status="INFO" name="auvgo-face">
+	<Appenders>
+		<RollingFile name="RollingFile" fileName="/mnt/opt/logs/auvgo-web/auvgo-face.log" filePattern="/mnt/opt/logs/auvgo-web/$${date:yyyy-MM}/auvgo-face-%d{MM-dd-yyyy}-%i.log">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss}||%p||%c{1}||auvgo-face||%m%n||%X{TraceId}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="50 MB" />
+			</Policies>
+		</RollingFile>
+		<Console name="Console" target="SYSTEM_OUT">  <!-- 将日志信息从控制台输出 -->
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss}||%p||%c{1}||auvgo-face||%m%n||%X{TraceId}" />
+		</Console>
+	</Appenders>
+	<Loggers>
+        <logger name="net.bull.javamelody.JavaLogger" level="ERROR" />
+        <logger name="org.elasticsearch.plugins" level="ERROR" />
+        <logger name="org.springframework" level="ERROR" />
+		<asyncRoot level="INFO">
+			<appender-ref ref="RollingFile" />
+			<appender-ref ref="Console" />
+		</asyncRoot>
+	</Loggers>
+</Configuration>

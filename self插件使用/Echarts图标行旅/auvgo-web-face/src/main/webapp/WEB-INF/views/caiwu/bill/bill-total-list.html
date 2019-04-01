@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>财务管理-企业账单</title>
+<link rel="stylesheet" type="text/css" href="/resources/css/common/common.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/common/plugin.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/common/animate.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/page/pager_blue.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/finance/finance_common.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/finance/bussiness_bill.css" />
+</head>
+<body>
+	#parse("/common/head.html")
+	<div class="main-content clear">
+		#parse("/caiwu/bill/bill-common-left.html")
+		<div class="float-left content_show">
+			<div class="tip_title">
+				您好，尊敬的<span class="">$!company.name：</span>
+			</div>
+			<div class="menu_box clear position">
+				<div class="menulist_item float-left position water_bill_box">
+					<div class="menulist_item_tip">当月流水</div>
+					<div class="menulist_item_num">
+						¥ <span>$!result.get("currMonthPrice")</span>
+					</div>
+					<div class="menulist_item_img"></div>
+				</div>
+				<div class="menulist_item float-left position accumulation_appears_box">
+					<div class="menulist_item_tip">累计欠款</div>
+					<div class="menulist_item_num">
+						¥ <span>#if("$!{company.serverNo}"=="FXS_ADMIN")0#else$!result.get("qiankuanPrice")#end</span>
+					</div>
+					<div class="menulist_item_look">
+						<a href="/caiwu/jiesuan/list/qiankuan?tag=leiji">查看明细</a>
+					</div>
+					<div class="menulist_item_img"></div>
+				</div>
+				<div class="menulist_item float-left position arrears_bill_box">
+					<div class="menulist_item_tip">累计流水</div>
+					<div class="menulist_item_num">
+						¥ <span>$!result.get("totalPrice")</span>
+					</div>
+					<div class="menulist_item_img"></div>
+				</div>
+			</div>
+			<div class="chart_box">
+				#if($!result.get("totalPrice")=="0.0")
+				<div class="no-data-wraper">
+					<div class="no-data animated rotateIn">
+						<div class="auvgo-approve-bg no-data-pic" title="暂无数据"></div>
+						<div class="no-data-text">您还没有发生任何的流水记录</div>
+					</div>
+				</div>
+				#else
+				<div class="chart_tip">$!{query.startDate}至$!{query.endDate}月流水分析</div>
+				<div id="bill-echarts"></div>
+				#end
+			</div>
+
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="/resources/js/common/common.js"></script>
+<script type="text/javascript" src="/resources/js/order/orderCommon.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/echarts/echarts.common.min.js"></script>
+<script type="text/javascript" src="/resources/js/finance/finance_common.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var option = $!{result.get("data")};
+		var dom = document.getElementById("bill-echarts");
+		var myChart = echarts.init(dom);
+		if (option && typeof option === "object") {
+			myChart.setOption(option, true);
+		}
+	})
+</script>
+</html>

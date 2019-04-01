@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>火车票-列表</title>
+    <link rel="icon" sizes="any" href="../../resources/images/common/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../../resources/js/common/My97DatePicker/skin/WdatePicker.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/common/common.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../../static/icon/style.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../../resources/css/train/train-query-list-content.css">
+    <link rel="stylesheet" href="http://api.map.baidu.com/res/20/bmap_autocomplete.css">
+    <!--<link rel="stylesheet" type ="text/css" href="../../resources/css/hotel/hotel-query-baidu-map.css">-->
+    <link rel="stylesheet" type="text/css" href="../../resources/css/train/train-query-baidu-map.css">
+
+</head>
+
+<body class="background-6461e2 clear">
+<div class="main-content">
+    <div class="query_form background-fff margin-bottom-10 clear">
+        <div class="float-left position">
+            <span class="icon-img icon-search position-ab icon-position-ccc"></span>
+            <input type="text" class="show-city city-name from-city input float-left" name="fromName" value=""
+                   autocomplete="off"/>
+            <input type="hidden" class="city-code from-city-code" name="from" value="$!train_query_con.from"/>
+        </div>
+        <div class="float-left">
+            <button class="tab-city float-left train_city_tab">
+                <!--<img src="../../static/img/airImg/air-bg.png">-->
+            </button>
+        </div>
+        <div class="float-left position">
+            <span class="icon-img icon-search position-ab icon-position-ccc"></span>
+            <input type="text" class="show-city city-name to-city input float-left" name="arriveName" value=""
+                   autocomplete="off"/>
+            <input type="hidden" class="city-code to-city-code" name="arrive" value="$!train_query_con.arrive"/>
+        </div>
+        <!--<div class="float-left position">-->
+        <!--<span class="icon-img icon-search position-ab icon-position-ccc"></span>-->
+        <!--<input type="text" name="cityName" value="" class="show-city city-name input float-left"-->
+        <!--autocomplete="off"/>-->
+        <!--<input type="hidden" name="cityId" value="" class="city-code"/>-->
+        <!--</div>-->
+        <div class="float-left position">
+            <span class="icon-img icon-search position-ab icon-date-ccc"></span>
+            <input type="text" name="arrivalDate" value="" readonly id="beginDate" class="input float-left"
+                   onfocus="var endDate=$dp.$('endDate');WdatePicker({doubleCalendar:true,minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+179}',onpicked:function(){endDate.focus()},isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})"/>
+        </div>
+
+        <!--<div class="float-left position">-->
+        <!--<span class="icon-search icon-img position-ab icon-keyword"></span>-->
+        <!--<input type="text" name="keyword" value="" placeholder="(选填)酒店名、位置、品牌"-->
+        <!--class="input float-left keyword-search-input"/>-->
+        <!--<input type="hidden" name="queryText" value="" id="query-text"/>-->
+        <!--<ul class="search-list hide"></ul>-->
+        <!--</div>-->
+        <div class="float-right train-query-box">
+            <button type="button" class="btn btn-default btn-big float-left hotel-query train-query" data-isfirst="1">
+                重新查询
+            </button>
+            <!--<button type="button" class="btn btn-cancel btn-big float-left hotel-back">返回</button>-->
+        </div>
+    </div>
+    <div class="clear">
+        <div class="float-left filter-tj font-size-12">
+            <div class="filter-show clear margin-bottom-10">
+                <input type="text" class="input filter-input float-left" style="text-transform: uppercase"
+                       placeholder="指定车次">
+                <button type="button" class="btn btn-default btn-big filter-btn float-right filter-traintype">查询
+                </button>
+            </div>
+            <div class="e-filter">
+                <div class="e-f-title background-fff position">
+                    <span class="icon-img position-ab train-flag"></span>车次类型
+                </div>
+                <ul class="hide train-type">
+                    <li>
+                        <div class="label label-checkbox label-margin-right #if($!train_query_con.trainType.indexOf('G')>-1)label-select-checkbox#end clear">
+                            <span class="show_choice"></span>
+                            <span>CG-城际/高铁</span>
+                            <!--<input type="checkbox" value="CG" #if($!train_query_con.trainType.indexOf('G')>-1)checked#end>-->
+                            <input type="checkbox" value="CG">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label label-checkbox label-margin-right #if($!train_query_con.trainType.indexOf('D')>-1)label-select-checkbox#end clear">
+                            <span class="show_choice"></span>
+                            <span>D-动车</span>
+                            <!--<input type="checkbox" #if($!train_query_con.trainType.indexOf('D')>-1)checked#end value="D">-->
+                            <input type="checkbox">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label label-checkbox label-margin-right #if($!train_query_con.trainType.indexOf('K')>-1)label-select-checkbox#end clear">
+                            <span class="show_choice"></span>
+                            <span>Z/T/K-普通</span>
+                            <!--<input type="checkbox" #if($!train_query_con.trainType.indexOf('K')>-1)checked#end value="ZTK">-->
+                            <input type="checkbox">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label label-checkbox label-margin-right traintype #if($!train_query_con.trainType.indexOf('L')>-1)label-select-checkbox#end clear">
+                            <span class="show_choice"></span>
+                            <span>L/Y等-其他</span>
+                            <!--<input type="checkbox" #if($!train_query_con.trainType.indexOf('L')>-1)checked#end value="LY0123456789">-->
+                            <input type="checkbox">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="e-filter">
+                <div class="e-f-title background-fff position">
+                    <span class="icon-img position-ab start-station-flag"></span>始发车站
+                </div>
+                <ul class="hide start-station js_start-station"></ul>
+            </div>
+
+            <div class="e-filter">
+                <div class="e-f-title background-fff position">
+                    <span class="icon-img position-ab end-station-flag"></span>终点车站
+                </div>
+                <ul class="hide end-station js_end-station"></ul>
+            </div>
+
+            <div class="e-filter">
+                <div class="e-f-title background-fff position">
+                    <span class="icon-img position-ab start-time-flag"></span>出发时间
+                </div>
+                <ul class="hide start-time">
+                    <li>
+                        <div class="label label-checkbox label-margin-right clear">
+                            <span class="show_choice"></span>
+                            <span>00:00-06:00</span>
+                            <input type="checkbox" value="00:00-06:00">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label label-checkbox label-margin-right clear">
+                            <span class="show_choice"></span>
+                            <span>06:00-12:00</span>
+                            <input type="checkbox" value="06:00-12:00">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label label-checkbox label-margin-right clear">
+                            <span class="show_choice"></span>
+                            <span>12:00-18:00</span>
+                            <input type="checkbox" value="12:00-18:00">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label label-checkbox label-margin-right clear">
+                            <span class="show_choice"></span>
+                            <span>18:00-24:00</span>
+                            <input type="checkbox" value="18:00-24:00">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="e-filter">
+                <div class="e-f-title background-fff position">
+                    <span class="icon-img position-ab train-flag end-time-flag"></span>到达时间
+                </div>
+                <ul class="hide end-time">
+                    <li>
+                        <div class="label label-checkbox label-margin-right clear">
+                            <span class="show_choice"></span>
+                            <span>00:00-06:00</span>
+                            <input type="checkbox" value="00:00-06:00">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label label-checkbox label-margin-right clear">
+                            <span class="show_choice"></span>
+                            <span>06:00-12:00</span>
+                            <input type="checkbox" value="06:00-12:00">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label label-checkbox label-margin-right clear">
+                            <span class="show_choice"></span>
+                            <span>12:00-18:00</span>
+                            <input type="checkbox" value="12:00-18:00">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label label-checkbox label-margin-right clear">
+                            <span class="show_choice"></span>
+                            <span>18:00-24:00</span>
+                            <input type="checkbox" value="18:00-24:00">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="float-right airline-content">
+            <div class="tips margin-bottom-10 animated bounceInRight hide">
+                温馨提示：系统23:00-06:00为维护时间，在此期间如需办理购票、改签或退票，请到铁路车站窗口办理，祝您旅途愉快~
+            </div>
+            <div class="clear sevenDateContent font-size-12 margin-bottom-10" style="">
+                <div class="prev_date prev_date_t"></div>
+                <ul class="train-ulTabs" id="date_train_tab" data-year="2018">
+                    <li data-date="2018-10-23" class="border-5-radius  ">10-23(星期二)</li>
+                    <li data-date="2018-10-24" class="border-5-radius seven_date_target ">10-24(星期三)</li>
+                    <li data-date="2018-10-25" class="border-5-radius  ">10-25(星期四)</li>
+                    <li data-date="2018-10-26" class="border-5-radius  ">10-26(星期五)</li>
+                    <li data-date="2018-10-27" class="border-5-radius  ">10-27(星期六)</li>
+                    <li data-date="2018-10-28" class="border-5-radius  ">10-28(星期日)</li>
+                    <li data-date="2018-10-29" class="border-5-radius  ">10-29(星期一)</li>
+                </ul>
+                <div class="next_date"></div>
+            </div>
+            <div class="filter">
+                <span class="filter-train-xinxi">车次信息</span>
+                <span class="stg-sort start-btn" data-sflag="0" data-flag="fromTime">出发</span>
+                <span class="stg-sort arrive-btn" data-sflag="0" data-flag="toTime">到达</span>
+                <span class="stg-sort times-btn" data-sflag="0" data-flag="runTimeSpan">运行时长</span>
+                <span class="price-btn" data-sflag="0" data-flag="price">价格</span>
+            </div>
+            <div class="train-list-content mCustomScrollbar clear _mCS_1 mCS-autoHide" style="">
+                <div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical_horizontal mCSB_inside"
+                     style="max-height: none;" >
+                    <div id="mCSB_1_container_wrapper" class="mCSB_container_wrapper mCS_x_hidden mCS_no_scrollbar_x">
+                        <div id="mCSB_1_container" class="mCSB_container">
+                            <ul class="train-list">
+                                <li class="clear">
+                                    <div class="float-left">
+                                        <div class="every-line clear">
+                                            <span class="font-size-14 font-weight w-141 float-left">
+                                                G101
+                                            </span>
+                                            <span class="font-size-16 font-weight w-120 margin-left-16 float-left">
+                                                06:43
+                                            </span>
+                                            <span class="font-size-16 font-weight  margin-left-16 float-left">
+                                                12:40
+                                            </span>
+
+                                        </div>
+                                        <div class="every-line stations-p clear">
+                                            <div class="all-stations-wraper">
+                                                <span class="all-stations all_stations_up w-141 float-left" data-trainno="G101"  data-querydate="20181024"
+                                                                                   data-fromcode="beijingnan"
+                                                                                   data-tocode="shanghaihongqiao"
+                                                                                   data-sendajax="true">
+                                                    经停站
+                                                </span>
+                                                <div class="time-table-wraper mCustomScrollbar" style="display: none;">
+                                                    <table class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>站序</th>
+                                                            <th>车站名</th>
+                                                            <th>到站时间</th>
+                                                            <th>出发时间</th>
+                                                            <th>停留时间</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>北京南</td>
+                                                            <td>06:43</td>
+                                                            <td>06:43</td>
+                                                            <td>----</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>沧州西</td>
+                                                            <td>07:35</td>
+                                                            <td>07:38</td>
+                                                            <td>3</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>德州东</td>
+                                                            <td>08:05</td>
+                                                            <td>08:13</td>
+                                                            <td>8</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td>济南西</td>
+                                                            <td>08:37</td>
+                                                            <td>08:41</td>
+                                                            <td>4</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>泰安</td>
+                                                            <td>08:58</td>
+                                                            <td>09:00</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>6</td>
+                                                            <td>枣庄</td>
+                                                            <td>09:38</td>
+                                                            <td>09:40</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>7</td>
+                                                            <td>宿州东</td>
+                                                            <td>10:12</td>
+                                                            <td>10:14</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>8</td>
+                                                            <td>南京南</td>
+                                                            <td>11:14</td>
+                                                            <td>11:16</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>9</td>
+                                                            <td>镇江南</td>
+                                                            <td>11:35</td>
+                                                            <td>11:37</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>10</td>
+                                                            <td>苏州北</td>
+                                                            <td>12:13</td>
+                                                            <td>12:15</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>11</td>
+                                                            <td>上海虹桥</td>
+                                                            <td>12:40</td>
+                                                            <td>12:40</td>
+                                                            <td>----</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <span class=" float-left  margin-left-16">
+                                                北京南
+                                            </span>
+                                            <span class="start_station_tip station-flag star-flag float-left">
+                                                始
+                                            </span>
+                                            <span  class=" float-left">
+                                                上海虹桥
+                                            </span>
+                                            <span class="ending_tip station-flag end-flag float-left">
+                                                终
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div class="float-left time_tip">
+                                        5小时57分
+
+                                    </div>
+                                    <div class="float-left right-content">
+                                        <div class="every-line clear" data-canbuynow="curr.can_buy_now" data-saledatetime="curr.sale_date_time">
+                                            <span class="seat_tip float-left seat_tip">
+                                                无座
+                                            </span>
+                                            <span class=" price float-left">
+                                                <span class="float-left fwb">
+                                                    ￥
+                                                </span>
+                                                <span class="font-size-18 float-left price_tip">
+                                                    553
+                                                </span>
+                                            </span>
+                                            <div class="float-left" style="width: 46px;height:30px;line-height:30px;">
+
+                                            </div>
+                                            <span class="tiket-count float-left">
+
+                                            </span>
+                                            <button type="button" class="btn btn-default book-btn train-book-no float-left">
+                                                已售完
+                                            </button>
+                                        </div>
+                                        <div class="every-line clear" data-canbuynow="curr.can_buy_now" data-saledatetime="curr.sale_date_time">
+                                            <span class="seat_tip float-left ">
+                                                二等座
+                                            </span>
+                                            <span class="price float-left">
+                                                <span class="float-left fwb">
+                                                    ￥
+                                                </span>
+                                                <span class="font-size-18 float-left price_tip">
+                                                    553
+                                                </span>
+                                            </span>
+                                            <div class="float-left" style="width: 46px;height:30px;line-height:30px;">
+
+                                            </div>
+                                            <span class="tiket-count float-left">
+
+                                            </span>
+                                            <button type="button" class="btn btn-default book-btn train-book-no float-left">
+                                                已售完
+                                            </button>
+                                        </div>
+                                        <div class="every-line clear" data-canbuynow="curr.can_buy_now" data-saledatetime="curr.sale_date_time">
+                                            <span class="seat_tip float-left ">
+                                                一等座
+                                            </span>
+                                            <span class="price float-left">
+                                                <span class="float-left fwb">
+                                                    ￥
+                                                </span>
+                                                <span class="font-size-18 float-left price_tip">
+                                                    933
+                                                </span>
+                                            </span>
+                                            <div class="float-left" style="width: 46px;height:30px;line-height:30px;">
+
+                                            </div>
+                                            <span class="tiket-count float-left">
+
+                                            </span>
+                                            <button type="button" class="btn btn-default book-btn train-book-no float-left">
+                                                已售完
+                                            </button>
+                                        </div>
+                                        <div class="every-line clear" data-canbuynow="curr.can_buy_now" data-saledatetime="curr.sale_date_time">
+                                            <span class="seat_tip float-left ">
+                                                商务座
+                                            </span>
+                                            <span class="price float-left">
+                                                <span class="float-left fwb">
+                                                    ￥
+                                                </span>
+                                                <span class="font-size-18 float-left price_tip">
+                                                    1748
+                                                </span>
+                                            </span>
+                                            <div class="float-left exceed_tip">
+                                                <span class="exceed-flag">超标</span>
+                                            </div>
+                                            <span class="tiket-count float-left">
+                                                余9张
+                                            </span>
+                                            <button type="button" class="btn btn-default book-btn train-book float-left" data-wflag="0" data-traintype="" data-ctr="1" data-space="" data-href="/train/checktrain/G101/9" data-enhref="/train/gaiqian/check//G101/9/2018-10-24//">
+                                                预 订
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clear">
+                                    <div class="float-left">
+                                        <div class="every-line clear">
+                                            <span class="font-size-14 font-weight w-141 float-left">
+                                                G101
+                                            </span>
+                                            <span class="font-size-16 font-weight w-120 margin-left-16 float-left">
+                                                06:43
+                                            </span>
+                                            <span class="font-size-16 font-weight  margin-left-16 float-left">
+                                                12:40
+                                            </span>
+
+                                        </div>
+
+                                        <div class="every-line stations-p clear">
+                                            <div class="all-stations-wraper">
+                                                <span class="all-stations all-stations_down w-141 float-left" data-trainno="G101"  data-querydate="20181024"
+                                                      data-fromcode="beijingnan"
+                                                      data-tocode="shanghaihongqiao"
+                                                      data-sendajax="true">
+                                                    经停站
+                                                </span>
+                                                <div class="time-table-wraper mCustomScrollbar" style="display: none;">
+                                                    <table class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>站序</th>
+                                                            <th>车站名</th>
+                                                            <th>到站时间</th>
+                                                            <th>出发时间</th>
+                                                            <th>停留时间</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>北京南</td>
+                                                            <td>06:43</td>
+                                                            <td>06:43</td>
+                                                            <td>----</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>沧州西</td>
+                                                            <td>07:35</td>
+                                                            <td>07:38</td>
+                                                            <td>3</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>德州东</td>
+                                                            <td>08:05</td>
+                                                            <td>08:13</td>
+                                                            <td>8</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td>济南西</td>
+                                                            <td>08:37</td>
+                                                            <td>08:41</td>
+                                                            <td>4</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>泰安</td>
+                                                            <td>08:58</td>
+                                                            <td>09:00</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>6</td>
+                                                            <td>枣庄</td>
+                                                            <td>09:38</td>
+                                                            <td>09:40</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>7</td>
+                                                            <td>宿州东</td>
+                                                            <td>10:12</td>
+                                                            <td>10:14</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>8</td>
+                                                            <td>南京南</td>
+                                                            <td>11:14</td>
+                                                            <td>11:16</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>9</td>
+                                                            <td>镇江南</td>
+                                                            <td>11:35</td>
+                                                            <td>11:37</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>10</td>
+                                                            <td>苏州北</td>
+                                                            <td>12:13</td>
+                                                            <td>12:15</td>
+                                                            <td>2</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>11</td>
+                                                            <td>上海虹桥</td>
+                                                            <td>12:40</td>
+                                                            <td>12:40</td>
+                                                            <td>----</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <span class=" float-left  margin-left-16">
+                                                北京南
+                                            </span>
+                                            <span class="start_station_tip station-flag star-flag float-left">
+                                                始
+                                            </span>
+                                            <span  class=" float-left">
+                                                上海虹桥
+                                            </span>
+                                            <span class="ending_tip station-flag end-flag float-left">
+                                                终
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="float-left time_tip">
+                                        5小时57分
+
+                                    </div>
+                                    <div class="float-left sale_over right-content fwb" style="text-align: center;width: 307px;height: 60px;line-height: 60px;font-size: 16px;color: #D10773;">
+                                        票已售完
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 遮罩层 begin -->
+<div class="position-ab Screen-full hide">
+    <div class="Screen-zhezhao"></div>
+    <div class="position-ab query-loading">
+        <div class="text-align">请稍等...</div>
+        <div class="loadingImg text-align">
+            <img src="../../resources/images/common/loading-line.gif" style="width: 555px;height: 22px;">
+        </div>
+        <div class="font-size-14 text-align query-status">正在努力为您查询实时的酒店信息</div>
+        <div class="font-size-14 text-align query-tips"></div>
+        <div class="query-hc">
+            <span class="float-left wait-icon icon-hotel"></span>
+            <span class="float-left wait-city mask-arrive-date"></span>
+            <span class="float-left a-l-point wait-jiantou position">
+						<span class="wait-hb-date position-ab text-align mask-location"></span>
+					</span>
+            <span class="float-left wait-city mask-depart-date text-align-r"></span>
+        </div>
+    </div>
+</div>
+<!-- 遮罩层 end -->
+<script type="text/javascript" src="../../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../../static/js/common/model-city.js"></script>
+<script type="text/javascript" src="../../resources/js/common/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../../resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="../../resources/js/common/common.js"></script>
+<!--<script type="text/javascript" src="../../resources/js/train/train-query-list.js"></script>-->
+<!--<script type="text/javascript" src="../../resources/js/train/train-query-list-content.js"></script>-->
+<script type="text/javascript"
+        src="http://api.map.baidu.com/getscript?v=2.0&ak=BwVes7qgdIXd1OnvMyGvzmK3ZxpMV9Gn&services=&t=20180323171755"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=BwVes7qgdIXd1OnvMyGvzmK3ZxpMV9Gn"></script>
+<!--<script type="text/javascript" src="../../resources/js/hotel/hotel-query-map.js"></script>-->
+<script type="text/javascript" src="../../resources/js/train/train-query-map.js"></script>
+</body>
+</html>

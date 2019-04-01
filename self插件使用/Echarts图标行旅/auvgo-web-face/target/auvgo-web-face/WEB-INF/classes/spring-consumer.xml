@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-lazy-init="true">
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="auvgo_face_consumer"/>
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry check="true" address="#{T(com.auvgo.config.EnvironmentAddress).getConfig('zookeeper.address')}"/>
+    <dubbo:consumer id="consumer" check="false" group="#{T(com.auvgo.config.EnvironmentAddress).environment}"/>
+    <dubbo:annotation/>
+    <!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+    <context:component-scan base-package="com.auvgo">
+        <context:include-filter type="annotation" expression="com.alibaba.dubbo.config.annotation.Service"/>
+    </context:component-scan>
+    <!-- sys -->
+    <dubbo:reference id="sysMenuService" interface="com.auvgo.sys.api.SysMenuService" timeout="50000"/>
+    <dubbo:reference id="sysOperationNoteService" interface="com.auvgo.sys.api.SysOperationNoteService"
+                     timeout="50000"/>
+    <dubbo:reference id="sysOutpushDataService" interface="com.auvgo.sys.api.SysOutpushDataService" check="false"/>
+    <!-- 机票 -->
+    <dubbo:reference id="airOrderService" interface="com.auvgo.air.api.AirOrderService" timeout="5000"  url="dubbo://192.168.1.212:20015">
+        <dubbo:method name="createOrder" retries="0" timeout="25000"/>
+    </dubbo:reference>
+    <dubbo:reference id="airOrderLogService" interface="com.auvgo.air.api.AirOrderLogService" timeout="5000" />
+    <dubbo:reference id="airTuiPiaoService" interface="com.auvgo.air.api.AirTuiPiaoService" timeout="5000"/>
+    <dubbo:reference id="airGaiQianService" interface="com.auvgo.air.api.AirGaiQianService" timeout="5000"/>
+    <dubbo:reference id="airInternationalXuqiudanService" interface="com.auvgo.air.api.AirInternationalXuqiudanService" timeout="5000"/>
+    <dubbo:reference id="airOrderNoshowService" interface="com.auvgo.air.api.AirOrderNoshowService" timeout="5000" />
+    <dubbo:reference id="airOrderNoshowMiddleService" interface="com.auvgo.air.api.AirOrderNoshowMiddleService" timeout="5000" />                    
+    <!-- 火车票 -->
+    <dubbo:reference id="ktTrainSearchService" interface="com.auvgo.train19.api.KTTrainSearchService" timeout="50000"/>
+    <dubbo:reference id="trainOrderService" interface="com.auvgo.train.api.TrainOrderService" timeout="5000" >
+        <dubbo:method name="createTrainOrder" retries="0" timeout="25000"/>
+    </dubbo:reference>
+    <dubbo:reference id="trainTuipiaoService" interface="com.auvgo.train.api.TrainTuipiaoService" timeout="5000"/>
+    <dubbo:reference id="trainGaiqianOrderService" interface="com.auvgo.train.api.TrainGaiqianOrderService"
+                     timeout="5000"/>
+    <dubbo:reference id="trainOrderLogService" interface="com.auvgo.train.api.TrainOrderLogService" timeout="5000"/>
+
+
+    <!-- 创旅火车查询 -->
+    <dubbo:reference id="cLTrainQueryService" interface="com.auvgo.traincl.api.ws.CLTrainQueryService" timeout="5000"/>
+    <dubbo:reference id="cLTrainOrderService" interface="com.auvgo.traincl.api.ws.CLTrainOrderService" timeout="5000"/>
+
+    <!-- 酒店 -->
+    <dubbo:reference id="hotelOrderService" interface="com.auvgo.hotel.api.HotelOrderService" timeout="5000"/>
+    <dubbo:reference id="hotelOrderLogService" interface="com.auvgo.hotel.api.HotelOrderLogService" timeout="5000"/>
+    <!-- elong -->
+    <dubbo:reference id="hotelInfoService" interface="com.auvgo.hotel.api.HotelInfoService" timeout="5000"/>
+    <dubbo:reference id="dataSearchService" interface="com.auvgo.hotel.api.HotelDataSearchService" timeout="5000"/>
+    <dubbo:reference id="hotelSearchService" interface="com.auvgo.hotel.api.HotelSearchService" timeout="5000"/>
+    <dubbo:reference id="hotelElongValidateService" interface="com.auvgo.hotel.api.HotelElongValidateService"
+                     timeout="5000"/>
+    <!-- data -->
+    <dubbo:reference id="dataNewsService" interface="com.auvgo.data.api.DataNewsService" timeout="5000"/>
+    <dubbo:reference id="dataZidianKeyService" interface="com.auvgo.data.api.DataZidianKeyService" timeout="5000"/>
+    <dubbo:reference id="dataZidianValueService" interface="com.auvgo.data.api.DataZidianValueService" timeout="5000"/>
+    <dubbo:reference id="dataTrainCityService" interface="com.auvgo.data.api.DataTrainCityService" timeout="5000"/>
+    <dubbo:reference id="dataCityService" interface="com.auvgo.data.api.DataCityService" timeout="5000"/>
+    <dubbo:reference id="dataAirlineService" interface="com.auvgo.data.api.DataAirlineService" timeout="5000"/>
+    <dubbo:reference id="dataBaoxianCompanyService" interface="com.auvgo.data.api.DataBaoxianCompanyService"
+                     timeout="5000"/>
+    <dubbo:reference id="dataAirportService" interface="com.auvgo.data.api.DataAirportService" timeout="5000"/>
+    <dubbo:reference id="dataBaoxianService" interface="com.auvgo.data.api.DataBaoxianService" timeout="5000"/>
+    <dubbo:reference id="dataCompanyAuthService" interface="com.auvgo.data.api.DataCompanyAuthService" timeout="50000"/>
+    <!-- crm -->
+    <dubbo:reference id="crmAppformService" interface="com.auvgo.crm.api.CrmAppformService" timeout="5000"/>
+    <dubbo:reference id="crmCompanyService" interface="com.auvgo.crm.api.CrmCompanyService" timeout="5000"/>
+    <dubbo:reference id="crmDepartmentService" interface="com.auvgo.crm.api.CrmDepartmentService" timeout="5000"/>
+    <dubbo:reference id="crmRoleService" interface="com.auvgo.crm.api.CrmRoleService" timeout="5000"/>
+    <dubbo:reference id="crmPolicyHotelService" interface="com.auvgo.crm.api.CrmPolicyHotelService" timeout="5000"/>
+    <dubbo:reference id="crmEmployeeService" interface="com.auvgo.crm.api.CrmEmployeeService" timeout="50000"/>
+    <dubbo:reference id="crmCostCenterService" interface="com.auvgo.crm.api.CrmCostCenterService" timeout="5000"/>
+    <dubbo:reference id="crmProjectService" interface="com.auvgo.crm.api.CrmProjectService" timeout="5000"/>
+    <dubbo:reference id="crmPolicyHotelCityService" interface="com.auvgo.crm.api.CrmPolicyHotelCityService"
+                     timeout="5000"/>
+    <dubbo:reference id="crmApproveService" interface="com.auvgo.crm.api.CrmApproveService" timeout="5000"/>
+    <dubbo:reference id="crmPolicyService" interface="com.auvgo.crm.api.CrmPolicyService" timeout="5000"/>
+    <dubbo:reference id="crmPolicyTrainService" interface="com.auvgo.crm.api.CrmPolicyTrainService" timeout="5000"/>
+    <dubbo:reference id="crmApproveRuleService" interface="com.auvgo.crm.api.CrmApproveRuleService" timeout="5000"/>
+    <dubbo:reference id="crmProductService" interface="com.auvgo.crm.api.CrmProductSetService" timeout="5000"/>
+    <dubbo:reference id="peisonaddressService" interface="com.auvgo.crm.api.CrmPeisonaddressService" timeout="5000"/>
+    <dubbo:reference id="crmPolicyAirContentService" interface="com.auvgo.crm.api.CrmPolicyAirContentService"
+                     timeout="50000"/>
+    <dubbo:reference id="airContentService" interface="com.auvgo.crm.api.CrmPolicyAirContentService" timeout="50000"/>
+    <dubbo:reference id="crmFuwufeiService" interface="com.auvgo.crm.api.CrmFuwufeiService" timeout="5000"/>
+    <dubbo:reference id="crmEmployeeLinshiService" interface="com.auvgo.crm.api.CrmEmployeeLinshiService"
+                     timeout="5000"/>
+    <dubbo:reference id="crmEmployeeCertService" interface="com.auvgo.crm.api.CrmEmployeeCertService" timeout="5000"/>
+    <dubbo:reference id="crmJiesuanService" interface="com.auvgo.crm.api.CrmJiesuanService" timeout="5000"/>
+    <dubbo:reference id="crmEmpTraincountService" interface="com.auvgo.crm.api.CrmEmpTraincountService" timeout="5000"/>
+    <dubbo:reference id="crmEmpInsiderService" interface="com.auvgo.crm.api.CrmEmpInsiderService" timeout="5000"/>
+    <dubbo:reference id="crmEmpFindpwService" interface="com.auvgo.crm.api.CrmEmpFindpwService" timeout="5000"/>
+
+
+    <!-- caiwu服务 -->
+    <dubbo:reference id="caiwuAirPurchaseBillService" interface="com.auvgo.caiwu.api.CaiwuAirPurchaseBillService"
+                     timeout="45000"/>
+    <dubbo:reference id="caiwuTrainPurchaseBillService" interface="com.auvgo.caiwu.api.CaiwuTrainPurchaseBillService"
+                     timeout="5000"/>
+    <dubbo:reference id="caiwuBusinessBillService" interface="com.auvgo.caiwu.api.CaiwuBusinessBillService"
+                     timeout="5000"/>
+    <dubbo:reference id="caiwuBusinessBillNewService" interface="com.auvgo.caiwu.api.CaiwuBusinessBillNewService"
+                     timeout="5000"/>
+    <dubbo:reference id="caiwuHotelPurchaseBillService" interface="com.auvgo.caiwu.api.CaiwuHotelPurchaseBillService"
+                     timeout="5000"/>
+    <dubbo:reference id="caiwuJiesuanService" interface="com.auvgo.caiwu.api.CaiwuJiesuanService" timeout="5000"/>
+    <dubbo:reference id="caiwuExportTempService" interface="com.auvgo.caiwu.api.CaiwuExportTempService" timeout="5000"/>
+
+    <!-- taxi -->
+    <!--	<dubbo:reference id="taxiApproveWSService" interface="com.auvgo.taxi.api.ws.ITaxiApproveWSService" timeout="5000"/>
+        <dubbo:reference id="taxiOrderWSService" interface="com.auvgo.taxi.api.ws.ITaxiOrderWSService" timeout="5000"/>-->
+
+	<import resource="consumer/hotel-consumer.xml"/>
+   	<import resource="consumer/new-crm-consumer.xml"/>
+    <import resource="consumer/airrate-consumer.xml"/>
+    <import resource="consumer/pay-consumer.xml"/>
+</beans>

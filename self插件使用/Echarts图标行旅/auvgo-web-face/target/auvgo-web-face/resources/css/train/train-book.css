@@ -1,0 +1,436 @@
+.bind-tips {
+    padding-left: 30px;
+    height: 60px;
+    border: 1px solid #b6b9f0;
+    border-radius: 2px;
+    background: #e3eaf7;
+    font-size: 12px;
+}
+
+.train-flag {
+    width: 13px;
+    height: 16px;
+    background-position: -78px -221px;
+    position: relative;
+    top: 8px;
+}
+
+.flag-text {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.u-line {
+    text-decoration: underline;
+}
+
+.bind-tips span, .bind-tips a {
+    float: left;
+}
+
+.w-825 {
+    width: 795px;
+}
+
+.ie-7 .w-125 {
+    width: 110px;
+}
+
+.w-125 {
+    width: 125px;
+}
+
+.ie-7 .w-150 {
+    width: 140px;
+}
+
+.w-150 {
+    width: 140px;
+    padding-right: 10px;
+}
+
+.unbind-12306 {
+    margin-left: 15px;
+}
+
+.color-999 {
+    color: #999;
+}
+
+.book-xingcheng:before {
+    border: none;
+}
+
+.book-xingcheng {
+    width: 310px;
+    padding: 20px;
+}
+
+.b-x-cityName {
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.b-x-cityName span {
+    float: left;
+}
+
+.book-time {
+    width: 113px;
+}
+
+.book-jiantou {
+    margin: 0;
+    margin-top: 20px;
+}
+
+.t-code {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #9795ea;
+}
+
+.t-yx {
+    position: absolute;
+    top: -20px;
+    left: 5px;
+}
+
+.xibie {
+    float: left;
+    width: 65px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.xb-sel .drop {
+    width: 150px;
+}
+
+.gp-xz {
+    float: right;
+    text-align: right;
+    height: 32px;
+    line-height: 32px;
+}
+
+/* alert弹窗 */
+.alert-content {
+    padding: 30px;
+    width: 505px;
+    height: 255px;
+    margin-left: -282px;
+    margin-top: -157px;
+}
+
+.alert-title {
+    height: 15px;
+    line-height: 15px;
+    font-size: 14px;
+    margin-bottom: 60px;
+}
+
+.alert-title .title {
+    float: left;
+    font-weight: 600;
+}
+
+.alert-title .alert-close {
+    float: right;
+    width: 15px;
+    text-align: center;
+    cursor: pointer;
+    color: #bbb;
+}
+
+.alert-title .alert-close:hover {
+    color: #999;
+}
+
+.alert-input {
+    padding: 0 57px;
+}
+
+.alert-row .input-desc {
+    float: left;
+    width: 40px;
+    font-size: 12px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.alert-row .input {
+    float: left;
+    width: 300px;
+    margin-right: 0;
+}
+
+.btn-group .alert-btn {
+    width: 92px;
+    height: 40px;
+}
+
+.alert-tips {
+    width: 700px;
+    height: 450px;
+    padding: 30px;
+    margin-left: -380px;
+    margin-top: -235px;
+}
+
+.every-part {
+    margin-bottom: 26px;
+    font-size: 12px;
+}
+
+.every-part:last-child {
+    margin-bottom: 0;
+}
+
+.part-title, .part-content {
+    float: left;
+}
+
+.part-title {
+    width: 75px;
+    font-weight: 600;
+}
+
+.part-content {
+    width: 620px;
+}
+
+.part-content ul li, .part-content p {
+    text-align: justify;
+    margin-bottom: 8px;
+    line-height: 18px;
+}
+
+.part-content ul li:last-child, .part-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* 新增乘客 */
+/* .p-s-title,.select-content{padding: 0 30px;}
+.close-person-modal{font-size: 22px;}
+.modal-content.passanger-search{padding: 0;width: 760px;height: initial;max-height: 524px;}
+.select-content{height: 70px;line-height: 70px;background: #f4f4f4;}
+.passenger-tab{height: 50px;background: #e3eaf7;padding-left: 30px;padding-top:6px;}
+
+.p-e-tab {float: left;width: 145px;height: 44px;line-height: 44px;text-align: center;cursor: pointer;}
+.p-e-tab-select{background: #fff;} */
+
+/* 在线选座 */
+.exclamation-mark {
+    display: inline-block;
+    position: relative;
+    left: 10px;
+    width: 16px;
+    height: 16px;
+    color: #6461e2;
+    background: url('/static/project-resource/img/common/train1.png') no-repeat
+}
+
+.win-corridor {
+    float: left;
+    height: 60px;
+    line-height: 60px;
+}
+
+.cell-seat {
+    float: left;
+    margin-left: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.every-seat {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    background: url('/static/project-resource/img/common/train.png') no-repeat;
+}
+
+.cell-seat.active {
+    background-position: 0 -50px;
+    color: #6461e2;
+}
+
+.cell-seat.active .every-seat {
+    background-position: 0 -50px;
+}
+
+.train-seat {
+    margin: 5px;
+    padding: 10px;
+    background: rgba(100, 97, 226, 1);;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 2px;
+    color: white;
+    box-shadow: 4px 0px 16px rgba(179, 179, 179, 0.55)
+}
+
+.gd-desc-wraper {
+    position: absolute;
+    right: 0;
+    background: #fff;
+    text-align: justify;
+    padding: 5px 10px;
+    width: 300px;
+    z-index: 5;
+    box-shadow: rgb(97, 78, 194) 1px 1px 5px;
+}
+
+.choose_seat {
+    background: rgba(241, 241, 255, 1);
+    height: 50px;
+    border-radius: 2px;
+    line-height: 50px;
+    font-size: 14px;
+    box-shadow: 4px 0px 16px rgba(179, 179, 179, 0.55);
+}
+
+#all-select-seat:first-child {
+    background-color: yellow;
+}
+
+#all-select-seat:nth-child(2) {
+    margin-left: 50px;
+}
+
+/*mao继续*/
+.book-model {
+    width: 840px;
+    padding: 0px 0px;
+}
+
+.p-m-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 1);
+}
+
+.p-every-passes {
+    width: 48px;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 1);
+}
+
+.p-m-name {
+    line-height: 34px;
+}
+
+.area {
+    background-color: #fff;
+    padding: 20px 30px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+.loginName_tip {
+    margin: 7px 14px 0 0;
+    vertical-align: middle;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    background-color: #333333;
+}
+
+.info_item {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(102, 102, 102, 1);
+}
+
+.p-w-335 {
+    width: 335px;
+    /*margin-right: 20px;*/
+}
+
+.left_item {
+    height: 30px;
+    line-height: 30px;
+}
+
+.left_item_l {
+    min-width: 82px;
+
+}
+
+.left_item_r {
+    padding-left: 0px;
+}
+
+.input-c .left_item_l {
+    width: 82px !important;
+}
+
+.approver {
+    min-width: 140px;
+    display: inline-block;
+}
+
+.area_relation .left_item {
+    padding-right: 48px;
+}
+
+.area_relation .left_item_l {
+    min-width: 50px;
+}
+
+.btn-submit .btn {
+    box-sizing: border-box;
+}
+
+.btn-submit .btn-cancel {
+    width: 122px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+}
+
+.btn-submit .btn-default {
+    width: 122px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #D44A9F;
+}
+
+.btn-submit {
+    margin-bottom: 50px;
+
+}
+/*右侧悬挂*/
+.price-model, .book-xingcheng {
+    background: rgba(231, 235, 250, 1);
+}
+
+.price-model {
+    width: 310px;
+    padding: 20px;
+}
+
+.right_info .p-m-title {
+    font-size: 16px;
+}
+
+.right_info .t-code {
+    color: #888888;
+    text-decoration: underline;
+}
+
+.right_info .p-m-mp, .p-m-price {
+    color: #D44A9F;
+}
+
+
+
+

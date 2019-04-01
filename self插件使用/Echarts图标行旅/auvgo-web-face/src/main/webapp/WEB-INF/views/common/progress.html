@@ -1,0 +1,76 @@
+#if(${progressFlag} == 'air')
+#set($pflag = 1)
+#elseif(${progressFlag} == 'train')
+#set($pflag = 2)
+#elseif(${progressFlag} == 'hotel')
+#set($pflag = 3)
+#end
+
+<div class="clear jincheng-wraper" data-progress="${progressFlag}">
+    <div class="jincheng clear position float-right">
+
+        <div class="position-ab part part-1 part-success">
+            <div class="flag_img"></div>
+            <div class="flag_text">预订</div>
+        </div>
+
+        <div class="position-ab part part-2
+            #if(${pflag} == 1)
+                #if($!airOrder.approvestatus == 1 || $!airOrder.approvestatus == 3)part-success
+                #elseif($!airOrder.approvestatus == 2)part-fail
+                #elseif($!airOrder.approvestatus == 4)part-noApprove
+                #end
+            #elseif(${pflag} == 2)
+                #if($!trainOrder.approvestatus == 1 || $!trainOrder.approvestatus == 3)part-success
+                #elseif($!trainOrder.approvestatus == 2)part-fail
+                #elseif($!trainOrder.approvestatus == 4)part-noApprove
+                #end
+            #elseif(${pflag} == 3)
+                #if($!{hotelOrder.approvestatus}==3) part-noApprove
+                #elseif($!{hotelOrder.approvestatus}==2) part-fail
+                #elseif($!{hotelOrder.approvestatus}==1) part-success
+                #else #end
+            #end
+        ">
+            <div class="flag_img"></div>
+            <div class="flag_text">审批</div>
+        </div>
+
+
+        <div class="position-ab part part-3
+             #if(${pflag} == 1)
+                #if($!airOrder.paystatus == 1)part-success
+                #elseif($!airOrder.paystatus == 2)part-fail
+                #end
+             #elseif(${pflag} == 2)
+                #if($!trainOrder.payStatus == 1)part-success
+                #elseif($!trainOrder.payStatus == 2)part-fail
+                #end
+             #elseif(${pflag} == 3)
+                #if($!{hotelOrder.paystatus}==7 || $!{hotelOrder.paystatus}==8192) part-fail
+                #elseif($!{hotelOrder.paystatus}==1 || $!{hotelOrder.paystatus}==5) part-success
+                #else #end
+             #end
+        ">
+            <div class="flag_img"></div>
+            <div class="flag_text">支付</div>
+        </div>
+
+
+        <div class="position-ab part part-4
+            #if(${pflag} == 1)
+                #if($!airOrder.status == 2)part-success
+                #end
+             #elseif(${pflag} == 2)
+                #if($!trainOrder.status == 2)part-success
+                #end
+             #elseif(${pflag} == 3)
+                #if($!{hotelOrder.status}==8)part-success
+                #end
+             #end
+        ">
+            <div class="flag_img"></div>
+            <div class="flag_text">完成</div>
+        </div>
+    </div>
+</div>

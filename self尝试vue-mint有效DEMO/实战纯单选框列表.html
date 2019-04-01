@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./commonJS/mint-ui/mint-ui.css">
+    <style>
+        .sky {
+            width: 23rem;
+        }
+        
+        .picker-items .slot1>div {
+            width: 100%;
+        }
+        
+        .picker-toolbar {
+            display: flex;
+            display: -webkit-flex;
+            height: 3.23rem;
+            line-height: 3.13rem;
+            background: #fff;
+            color: #333333;
+            font-size: 0.75rem;
+        }
+        
+        .picker-toolbar .hourglass_cancle {
+            flex: 1;
+            -webkit-flex: 1;
+            text-align: center;
+        }
+        
+        .picker-toolbar .hourglass_tip {
+            flex: 7;
+            -webkit-flex: 7;
+            text-align: center;
+        }
+        
+        body .hourglass_popup_box .picker-toolbar .hourglass_sure {
+            flex: 1;
+            -webkit-flex: 1;
+            text-align: center;
+            color: #D21478;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="sel_employess_d_box" class="div-model">
+        <div class="staff">
+            <ul id="sel_contact_d"></ul>
+            <ul id="sel_employess_d" data-hasnextpage="true">
+                <li class="staff-details">
+                    <div class="select-box"><label class="eperson"><input type="checkbox" class="select_emp_i myCheck" data-id="16532" data-name="张朝北" data-mobile="18574942512" data-certno="11010820151"><label for="myCheck"></label></label>
+                    </div>
+                    <div class="staff-department">
+                        <p>张朝北</p>
+                        <p>测试子公司</p>
+                    </div>
+                    <div class="odd-telephone">
+                        <p>18574942512</p>
+                        <p>11010820151</p>
+                    </div>
+                </li>
+                <li class="staff-details">
+                    <div class="select-box"><label class="eperson"><input type="checkbox" class="select_emp_i myCheck" data-id="17749" data-name="阿波罗" data-mobile="18910782991" data-certno=""><label for="myCheck"></label></label>
+                    </div>
+                    <div class="staff-department">
+                        <p>阿波罗</p>
+                        <p>临时部门</p>
+                    </div>
+                    <div class="odd-telephone">
+                        <p>18910782991</p>
+                        <p></p>
+                    </div>
+                </li>
+                <li class="staff-details">
+                    <div class="select-box"><label class="eperson"><input type="checkbox" class="select_emp_i myCheck" data-id="17760" data-name="yue/wangwangwangwangwang" data-mobile="" data-certno="1231254123123"><label for="myCheck"></label></label>
+                    </div>
+                    <div class="staff-department">
+                        <p>yue/wangwangwangwangwang</p>
+                        <p>郝耀测试公司</p>
+                    </div>
+                    <div class="odd-telephone">
+                        <p></p>
+                        <p>1231254123123</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="select-btn">
+            <p class="select-details"><u>已选择(<i>1</i>)</u><span>详情<em></em></span></p> <button type="button" id="confirm_select_emp_b" class="btn btn-pink sure_mation">确定</button></div>
+        <ul class="select_content">
+            <li class="select_title">清空选项</li>
+            <ul id="already_sel_employess_d">
+                <li class="select-details">
+                    <div class="staff-department">
+                        <p>刘聪聪</p>
+                    </div>
+                    <div class="odd-telephone">
+                        <p></p>
+                        <p>130637199211102134</p>
+                    </div>
+                    <div class="select-box"><span class="minus delete_sel_emp_s" data-id="17768"><em></em></span></div>
+                </li>
+            </ul>
+        </ul>
+        <div class="mask"></div>
+    </div>
+    <div id="app">
+        <mt-radio align="right" title="右对齐" v-model="value" :options="options" @change="check">
+        </mt-radio>
+    </div>
+
+</body>
+<script type="text/javascript" src="./commonJS//vue.js"></script>
+<script type="text/javascript" src="./commonJS/mint-ui/mint-ui.js"></script>
+<script type="text/javascript" src="./commonJS/zepto-1.2.0.js"></script>
+
+<script type="text/javascript" src="./self-use-js/radioList_popup.js"></script>
+
+</html>

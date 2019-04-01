@@ -1,0 +1,181 @@
+.arrow-button{
+    width: 126px;
+    background-position: -166px -220px;
+}
+
+.order-wraper{
+    position: relative;
+    
+    .margin-l-10{margin-left: 10px;}
+    .margin-r-10{margin-right: 10px;}
+    .padding-t-10{padding-top: 10px;}
+    .padding-b-10{padding-bottom: 10px;}
+    
+    .order-left{
+        float: left;width: 890px;margin-right: 10px;
+        
+        .order-title{
+            background: #f6f6ff;
+            
+            .arrow-button{display: inline-block;}
+            
+            .title-right{
+                  float: right;height: 30px;line-height: 30px;margin-right: 20px;
+                  
+                  &>span{margin-left: 30px;}
+            }
+        }
+        .order-content{
+            padding-left: 50px;padding-right: 50px;
+            
+            .order-content-top{
+                height: 54px;line-height: 54px;
+                
+                &>div{
+                    float: left;
+                    
+                    &.time-port{
+                        margin-left: 40px;margin-right: 40px;
+                        
+                        
+                        .air-pic,.train-pic,.hotel-pic{
+                            display: inline-block;
+                            width: 18px;height: 18px;
+                            margin-left: 20px;margin-right: 20px;
+                        }
+                        .air-pic{
+                            background-position: -108px -258px;
+                        }
+                        .train-pic{
+                            background-position: -87px -258px;
+                        }
+                        .hotel-pic{
+                            background-position: -129px -258px;
+                        }
+                        
+                    }
+                  }
+            }
+            
+            .t-text{
+                height: 32px;line-height: 32px;
+                overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+                
+                .t-text-title{display: inline-block;width: 90px;}
+            }
+        }
+        
+    }
+    
+    .order-right{
+        float: right;
+        display: table;
+        width: 300px;height: 100%;
+        position: absolute;
+        top: 0;right: 0;
+    
+        .order-ctrl{
+            width: 100%;padding-left: 20px;padding-right: 20px;
+            display: table-cell;vertical-align: middle;
+            
+            .margin-top-70{margin-top: 70px;}
+            .order-status{
+                margin: 0 auto;
+                width: 90px;height: 90px;line-height: 90px;
+                text-align: center;color: #FFFFFF;
+                background-position: -558px 0;
+                cursor: pointer;
+            }
+            .btn-100{width: 100%;height: 40px;line-height: 40px;font-size: 16px;}
+        }
+    }
+}
+
+
+// 退改签说明
+.tuigai-des{
+    position: relative;
+    
+    &>table{
+        display: none;
+        position: absolute;top: 27px;left: -90px;
+        width: 300px;
+        padding: 10px 15px;
+        border-collapse: collapse;
+        border-radius: 10px;
+        background: rgba(0,0,0,.5);
+        
+        tr:hover{background: initial;}
+        
+        td{color: #FFFFFF;border: none;}
+        
+        .td-title{width: 80px;vertical-align: top;}
+        .td-content{text-align: left;}
+    }    
+}
+
+// 时刻表
+@head-height: 40px;
+.time-table-wraper{
+    position: relative;
+    
+    .table-thead{position: fixed; z-index: 5;}
+    .table-tbody{position: absolute; top: @head-height;}
+    
+    .table{
+    
+        td{color: inherit;}
+        
+        tr{
+            
+            &.color-6461e2{color: #6461e2;}
+            &.color-333{color: #333333;}
+            &.color-bbb{color: #BBBBBB;}
+        }
+        
+        th,td{width: 150px;border: none;text-align: center;}
+        
+        th{height: @head-height;line-height: @head-height;}
+        
+    }
+}
+
+
+
+
+.map-location{
+    position: relative;padding-left: 20px;cursor: pointer;
+    
+    .location-pic{
+        position: absolute;top: 2px;left: 0;
+        display: inline-block;
+        width: 16px;height: 16px;
+        background-position: -68px -258px;
+    }
+}
+
+
+.hotel-infor-more{
+    cursor: pointer;
+    position: relative;
+    
+    .infor-pic{
+        display: inline-block;
+        width: 12px;height: 12px;
+        position: absolute;top: 10px;right: 17px;
+        background-position: -47px -290px;
+    }
+    
+    &.infor-less>.infor-pic{background-position: -47px -274px;}
+    
+}
+
+
+.hotel-des{
+    display: none;
+    padding: 20px;
+    background: #f6f6ff;
+    text-align: justify;
+    
+    .margin-bottom-16{margin-bottom: 16px;}
+}

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>差旅超标损耗</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/common/plugin.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/common/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/page/pager_blue.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/second-nav.css"/>
+
+    <link rel="stylesheet" type="text/css" href="../../resources/js/plugin/daterangepicker/iconfont/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/js/plugin/daterangepicker/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/js/plugin/daterangepicker/css/daterangepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/tTravel-analysis/analysis.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/tTravel-analysis/travelAnalysis.css"/>
+</head>
+<body>
+<div class="main-content clear">
+    <div class="float-left second-side-nav-box">
+        <div class="second-side-nav">
+            <dl>
+                <dt class="position">
+                    <a href="/myChailv/toNewChailvApp/personal?tag=chailv" class="position ss-link ss-every-model" data-tag="chailv">
+                        <span class="position-ab tip_img save_img_first"></span>
+                        节省分析
+                        <!--<span class="position-ab tip_img save_img_second s-jt-bg"></span>-->
+                    </a>
+                </dt>
+            </dl>
+            <dl>
+                <dt class="position">
+                    <a href="javascript:void(0);" class="ss-every-model">
+                        <span class="position-ab tip_img loss_img_first"></span>
+                        损耗分析
+                        <span class="position-ab tip_img travel_img_second s-jt-bg"></span>
+                    </a>
+                </dt>
+                <dd>
+                    <a href="javascript:void(0);" class="">
+                        差旅超标损耗
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        退改损耗
+                    </a>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="position">
+                    <a href="javascript:void(0);" class="ss-every-model">
+                        <span class="position-ab tip_img travel_img_first "></span>
+                        出行分析
+                        <span class="position-ab tip_img travel_img_second s-jt-bg"></span>
+                    </a>
+                </dt>
+                <dd>
+                    <a href="javascript:void(0);" class="">
+                        目的地分析
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        里程分析
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        次数/时长分析
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        热门酒店
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        航空公司分析
+                    </a>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="position">
+                    <a href="javascript:void(0);" class="ss-every-model">
+                        <span class="position-ab tip_img time_img_first"></span>
+                        时刻分析
+                        <span class="position-ab tip_img time_img_second s-jt-bg"></span>
+                    </a>
+                </dt>
+                <dd>
+                    <a href="javascript:void(0);" class="">
+                        航班时刻
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        火车时刻
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="float-left content_show">
+        <div class="analysis">
+            <div class="anal_top margin-bottom-10 font-weight-bold padding-left-30 box-sizing font-size-16 color-333 background-fff clear">
+                <div class="float-left">差旅超标损耗<em class="display-inline-block vertical-middle remind"></em></div>
+                <div class="float-right margin-right-30 color-D44A9F cursor-pointer font-size-14" onclick="perCallBack()">返回</div>
+            </div>
+            <div class="sectoral padding-left-30 padding-top-20 box-sizing margin-bottom-10 background-fff">
+                <div class="time-plugin margin-bottom-30">
+                    <div class="input_items margin-default-r display-inline-block vertical-middle">
+                        <div class="input_item_text display-inline-block vertical-middle margin-right-5">时间：</div>
+                        <div class="i_item_input time_section_box display-inline-block vertical-middle">
+                            <button type="button" class="btn btn-default" id="daterange-btn">
+                            <span>
+                                <i class="icon iconfont icon-calendar1"></i>
+                                日期选择
+                            </span>
+                                <i class="icon iconfont icon-danxian-youjiantou-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="display-inline-block vertical-middle"><input type="button" name="" value="查询"></div>
+                    <div class="display-inline-block vertical-middle"><input type="button" name="" value="导出" class="export"></div>
+                </div>
+                <div id="analy-echarts"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../../resources/js/common/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="../../resources/js/plugin/daterangepicker/js/moment.js"></script>
+<script type="text/javascript" src="../../resources/js/plugin/daterangepicker/js/daterangepicker.js"></script>
+<script type="text/javascript" src="../../resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="../../resources/js/plugin/echarts/echarts.common.min.js"></script>
+<script type="text/javascript" src="../../resources/js/tTravel-analysis/analysis.js"></script>
+<script type="text/javascript">
+    var dom = document.getElementById("analy-echarts");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    var department=['与客户约定时间变更','因个人原因误机','航班延误或取消','其他原因','未知原因'];
+    var ticket=['机票'];
+    option = {
+        color: ['#D44A9F'],
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'line'
+            }
+        },
+        legend: {
+            data:ticket
+        },
+        calculable: true,
+        xAxis : [
+            {
+                type : 'category',
+                data : department
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel: {
+                    show: true,
+                    interval: 'auto',
+                    formatter: '{value}次'
+                },
+                show: true
+            }
+        ],
+        series : [
+            {
+                name:'',
+                type:'bar',
+                barWidth:40,
+                data:[20, 49, 70, 232, 256]
+            }
+        ]
+    };
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+</html>

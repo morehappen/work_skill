@@ -1,0 +1,88 @@
+<!-- 公司产品设置 -->
+#set($costCenter = "")
+#set($projectCenter = "")
+#set($projectinfoinput = "")
+#set($costcenterinput = "")
+#foreach($product in $productSet)
+	#if($!product.name == "travelorder")
+		<input type="hidden" id="crm_travelorder" value="$!{product.value}" />
+	#end
+	#if($!product.name == "projectinfo")
+		<input type="hidden" id="crm_projectinfo" value="$!{product.value}" />
+		#set($projectCenter = $!product.value)
+	#end
+	#if($!product.name == "costcenter")
+		<input type="hidden" id="crm_costcenter" value="$!{product.value}" />
+		#set($costCenter = $!product.value)
+	#end
+	#if($!product.name == "travelreason")
+		<input type="hidden" id="crm_travelreason" value="$!{product.value}" />
+	#end
+	#if($!product.name == "peisongaddress")
+		<input type="hidden" id="crm_peisongaddress" value="$!{product.value}" />
+	#end
+	#if($!product.name == "projectinfoinput")
+		<input type="hidden"  class="projectinfoinput_hidden" value="$!{product.value}">
+		#set($projectinfoinput = $!{product.value})
+	#end
+	#if($!product.name == "costcenterinput")
+		<input type="hidden"  class="costcenterinput_hidden" value="$!{product.value}">
+		#set($costcenterinput = $!{product.value})
+	#end
+#end
+<!--分销判断-->
+<input type="hidden" class="fanxian" value="false">
+<!--拿到临时部门的id-->
+<input type="hidden" class="fanxian-linshi" value="">
+<input type="hidden" value="$!{user.ifallowbook}" id="ifallowbook" />
+<input type="hidden" value="$!{user.addempflage}" id="addempflage" />
+<input type="hidden" value="$!{user.addcustflage}" id="addcustflage" />
+<input type="hidden" value="$!{user.companyid}" class="cid">
+<input type="hidden" value="$!{user.id}" id="user_id_">
+<input type="hidden" id="coerceApprove_i" value="$!{coerceApprove}">
+<input type="hidden" id="cityLevel_i" value="$!{cityLevel}">
+<input type="hidden" name="checkIn" id="checkIn" value="$!{bookModel.checkIn}"/>
+<input type="hidden" name="checkOut" id="checkOut" value="$!{bookModel.checkOut}"/>
+<input type="hidden" id="averageDaily_i" value="$!{bookModel.averageDaily}"/>
+<input type="hidden" id="unitPrice" value="$!{bookModel.total}"/>
+<input type="hidden" id="rateType" value="$!{bookModel.rateType}"/>
+<input type="hidden" id="rateValue" value="$!{bookModel.rateValue}"/>
+<input type="hidden" id="rateUnit" value="$!{bookModel.rateUnit}"/>
+<input type="hidden" id="platform" value="$!{bookModel.platform}"/>
+<input type="hidden" id="hotelNo" value="$!{bookModel.hotelNo}"/>
+<input type="hidden" id="planCode" value="$!{bookModel.planCode}"/>
+<input type="hidden" id="guaranteeCost" value="$!{bookModel.guaranteeCost}"/>
+<input type="hidden" name="overMsg" value="$!{bookModel.overMsg}" />
+<input type="hidden" name="overMsgId" id="overMsgId_i" value="$!{bookModel.overMsgId}" />
+<input type="hidden" name="apprule" value="$!{bookModel.apprule}" id="apprule_i" />
+<input type="hidden" name="isApproved" id="isApproved_i" value="$!{bookModel.isApproved}" />
+<input type="hidden" name="toApproveder" value="$!{bookModel.toApproveder}" />
+<input type="hidden" name="remark" value="$!{bookModel.remark}" />
+<input type="hidden" name="note" value="$!{bookModel.note}" />
+<input type="hidden" name="capcity" id="capacity" value="$!{room.capacity}" />
+<input type="hidden" name="violateApruleRule" id="violateApruleRule_i" value="$!{bookModel.violateApruleRule}" />
+<input type="hidden" name="latestCheckTime" id="latestCheckTime" value="$!{bookModel.latestCheckTime}"/>
+<input type="hidden" name="guaranteeType" id="guaranteeType" value="$!{bookModel.guaranteeType}"/>
+<input type="hidden" name="guaranteeRate" id="guaranteeRate" value="$!{bookModel.guaranteeRate}"/>
+<input type="hidden" name="coverCharge" id="coverCharge" value="$!{bookModel.coverCharge}"/>
+<input type="hidden" name="totalRate" id="totalRate_i" value="$!{bookModel.totalRate}" />
+<input type="hidden" name="overItem" id="overItem_i" value="$!{bookModel.overItem}"/>
+<input type="hidden" name="isGuarantee" id="isGuarantee" value="$!{bookModel.isGuarantee}"/>
+
+<input type="hidden" id="minAmount" value="$!{bookModel.minAmount}"/>
+<input type="hidden" id="minDays" value="$!{bookModel.minDays}"/>
+<input type="hidden" id="maxDays" value="$!{bookModel.maxDays}"/>
+
+<input type="hidden" id="bookSources" name="bookSources" value="$!{bookModel.bookSources}"/>
+<input type="hidden" id="bookFlag" value="$!{bookFlag}"/>
+<input type="hidden" id="modifyCustomer" value="$!{modifyCustomer}"/>
+<input type="hidden" id="modifyApproval" value="$!{modifyApproval}"/>
+<input type="hidden" id="addempflageCustomer" value="$!{addempflageCustomer}"/>
+<input type="hidden" id="oacostname" value="$!{casmodel.costname}"/>
+<input type="hidden" id="oaproname" value="$!{casmodel.proname}"/>
+<input type="hidden" id="com_type_i" value="$!{comType}"/>
+<input type="hidden" id="addition_appro_i" value="$!{additionAppro}"/>
+<input type="hidden" id="over_appro_map_json_i" value='$!{overApproMapJson}'/>
+<input type="hidden" id="appro_map_json_i" value='$!{approMapJson}'/>
+<!--项目中心改为项目编号标志-->
+<input type="hidden" class="isHuiChuan" >

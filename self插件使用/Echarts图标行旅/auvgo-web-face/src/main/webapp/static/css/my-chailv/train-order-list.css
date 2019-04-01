@@ -1,0 +1,81 @@
+.query_form .input-model {
+    width: 194px;
+    margin-right: 0;
+}
+
+.query_form .input-model .i-m-text{
+    width: 62px;
+    height: 32px;
+    line-height: 32px;
+    float: left;
+}
+
+.query_form .input-model .i-m-input {
+    width: 100px;
+    height: 32px;
+    float: left;
+}
+
+.query_form .train_query_box {
+    width: 102px;
+    margin-right: 40px;
+    float: right;
+}
+
+.train_query_box .i-m-text {
+    display: none;
+}
+
+.train_query_box .i-m-input {
+
+}
+
+.train_query_box {
+    margin-left: 61px;
+}
+
+.train_query_box button {
+    font-size: 14px;
+    background-color: #D44A9F;
+    box-sizing: border-box;
+    width: 102px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.train_query_box button:hover {
+    background-color: #D44A9F;
+}
+
+.query_form .input-model input[type="text"], .input-model input[type="password"] {
+    width: 100px;
+    height: 32px;
+}
+
+.table tbody td {
+    color: #888;
+}
+
+.table tbody a {
+    color: #6BA8F3;
+    text-decoration: underline;
+}
+
+.table th {
+    color: #666666;
+    background-color: #fff;
+    border-bottom: 2px solid #eaeaea;
+}
+
+.main-myChailv-c .orde-table-wraper {
+    width: 940px;
+}
+
+#kkpager {
+    padding-right: 35px;
+}
+
+#changePages {
+    background-color: #D44A9F;
+}
+

@@ -1,0 +1,64 @@
+.filter-input{width: 158px;margin-right: 0;}
+.filter-btn{padding: 0 19px;}
+
+.filter-train-xinxi{padding-left: 30px;padding-right: 116px;}
+.start-btn{margin-right: 120px;}
+.arrive-btn{margin-right: 86px;}
+.times-btn{margin-right: 150px;}
+.filter,.train-list>li{margin-bottom: 10px;background: #fff;font-size: 12px;}
+.train-list>li:last-child{margin-bottom: 0;}
+.train-list>li{padding: 25px 30px;}
+
+.color-999{color: #999;}
+.price{display: inline-block;width: 96px;color: #D10773;}
+.font-weight{font-weight: 600;}
+.margin-left-16{margin-left: 21px;}
+
+.w-141{width: 141px;}
+.w-120{width: 120px;}
+.w-64{width: 64px;}
+
+.station-flag{width: 14px; height: 14px; line-height: 12px;padding: 0 1px;margin-top: 8px;border: 1px solid #fff;box-sizing: border-box;border-radius: 3px;text-align: center;cursor: pointer;margin-right: 5px;}
+.star-flag{border-color: #614EC2;color: #614EC2;}
+.end-flag{border-color: #D10773;color: #D10773;}
+.transfer-flag{border-color: #30C3B7;color: #30C3B7;}
+
+/* 背景图 */
+.wei-wraper{width: 24px;height: 20px;vertical-align: text-bottom;}
+.wei-flag{background-position: 0 0;}
+
+.right-content{width:329px;margin-left: 60px;}
+
+.train-list .every-line{height: 30px;line-height: 30px;}
+.book-btn{height: 21px;line-height:21px;width: 48px;vertical-align: text-bottom;margin:4px 0 0 0;}
+.train-book-no,.train-book-no:hover{background: #afafaf;cursor: no-drop;}
+
+.tips{font-size: 14px;height: 50px;line-height: 50px;border-radius: 5px;padding-left: 16px;background: #fdf1f3;border: 1px solid #f599ae;}
+
+.all-stations-wraper{position: relative;float: left;}
+.all-stations{cursor: pointer;}
+
+.tiket-count{margin: 0 10px;width: 55px;height:30px;line-height:30px;color: #D10773;}
+
+/* 时刻表 */
+.time-table-wraper{display: none; width: 385px;height: 280px;overflow: auto;border-radius: 5px;background: #fff;position: absolute;left: -25px;top:20px;z-index: 100;box-shadow: 3px 3px 15px 1px rgba(0,0,0,0.2);}
+.time-table-wraper .table th, .time-table-wraper .table td{border: none;}
+
+/* 左侧小图标 */
+.e-f-title span{width: 20px;height: 20px;}
+
+.train-flag{background-position: -55px -308px;}
+.start-station-flag{background-position: -48px 0}
+.end-station-flag{background-position: -68px 0;}
+.start-time-flag{background-position: -49px -23px;}
+.end-time-flag{background-position: -72px -23px;}
+
+/* 暂无数据 */
+.no-data-wraper{display: none;}
+
+.input[disabled]{color: #aaa;}
+
+
+
+
+

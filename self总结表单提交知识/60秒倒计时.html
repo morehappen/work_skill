@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="sky">
+        获取验证码
+    </div>
+</body>
+<script src="../../jquery-1.12.4.min.js"></script>
+<script>
+    $(function() {
+        //60秒倒计时
+        var wait = 60;
+        var timerId;
+
+        function time(o) {
+            debugger
+            if (wait == 0) {
+                o.removeAttr("disabled");
+                o.text("免费获取验证码");
+                wait = 60;
+            } else {
+                o.attr("disabled", true);
+                o.text("重新发送(" + wait + ")");
+                wait--;
+                timerId = setTimeout(function() {
+                    time(o)
+                }, 1000)
+            }
+        }
+
+        function removetime(o) {
+            clearInterval(timerId);
+            o.removeAttr("disabled");
+            o.text("免费获取验证码");
+            wait = 60;
+        }
+        time($(".sky"));
+    })
+</script>
+
+</html>

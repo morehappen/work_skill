@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>酒店-填写订单</title>
+	<link rel="icon" sizes="any" href="../../resources/images/common/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="../../resources/css/common/animate.css"/>
+	<link rel="stylesheet" type="text/css" href="../../resources/css/common/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../resources/css/hotel/hotel-book.css"/>
+</head>
+<body class="background-6461e2 clear">
+<div class="main-content clear" id="model-flag">
+	<div class="float-left book-model">
+		<form action="/hotel/book/createOrder" method="post" id="hotel-book-form">
+			<div class="hotel-infor background-fff margin-bottom-10 clear">
+				<div class="p-m-title">经济间(无窗)</div>
+				<div class="font-size-12 clear h-infor-con">
+					<span class="float-left h-i-time">入住时间：2018-03-27</span>
+					<span class="float-left h-i-time">离店时间：2018-03-28</span>
+					<span class="float-left h-i-time" style="position:relative;">
+						
+						<div class="suspension-frame" style="display:none;">
+							<div class="suspension-data clear">
+								<dl class="float-left suspension-dl">
+									<dd class="suspension-dd"><span>4-12</span> <span>四</span></dd>
+									<dt class="suspension-dt">
+									<div class="suspension-price"><span>￥</span> <span class="price">11249.44</span></div>
+									<!--<div class="suspension-early">无早</div>-->
+									</dt>
+								</dl>
+							</div>
+						</div>
+					</span>
+					<span class="float-left h-i-hnum">房间数：</span>
+					<span class="float-left clear count-ctrl">
+						<span class="float-left hotel-bg ctrl ctrl-l"></span>
+						<input type="text" name="order.numberOfRooms" value="1" class="float-left ctrl-m" readonly>
+						<span class="float-left hotel-bg ctrl ctrl-r"></span>
+					</span>
+					<div class="float-left animated shake">
+						<span class="icon-img warn-mark"></span>1间房选一位入住人
+					</div>
+				</div>
+			</div>
+			<div class="person-model background-fff margin-bottom-10 padding-right padding-bottom-10" data-editctr="0">
+				<div class="p-m-title clear">
+					<span class="float-left p-m-t">入住人</span>
+					<button type="button" class="float-right p-m-t sell-btn">选择入住人</button>
+				</div>
+				<div class="air-common-p clear aircraft-gray margin-bottom-20">
+					<span class="float-left  font-size-12 text-align" style="line-height:34px;margin-right:10px;">常用联系人</span>
+					<div class="float-left a-c-p-c font-size-12 text-align contacts default-height">
+						<span class="float-left border-radius text-ellipsis active">张浩</span>
+						<span class="float-left border-radius text-ellipsis">zhanghao</span>
+						<span class="float-left border-radius text-ellipsis">叼毛波波</span>
+						<span class="float-left border-radius text-ellipsis">叼毛波波</span>
+						<span class="float-left border-radius text-ellipsis">叼毛波波</span>
+						<span class="float-left border-radius text-ellipsis">叼毛波波</span>
+					</div>
+					<button type="button" class="float-right p-m-t sell-btn contacts-btn" style="width:102px; border:0 ;color:#614dc2;">展开常用联系人</button>
+				</div>
+				<ul class="passanger-model aircraft-gray">
+					<li class="e-p-model font-size-12" >
+						<div class="clear margin-bottom-10 alert_content" >
+							<span class="float-left p-m-name clear position">
+								<span class="icon-img pass-bg position-ab"></span>
+								<span class="p-every-passes text-ellipsis" title="yuewang">yuewang</span>
+							</span>
+							<div class="float-left clear">
+								<span class="edit_p">编辑</span>
+								<span class="remove_p e-p-delete"></span>
+								<div class="label label-checkbox cursor notice-margin" >
+									<span class="show_choice"></span>
+									<input type="checkbox" name="ddd" value="">
+									<span>是否发送通知</span>
+								</div>
+							</div>
+						</div>
+						<div class="together">合住</div>
+						<div class="clear" style="margin-left:40px;">
+							<div class="book-model-c-10 margin-right-10 position float-left">
+								<div class="b-m-c-t">电话：</div>
+								<div class="input-c input-180">
+									<input type="text" name="" class="input" unselectable="on" readonly value="">
+								</div>
+							</div>
+							<div class="book-model-c-10 margin-right-10 position float-left">
+								<div class="b-m-c-t">邮箱：</div>
+								<div class="input-c input-180">
+									<input type="text" name="" class="input" unselectable="on" readonly value="">
+								</div>
+							</div>
+							<div class="book-model-c-10 margin-right-10 position float-left">
+								<div class="b-m-c-t">部门：</div>
+								<div class="input-c input-180">
+									<input type="text" name="" class="input" unselectable="on" readonly value="">
+								</div>
+							</div>
+							<div class="book-model-c-10 margin-right-10 position float-left">
+								<div class="b-m-c-t">成本中心：</div>
+								<div class="input-c input-180">
+									<input type="text" name="" class="input" unselectable="on" readonly value="">
+								</div>
+							</div>
+							<div class="book-model-c-10 margin-right-10 position float-left">
+								<div class="b-m-c-t">项目编号：</div>
+								<div class="input-c input-180">
+									<input type="text" name="" class="input" unselectable="on" readonly value="">
+								</div>
+							</div>
+							<!--<div class="book-model-c input-c position float-left">-->
+								<!--<div class="b-m-c-t">国籍：</div>-->
+								<!--<div class="input-c input-180">-->
+									<!--<input type="text" name="" class="input" unselectable="on" readonly value="">-->
+								<!--</div>-->
+							<!--</div>-->
+							
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="hotel-infor background-fff clear margin-bottom-10">
+				<div class="p-m-title">
+					<span class="p-m-t">审批规则</span>
+				</div>
+				<div class="font-size-12 clear">
+					<div class="clear sp-rule">
+						<span class="approve_rule">
+							<select class="_select_ approve_rule_select _dropDown_" name="order.approveid"
+									data-value="289">
+								<option value="289">审批规则1</option>
+								<option value="290">审批规则2</option>
+							</select>
+						</span>
+					</div>
+					<div class="clear">
+						<div class="clear e-sp">
+							<div class="float-left">1级审批</div>
+							<div class="float-left">
+								<div class="float-left sp-person">小浪发</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="last-time-model background-fff clear margin-bottom-10">
+				<div class="p-m-title clear">
+					<span class="p-m-t" style="display: block;float:left;">最晚到店</span>
+					<div class="float-left animated bounceInRight" style="font-size: 12px;">
+						<span class="icon-img warn-mark" style="top:0;" ></span>通常酒店14:00办理入住，早到可能等待
+					</div>
+				</div>
+				<div class="cl-m-content font-size-12 clear h-infor-con">
+					<div class="float-left clear aircraft-gray" style="height:30px;line-height:30px;border-radius: 15px;">
+						<!--<span class="float-left">最晚到店：</span>-->
+						<!--<select name="order.latestArrivalTimeString" class="_select_ _dropDown_"-->
+								<!--value="2018-03-27 17:00:00" data-value="2018-03-27 17:00:00">-->
+							<!--<option value="2018-03-27 17:00:00">17:00</option>-->
+							<!--<option value="2018-03-27 18:00:00">18:00</option>-->
+							<!--<option value="2018-03-27 19:00:00">19:00</option>-->
+							<!--<option value="2018-03-27 20:00:00">20:00</option>-->
+							<!--<option value="2018-03-27 21:00:00">21:00</option>-->
+							<!--<option value="2018-03-27 22:00:00">22:00</option>-->
+							<!--<option value="2018-03-27 23:00:00">23:00</option>-->
+							<!--<option value="2018-03-27 23:59:00">23:59</option>-->
+							<!--<option value="2018-03-28 01:00:00">凌晨01:00</option>-->
+							<!--<option value="2018-03-28 02:00:00">凌晨02:00</option>-->
+							<!--<option value="2018-03-28 03:00:00">凌晨03:00</option>-->
+							<!--<option value="2018-03-28 04:00:00">凌晨04:00</option>-->
+							<!--<option value="2018-03-28 05:00:00">凌晨05:00</option>-->
+							<!--<option value="2018-03-28 06:00:00">凌晨06:00</option>-->
+						<!--</select>-->
+						<div id ="box" class="box">
+							<!--<a href="javascript:;"><div class="suspension-time-box"></div></a>-->
+							<span id='parameter' class="parameter"></span>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="chailv-mation background-fff margin-bottom-10">
+				<div class="p-m-title">
+					<span class="p-m-t">差旅信息</span>
+				</div>
+				<div class="cl-m-content font-size-12 remove-hotel-flag">
+					<div class="cl-m-show animated bounceInRight hide" style="display: block;">
+						您超出了“一线城市不得高于100元/间夜”的差旅标准！
+					</div>
+					<div class="book-model-c input-c position">
+						<div class="b-m-c-t">出差单号：</div>
+						<div class="input-c input-150">
+							<input type="text" name="" class="input" unselectable="on" readonly value="">
+						</div>
+					</div>
+					<div class="book-model-c input-c position">
+						<div class="b-m-c-t">出差事由：</div>
+						<div class="input-c input-all">
+							<input type="text" name="" class="input" unselectable="on" readonly value="">
+						</div>
+					</div>
+					<div class="clear padding-bottom-14 weibei-container hide" style="display: block;">
+						<div class="book-model-c position float-left margin-r-20">
+							<div class="b-m-c-t">超标原因：</div>
+							<div class="drop-150 input-all">
+								<select class="_select_ w-reason-select _dropDown_" data-value="1">
+									<option value="1">陪同或招待领导；</option>
+									<option value="2">房满，订不到房；</option>
+									<option value="3">其他原因</option>
+								</select>
+							</div>
+						</div>
+						<div class="book-model-c position float-left b-m-reason">
+							<div class="b-m-c-t">填写原因：</div>
+							<div class="drop-150 input-all">
+								<input type="text" class="input" name="" nullmsg="请填写超标原因" placeholder="16个字符以内">
+								<b class="position-ab danger-p hide red">*</b>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="lianxiren background-fff clear">
+				<div class="p-m-title">
+					<span class="p-m-t">联系人</span>
+				</div>
+				<div class="clear font-size-12 book-relations padding-bottom-14">
+					<div class="clear margin-bottom-10 p-t-999">
+						<div class="float-left p-w-160">联系人</div>
+						<div class="float-left p-w-160">联系电话</div>
+						<div class="float-left p-w-160">邮箱</div>
+						<div class="float-left p-w-160"></div>
+					</div>
+					<div class="clear margin-bottom-10">
+						<div class="float-left p-w-160">
+							<input type="text" name="order.linkName" class="input link-name" placeholder="请输入联系人">
+						</div>
+						<div class="float-left p-w-160">
+							<input type="text" name="order.linkPhone" class="input link-phone"
+								   placeholder="请输入联系电话">
+						</div>
+						<div class="float-left p-w-160">
+							<input type="text" name="order.linkEmail" class="input link-email" placeholder="请输入邮箱">
+						</div>
+						<div class="float-left p-w-160">
+							<div class="label label-checkbox cursor" style="margin-top:6px;">
+								<span class="show_choice"></span>
+								<input type="checkbox" name="ddd" value="">
+								<span>是否发送通知</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear btn-submit text-align">
+				<button type="button" class="btn btn-default btn-big book-submit" id="hotel-book"
+						data-weibeiflag="1" data-ctr="1">下一步
+				</button>
+			</div>
+		</form>
+	</div>
+
+	<div class="float-right">
+		<div class="hotel-infor-model background-fff margin-bottom-20 font-size-12">
+			<div class="h-infor-h margin-bottom-20">
+				<div class="h-infor-h-t-w margin-bottom-10 clear">
+					<div class="h-infor-title font-size-16 font-600 hoverTips hover_content">飘HOME连锁酒店(北京前门大栅栏店)</div>
+				</div>
+				<div class="h-infor-h-desc clear">
+					<span class="h-infor-address float-left hoverTips hover_content color-999" data-cityid="0101">北京市西城区珠市口西大街韩家胡同17号 地铁7号线虎坊桥下车B口出向东200米</span>
+					<span class="float-right">经济型</span>
+				</div>
+			</div>
+			<div class="h-infor-i">
+				<img src="http://pavo.elongstatic.com/i/Hotel350_350/0004nvKX.jpg" width="330" height="185">
+			</div>
+		</div>
+		<div class="h-infor-f background-fff margin-10-b h-infor-f-box " >
+			<div class="font-size-16 margin-bottom-20">经济间(无窗),2晚1间</div>
+			<div class="e-room-f font-size-12 clear">
+				<div class="e-room-f-wraper">
+					<span class="e-f-bg icon-img e-f-01"></span>
+					<span class="e-f-text">15-17平米</span>
+				</div>
+				<div class="e-room-f-wraper">
+					<span class="e-f-bg icon-img e-f-02"></span>
+					<span class="e-f-text">15-17平米</span>
+				</div>
+				<div class="e-room-f-wraper">
+					<span class="e-f-bg icon-img e-f-03"></span>
+					<span class="e-f-text">大床</span>
+				</div>
+				<div class="e-room-f-wraper">
+					<span class="e-f-bg icon-img e-f-04"></span>
+					<span class="e-f-text">大床</span>
+				</div>
+				<div class="e-room-f-wraper">
+					<span class="e-f-bg icon-img e-f-05"></span>
+					<span class="e-f-text">大床</span>
+				</div>
+				<div class="e-room-f-wraper">
+					<span class="e-f-bg icon-img  e-f-06" style="height:21px;"></span>
+					<span class="e-f-text">wifi</span>
+				</div>
+			</div>
+		</div>
+		<div class="h-infor-f background-fff margin-10-b h-infor-f-box">
+			<div class="font-size-16 margin-bottom-20 clear">
+				<span class="float-left">在线担保</span>
+				<span class="float-right globalColor">
+					<span class="font-size-12">￥</span>
+					200000
+				</span>
+			</div>
+			<div class="font-size-12 clear line-height-20">
+				<span class="float-left ">担保费</span>
+				<span class="float-right">200000</span>
+			</div>
+			<div class="font-size-12 clear line-height-20">
+				<span class="float-left ">服务费</span>
+				<span class="float-right ">20</span>
+			</div>
+			<div class="font-size-12 clear line-height-20">
+				<span class="float-left">小计</span>
+				<span class="float-right">300x4+20</span>
+			</div>
+		</div>
+		<div class="h-infor-f background-fff margin-10-b prepaid-notice-box">
+			<div class="font-size-16 margin-bottom-20 clear">预付须知</div>
+			<p class="font-size-12">
+				<span class="globalColor">预付规则：</span>
+				预付规则预付规则预付规则预付规则预付规则预付规则预付规则预付规则
+				预付规则预付规则预付规则预付规则预付规则预付规则预付规则预付规则
+			</p>
+			<p class="font-size-12">
+				<span class="globalColor">温馨提示：</span>
+				预付规则预付规则预付规则预付规则预付规则预付规则预付规则预付规则
+				预付规则预付规则预付规则预付规则预付规则预付规则预付规则预付规则
+			</p>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript" src="../../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../../resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="../../resources/js/common/common.js"></script>
+<script type="text/javascript" src="../../resources/js/hotel/hotel-book-time.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

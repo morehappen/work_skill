@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>个人中心-个人信息</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/personal-center/personal-center.css"/>
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<div class="main-content margin-top-10">
+			#parse("/common/personal-center-left.html")
+			<div class="person-container float-left margin-left-10">
+				<div class="person-infor-top">
+					<h3 class="cert-name">$!emp.name</h3>
+					<div class="cert-content float-left">
+						<div>创建账号时间：<span>$!dateTool.format("yyyy-MM-dd hh:mm:ss",$!emp.createtime)</span></div>
+						<div>若非本人登录，请在核实后尽快修改密码</div>
+					</div>
+					<div class="edit-pwd float-right">
+						<a href="/personal/toEditPwd">修改密码</a>
+					</div>
+				</div>
+				<!--<div class="person-infor-top color-fff">
+					<h3>$!emp.name</h3>
+					<p>创建账号时间：<span>$!dateTool.format("yyyy-MM-dd hh:mm:ss",$!emp.createtime)</span></p>
+					<p>若非本人登录，请在核实后尽快<a href="/personal/toEditPwd" class="color-fff edit-pwd">修改密码</a></p>
+				</div>-->
+				<form action="/personal/toEdit" method="post" class="alert-form" id="employee-form">
+					<div class="clear">
+						<div class="input-wraper font-size-12">
+							<label class="label"><span>员工编号：</span></label>
+							<input type="text" class="input border-radius last-way" value ="$!emp.accno" readonly="readonly"/>
+						</div>
+						<div class="input-wraper font-size-12">
+							<label class="label"><span>联系手机：</span></label>
+							<input  type="text" name="mobile" class="input border-radius last-way" placeholder="联系手机" value="$!emp.mobile" datatype="m" nullmsg="请填写手机号码"  errormsg="请填写正确的手机号码" />
+						</div>
+						<div class="input-wraper font-size-12">
+							<label class="label"><span>是否审批人：</span></label>
+							<input type="text" class="input border-radius last-way" value ="#if($!emp.ifapprove == 1)是 #else否#end" readonly="readonly" />
+						</div>
+					</div>
+					<div class="clear">
+						<div class="input-wraper font-size-12">
+							<label class="label"><span>员工姓名：</span></label>
+							<input type="text" name="name" class="input border-radius last-way" placeholder="员工姓名" value ="$!emp.name" datatype="s" nullmsg="请填写员工姓名" errormsg="请填写正确的姓名" />
+						</div>
+						<div class="input-wraper font-size-12">
+							<label class="label"><span>联系邮箱：</span></label>
+							<input  type="text" name="email" class="input border-radius last-way" placeholder="联系邮箱"  value="$!emp.email" datatype="e" errormsg="请正确填写联系邮箱" ignore="ignore" />
+						</div>
+						<div class="input-wraper font-size-12">
+							<label class="label"><span>代订范围：</span></label>
+							<input type="text" class="input border-radius last-way" value="#if($!emp.bookrange==0)全公司 #elseif($!emp.bookrange==1)本部门 #elseif($!emp.bookrange==2)指定部门#else仅为自己预订#end" readonly="readonly" />
+						</div>
+					</div>
+					<div class="clear">
+						<div class="input-wraper font-size-12">
+							<label class="label"><span>英文名字：</span></label>
+							<input type="text" name="fullname" class="input border-radius last-way" placeholder="英文名字" value ="$!emp.fullname" datatype="s" nullmsg="请填写员工姓名" errormsg="请填写正确的姓名" />
+						</div>
+						<div class="input-wraper font-size-12">
+							<label class="label"><span>员工部门：</span></label>
+							<input type="text" class="input border-radius last-way " value ="$!emp.deptname" readonly="readonly" />
+						</div>
+						<div class="input-wraper font-size-12">
+							<label class="label"><span>权限级别：</span></label>
+							<input type="text" class="input border-radius last-way" value ="#if($!emp.level =='all')全公司 #elseif($!emp.level =='dept')部门#else个人#end" readonly="readonly" />
+						</div>
+					</div>
+					<!--<div class="margin-bottom-20 clear">
+							<div class="input-wraper font-size-12">
+								成本中心：<input type="text" class="input border-radius" value ="$!certcost.name" readonly="readonly" />
+							</div>
+							<div class="input-wraper font-size-12">
+								项目中心：<input type="text" class="input border-radius"  value="$!crmpro.name" readonly="readonly" />
+							</div>
+							<div class="input-wraper font-size-12">
+								审批规则：<input type="text"  class="input border-radius"  value="$!approve.name"  readonly="readonly" />
+							</div>
+					</div>-->
+					<div class="form-row-button">
+						<button type="button" class="btn btn-default btn-big" id="save-infor">保存</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/personal-center/personal-center.js"></script>
+	</body>
+</html>

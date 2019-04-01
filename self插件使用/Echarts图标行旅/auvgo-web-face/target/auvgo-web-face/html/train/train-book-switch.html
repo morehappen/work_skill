@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>火车票-填写订单</title>
+    #parse("/common/styleSheetCommon.html")
+    <!--<link rel="stylesheet" type="text/css" href="../../resources/css/common/personal-center.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="../../resources/css/common/common.css"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="../../resources/css/common/plugin.css" />-->
+    <link rel="stylesheet" type="text/css" href="/static/css/train/train-book.css"/>
+</head>
+<body>
+<input type="hidden" class="fanxian" value="false">
+<!--成本中心和项目中心的判断标志-->
+<input type="hidden" class="costcenter_hidden" value="$!costcenter"><!--成本中心-->
+<input type="hidden" class="projectinfo_hidden" value="$!projectinfo"><!--项目中心-->
+<!--当前登录人是否有添加员工的权限   1有添加员工权限 0无添加员工权限-->
+<input type="hidden" class="addempflage">
+<!--BKJT判断标志-->
+<input type="hidden" class="getShowname">
+<!--拿到临时部门的id-->
+<input type="hidden" class="fanxian-linshi" value="">
+<input type="hidden" value="$!{isLow}" id="is_low_flight">
+
+<input type="hidden" value="" class="cid">
+<input type="hidden" value="$!model.airOrder.approveid" class="approveid">
+
+<input type="hidden" value="" name="approvename">
+
+<input type="hidden" class="bxCodeStr" name="baoxian" value="$!model.baoxian">
+
+<input type="hidden" class="bookpolicy" name="airOrder.bookpolicy" value="">
+
+<input type="hidden" class="isBook" value="">
+<input type="hidden" class="isWei" name="AirOrder.weibeiflag" value="">
+
+<input type="hidden" class="customprice-g" value="$!bookRoutes.get(0).customprice">
+
+<input type="hidden" class="setNumTo" value="$!bookRoute.get(0).seatNum">
+<input type="hidden" class="air-licheng" value="$!bookRoute.get(0).distance">
+<input type="hidden" class="orderTimes" name="ordertime"
+       value="$!bookRoute.get(0).deptdate,#if($!airquery.type=='rt')$!bookRoute.get(1).deptdate#end">
+<div class="main-content margin-top-20 margin-bottom-10">
+    <!-- 未绑定 -->
+    <div class="bind-tips clear">
+				<span><span class="icon-img train-flag"></span>
+				<span class="flag-text">绑定12306账号出票成功率更高。</span>
+				<a href="javascript: void(0);" class="u-line bind-12306">绑定账号</a></span>
+        <br>
+        <span>温馨提示：请务必保证证件姓名和证件号码与本人证件信息一致，且旅行结束日期最好比证件有效期早三个月以上。如信息有误或减少，请联系您的差旅负责人更新信息</span>
+
+    </div>
+</div>
+<div class="main-content clear">
+    <!--<div class="bind-tips">-->
+    <!--<span class="flag-text">温馨提示：请务必保证证件姓名和证件号码与本人证件信息一致，且旅行结束日期最好比证件有效期早三个月以上。如信息有误或减少，请联系您的差旅负责人更新信息</span>-->
+    <!--</div>-->
+    <form action="" method="POST" id="createForm" class="clear float-left">
+        <div class="completion-left">
+            <div class="person-model">
+                <div class="p-m-title">
+                    <span>乘车人</span>
+                    <span class="choice-cjr" data-limit="9" data-model="air">
+							<span class="icon-img"></span>
+							选择乘车人
+						</span>
+                </div>
+                <div class="air-common clear">
+                    <div class="used-contacts">
+                        常用出行人
+                    </div>
+                    <div class="a-c-p-c clear">
+                        <span class="e-c-y-lx active">赵雅致</span>
+                        <span class="e-c-y-lx">赵雅致</span>
+                        <span class="e-c-y-lx">赵雅致</span>
+                        <span class="e-c-y-lx">赵雅致</span>
+                        <span class="e-c-y-lx">赵雅致</span>
+                        <span class="e-c-y-lx">赵雅致</span>
+                        <span class="e-c-y-lx">赵雅致</span>
+                        <span class="e-c-y-lx">赵雅致</span>
+                        <span class="e-c-y-lx">赵雅致</span>
+                        <span class="e-c-y-lx">赵雅致</span>
+                    </div>
+                    <div class="cy-lxr">
+                        <span class="changyong-person">更多</span>
+                    </div>
+                </div>
+                <div class="passanger-container">
+                    <div class="passanger-model">
+                        <div class="e-p-model">
+                            <div class="p-m-name clear">
+                                <div class="loginName" title=""><span>1</span>赵雅致</div>
+                                <div class="edit-del"><span class="edit_p">编辑</span><span class="remove_p">删除</span>
+                                </div>
+                            </div>
+                            <!--<div class="certificate">-->
+                            <!--<div class="certificate-row clear">-->
+                            <!--<div class="cert-left">-->
+                            <!--<span>证件类型：</span>-->
+                            <!--<div class="drop-centro">-->
+                            <!--<select class="_select_"  datatype="*" nullmsg="请选择证件类型">-->
+                            <!--<option value="">-请选择证件-</option>-->
+                            <!--<option value="1">身份证</option>-->
+                            <!--<option value="C">港澳通行证</option>-->
+                            <!--<option value="G">台湾通行证</option>-->
+                            <!--<option value="B">护照</option>-->
+                            <!--<option value="ID">其他</option>-->
+                            <!--</select>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="cert-right">-->
+                            <!--<span></span>-->
+                            <!--<span class="notice">发送通知</span>-->
+                            <!--<div class="cert-btn">-->
+                            <!--<div class="label label-checkbox cursor mobile_isSend #if($!airUser.isSend == true) label-select-checkbox #end #if('$!airUser.mobile'=='')show_choice_default #end  send_sms_pass_d">-->
+                            <!--<span class="show_choice"></span>-->
+                            <!--<input type="hidden" name="airUser[$!{index}].isSend" data-is="isSend-isSendEmail" value="$!airUser.isSend">-->
+                            <!--<span>短信</span>-->
+                            <!--</div>-->
+                            <!--<div class="label label-checkbox cursor email_isSendEmail #if($!airUser.isSendEmail ==true) label-select-checkbox #end #if('$!airUser.email'!=' ')#else show_choice_default #end send_sms_pass_d" >-->
+                            <!--<span class="show_choice"></span>-->
+                            <!--<input type="hidden" name="airUser[$!{index}].isSendEmail" data-is="isSend-isSendEmail" value="$!airUser.isSendEmail">-->
+                            <!--<span>邮件</span>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="certificate-row clear">-->
+                            <!--<div class="cert-left">-->
+                            <!--<span>证件号码：</span>-->
+                            <!--<div class="input-centro">-->
+                            <!--<input type="text" class="input user_centro" name="" readonly value="">-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="cert-right">-->
+                            <!--<span>所属部门：</span>-->
+                            <!--<div class="input-centro">-->
+                            <!--<input type="text" class="input user_dept" readonly placeholder="请输入部门" value="">-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="certificate-row clear">-->
+                            <!--<div class="cert-left">-->
+                            <!--<span>手机号码：</span>-->
+                            <!--<div class="input-centro">-->
+                            <!--<input type="text" class="input user_centro" name="" readonly value="">-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="cert-right">-->
+                            <!--<span>成本中心：</span>-->
+                            <!--<div class="input-centro">-->
+                            <!--<input type="text" class="input user_dept"  placeholder="请输入部门" value="">-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="certificate-row clear">-->
+                            <!--<div class="cert-left">-->
+                            <!--<span>邮箱：</span>-->
+                            <!--<div class="input-centro">-->
+                            <!--<input type="text" class="input user_centro" name="" readonly value="">-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="cert-right">-->
+                            <!--<span>项目中心：</span>-->
+                            <!--<div class="input-centro">-->
+                            <!--<input type="text" class="input user_dept"  placeholder="请输入部门" value="">-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <div class="clear info_item">
+                                <div class="float-left p-w-335 clear info certificate_row_mao">
+                                    <div class="clear left_item">
+                                        <div class="float-left left_item_l">
+                                            证件类型:
+                                        </div>
+                                        <div class="drop-centro">
+                                            <select class="_select_" datatype="*" nullmsg="请选择证件类型">
+                                                <option value="">-请选择证件-</option>
+                                                <option value="1">身份证</option>
+                                                <option value="C">港澳通行证</option>
+                                                <option value="G">台湾通行证</option>
+                                                <option value="B">护照</option>
+                                                <option value="ID">其他</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="clear left_item">
+                                        <div class="float-left left_item_l">
+                                            证件号码:
+                                        </div>
+                                        <div class="float-left left_item_r">
+                                            122723198807242017
+                                        </div>
+                                    </div>
+                                    <div class="clear left_item">
+                                        <div class="float-left left_item_l">
+                                            手机号码:
+                                        </div>
+                                        <div class="float-left left_item_r">
+                                            12213213123123
+                                        </div>
+                                    </div>
+                                    <div class="clear left_item">
+                                        <div class="float-left left_item_l">
+                                            成本中心:
+                                        </div>
+                                        <div class="float-left p-w-160 input-new" style="height:30px;">
+                                            <input type="text" nullmsg="请选择成本中心" placeholder="请选择" autocomplete="off"
+                                                   class="input costCenter-input" name="users[0].costName"
+                                                   value="张大浩投资股份集团">
+                                            <input type="hidden" name="users[0].costId" value="3413">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-left p-w-335 clear left_item">
+                                    <div class="float-left left_item_l">
+                                        发送通知:
+                                    </div>
+                                    <div class="cert-btn">
+                                        <div class="label label-checkbox cursor mobile_isSend    send_sms_pass_d">
+                                            <span class="show_choice"></span>
+                                            <input type="hidden" name="airUser[].isSend" data-is="isSend-isSendEmail"
+                                                   value="">
+                                            <span>短信</span>
+                                        </div>
+                                        <div class="label label-checkbox cursor email_isSendEmail   send_sms_pass_d">
+                                            <span class="show_choice"></span>
+                                            <input type="hidden" name="airUser[].isSendEmail"
+                                                   data-is="isSend-isSendEmail" value="">
+                                            <span>邮件</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-left p-w-335 clear left_item">
+                                    <div class="float-left left_item_l">
+                                        所属部门:
+                                    </div>
+                                    <div class="float-left left_item_r">
+                                        技术部
+                                    </div>
+                                </div>
+                                <div class="float-left p-w-335 clear left_item">
+                                    <div class="float-left left_item_l">
+                                        邮箱:
+                                    </div>
+                                    <div class="float-left left_item_r">
+                                        2322991293@qq.com
+                                    </div>
+                                </div>
+
+                                <div class="float-left p-w-335 clear left_item">
+                                    <div class="float-left left_item_l">
+                                        项目中心:
+                                    </div>
+                                    <div class="float-left p-w-160 input-new" style="height:30px;">
+                                        <input type="text" placeholder="请选择" nullmsg="请选择" autocomplete="off" class="input showname_falge project-input" name="users[0].itemNumber" value="">
+                                        <input type="hidden" name="users[0].itemNumberId" value="">
+                                    </div>
+                                </div>
+                                <div class="float-left p-w-335 clear left_item">
+                                    <div class="float-left left_item_l">
+                                        SHOWCODE:
+                                    </div>
+                                    <div class="float-left p-w-160 input-new" style="height:30px;">
+                                        <input type="text" placeholder="请选择" nullmsg="请选择" autocomplete="off" class="input showname_falge project-input" name="users[0].itemNumber" value="">
+                                        <input type="hidden" name="users[0].itemNumberId" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="e-p-bx">
+                    <div class="certificate-row">
+                        <div class="insurance-size">保险:</div>
+                        <div class="insur-btn">
+                            <div class="label label-checkbox cursor mobile_isSend #if($!airUser.isSend == true) label-select-checkbox #end #if('$!airUser.mobile'=='')show_choice_default #end  send_sms_pass_d">
+                                <span class="show_choice"></span>
+                                <input type="hidden" name="airUser[$!{index}].isSend" data-is="isSend-isSendEmail"
+                                       value="$!airUser.isSend">
+                                <span>车意险</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="peisongAddress">-->
+                <!--<div class="address_detail">-->
+                <!--<span>配送地址：</span>-->
+                <!--<input type="text" name="airOrder.peisongaddr" autocomplete="off" value="" class="input-addr"-->
+                <!--datatype="s" nullmsg="请选择配送地址" placeholder="请输入配送地址">-->
+                <!--<b class="danger-p">*</b>-->
+                <!--</div>-->
+                <!--<div class="book-relations">-->
+                <!--<div class="float-left input-150 input-c position">-->
+                <!--<span>姓名：</span>-->
+                <!--<input type="text" name="peisongName" value="赵晓" readonly="readonly" class="input addr_name"-->
+                <!--placeholder="">-->
+                <!--</div>-->
+                <!--<div class="float-left input-150 input-c position">-->
+                <!--<span>电话：</span>-->
+                <!--<input type="text" name="peisongphone" value="18329089788" readonly="readonly"-->
+                <!--class="input addr_phone" placeholder="">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+            <div class="chailv-mation">
+                <div class="p-m-title">差旅信息</div>
+                <div class="cl-m-content">
+                    <div class="certificate-row ">
+                        <div class="cert-left position">
+                            <span>出差单号：</span>
+                            <input type="text" name="" value="" class="travelorder-val volidate-input" datatype="*"
+                                   nullmsg="请选择出差单号！">
+                            <b class="position-ab danger-x pink">*</b>
+                        </div>
+                        <div class="cert-right position">
+                            <span>出差事由：</span>
+                            <input type="text" name="" value="" class="chailv-reason volidate-input" datatype="s"
+                                   nullmsg="请输入出差事由">
+                            <b class="position-ab danger-x pink">*</b>
+                        </div>
+                    </div>
+                    <div class="certificate-row">
+                        <span class="matters">超标事项:</span><em class="overdue">您超出了“0-10000公里，不得高于7折，前后2小时最低价”的差旅标准</em>
+                    </div>
+                    <div class="certificate-row">
+                        <div class="cert-left">
+                            <span>超标原因：</span>
+                            <div class="drop-centro">
+                                <select class="_select_" datatype="*" nullmsg="请选择证件类型">
+                                    <option value="">-请选择证件-</option>
+                                    <option value="1">身份证</option>
+                                    <option value="C">港澳通行证</option>
+                                    <option value="G">台湾通行证</option>
+                                    <option value="B">护照</option>
+                                    <option value="ID">其他</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificate-row">
+                        <span>填写原因：</span>
+                        <input type="text" class="input-full-reason volidate-input" name="${flag}.wbreason"
+                               ignore="ignore" datatype="*" nullmsg="请填写超标原因" placeholder="输入30字以内的原因">
+                    </div>
+                    <div class="certificate-row">
+                        <span>审批级别：</span>
+                        <div class="drop-centro">
+                            <select class="_select_" datatype="*" nullmsg="请选择证件类型">
+                                <option value="">-请选择证件-</option>
+                                <option value="1">身份证</option>
+                                <option value="C">港澳通行证</option>
+                                <option value="G">台湾通行证</option>
+                                <option value="B">护照</option>
+                                <option value="ID">其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="certificate-row clear">
+                        <span class="float-left">第一级审批：</span>
+                        <em class="approver float-left">钱多多</em>
+                        <em class="approver float-left">钱多多</em>
+                    </div>
+                    <div class="certificate-row clear">
+                        <span class="float-left">第二级审批：</span>
+                        <em class="approver float-left">钱多多</em>
+                    </div>
+                </div>
+            </div>
+            <div class="lianxiren">
+                <div class="p-m-title clear">
+                    <span class="p-m-t">联系人</span>
+                    <div class="send"><span>发送通知</span>
+                        <div class="send-btn">
+                            <div class="label label-checkbox cursor mobile_isSend #if($!airUser.isSend == true) label-select-checkbox #end #if('$!airUser.mobile'=='')show_choice_default #end  send_sms_pass_d">
+                                <span class="show_choice"></span>
+                                <input type="hidden" name="airUser[$!{index}].isSend" data-is="isSend-isSendEmail"
+                                       value="$!airUser.isSend">
+                                <span>短信</span>
+                            </div>
+                            <div class="label label-checkbox cursor email_isSendEmail #if($!airUser.isSendEmail ==true) label-select-checkbox #end #if('$!airUser.email'!=' ')#else show_choice_default #end send_sms_pass_d">
+                                <span class="show_choice"></span>
+                                <input type="hidden" name="airUser[$!{index}].isSendEmail" data-is="isSend-isSendEmail"
+                                       value="$!airUser.isSendEmail">
+                                <span>邮件</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-relations clear">
+                    <div class="clear" id="link_info_d">
+                        <div class="contact">联系人：
+                            <input type="text" name="${flag}.linkName" class="input link-name " placeholder="请输入联系人"
+                                   value="">
+                        </div>
+                        <div class="contact">手机号码：
+                            <input type="text" name="${flag}.linkPhone" class="input link-phone " placeholder="请输入联系电话"
+                                   value="">
+                        </div>
+                        <div class="contact">邮箱：
+                            <input type="text" name="${flag}.linkEmail" class="input link-email " placeholder="请输入邮箱"
+                                   value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="select-seat">
+                <div class="p-m-title">
+                    <span class="p-m-t">出票方式</span>
+                </div>
+                <input type="hidden" value="1C" id="choose_seat_i">
+                <input type="hidden" name="order.chooseSeat" value="" class="all-seat">
+
+                <div class="cl-m-content font-size-12">
+                    <div class="margin-bottom-10  sel_train_seat_cb label-select-checkbox">
+                        <div class="label label-checkbox clear vertical label-select-checkbox">
+                            <span class="show_choice"></span>
+                            <input type="checkbox" name="order.acceptNoSeat" value="1" checked="checked">
+                            <span class="exclamation-mark"></span>
+                            <span style="margin-left: 10px;color:#D44A9F;">指定席别无票时，自动为您分配其他席别</span>
+                        </div>
+                    </div>
+                    <div class="margin-bottom-10 choose_seat">
+                        <div class="label label-radio clear vertical sel_train_seat auto_sel_seat label-select-radio">
+                            <span class="show_choice"></span>
+                            <input type="checkbox" name="outTicketType" value="1" checked="checked" class="choose-seat-type">
+                            <span>在线选座</span>
+                            <span class="exclamation-mark"></span>
+                            <span style="margin-left: 10px;color:#D44A9F;">优先按指定座席出票，若指定座席无票，将购买其它座席</span>
+                        </div>
+                        <div class="float-right cursor position">
+                            <div class="globalColor_train gd-desc" style="text-decoration: underline;margin-right: 20px">高铁动车选座说明</div>
+                            <div class="gd-desc-wraper border-radius hide">
+                                1、指定座位表示座位在某节车厢所处的位置，而不是指具体的车厢号和座位号<br>
+                                2、必须先添加乘客才能选择指定座位，有几位乘客出行便需勾选几个座位，请确保乘客数和所选座位数一致
+                            </div>
+                        </div>
+                    </div>
+                    <div class="select-seat-wraper" style="display: block;">
+                        <div class="margin-bottom-20" style="height: 40px;">
+                            <div class="float-left" style="margin-top: 10px">
+                                <span>指定座位：<span id="all-select-num">0</span>/<span id="all-pass-num">1</span></span>
+                            </div>
+                            <div class="float-left">
+                                <div style="margin-left: 56px; " class="clear">
+                                    <div class="float-left" style="margin-top: 10px">已选座位号：</div>
+                                    <div id="all-select-seat" style="overflow: hidden">
+                                        <div class="train-seat float-left">1C</div>
+                                        <div class="train-seat float-left">1C</div>
+                                    </div>
+
+                                </div>
+                                <div class="clear"></div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="seat-wraper">
+                            <div class="clear every-seat-line margin-bottom-20">
+                                <div class="win-corridor">窗</div>
+                                <div class="cell-seat" data-value="1A" style="margin-left: 30px">
+                                    <div class="every-seat"></div>
+                                    <span>A&nbsp;     </span>
+                                </div>
+                                <div class="cell-seat" data-value="1B" style="margin-left: 50px">
+                                    <div class="every-seat"></div>
+                                    <span>B&nbsp;     </span>
+                                </div>
+                                <div class="cell-seat" data-value="1C" style="margin-left: 50px">
+                                    <div class="every-seat sky"></div>
+                                    <span>C&nbsp;</span>
+                                </div>
+                                <div class="win-corridor" style="margin-left: 80px;margin-right: 10px;">过道</div>
+                                <div class="cell-seat" data-value="1D" style="margin-left: 80px">
+                                    <div class="every-seat"></div>
+                                    <span>D&nbsp;     </span>
+                                </div>
+                                <div class="cell-seat active" data-value="1F" style="margin-left: 50px">
+                                    <div class="every-seat"></div>
+                                    <span>F&nbsp;     </span>
+                                </div>
+                                <div class="win-corridor" style="margin-left: 30px;">窗</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin-bottom-10 choose_seat">
+                        <div class="label label-radio clear vertical sel_train_seat">
+                            <span class="show_choice"></span>
+                            <input type="radio" name="outTicketType" value="0" class="choose-seat-type">
+                            <span>随机出票</span>
+                            <span class="exclamation-mark"></span>
+                            <span style="margin-left: 10px;color:#D44A9F;">只为您分配指定的席别</span>
+                        </div>
+                    </div>
+
+                    <!--<div class="cl-m-show animated bounceInRight border-radius">*优先为您分配座位票，无座位时系统将自动为您分配无座票</div>-->
+                </div>
+
+                <input type="hidden" name="passengers">
+                <input type="hidden" name="order.bookpolicy" value="">
+                <!-- 火车出发日期  yyyy-MM-dd -->
+                <input type="hidden" class="orderTimes" name="ordertime" value="2018-11-06">
+
+            </div>
+            <div class="btn-submit">
+                <button type="button" class="btn btn-cancel btn-big goback" id="train_book_callback">上一步</button>
+                <button class="btn btn-default-new btn-big book-submit" type="button">下一步</button>
+            </div>
+        </div>
+    </form>
+    <div class="float-right right_info">
+        <div class="book-xingcheng position ">
+            <div class="p-m-title p-m-tprice clear">
+                行程
+            </div>
+            <div class="b-x-cityName clear">
+                <span data-traincode="G131">G131</span>
+                <span>|</span>
+                <span data-seatcode="O">二等座</span>
+                <span class="time_tip">2018-10-25</span> 星期四
+            </div>
+            <div class="clear font-size-12 margin-bottom-30" style="margin-left: 10px">
+                <div class="float-left book-time text-align-l direct_l">
+                    <div class="book-times">12:20</div>
+                    <div>北京南</div>
+                </div>
+                <div class="float-left direct_c">
+                    <div class="position book-jiantou text-align">
+                        <span class="t-yx">5时56分</span>
+                        <span class="position-ab t-code">时刻表</span>
+                    </div>
+                </div>
+                <div class="float-right book-time text-align-r direct_r">
+                    <div class="book-times">18:16</div>
+                    <div>上海虹桥</div>
+                </div>
+            </div>
+        </div>
+        <div class="price-model margin-top-10 " data-ticketprice="553.0">
+            <div class="p-m-title p-m-tprice clear">
+                <span class="float-left">应付金额</span>
+                <span class="float-right">
+							<span class="font-size-12 p-m-mp">￥</span>
+						<span class="p-m-price">1106.0</span>
+						</span>
+            </div>
+            <div class="cost-show font-size-12">
+                <div class="clear e-p-count ticket-p">
+                    <div class="float-left e-p-title">票价</div>
+                    <div class="float-left e-p-num">553.0 * 2</div>
+                    <div class="float-left text-align-r e-p-total">1106.0</div>
+                </div>
+                <div class="clear e-p-count service-p" data-traintype="order" data-traindd="0" data-trainweb="0"
+                     data-trainpertype="1" data-trainper="10">
+                    <div class="float-left e-p-title">服务费</div>
+                    <!--<div class="float-left e-p-num">1106.0 * 10%</div>-->
+
+                    <div class="float-left e-p-num"> 0.0 *
+                        <span>
+                                                        2
+                                                    </span>
+                    </div>
+                    <div class="float-left text-align-r e-p-total">0.0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--相似订单校验参数-->
+<input type="hidden" class="firstFromDate" value="$!bookRoutes.get(0).deptdate"><!--去程的出发时间-->
+<input type="hidden" class="firstArriveDate" value="$!bookRoutes.get(0).arridate"><!--去程的到达时间-->
+<input type="hidden" class="approveid_s" value="$!approve.id">
+<input type="hidden" value="$!dept.id" class="module" id="defaultDeptId">
+<input type="hidden" value="$!dept.name" class="module" id="defaultDeptName">
+<input type="hidden" class="approve_id_s" value="#if ($!approve.id=='')0 #else $!approve.id #end">
+<input type="hidden" class="approve_id_name" data-id="" value="#if ($!approve.id=='')无需审批 #else $!approve.name #end"
+       class="input costCenter-input" nullmsg="审批规则" datatype="*"/>
+<div class="position-ab Screen-full hide">
+    <div class="Screen-zhezhao" style="position:fixed;"></div>
+    <div class="passanger-search-new position-ab background-fff" style="z-index:22;position:fixed;">
+        <div class="p-s-title position clear">
+            <span class="float-left font-size-14">选择乘机人</span>
+            <span class="position-ab close-person cursor">×</span>
+        </div>
+        <div class="select-content clear">
+            <div class="selected-pass float-left selected-box"></div>
+            <button type="button" class="btn btn-3e4eb2 float-right select-true-p">确定</button>
+        </div>
+        <div class="p-s-tab clear">
+            <div data-tabShut='0' class="float-left tab-e tab-e-select cursor">企业员工</div>
+            <div data-tabShut='1' class="float-left tab-e cursor">新增员工</div>
+        </div>
+        <div class="p-s-tContent">
+            <div class="tab-c-1" data-tabContent='0'>
+                <div class="history clear font-size-12">
+                    <span class="float-left h-t-p">历史记录：</span>
+                    <span class="float-left histoty-pass"></span>
+                </div>
+                <div class="clear position">
+                    <span class="search-bg"></span>
+                    <input type="text" class="input search-p-input" id="search-staff" placeholder="员工姓名">
+                    <div class="staff-scroll mCustomScrollbar">
+                        <ul class="staff-wraper"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-c-2 tab-c-c background-fff hide" data-tabContent="1">
+                <form action="/component/save/update/employee" method="post" id="save-staff-form">
+                    <div class="clear font-size-12 padding-bottom-14 append-list">
+                        <div class="float-left input-c position chinese change_one">
+                            <span class="float-left">证件姓名：</span>
+                            <div class="float-left position">
+                                <input id="name_place" type="text" name="cert.username" class="input" nullmsg="请填写姓名"
+                                       errormsg="姓名内容过短（小于2个字符）/过长（大于30个字符）">
+                                <span class="chinese">
+										<img id="chinese" src="../../resources/images/common/zhong.png" width="40px"
+                                             height="20px">
+									</span>
+                                <input type="hidden" name="cert.isChinese" value="1" id="is_chinese_i_">
+                            </div>
+                            <b class="nessary-b">*</b>
+                        </div>
+                        <div class="float-left position input-c change_two remove-fenxiao">
+                            <span class="float-left">手机号码：</span>
+                            <div class="float-left position">
+                                <input type="text" name="phone" class="input" datatype=$!{mobileRegExp}
+                                       nullmsg=$!{mobileRegExpNull} errormsg=$!{mobileRegExpErr}/>
+                            </div>
+                            <b class="nessary-b">*</b>
+                        </div>
+                    </div>
+                    <div class="clear font-size-12 padding-bottom-14 information form-flag">
+                        <div class="float-left position input-c card_type change_one" id="cert_type_d_">
+                            <span class="float-left">证件类型：</span>
+                            <select class="_select_ p-select cert_type_i" id="click" name="cert.certtype"
+                                    id="cert_type_s_" data-value="1" datatype="*1-10" nullmsg="请选择证件类型"
+                                    style="width: 200px">
+                                #foreach($c in $!ceryTypes)
+                                <option value="$!{c.key}" data-bil="$!{c.bilingualism}"
+                                        data-def="$!{c.defaultLanguage}">$!{c.name}
+                                </option>
+                                #end
+                            </select>
+                            <b class="nessary-b">*</b>
+                        </div>
+                        <div class="float-left position input-c change_two">
+                            <span class="float-left">证件号码：</span>
+                            <div class="float-left position">
+                                <input type="text" id="certno" name="cert.certificate" class="input">
+                            </div>
+                            <b class="nessary-b">*</b>
+                        </div>
+                    </div>
+                    <div class="clear font-size-12 padding-bottom-14">
+                        <div class="float-left position input-c change_one remove-fenxiao">
+                            <span class="float-left">员工部门：</span>
+                            <div class="float-left position">
+                                <input type="text" id="citySel" name="depName" data-value="临时部门" value="$!dept.name"
+                                       onclick="showMenu();" class="input" readonly="readonly" datatype="*2-50"
+                                       nullmsg="请选择部门">
+                                <input type="hidden" value="$!dept.id" name="depId" id="deptpid">
+                            </div>
+                            <b class="nessary-b">*</b>
+                        </div>
+                        <div class="float-left position input-c change_two remove-fenxiao">
+                            <span class="float-left">员工职级：</span>
+                            <select class="_select_ p-select" name="zhiwei" data-value="$!AllStaff.get(0).value"
+                                    datatype="*1-10" nullmsg="请选择员工职级">
+                                #foreach($!staff in $!AllStaff)
+                                <option value="$!staff.value">$!staff.name</option>
+                                #end
+                            </select>
+                            <b class="nessary-b">*</b>
+                        </div>
+                    </div>
+                    <div class="clear font-size-12 padding-bottom-14">
+                        <div class="float-left position input-c position change_one remove-fenxiao">
+                            <span class="float-left">审批规则：</span>
+                            <div class="float-left position">
+                                <!--approveid-->
+                                <input type="hidden" name="approveId" class="approve_id"
+                                       value="#if ($!approve.id=='')0 #else $!approve.id #end">
+                                <input type="text" id="shengpiguize" autocomplete="off" data-id=""
+                                       value="#if ($!approve.id=='')无需审批 #else $!approve.name #end" class="input"
+                                       nullmsg="审批规则" datatype="*"/>
+                            </div>
+                            <b class="nessary-b">*</b>
+                        </div>
+                        <div class="float-left position input-c position change_two show remove-fenxiao">
+                            <span class="float-left">出生日期：</span>
+                            <div class="float-left position">
+                                <input type="text" id="bd" name="cert.birthday" class="input" ignore="ignore"
+                                       nullmsg="请选择出生日期"
+                                       placeholder="如：19920101"
+                                       onfocus="WdatePicker({readOnly:true,dateFmt:'yyyyMMdd ',maxDate:'%y-%M-%d'})"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear font-size-12 padding-bottom-14 show" style="display: none;">
+                        <div class="float-left position input-c position change_one remove-fenxiao">
+                            <span class="float-left" style="width: 70px;margin-left: -10px">证件有效期:</span>
+                            <div class="float-left position">
+                                <input type="text" name="cert.passportdate" class="input" placeholder="如：20220101"
+                                       nullmsg="请选择日期"
+                                       onfocus="WdatePicker({readOnly:true,dateFmt:'yyyyMMdd ',minDate:'%y-%M-%d'})"/>
+                            </div>
+                        </div>
+                        <div class="float-left position input-c position change_two remove-fenxiao">
+                            <span class="float-left">签发地:</span>
+                            <div class="float-left position">
+                                <input type="text" name="cert.placeIssue" class="input nationality" nullmsg="请输入"
+                                       placeholder="如：中国"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear font-size-12 padding-bottom-14 show remove-fenxiao">
+                        <div class="float-left position input-c position change_one">
+                            <span class="float-left">性别：</span>
+                            <div class="label label-radio  label-select-radio  clear vertical float-left">
+                                <span class="show_choice"></span>
+                                <input type="radio" name="cert.sex" value="M" checked="checked"/>
+                                <span>男</span>
+                            </div>
+                            <div class="label label-radio  clear vertical float-left">
+                                <span class="show_choice"></span>
+                                <input type="radio" name="cert.sex" value="F"/>
+                                <span>女</span>
+                            </div>
+                        </div>
+                        <div class="float-left position input-c position change_two remove-fenxiao">
+                            <span class="float-left">&nbsp&nbsp&nbsp&nbsp国籍:</span>
+                            <div class="float-left position">
+                                <input type="text" name="cert.guoji" class="input nationality" nullmsg="请输入"
+                                       placeholder="如：中国"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-align">
+                        <button type="button" class="btn btn-3e4eb2 btn-big" id="save-staff">保存</button>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-c-3 tab-c-c background-fff hide" data-tabContent='2'>
+                <form action="/add/linshi" method="post" id="save-linshi-form">
+                    <div class="clear font-size-12 padding-bottom-14">
+                        <div class="float-left position input-c position">
+                            <span class="float-left">证件姓名：</span>
+                            <div class="float-left position">
+                                <input type="text" name="username" class="input" datatype="*2-30" nullmsg="请填写联系人姓名"
+                                       errormsg="姓名内容过短（小于2个字符）/过长（大于30个字符）">
+                            </div>
+                            <b class="nessary-b">*</b>
+                        </div>
+                        <div class="float-left position input-c remove-fenxiao">
+                            <span class="float-left">手机号码：</span>
+                            <div class="float-left position">
+                                <input type="text" name="mobile" class="input" datatype=$!{mobileRegExp}
+                                       nullmsg=$!{mobileRegExpNull} errormsg=$!{mobileRegExpErr}/>
+                            </div>
+                            <b class="nessary-b">*</b>
+                        </div>
+                    </div>
+                    <div class="clear font-size-12 padding-bottom-14">
+                        <div class="float-left position input-c">
+                            <span class="float-left">证件类型：</span>
+                            <select class="_select_ p-select" id="click" name="certtype" data-value="" datatype="*1-10"
+                                    nullmsg="请选择证件类型">
+                                <option value="">请选择</option>
+                                <option value="1">身份证</option>
+                                <option value="C">港澳通行证</option>
+                                <option value="G">台湾通行证</option>
+                                <option value="B">护照</option>
+                                <option value="ID">其他</option>
+                            </select>
+                            <b class="nessary-b">*</b>
+                        </div>
+                        <div class="float-left position input-c">
+                            <span class="float-left">证件号码：</span>
+                            <div class="float-left position">
+                                <input type="text" name="certno" class="input">
+                            </div>
+                            <b class="nessary-b">*</b>
+                        </div>
+                    </div>
+                    <div class="clear font-size-12 padding-bottom-14 remove-fenxiao">
+                        <div class="float-left position input-c position">
+                            <span class="float-left">出生日期：</span>
+                            <div class="float-left position">
+                                <input type="text" name="birthday" class="input" ignore="ignore" nullmsg="请选择出生日期"
+                                       onclick="WdatePicker({dateFmt: 'yyyyMMdd',maxDate: '%y-%M-%d',readOnly: true})"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-align">
+                        <button type="button" class="btn btn-3e4eb2 btn-big" id="save-linshi">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="menuContent" class="menuContent" style="display: none; position: absolute; background: #e9e9e9;z-index: 99;">
+    <ul id="treeDemo" class="ztree" style="margin-top: 0; width: 160px; height: 240px; overflow: auto;"></ul>
+</div>
+<div class='bx-model-shadow'
+     style='width:100%;min-height:500px;position:fixed;top:0;left:0;background:#000;filter:alpha(opacity=40);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";opacity:0.4;z-index:5;display:none'></div>
+<div class='bx-model-show'
+     style='width:800px;height:300px;padding:30px 20px;overflow:auto;position:fixed;top:0;bottom:0;left:0;right:0;margin:auto;background:#fff;z-index:6;display:none'>
+    <div style='font-size:14px;height:20px;line-height:20px;text-align:center;padding-bottom:10px'>保险说明</div>
+    <div style="font-size:12px" class="bx-illu-c"></div>
+    <div style='text-align:center;height:30px;line-height:30px;padding:20px 0 30px 0'>
+        <button class='btn btn-default btn-big bx_model_close' type='button'>关闭</button>
+    </div>
+</div>
+<!--&lt;!&ndash; 主体 end &ndash;&gt;-->
+<!--<script type="text/javascript" src="../../resources/js/common/jquery-1.11.2.min.js"></script>-->
+<!--<script type="text/javascript" src="../../resources/js/train/train-common.js"></script>-->
+
+<!--&lt;!&ndash;<script type="text/javascript" src="../../resources/js/plugin/layer-v3.0.3/layer/layer.js"></script>&ndash;&gt;-->
+<!--<script type="text/javascript" src="../../resources/js/plugin/Validform/5.3.2/Validform.min.js"></script>-->
+<!--<script type="text/javascript" src="../../resources/js/common/plugin.js"></script>-->
+<!--<script type="text/javascript" src="../../resources/js/common/air-common.js"></script>-->
+<!--<script type="text/javascript" src="../../resources/js/common/common-link.js"></script>-->
+<!--<script type="text/javascript" src="../../resources/js/common/getLoginUser.js"></script>-->
+<!--<script type="text/javascript" src="../../resources/js/common/passenger-search.js"></script>-->
+<!--<script type="text/javascript" src="../../resources/js/common/validate.js"></script>-->
+<!--&lt;!&ndash;<script type="text/javascript" src="../../resources/js/air/air-policy.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;<script type="text/javascript" src="../../resources/js/air/air-book.js"></script>&ndash;&gt;-->
+<!--<script type="text/javascript" src="../../resources/js/train/train-book.js"></script>-->
+<!--<script type="text/javascript">-->
+<!--// ztreeMain({-->
+<!--//     'zNodes':$!{depttree}-->
+<!--// });-->
+<!--</script>-->
+<!-- 主体 end -->
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/js/common/getLoginUser.js"></script>
+<script type="text/javascript" src="/static/js/train/train-common.js"></script>
+<!--<script type="text/javascript" src="/static/js/train/train-book.js"></script>-->
+<script type="text/javascript" src="/static/js/common/passenger-search.js"></script>
+<script type="text/javascript" src="/resources/js/common/validate.js"></script>
+<script type="text/javascript">
+    ztreeMain({'zNodes': $
+    !{depttree}
+    })
+    ;
+</script>
+</body>
+</html>

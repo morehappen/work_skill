@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>国际需求单列表</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/my-chailv.css"/>
+
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/train-order-list.css"/>
+
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<!-- 主体 begin -->
+		<div class="main-content main-myChailv-c clear">
+			<div class="float-left">
+				#parse("/common/second-nav.html")
+			</div>
+			<div class="float-left list-content">
+				<ul class="tab-model clear">
+					<li class="float-left"><a href="/myChailv/toNewAirInternationalOrder/personal?tag=international" data-flag="personal" class="position float-left">个人订单</a></li>
+					<li class="float-left"><a href="/myChailv/toNewAirInternationalOrder/all?tag=international" data-flag="all" class="position float-left">全部订单</a></li>
+				</ul>
+				<form action="/myChailv/airInternationalOrderDetail/personal?tag=international" class="query_form" method="POST" id="internationalQuery" data-query="queryForm">
+					<input id="pageNo" type="hidden" name="pageNum">
+					<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+					<div class="input-select clear">
+						<div class="input-model margin-default-r margin-10-b middle-line position-rel">
+							<div class="i-m-text">起始日期：</div>
+							<div class="i-m-input">
+								<input type="text" id="GTE_date" name="q_GTE_createtime" value="$!q_GTE_createtime" data-ele="sdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly" />
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">截止日期：</div>
+							<div class="i-m-input">
+								<input type="text" id="LTE_date" name="q_LTE_createtime" value="$!q_LTE_createtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">联系人：</div>
+							<div class="i-m-input">
+								<input type="text" data-ele="linkpeople" name="q_LIKE_linkman" value="$!q_LIKE_linkman">
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">订单状态：</div>
+							<div class="i-m-input">
+								<select class="_select_" name="q_EQ_status" data-ele="orderstatus" data-value="$!q_EQ_status">
+									<option value="">全部</option>
+									<option value="1">处理中</option>
+									<option value="2">已完成</option>
+								</select>
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b train_query_box">
+							<div class="i-m-text"></div>
+							<div class="i-m-input">
+								<button type="submit" class="btn btn-default btn-big">查询</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- table 表格部分 begin -->
+				<div class="margin-top-30 orde-table-wraper">
+					## 全局变量-没有数据
+					#set ($noData = ($!page.list.size() == 0))
+					#if($noData)
+					#parse("/common/no-data.html")
+					#else
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>订单号</th>
+							    <th>出发城市</th>
+								<th>到达城市</th>
+								<th>出发日期</th>
+								<th>返程日期</th>
+								<th>联系人</th>
+								<th>联系电话</th>
+								<th>护照号码</th>
+								<th>护照有效期</th>
+								<th>申请人</th>
+								<th>申请时间</th>
+								<th>状态</th>
+								<th>完成时间</th>
+							</tr>
+						</thead>
+						#foreach($airInter in $!page.list)
+						<tbody>
+							<tr>
+								<td>$!vCount</td>
+								<td>
+									<a data-href_="/myChailv/airInternationalOrderDetail/$!airInter.orderno" href="javascript:void(0);" class="orderToDetail">$!airInter.orderno</a>
+								</td>
+								<td>$!airInter.orgname</td>
+								<td>$!airInter.arrivename</td>
+								<td>$!airInter.fromday</td>
+								<td>$!airInter.arriveday</td>
+								<td>$!airInter.linkman</td>
+								<td>$!airInter.mobile</td>
+								<td>$!airInter.passport</td>
+								<td>$!airInter.passportdate</td>
+								<td>$!airInter.bookusername</td>
+								<td>$!dateTool.format('yyyy-MM-dd HH:mm',$!airInter.dotime)</td>
+
+								<!--<td>$!airIntern.getxuqiudanStatus($!airInter.status)</td>-->
+								#if($!airInter.status==2)
+								<td class="color-ching-ab">$!airIntern.getxuqiudanStatus($!airInter.status)</td>
+								#elseif($!airInter.status==3) <td class="color-red-ab">$!airIntern.getxuqiudanStatus($!airInter.status)</td>
+								#else
+								<td class="">$!airIntern.getxuqiudanStatus($!airInter.status)</td>
+								#end
+
+
+								<td>$!dateTool.format('yyyy-MM-dd HH:mm',$!airInter.finishtime)</td>
+							</tr>
+						</tbody>
+						#end
+					</table>
+					#end
+				</div>
+				<!-- table 表格部分 end -->
+				
+				#if(!$noData)
+				<div id="kkpager"></div>
+				#end
+				<input type="hidden" data-ele="pagenum" value="$!page.pageNum">
+				<input type="hidden" data-ele="pages" value="$!page.pages">
+				<input type="hidden" data-ele="total" value="$!page.total">
+				<input type="hidden" data-ele="pagesize" value="$!pageSize">
+			</div>
+		</div>
+			
+			
+		
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/my-chailv/queryCookie.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/orderCommon.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/air-international-order.js"></script>
+	</body>
+</html>
+

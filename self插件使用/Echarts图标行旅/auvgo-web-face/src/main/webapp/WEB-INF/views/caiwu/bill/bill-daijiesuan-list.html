@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>财务管理-客户#if("$!{type}"=="qiankuan")累计欠款#else待结算#end列表</title> #parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/finance/finance_common.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/finance/bussiness_bill.css" />
+<style>
+	.orde-table-wraper table {
+		min-width: 2180px;
+	}
+</style>
+</head>
+<body class="background-6461e2">
+	#parse("/common/head.html")
+	<!-- 主体 begin -->
+	<div class="main-content margin-top-10 clear">
+		#parse("/caiwu/bill/bill-common-left.html")
+		<div class="aside-content float-left background-fff auto_bottom content_show">
+			<form class="query_form" action="/caiwu/jiesuan/list" method="POST" id="caiWuOrderForm">
+				<div class="input-select clear">
+					<input type="hidden" name="type" value="daijiesuan"> <input id="pageNo" type="hidden" name="pageNum"> <input id="pageSize" type="hidden"
+						name="pageSize" value="$!page.size">
+					<div class="margin-bottom-10 clear">
+						<input type="hidden" name="queryType" value="chupiao">
+						<div class="input_items middle-line position-rel float-left clear">
+							<input type="text" class="input border-radius float-left" id="_GTE_date" name="startDate" value="$!recode.startDate" placeholder="请选择出票开始日期"
+								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+						</div>
+						<div class="input_items middle-line position-rel float-left clear ">-</div>
+						<div class="input_items middle-line position-rel float-left clear">
+							<input type="text" class="input border-radius float-left" id="_LTE_date" name="endDate" value="$!recode.endDate" placeholder="请选出票结束日期"
+								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+						</div>
+						产品类型： <select class="_select_" data-value="$!recode.proType" name="proType">
+							<option value="">所有</option> #foreach($item in $!caiwuCommonContant.getProTypeM().entrySet())
+							<option value="$!{item.key}">$!{item.value}</option> #end
+						</select> 票证状态： <select class="_select_" data-value="$!recode.ticketStatus" name="ticketStatus">
+							<option value="">所有</option> #foreach($item in $!caiwuCommonContant.getTicketStatusM().entrySet())
+							<option value="$!{item.key}">$!{item.value}</option> #end
+						</select>
+					</div>
+					<div class="margin-bottom-10 margin-top-14 clear">
+						<div class="input_items  ">
+							<div class="input_item_text">订单号：</div>
+							<div class="i_item_input">
+								<input type="text" class="input border-radius" name="orderNo" value="$!recode.orderNo" placeholder="订单号">
+							</div>
+						</div>
+						<div class="input_items  ">
+							<div class="input_item_text">票号：</div>
+							<div class="i_item_input">
+								<input type="text" class="input border-radius" name="ticketNo" value="$!recode.ticketNo" placeholder="票号">
+							</div>
+						</div>
+
+						结算状态： <select class="_select_" data-value="$!recode.balStatus" name="balStatus">
+							<option value="">所有</option> #foreach($item in $!caiwuCommonContant.getJiesuanStatusM().entrySet())
+							<option value="$!{item.key}">$!{item.value}</option> #end
+						</select>
+						<button type="submit" class="btn btn-default btn-big radius query_btn">查询</button>
+						<button type="button" class="btn btn-green btn-big export_zhangdan radius">导出明细</button>
+					</div>
+				</div>
+			</form>
+			 <!--table 表格部分 begin -->
+			<div class="margin-top-30 orde-table-wraper">
+				#if($!{page.items.size()}==0)
+				<div class="no-data-wraper">
+					<div class="no-data animated rotateIn">
+						<div class="auvgo-approve-bg no-data-pic" title="暂无数据"></div>
+						<div class="no-data-text">暂无数据</div>
+					</div>
+				</div>
+				#else
+				<table class="table table-align">
+					<thead class="thead-checked">
+					<tr style="white-space: nowrap;">
+						<th style="font-size: 10px">序号</th>
+						<th style="font-size: 10px">出票时间</th>
+						<th style="font-size: 10px">产品类型</th>
+						<th style="font-size: 10px">票号</th>
+						<th style="font-size: 10px; text-align: center;">机建/入住天数</th>
+						<th style="font-size: 10px; text-align: center;">燃油/入住人数</th>
+						<th style="font-size: 10px">销售价</th>
+						<th style="font-size: 10px">服务费</th>
+						<th style="font-size: 10px">退票费</th>
+						<th style="font-size: 10px">应付金额</th>
+						<th style="font-size: 10px">所属部门</th>
+						<th style="font-size: 10px; text-align: center;">出行人/入住人</th>
+						<th style="font-size: 10px; text-align: center;">航程/入住城市</th>
+						<th style="font-size: 10px; text-align: center;">航班车次/酒店名称</th>
+						<th style="font-size: 10px; text-align: center;">舱位/席别房型</th>
+						<th style="font-size: 10px">预订时间</th>
+						<th style="font-size: 10px; text-align: center;">起飞出发/入住时间</th>
+						<th style="font-size: 10px; text-align: center;">降落到达/离店时间</th>
+						<th style="font-size: 10px">成本中心</th>
+						<th style="font-size: 10px">项目</th>
+						<th style="font-size: 10px">订票员</th>
+					</tr>
+					</thead>
+					<tbody class="tbody-checked">
+					#foreach($!bill in $!page.items)
+					<tr class="text-c" style="white-space: nowrap;">
+						<td>${vCount}</td>
+						<td>$!dateTool.format('yyyy-MM-dd',$!bill.chupiaoTime)</td>
+						<td>$!bill.proTypeName</td>
+						<td>#parse("/caiwu/bill/bill-common-orderdetail.html")</td>
+						<td style="text-align: center;">$!bill.routeAirTax</td>
+						<td style="text-align: center;">$!bill.routeFuelTax</td>
+						<td>$!bill.routeTotalTicketPrice</td>
+						<td>$!{bill.fuwuFee}/$!bill.roomDays</td>
+						<td>$!{bill.refundFee}/$!bill.roomNum</td>
+						<td class="qkPrice">$!bill.yingShouPrice</td>
+						<td>$!bill.passDeptName</td>
+						<td style="text-align: center;">$!bill.passName</td>
+						<td style="text-align: center;">$!bill.routeAirportName</td>
+						<td style="text-align: center;">$!bill.routeFlightNo</td>
+						<td style="text-align: center;">$!bill.CabinDes</td>
+						<td>$!dateTool.format('yyyy-MM-dd',$!bill.bookDateTime)</td>
+						<td style="text-align: center;">$!bill.routeDeptDateTime</td>
+						<td style="text-align: center;">$!bill.routeArrDateTime</td>
+						<td>$!bill.costName</td>
+						<td>$!bill.proName</td>
+						<td>$!bill.bookUserName</td>
+					</tr>
+					#end
+					</tbody>
+				</table>
+				#end
+			</div>
+			#if($!{page.items.size()}>0)
+			<div id="kkpager"></div>
+			#end
+			 <!--table 表格部分 end -->
+		</div>
+	</div>
+	<!-- 主体 end -->
+	#parse("/common/foot.html")
+	<script type="text/javascript" src="/static/js/crm/my-chailv/my-chailv.js"></script>
+	<script type="text/javascript" src="/resources/js/order/orderCommon.js"></script>
+	<!--<script type="text/javascript" src="/resources/js/finance/finance_common.js"></script>-->
+	<script type="text/javascript" src="/resources/js/plugin/fix_table_head/jquery.ba-throttle-debounce.min.js"></script>
+	<script type="text/javascript" src="/resources/js/plugin/fix_table_head/jquery.stickyheader.js"></script>
+
+	<script type="text/javascript">
+			kkpagerMain({'pno':$!page.index,'total':$!page.totalPage,'totalRecords':$!page.total,'pageSize':$!page.size,'pageNo':$("#pageNo"),'submit_element':$("#caiWuOrderForm")}); //初始化分页
+	</script>
+	<script type="text/javascript">
+		//全选,全不选
+		$("body").on("click",".thead-checked input[type='checkbox']",function(){
+			var this_ = $(this),
+				this_val = this_.prop("checked");
+			$("tbody input[type='checkbox']").prop("checked",this_val);
+			getValue();
+		});
+		function getValue(){
+			var ids="";
+			$("input[type='checkbox']:checked").each(function(){
+				ids+=$(this).val()+"-";
+			});
+		    $(".ids_content").val(ids);
+		}
+		//导出数据
+		$('body').on("click",".export_zhangdan",function(){
+			var starttime = $("input[name='startDate']").val();
+			var endtime =$("input[name='endDate']").val();
+			if(""==starttime || ""==endtime){
+				$("input[name='startDate']").focus();
+				alert("请选择要导出的日期范围，最多支持3个月");
+				return;
+			}
+			$("#caiWuOrderForm").attr("action","/caiwu/bill/download/$!{type}");
+			$("#caiWuOrderForm").submit();
+			$("#caiWuOrderForm").attr("action","/caiwu/jiesuan/list/$!{type}");
+		});
+	</script>
+</body>
+</html>

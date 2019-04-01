@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+       default-lazy-init="true">
+
+    <!-- 城市 -->
+    <dubbo:reference id="airrateDataCityProvider" interface="com.auvgo.airrate.api.bim.IAirrateDataCityProvider" timeout="50000"/>
+    <!-- FD价格 -->
+    <dubbo:reference id="airrateRouteFdProvider" interface="com.auvgo.airrate.api.bim.IAirrateRouteFdProvider" timeout="50000"/>
+    <!-- 航司-->
+    <dubbo:reference id="airrateDataAirlineProvider" interface="com.auvgo.airrate.api.bim.IAirrateDataAirlineProvider" timeout="50000"/>
+    <!-- 机场 -->
+    <dubbo:reference id="airrateDataAirportProvider" interface="com.auvgo.airrate.api.bim.IAirrateDataAirportProvider" timeout="50000"/>
+    <!-- 舱位描述 -->
+    <dubbo:reference id="airrateDataCabindesProvider" interface="com.auvgo.airrate.api.bim.IAirrateDataCabindesProvider" timeout="50000"/>
+    <!-- 航司退票规则 -->
+    <dubbo:reference id="airrateDataCabinruleProvider" interface="com.auvgo.airrate.api.bim.IAirrateDataCabinruleProvider" timeout="50000"/>
+    <!-- 机型 -->
+    <dubbo:reference id="airrateDataPlaneProvider" interface="com.auvgo.airrate.api.bim.IAirrateDataPlaneProvider" timeout="50000"/>
+    <!-- 机票查询 -->
+    <dubbo:reference id="airrateQueryProvider" interface="com.auvgo.airrate.api.query.IAirrateQueryProvider" timeout="50000"/>
+    <!-- 机票预订 -->
+    <dubbo:reference id="airrateBookProvider" interface="com.auvgo.airrate.api.book.IAirrateBookProvider" retries="0" timeout="50000" />
+
+
+</beans>

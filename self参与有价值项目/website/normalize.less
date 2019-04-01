@@ -1,0 +1,181 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+legend,
+button,
+p,
+th,
+td,
+input,
+select {
+  font-size: 100%;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  font-family: "微软雅黑";
+  list-style: none;
+  outline-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /*font-size:100%;*/
+  font-weight: normal;
+}
+
+fieldset,
+img {
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+a:focus {
+  outline: none;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #929fbe;
+  opacity: 1;
+}
+
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #929fbe;
+  opacity: 1;
+}
+
+input:-ms-input-placeholder {
+  color: #929fbe;
+  opacity: 1;
+}
+
+input::-webkit-input-placeholder {
+  color: #929fbe;
+  opacity: 1;
+}
+
+.clearfix:after {
+  content: "\20";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clearfix {
+  display: inline-block;
+}
+
+.clearfix {
+  display: block;
+}
+
+.clearbox {
+  border-top: transparent 0px solid;
+  clear: both;
+  font-size: 0;
+  margin-top: 0px;
+  visibility: hidden;
+  overflow: hidden;
+  height: 0;
+}
+
+/*添加常用类名控制*/
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+// 清除浮动
+.clear:after {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  zoom: 1;
+  content: "";
+  clear: both;
+}
+
+.clear {
+  zoom: 1;
+}
+
+// 定位
+.position {
+  position: relative;
+}
+
+.position_ab {
+  position: absolute;
+}
+
+.positon_fixed {
+  position: fixed;
+}
+// 透明度问题
+.opacity_ctr{
+  filter:alpha(opacity=0); /* IE */
+  -moz-opacity:0; /* 老版Mozilla */
+  -khtml-opacity:0; /* 老版Safari */
+  opacity: 0; /* 支持opacity的浏览器*/
+  }
+// 隐藏||显示
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+.hide_ab {
+  display: none !important;
+}
+@font-face {
+  font-family: "Glyphicons Halflings";
+  src: url("./fonts/glyphicons-halflings-regular.eot");
+  src: url("./fonts/glyphicons-halflings-regular.eot?#iefix")
+      format("embedded-opentype"),
+    url("./fonts/glyphicons-halflings-regular.woff") format("woff"),
+    url("./fonts/glyphicons-halflings-regular.ttf") format("truetype"),
+    url("./fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular")
+      format("svg");
+}

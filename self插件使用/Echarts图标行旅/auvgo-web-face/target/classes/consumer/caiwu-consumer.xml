@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 本地业务订单财务信息 -->
+	<dubbo:reference id="caiwuLocalAllRecodeProvider" interface="com.auvgo.finance.api.provider.ICaiwuLocalAllRecodeProvider" timeout="50000" protocol="dubbo" />
+	<dubbo:reference id="caiwuCustomBillProvider" interface="com.auvgo.finance.api.provider.ICaiwuCustomBillProvider" timeout="50000" protocol="dubbo"/>
+	<dubbo:reference id="caiwuJiesuanProvider" interface="com.auvgo.finance.api.provider.ICaiwuJiesuanProvider" protocol="dubbo"/>
+	<dubbo:reference id="caiwuExportTemplateProvider" interface="com.auvgo.finance.api.provider.ICaiwuExportTemplateProvider" protocol="dubbo"/>
+	<dubbo:reference id="chuXingAnalysisProvider" interface="com.auvgo.finance.api.provider.analysis.IChuXingAnalysisProvider" protocol="dubbo"/>
+
+</beans>

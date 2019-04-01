@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>里程分析</title>
+<link rel="stylesheet" type="text/css" href="/resources/css/common/common.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/common/plugin.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/common/animate.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/page/pager_blue.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css" />
+
+<link rel="stylesheet" type="text/css" href="/resources/js/plugin/daterangepicker/iconfont/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="/resources/js/plugin/daterangepicker/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/resources/js/plugin/daterangepicker/css/daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/tTravel-analysis/analysis.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/tTravel-analysis/travelAnalysis.css" />
+</head>
+<body>
+	#parse("/common/head.html")
+	<div class="main-content clear">
+		#parse("/caiwu/tongji/analysis_common_left.html")
+		<div class="float-left content_show">
+			<div class="analysis">
+				<div class="anal_top margin-bottom-10 padding-left-30 box-sizing font-size-16 color-333 background-fff">
+					<div>
+						里程分析<em class="display-inline-block vertical-middle remind"></em>
+					</div>
+				</div>
+				<div class="total-mileage background-fff text-align-center margin-bottom-10">
+					<div class="display-inline-block vertical-middle">
+						<em class="color-999 font-size-16">总出行里程（仅飞机）</em><i class="font-size-24">≈ $!{totalMileage}公里</i>
+					</div>
+				</div>
+				<div class="clear">
+					<div class="mileage padding-left-30 padding-top-20 box-sizing margin-bottom-10 background-fff">
+						<div class="sect-tit font-size-16 color-333 margin-bottom-20">部门里程TOP 5</div>
+						<ul class="font-size-14">
+							#foreach($item in $!toplist)
+							<li class="clear"><em class="float-left">$!{item.deptName}</em><i class="float-right margin-right-10">$!{item.mileage}km</i></li> #end
+						</ul>
+					</div>
+					<div id="mileage-echarts"></div>
+				</div>
+			</div>
+			<div class="margin-top-30 list_table_box">
+				#if($!topEmpList.size()==0)
+				<!--没有数据的时候显示-->
+				<div class="no-data-wraper">
+					<div class="no-data animated rotateIn">
+						<div class="auvgo-approve-bg no-data-pic" title="暂无数据"></div>
+						<div class="no-data-text">暂无数据</div>
+					</div>
+				</div>
+				#else <br>
+				<h4 align="center">每公里消费排名TOP10</h4>
+				<!-- table 表格部分 begin -->
+				<table class="table table-align">
+					<thead>
+						<tr>
+							<th>姓名</th>
+							<th>部门</th>
+							<th>里程（KM）</th>
+							<th>费用（元）</th>
+							<th>费用/每公里（元）</th>
+						</tr>
+					</thead>
+					<tbody>
+						#foreach($item in $!topEmpList)
+						<tr>
+							<td>$!item.passName</td>
+							<td>$!item.deptName</td>
+							<td>$!{item.mileage}km</td>
+							<td>￥$!item.price</td>
+							<td>￥$!item.priceper</td>
+						</tr>
+						#end
+					</tbody>
+				</table>
+				#end
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="/resources/js/common/common.js"></script>
+<script type="text/javascript" src="/resources/js/order/orderCommon.js"></script>
+<script type="text/javascript" src="/resources/js/common/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/daterangepicker/js/moment.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/daterangepicker/js/daterangepicker.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/echarts/echarts.common.min.js"></script>
+<!--<script type="text/javascript" src="/resources/js/tTravel-analysis/analysis.js"></script>-->
+<script type="text/javascript" src="/resources/js/tongji/tongji_common.js"></script>
+<script type="text/javascript">
+	var dom = document.getElementById("mileage-echarts");
+	var myChart = echarts.init(dom);
+	var app = {};
+	option = null;
+	option = {
+		color : [ '#3E4EB2', '#FFB4E2', '#D44A9F', '#CBDAE1', '#7686EE' ],
+		title : {
+			text : '员工单次飞机出行里程分布（单位：公里）',
+			textStyle : {
+				fontSize : 16,
+				fontWeight : 'normal'
+			}
+		},
+		tooltip : {
+			trigger : 'item',
+			formatter : "{d}%"
+		},
+		legend : {
+			x : 'center',
+			y : 'bottom',
+			data : $!{title}
+		},
+		calculable : true,
+		series : [ {
+			name : '面积模式',
+			type : 'pie',
+			radius : [ 30, 110 ],
+			center : [ '50%', '50%' ],
+			roseType : 'area',
+			label : {
+				position : 'inside'
+			},
+			data : $!{data}
+		} ]
+	};
+	if (option && typeof option === "object") {
+		myChart.setOption(option, true);
+	}
+</script>
+</html>

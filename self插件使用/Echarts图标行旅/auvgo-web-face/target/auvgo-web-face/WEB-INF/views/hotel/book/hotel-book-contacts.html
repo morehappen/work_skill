@@ -1,0 +1,71 @@
+<div class="lianxiren background-fff clear">
+	<div class="p-m-title clear position">
+		<span class="p-m-t float-left">联系人</span>
+		<div class="float-left p-w-160 font-size-12" style="margin-left: 27px;position: absolute ;left:49px;top:-7px;">
+			#if("$!{bookModel.contact.mobile}" == "")
+			<div class="label label-checkbox cursor click_select_qh show_choice_default" style="margin-top:6px;" data-value="0" data-data="" data-type="sms">
+				<span class="show_choice"></span>
+				<input type="hidden" name="contact.msgAffirm" value="0"><span>短信</span>
+			</div>
+			#else
+			<div class="label label-checkbox cursor click_select_qh #if('$!{bookModel.contact.msgAffirm}'==''|| $!{bookModel.contact.msgAffirm}) label-select-checkbox #end" style="margin-top:6px;" data-value="#if('$!{bookModel.contact.msgAffirm}'==''|| $!{bookModel.contact.msgAffirm})1#else()0#end" data-data="$!{bookModel.contact.mobile}" data-type="sms">
+				<span class="show_choice"></span>
+				<input type="hidden" name="contact.msgAffirm" value="#if('$!{bookModel.contact.msgAffirm}'=='')1#else$!{bookModel.contact.msgAffirm}#end"><span>短信</span>
+			</div>
+			#end
+			
+			#if("$!{bookModel.contact.email}" == "")
+			<div class="label label-checkbox cursor click_select_qh show_choice_default" style="margin-top:6px; margin-left: 10px;" data-value="0" data-data="" data-type="email">
+				<span class="show_choice"></span>
+				<input type="hidden" name="contact.isSendEmail" value="0"><span>邮件</span>
+			</div>
+			#else
+			<div class="label label-checkbox cursor click_select_qh #if('$!{bookModel.contact.isSendEmail}'==''|| $!{bookModel.contact.isSendEmail}) label-select-checkbox #end" style="margin-top:6px; margin-left: 10px;" data-value="#if('$!{bookModel.contact.isSendEmail}'==''|| $!{bookModel.contact.isSendEmail})1#else()0#end" data-data="$!{bookModel.contact.email}" data-type="email">
+				<span class="show_choice"></span>
+				<input type="hidden" name="contact.isSendEmail" value="#if('$!{bookModel.contact.isSendEmail}'=='')1#else$!{bookModel.contact.isSendEmail}#end"><span>邮件</span>
+			</div>
+			#end
+		</div>
+	</div>
+	<div class="clear font-size-12 book-relations padding-bottom-14">
+		<div class="clear margin-bottom-10 p-t-999">
+		
+		</div>
+		<!-- 语言 -->
+		<input type="hidden" name="contact.language" value="$!{bookModel.contact.language}">
+		<div class="clear margin-bottom-10" data-phone="content">
+			<div class="clear float-left">
+				<div class="float-left  p-w-60 color-666">
+					联系人
+				</div>
+				<div class="float-left p-w-160 color-666" style="position:relative;">
+					<input type="text" name="contact.name" autocomplete="off" value="$!{bookModel.contact.name}" id="book-contacts" class="input link-name color-666" placeholder="请输入联系人" maxlength="20">
+					<input type="hidden" id="project-id"/>
+					<div class="book-contacts" id="project-description"  fro="book-contacts" style="position:absolute;"></div>
+				</div>
+			</div>
+			
+			<div class="clear float-left">
+				<div class="float-left  p-w-60 color-666">
+					联系电话
+				</div>
+				<div class="float-left p-w-160 ">
+					<input type="text" name="contact.mobile" autocomplete="off" datatype="/^1[0123456789]{10,10}$/" ignore="ignore" errormsg="请输入正确的手机号码" nullmsg="联系电话与邮箱至少填写一项" value="$!{bookModel.contact.mobile}" class="input link-phone color-666" data-phone="true" placeholder="请输入联系电话" maxlength="11" onkeyup="contactCheckSend(this, 1)">
+				</div>
+			</div>
+			<div class="clear float-left">
+				<div class="float-left  p-w-60 color-666">
+					邮箱
+				</div>
+				<div class="float-left p-w-160">
+					<!-- 性别 Female 女，Maile 男, Unknown 保密 -->
+					<input type="hidden" name="contact.gender" value="$!{bookModel.contact.gender}"/>
+					<input type="text" name="contact.email" datatype="phone" autocomplete="off" errormsg="请输入正确的邮箱" nullmsg="联系电话与邮箱至少填写一项" value="$!{bookModel.contact.email}" class="input link-email color-666" data-ignore="true" placeholder="请输入邮箱" maxlength="50" onkeyup="contactCheckSend(this, 2)">
+				</div>
+			</div>
+			
+			
+			
+		</div>
+	</div>
+</div>

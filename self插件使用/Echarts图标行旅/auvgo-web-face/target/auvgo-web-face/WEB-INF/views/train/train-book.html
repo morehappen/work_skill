@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>火车票-填写订单</title>
+    #parse("/common/styleSheetCommon.html")
+    <link rel="stylesheet" type="text/css" href="/static/css/air/air-book.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/train/train-book.css" />
+</head>
+<body class="background-6461e2 clear">
+<!--成本中心和项目中心的判断标志-->
+<input type="hidden"  class="costcenter_hidden" value="$!costcenter"><!--成本中心-->
+<input type="hidden"  class="costcenterinput_hidden" value="$!costcenterinput"><!--成本中心是否可以手动输入-->
+
+<input type="hidden"  class="projectinfo_hidden" value="$!projectinfo"><!--项目中心-->
+<input type="hidden"  class="projectinfoinput_hidden" value="$!projectinfoinput"><!--项目中心是否可以手动输入-->
+<!--项目中心改为项目编号-->
+<input type="hidden" class="isHuiChuan" >
+<!--当前登录人是否有添加员工的权限   1有添加员工权限 0无添加员工权限-->
+<input type="hidden" class="addempflage">
+<!--BKJT判断标志-->
+<input type="hidden" class="getShowname">
+<!--判断是否是核对页面跳转-->
+<input type="hidden" value="$!{pre}" id="pre">
+#parse("/common/head.html")
+<input type="hidden" class="fanxian" value="false">
+<!--拿到临时部门的id-->
+<input type="hidden" class="fanxian-linshi" value="">
+<input type="hidden" value="" class="cid">
+<div class="main-content margin-top-20 margin-bottom-10">
+    #if("$!account"=="")
+    <!-- 未绑定 -->
+    <div class="bind-tips clear">
+				<span><span class="icon-img train-flag"></span>
+				<span class="flag-text">绑定12306账号出票成功率更高。</span>
+				<a href="javascript: void(0);" class="u-line bind-12306">绑定账号</a></span>
+        <br>
+        <span >温馨提示：请务必保证证件姓名和证件号码与本人证件信息一致，且旅行结束日期最好比证件有效期早三个月以上。如信息有误或减少，请联系您的差旅负责人更新信息</span>
+
+    </div>
+</div>
+#else
+<!-- 已绑定 -->
+<div class="bind-tips clear">
+    <div class="float-left w-825">
+        <span class="tarin-bg train-flag"></span>
+        <span class="flag-text">绑定12306账号出票成功率更高。</span>
+
+    </div>
+    <div class="float-left">
+        <span class="w-125 color-999">已绑定12306账号</span>
+        <span class="w-150 color-999 hoverTips hover_content account">$!account.account</span>
+        <input type="hidden" class="pwd" value="$!account.pass" />
+        <input type="hidden" id="accountid" value="$!account.id">
+
+        <a href="javascript: void(0);" class="u-line edit-12306">修改</a>
+        <a href="javascript: void(0);" class="u-line unbind-12306">解绑</a>
+    </div>
+    <br>
+    <span style="margin-left: 20px" >温馨提示：请务必保证证件姓名和证件号码与本人证件信息一致，且旅行结束日期最好比证件有效期早三个月以上。如信息有误或减少，请联系您的差旅负责人更新信息</span>
+</div>
+#end
+</div>
+
+## $flag 区分
+## 机票模块airOrder || 火车票模块order
+#set($flag = 'order')
+
+<div class="main-content clear" id="model-flag" data-modelflag="${flag}">
+    <div class="float-left background-fff book-model">
+        <input type="hidden" value="$!model.airOrder.approveid" class="approveid">
+        <form action="/train/checkOrder" method="post" id="train-book-form">
+            <input type="hidden"  name="approvename" value="">
+            <div class="person-model" data-editctr="1" data-seats="$!seatMap.seats">
+                <div class="p-m-title clear">
+                    <span class="p-m-t font-size-18 float-left">乘车人</span>
+                    <span class="font-size-12 float-right color-default choice-cjr cursor globalColor position" data-limit="5" data-model="train">
+									<span class="icon-img position-ab"></span>
+								选择乘车人</span>
+                </div>
+                #parse("/common/order-book-passengers.html")
+            </div>
+            <input type="hidden" name="order.weibeiflag" value="0" class="weibeiflag">
+            <div class="chailv-mation chailv-mation-remove">
+                <div class="p-m-title">
+                    <span class="p-m-t">差旅信息</span>
+                </div>
+                <div class="cl-m-content font-size-12">
+                    <div class="t-p-c-des cl-m-show animated bounceInRight hide border-radius"></div>
+                    #parse("/common/company-config.html")
+                </div>
+            </div>
+            <div class="lianxiren">
+                #parse("/common/link-model.html")
+            </div>
+
+            <!-- todo:wxj-20180115-新增在线选座功能 只有高铁、城际列车显示此功能-->
+            <!-- 席别类型 9:商务座(ACF)；P:特等座(ACF)；M:一等座(ACDF)；O:二等座/无座(ABCDF)； -->
+            <div class="select-seat">
+                <div class="p-m-title">
+                    <span class="p-m-t">出票方式</span>
+                </div>
+                <input type="hidden" value="$!model.order.chooseSeat" id="choose_seat_i"/>
+                <input type="hidden" name="order.chooseSeat" value="$!model.order.chooseSeat" class="all-seat">
+
+                <div class="cl-m-content font-size-12">
+                    <div class="margin-bottom-10  label-select-checkbox sel_train_seat_cb">
+                        <div class="label label-checkbox clear vertical">
+                            <span class="show_choice"></span>
+                            <input type="checkbox"  name="order.acceptNoSeat" value="1" checked="checked"  >
+                            <span class="exclamation-mark"></span>
+                            <span style="margin-left: 10px;color:#6461e2;">指定席别无票时，自动为您分配其他席别</span>
+                        </div>
+                    </div>
+                    #if($!ifChooseSeat == 1)
+                    <div class="margin-bottom-10 choose_seat">
+                        <div class="label label-radio clear vertical sel_train_seat auto_sel_seat">
+                            <span class="show_choice"></span>
+                            <input type="checkbox" name="outTicketType" value="1"  checked="checked"  class="choose-seat-type">
+                            <span>在线选座</span>
+                            <span class="exclamation-mark"></span>
+                            <span style="margin-left: 10px;color:#6461e2;">优先按指定座席出票，若指定座席无票，将购买其它座席</span>
+                        </div>
+                        <div class="float-right cursor position">
+                            <div class="globalColor gd-desc" style="text-decoration: underline;margin-right: 20px">高铁动车选座说明</div>
+                            <div class="gd-desc-wraper border-radius hide">
+                                1、指定座位表示座位在某节车厢所处的位置，而不是指具体的车厢号和座位号<br/>
+                                2、必须先添加乘客才能选择指定座位，有几位乘客出行便需勾选几个座位，请确保乘客数和所选座位数一致
+                            </div>
+                        </div>
+                    </div>
+                    <div class="select-seat-wraper">
+                        <div class="margin-bottom-20"style="height: 40px;">
+                            <div class="float-left" style="margin-top: 10px">
+                                <span>指定座位：<span id="all-select-num">0</span>/<span id="all-pass-num">0</span></span>
+                            </div>
+                            <div class="float-left">
+                                <div style="margin-left: 56px; ">
+                                    <div class="float-left" style="margin-top: 10px">已选座位号：</div>
+                                    <div id="all-select-seat" style="overflow: hidden"></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="seat-wraper">
+                            <div class="clear every-seat-line margin-bottom-20">
+                                <div class="win-corridor">窗</div>
+                                <div class="cell-seat" data-value="1A" style="margin-left: 30px">
+                                    <div class="every-seat"></div>
+                                    <span>A</span>
+                                </div>
+                                #if("$!seatMap.seatType" == "O")
+                                <div class="cell-seat" data-value="1B"style="margin-left: 50px">
+                                    <div class="every-seat"></div>
+                                    <span>B</span>
+                                </div>
+                                #end
+                                <div class="cell-seat" data-value="1C" style="margin-left: 50px">
+                                    <div class="every-seat"></div>
+                                    <span>C</span>
+                                </div>
+                                <div class="win-corridor" style="margin-left: 80px;margin-right: 10px;">过道</div>
+                                #if("$!seatMap.seatType" == "O" || "$!seatMap.seatType" == "M")
+                                <div class="cell-seat" data-value="1D" style="margin-left: 80px">
+                                    <div class="every-seat"></div>
+                                    <span>D</span>
+                                </div>
+                                #end
+                                <div class="cell-seat" data-value="1F" style="margin-left: 50px">
+                                    <div class="every-seat"></div>
+                                    <span>F</span>
+                                </div>
+                                <div class="win-corridor" style="margin-left: 30px;">窗</div>
+                            </div>
+                        </div>
+                    </div>
+                    #end
+                    <div class="margin-bottom-10 choose_seat">
+                        <div class="label label-radio clear vertical sel_train_seat">
+                            <span class="show_choice"></span>
+                            <input type="radio" name="outTicketType" value="0"  class="choose-seat-type" >
+                            <span>随机出票</span>
+                            <span class="exclamation-mark"></span>
+                            <span style="margin-left: 10px;color:#6461e2;">只为您分配指定的席别</span>
+                        </div>
+                    </div>
+
+                    <!--<div class="cl-m-show animated bounceInRight border-radius">*优先为您分配座位票，无座位时系统将自动为您分配无座票</div>-->
+                </div>
+
+                <input type="hidden" name="passengers" />
+                <input type="hidden" name="order.bookpolicy" />
+                <!-- 火车出发日期  yyyy-MM-dd -->
+                <input type="hidden" class="orderTimes" name="ordertime" value="$!train_query_con.startDate" />
+                <div class="clear btn-submit text-align">
+                    <button style="margin-right: 30px" type="button" class="btn btn-cancel btn-big hotel-book-cancle goback" id="train_book_callback" >上一步</button>
+                    <button type="button" class="btn btn-cancel btn-big hotel-book-cancle goback"  class="btn btn-default btn-big book-submit" id="train-book" >下一步</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="float-right">
+        <div class="book-xingcheng position margin-bottom-10">
+            <div class="b-x-cityName clear">
+                <!--<span>$!trainDto.fromStation</span>-->
+                <!--<span class="qc-point"></span>-->
+                <!--<span class="after-city">$!trainDto.toStation</span>-->
+                <!--<span>$!train_query_con.startDate</span>-->
+                <!--
+                var fromTime =$('.fromTime').val();
+                var travelTime =$('.travelTime').val();
+                var arriveTime =$('.arriveTime').val();
+                var runTimeSpan =$('.runTimeSpan').val();-->
+                <input type="hidden" class="runTimeSpan" value="$!trainDto.runTimeSpan">
+                <input type="hidden" class="fromTime" value="$!trainDto.fromTime">
+                <input type="hidden" class="arriveTime" value="$!trainDto.toTime">
+                <input type="hidden" class="travelTime" value="$!train_query_con.startDate">
+                <span data-traincode=$!trainDto.trainNo id="seat_name_s">$!trainDto.trainNo</span>
+                <span>|</span>
+                <span data-seatcode="$!seatMap.seatType" id="seat_code_s">$!seatMap.seatName</span>
+                <span style="margin-left: 110px">$!train_query_con.startDate</span>
+            </div>
+            <div class="clear font-size-12 margin-bottom-30" style="margin-left: 10px">
+                <div class="float-left book-time text-align-l">
+                    <div class="book-times">$!trainDto.fromTime</div>
+                    <div>$!trainDto.fromStation</div>
+                </div>
+                <div class="float-left">
+                    <div class="position book-jiantou text-align">
+                        <span class="t-yx">$!trainDto.runTime</span>
+                        <span class="position-ab t-code">时刻表</span>
+                    </div>
+                </div>
+                <div class="float-left book-time text-align-r">
+                    <div class="book-times">$!trainDto.toTime</div>
+                    <div>$!trainDto.toStation </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="price-model" data-ticketprice="$!seatMap.price">
+            <div class="p-m-title p-m-tprice clear">
+                <span class="float-left">应付金额</span>
+                <span class="float-right">
+							<span class="font-size-12 p-m-mp">￥</span>
+						<span class="p-m-price"></span>
+						</span>
+            </div>
+            <div class="cost-show font-size-12">
+                <div class="clear e-p-count ticket-p">
+                    <div class="float-left e-p-title">票价</div>
+                    <div class="float-left e-p-num"></div>
+                    <div class="float-left text-align-r e-p-total"></div>
+                </div>
+
+
+                <!-- $!fuwufei -->
+                <div class="clear e-p-count service-p"
+                     data-traintype=$!fuwufei.traintype
+                     data-traindd=$!fuwufei.traindd
+                     data-trainweb=$!fuwufei.trainweb
+                     data-trainpertype=$!fuwufei.trainpertype
+                     data-trainper=$!fuwufei.trainper
+                >
+                    <div class="float-left e-p-title">服务费</div>
+                    <div class="float-left e-p-num"></div>
+                    <div class="float-left text-align-r e-p-total"></div>
+                </div>
+                <!--<div class="clear e-p-count insurance-p">-->
+                <!--<div class="float-left e-p-title">保险</div>-->
+                <!--<div class="float-left e-p-num"></div>-->
+                <!--<div class="float-left text-align-r e-p-total"></div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+#parse("/common/passenger-search.html")
+
+<div id="menuContent" class="menuContent" style="display: none; position: absolute; background: #e9e9e9;z-index: 99;">
+    <ul id="treeDemo" class="ztree" style="margin-top: 0; width: 250px; height: 240px; overflow: auto;"></ul>
+    <!-- 主体 end -->
+    #parse("/common/foot.html")
+    <script type="text/javascript" src="/static/js/common/getLoginUser.js"></script>
+    <script type="text/javascript" src="/static/js/train/train-common.js"></script>
+    <script type="text/javascript" src="/static/js/train/train-book.js"></script>
+    <script type="text/javascript" src="/static/js/common/passenger-search.js"></script>
+    <script type="text/javascript" src="/resources/js/common/validate.js"></script>
+    <script type="text/javascript">
+        ztreeMain({ 'zNodes': $!{depttree} });
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!-- 订单头信息 -->
+<div class="float-left o-content font-size-14">
+	<div class="clear">
+		<div class="chailv-cell clear">
+			<div class="float-left">订单状态：</div>
+			<b class="float-left">
+				#if($orderDetail.orderStatus == "WAIT_CONFIRM")
+				待确认
+				#elseif($orderDetail.orderStatus == "WAIT_PAY")
+				待支付
+				#elseif($orderDetail.orderStatus == "CONFIRM")
+				已确认
+				#elseif($orderDetail.orderStatus == "NO_SHOW")
+				未入住
+				#elseif($orderDetail.orderStatus == "CHECK_OUT")
+				已离店
+				#elseif($orderDetail.orderStatus == "CANCELED")
+				已取消
+				#elseif($orderDetail.orderStatus == "CHECK_IN")
+				已入住
+				#elseif($orderDetail.orderStatus == "INVALID")
+				无效
+				#else
+				取消
+				#end
+			</b>
+		</div>
+		<div class="chailv-cell float-left">
+			<span>订单号：<b>$!{orderDetail.orderNo}</b></span>
+		</div>
+		<div class="chailv-cell float-left clear">
+			<div class="float-left">预订时间：</div>
+			<div class="float-left">$!{createTime}</div>
+		</div>
+		<div class="chailv-cell float-left clear">
+			<div class="float-left">预订人：</div>
+			<div class="float-left">$!{orderDetail.auxiliary.creater}</div>
+		</div>
+	</div>
+</div>

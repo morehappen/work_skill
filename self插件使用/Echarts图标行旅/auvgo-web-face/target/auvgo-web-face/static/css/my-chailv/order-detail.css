@@ -1,0 +1,223 @@
+.arrow-button {
+  width: 126px;
+  background-position: -166px -220px;
+}
+.order-wraper {
+  position: relative;
+}
+.order-wraper .margin-l-10 {
+  margin-left: 10px;
+}
+.order-wraper .margin-r-10 {
+  margin-right: 10px;
+}
+.order-wraper .padding-t-10 {
+  padding-top: 10px;
+}
+.order-wraper .padding-b-10 {
+  padding-bottom: 10px;
+}
+.order-wraper .order-left {
+  float: left;
+  width: 890px;
+  margin-right: 10px;
+}
+.order-wraper .order-left .order-title {
+  background: #f6f6ff;
+}
+.order-wraper .order-left .order-title .arrow-button {
+  display: inline-block;
+}
+.order-wraper .order-left .order-title .title-right {
+  float: right;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 20px;
+}
+.order-wraper .order-left .order-title .title-right > span {
+  margin-left: 30px;
+}
+.order-wraper .order-left .order-content {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.order-wraper .order-left .order-content .order-content-top {
+  height: 54px;
+  line-height: 54px;
+}
+.order-wraper .order-left .order-content .order-content-top > div {
+  float: left;
+}
+.order-wraper .order-left .order-content .order-content-top > div.time-port {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+.order-wraper .order-left .order-content .order-content-top > div.time-port .air-pic,
+.order-wraper .order-left .order-content .order-content-top > div.time-port .train-pic,
+.order-wraper .order-left .order-content .order-content-top > div.time-port .hotel-pic {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.order-wraper .order-left .order-content .order-content-top > div.time-port .air-pic {
+  background-position: -108px -258px;
+}
+.order-wraper .order-left .order-content .order-content-top > div.time-port .train-pic {
+  background-position: -87px -258px;
+}
+.order-wraper .order-left .order-content .order-content-top > div.time-port .hotel-pic {
+  background-position: -129px -258px;
+}
+.order-wraper .order-left .order-content .t-text {
+  height: 32px;
+  line-height: 32px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.order-wraper .order-left .order-content .t-text .t-text-title {
+  display: inline-block;
+  width: 90px;
+}
+.order-wraper .order-right {
+  float: right;
+  display: table;
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.order-wraper .order-right .order-ctrl {
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: table-cell;
+  vertical-align: middle;
+}
+.order-wraper .order-right .order-ctrl .margin-top-70 {
+  margin-top: 70px;
+}
+.order-wraper .order-right .order-ctrl .order-status {
+  margin: 0 auto;
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  text-align: center;
+  color: #FFFFFF;
+  background-position: -558px 0;
+  cursor: pointer;
+}
+.order-wraper .order-right .order-ctrl .btn-100 {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+}
+.tuigai-des {
+  position: relative;
+}
+.tuigai-des > table {
+  display: none;
+  position: absolute;
+  top: 27px;
+  left: -90px;
+  width: 400px;
+  padding: 10px 15px;
+  border-collapse: collapse;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+}
+.tuigai-des > table tr:hover {
+  background: initial;
+}
+.tuigai-des > table td {
+  color: #FFFFFF;
+  border: none;
+}
+.tuigai-des > table .td-title {
+  width: 80px;
+  vertical-align: top;
+}
+.tuigai-des > table .td-content {
+  text-align: left;
+}
+.time-table-wraper {
+  position: relative;
+}
+.time-table-wraper .table-thead {
+  position: fixed;
+  z-index: 5;
+}
+.time-table-wraper .table-tbody {
+  position: absolute;
+  top: 40px;
+}
+.time-table-wraper .table td {
+  color: inherit;
+}
+.time-table-wraper .table tr.color-6461e2 {
+  color: #6461e2;
+}
+.time-table-wraper .table tr.color-333 {
+  color: #333333;
+}
+.time-table-wraper .table tr.color-bbb {
+  color: #BBBBBB;
+}
+.time-table-wraper .table th,
+.time-table-wraper .table td {
+  width: 150px;
+  border: none;
+  text-align: center;
+}
+.time-table-wraper .table th {
+  height: 40px;
+  line-height: 40px;
+}
+.map-location {
+  position: relative;
+  padding-left: 20px;
+  cursor: pointer;
+}
+.map-location .location-pic {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-position: -68px -258px;
+}
+.hotel-infor-more {
+  cursor: pointer;
+  position: relative;
+}
+.hotel-infor-more .infor-pic {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 10px;
+  right: 17px;
+  background-position: -47px -290px;
+}
+.hotel-infor-more.infor-less > .infor-pic {
+  background-position: -47px -274px;
+}
+.hotel-des {
+  display: none;
+  padding: 20px;
+  background: #f6f6ff;
+  text-align: justify;
+}
+.hotel-des .margin-bottom-16 {
+  margin-bottom: 16px;
+}
+
+
+/* TODO:wxj-20170921-订单提示文字 */
+.order-tips{margin: 30px auto 0;font-size: 12px;width: 195px;}
+.table-c-title{width:58px;height:49px;line-height:49px;text-align:center;background:#f2f2f2;}

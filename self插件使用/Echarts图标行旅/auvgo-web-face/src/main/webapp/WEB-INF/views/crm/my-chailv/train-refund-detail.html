@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>火车票订单-详情-退票单</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<input type='hidden' class='project-code-shut' value='1'>
+		<!--BKJT判断标志-->
+		<input type="hidden" class="getShowname">
+		<!-- 主体 begin -->
+		<div class="main-content">
+			<div class="margin-bottom-20"></div>
+
+			#set($accountName = $!refundOrder.tuipiaoUser[0].accountName)
+			#parse("/crm/my-chailv/order-detail-train-bind12306.html")
+
+			<div class="order-status-wraper background-fff margin-bottom-20 border-r5">
+				<div class="clear">
+					<div class="float-left tarin-bg order-status text-align font-size-14 color-fff">$!trainUtil.gettrainfaceTuiPiaoStatus($!refundOrder.showStatus)</div>
+					<div class="clear float-left font-size-12">
+						<div class="float-left" style="width: 275px;">
+							<div class="color-gray">原订单</div>
+							<div class="font-size-14"><a class="y_order" href="/myChailv/toTrainOrderDetail/$!refundOrder.odOrderno?flag=">$!refundOrder.odOrderno</a></div>
+						</div>
+						<div class="float-left" style="width: 270px;">
+							<div class="color-gray">退票单号</div>
+							<div class="font-size-14">$!refundOrder.tOrderno</div>
+						</div>
+						<div class="float-left" style="width: 250px;">
+							<div class="color-gray">取票单号</div>
+							<div class="font-size-14">$!refundOrder.odPiaohao</div>
+						</div>
+						<div class="float-left">
+							<div class="color-gray">申请时间</div>
+							<div class="font-size-14">$!dateTool.format($!refundOrder.createtime)</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="clear">
+				<div class="float-left">
+
+					<!-- 车次信息 begin -->
+					#set($route = $!refundOrder.orderRoute)
+					#set($seatType = $!refundOrder.tuipiaoUser.seattype)
+					#set($pass = $!refundOrder.tuipiaoUser)
+					#parse("/crm/my-chailv/order-detail-train-checi-infor.html")
+					<!-- 车次信息 end -->
+					<!-- 乘车人 begin -->
+					<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+						<div class="o-title font-size-18">乘车人</div>
+						<div class="o-content">
+						#foreach($user in $!orderUser)
+						#if($!pass.usersId == $!user.userId)
+							<div class="clear margin-bottom-20">
+								<div class="o-e-pass clear margin-b-14">
+									<!--<button type="button" class="btn btn-default btn-small-small">改</button>-->
+									<div>$!pass.userName</div>
+								</div>
+								<div class="o-e-cert  float-left">
+									<div class="color-gray margin-b-14">座位号</div>
+									<div>$!user.trainBox $!user.seatNo</div>
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">
+										二代身份证
+									</div>
+									<div>$!pass.userId</div>
+								</div>
+								<div class="o-e-cert  float-left">
+									<div class="color-gray margin-b-14">保险</div>
+									<div>
+										#if("$!user.bxName" != "")
+										$!user.bxName
+										#else
+										--
+										#end
+									</div>
+								</div>
+							</div>
+							<div class="clear margin-bottom-20">
+								#if("$!pass.costName" != "")
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">成本中心</div>
+									<div class="hoverTips hover_content" style="width: 130px;">
+										$!pass.costName
+									</div>
+								</div>
+								#end
+								#if("$!pass.itemNumber" != "")
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14 detail-title isHuiChuan_text">项目中心</div>
+									<div class="hoverTips hover_content" style="width: 130px;">
+										$!pass.itemNumber
+									</div>
+								</div>
+								#end
+								#if("$!pass.showCode"!="")
+								<div class="o-e-cert float-left showNameCode" style="margin-top:20px;">
+									<div class="float-left p-w-160 showNameCode">SHOWCODE：</div>
+									<div class="hoverTips hover_content" style="width: 110px;">
+										<div class="float-left p-w-160 input-email"  style="height:16px;">$!pass.showCode</div>
+									</div>
+								</div>
+								#end
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">发送通知</div>
+									<div class="hoverTips hover_content"style="width: 110px;">
+										#if($!pass.isSend == true)
+										短信
+										#else
+										--
+										#end
+										#if($!pass.isSendEmail == true)
+										邮箱
+										#else
+										--
+										#end
+									</div>
+								</div>
+							</div>
+
+							<div class="clear margin-bottom-20">
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">手机号</div>
+									<div>
+										#if("" != "$!pass.userPhone")
+										$!pass.userPhone
+										#else
+										--
+										#end
+									</div>
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">部门</div>
+									<div class="hoverTips hover_content">#if($!user.deptname =="") -- #else $!user.deptname #end</div>
+
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">邮箱</div>
+									<div class="hoverTips hover_content" style="width:126px">
+										#if("$!user.email" != "")
+											$!user.email
+										#else
+											--
+										#end
+									</div>
+								</div>
+							</div>
+							#end
+					#end
+							
+							<!--<div class="clear margin-bottom-20">
+								<div class="o-e-pass float-left">
+									<div class="e-pass hoverTips hover_content">$!refundOrder.tuipiaoUser.userName</div>
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">身份证</div>
+									<div>$!refundOrder.tuipiaoUser.userId</div>
+								</div>
+								&lt;!&ndash; <div class="o-e-insur float-left">
+									<div class="color-gray margin-b-14">保险</div>
+									<div>#后台缺少字段#</div>
+								</div> &ndash;&gt;
+								&lt;!&ndash; <div class="o-e-dept float-left">
+									<div class="color-gray margin-b-14">部门</div>
+									<div class="hoverTips hover_content">#后台缺少字段#</div>
+								</div> &ndash;&gt;
+								<div class="o-e-qpnum float-left">
+									<div class="color-gray margin-b-14">取票单号</div>
+									<div>$!refundOrder.tuipiaoUser.outTicketNo</div>
+								</div>
+							</div>-->
+						</div>
+					</div>
+					<!-- 乘车人 end -->
+
+					<!-- 联系人 begin -->
+					#set($model = 'train')
+					#set($linkName = $!order.linkName)
+					#set($linkPhone = $!order.linkPhone)
+					#set($linkEmail = $!order.linkEmail)
+					#parse("/crm/my-chailv/order-detail-link.html")
+					<!-- 联系人 end -->
+
+					<div class="text-align margin-bottom-20">
+						<button type="button" class="btn btn-cancel btn-middle train-order-cancle">返回</button>
+					</div>
+				</div>
+
+				<div class="float-right">
+					<div class="order-right background-fff margin-bottom-20 border-r5 font-size-16">
+						<div class="clear margin-b-14">
+							<div class="float-left">退款金额</div>
+							<div class="float-right color-purple">
+								<span class="font-size-12">￥</span><span>$!refundOrder.tuipiaoUser.czTuikuan</span>
+							</div>
+						</div>
+						<div class="clear">
+							<div class="float-left">退票手续费</div>
+							<div class="float-right color-purple">
+								<span class="font-size-12">￥</span><span>$!refundOrder.tuipiaoUser.czShouxufei</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/common/order-details-common.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/train-refund-detail.js"></script>
+		<script type="text/javascript" src="/static/js/common/chailv-controller.js"></script>
+	</body>
+</html>

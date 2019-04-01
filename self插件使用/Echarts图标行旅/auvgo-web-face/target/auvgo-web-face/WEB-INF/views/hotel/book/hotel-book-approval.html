@@ -1,0 +1,51 @@
+<div class=" background-fff clear margin-bottom-10 container_approve chailv-mation-remove #if(!$approMap)hide#end" data-approve="container">
+	<!--<div class="p-m-title">-->
+		<!--<span class="p-m-t">审批规则</span>-->
+	<!--</div>-->
+	<div class="font-size-12 clear input-225">
+		<div class="clear input-225">
+			<div class=" sp-rule float-left drop-225" data-approve="approveRule">
+				<div class="b-m-c-t float-left">审批级别：</div>
+				<div class="float-left">
+					<div class="drop">
+						<select class="_dropDown_ hide" data-select="approveRule" name="appRuleName">
+							<option value="$!{approvalRulName}">$!{approvalRulName}</option>
+						</select>
+						<div class="drop_title">$!{approvalRulName}</div>
+						<ul class="drop_option" style="">
+							<li>$!{approvalRulName}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="clear" data-approve="approvePerson">
+			#foreach($level in [1..$!{maxLevel}])
+				<div class="clear e-sp">
+					<div class="float-left e-sp-t b-m-c-t">$!level级审批</div>
+					#foreach($apro in ${approMap.get($level)})
+						<div class="float-left sp-person" data-eapid="undefined">$!{apro.userName}</div>
+					#end
+				</div>
+			#end
+		</div>
+	</div>
+</div>
+#if($approMap)
+	#set($index =0)
+	#foreach($approve in ${approMap.keySet()})
+		#foreach($appro in ${approMap.get($approve)})
+			<input type="hidden" name="approvedReqs[$!{index}].userId" data-level="$!{appro.level}" value="$!{appro.userId}" />
+			<input type="hidden" name="approvedReqs[$!{index}].userName" data-level="$!{appro.level}" value="$!{appro.userName}" />
+			<input type="hidden" name="approvedReqs[$!{index}].email" data-level="$!{appro.level}" value="$!{appro.email}" />
+			<input type="hidden" name="approvedReqs[$!{index}].mobile" data-level="$!{appro.level}" value="$!{appro.mobile}" />
+			<input type="hidden" name="approvedReqs[$!{index}].level" data-level="$!{appro.level}" value="$!{appro.level}" />
+			<input type="hidden" name="approvedReqs[$!{index}].isSms" data-level="$!{appro.level}" value="$!{appro.isSms}" />
+			<input type="hidden" name="approvedReqs[$!{index}].isEmail" data-level="$!{appro.level}" value="$!{appro.isEmail}" />
+			<input type="hidden" name="approvedReqs[$!{index}].priority" data-level="$!{appro.priority}" value="$!{appro.priority}" />
+			<input type="hidden" name="approvedReqs[$!{index}].language" data-level="$!{appro.level}" value="$!{appro.language}" />
+			#set($index = $!{index} + 1)
+		#end
+	#end
+#end

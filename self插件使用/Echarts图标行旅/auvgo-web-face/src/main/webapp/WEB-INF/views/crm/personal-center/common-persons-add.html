@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>个人中心-新增/修改常用出行人</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/personal-center/personal-center.css"/>
+	</head>
+	
+	<body>
+		<form action="/personal/saveOrUpdateLinshi" method="POST" class="alert-form" id="saveOrUpdateLinshiForm">
+			<input type="hidden" name="id" value="$!linshi.id">
+			<div class="every-input">
+				<b class="must-flag">*</b>
+				<input type="text" name="username" class="input border-radius" placeholder="证件姓名" datatype="*2-30" nullmsg="请填写姓名" value="$!linshi.username"/>
+			</div>
+			<div class="every-input">
+				<b class="must-flag">*</b>
+				<input type="text" name="mobile" class="input border-radius" placeholder="手机号码"
+					   datatype="n" nullmsg="请输入合法手机号码" value="$!linshi.mobile" />
+			</div>
+			<div class="every-input">
+				<b class="must-flag">*</b>
+				<select type="text" name="certtype" class="_select_" data-value="$!linshi.certtype" datatype="*1-3" nullmsg="请选择证件类型" />
+					<option value="">证件类型</option>
+					<option value="1">身份证</option>
+					<option value="C">港澳通行证</option>
+					<option value="G">台湾通行证</option>
+					<option value="B">护照</option>
+					<option value="ID">其他</option>
+				</select>
+			</div>
+			
+			<div class="every-input">
+				<b class="must-flag">*</b>
+				<input type="text" name="certno" class="input border-radius" value="$!linshi.certno" placeholder="证件号码" datatype="*" nullmsg="请填写证件号" />
+			</div>
+			<div class="birth birth-ds" style="font-size:12px; width:100%;">
+				<div class="every-input birth-input-box "  >
+				     <!-- <input type="text" name="" class="input border-radius" value="" placeholder="出生日期"   />
+				      -->
+				      <input type="text" name="birthday" class="input border-radius" placeholder="请选择出生日期"
+								   onclick="WdatePicker({dateFmt: 'yyyyMMdd',maxDate: '%y-%M-%d',readOnly: true})" />
+				</div>
+			</div>
+			
+			<div class="form-row-button">
+				<button type="submit" class="btn btn-default btn-big btn-save_">保存</button>
+				<button type="button" class="btn btn-cancel btn-big alert_close_">取消</button>
+			</div>
+		</form>
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/personal-center/personal-center.js"></script>
+	</body>
+
+</html>

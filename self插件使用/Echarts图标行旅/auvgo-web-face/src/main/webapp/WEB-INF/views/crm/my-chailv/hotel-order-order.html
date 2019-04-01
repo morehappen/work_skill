@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>酒店订单</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		
+		<!-- breadcrumbs -->
+		<div class="bread-crums main-content margin-top-10">
+			#parse("/common/hotel-order.html")
+		</div>
+	
+		
+		<!-- 主体 begin -->
+		<div class="main-content margin-top-10 background-fff auto_bottom">
+			<div class="content-only">
+				<div class="clear">
+					<form action="/myChailv/toHotelOrder" method="POST" id="HotelOrderForm">
+						<input id="pageNo" type="hidden" name="pageNum">
+						<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+						<div class="input-select clear">
+							<div class="margin-bottom-10 clear">
+								<select class="_select_" id="date_select" name="dateType" data-value="$!dateType">
+									<option value="">日期类型</option>
+									<option value="yuding">预订日期</option>
+									<option value="ruzhu">入住日期</option>
+									<option value="lidian">离店日期</option>
+								</select>
+								<input type="text" class="input border-radius" id="GTE_date" name="GTE_date" value="$!GTE_date" placeholder="请选择起始日期" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+								<input type="text" class="input border-radius" id="LTE_date" name="LTE_date" value="$!LTE_date" placeholder="请选择截止日期" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+								<input type="text" class="input border-radius" name="q_LIKE_orders.link_name" value="$!q_LIKE_orders_link_name" placeholder="预订人">
+								<select class="_select_" name="q_EQ_orders.costid" data-value="$!q_EQ_orders_costid">
+									<option value="">成本中心</option>
+									#foreach($cost in $!costCenters)
+										<option value="$!cost.id">$!cost.name</option>
+									#end
+								</select>
+								<button type="submit" class="btn btn-default btn-big">查询</button>
+							</div>
+							<div class="margin-bottom-10 clear">
+								<select class="_select_" name="q_EQ_orders.proname" data-value="$!q_EQ_orders_proname">
+									<option value="">项目</option>
+									#foreach($project in $!projects)
+										<option value="$!project.name">$!project.name</option>
+									#end
+								</select>
+								<select class="_select_" name="q_EQ_orders.status" data-value="$!q_EQ_orders_status">
+									<option value="">订单状态</option>
+									<option value="8">已完成</option>
+									<option value="4">已确认</option>
+									<option value="3">确认中</option>
+									<option value="2">等待确认</option>
+									<option value="7">已提交</option>
+									<option value="6">已取消</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<!-- mCustomScrollbar 测试 begin -->
+				<!-- <div class="test-box mCustomScrollbar">
+					<table class="table">
+						<tr>
+							<th>Column 1 Heading</th>
+							<th>Column 2 Heading</th>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+						<tr>
+							<td>Row 1: Col 1</td>
+							<td>Row 1: Col 2</td>
+						</tr>
+					</table>
+
+				</div> -->
+				<!-- mCustomScrollbar 测试 end -->
+				
+				
+				<!-- table 表格部分 begin -->
+				<div class="margin-top-30 orde-table-wraper" style="width: 1140px;">
+					## 全局变量-没有数据
+					#set ($noData = ($!page.list.size() == 0))
+					#if($noData)
+					#parse("/common/no-data.html")
+					#else
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>订单编号</th>
+								<!-- <th>操作</th> -->
+								<th>入住人</th>
+								<th>城市</th>
+								<th>入住日期</th>
+								<th>离店日期</th>
+								<th>酒店名称</th>
+								<th>房型</th>
+								<th>间夜数</th>
+								<th>总价</th>
+								<th>审批状态</th>
+								<th>支付状态</th>
+								<th>订单状态</th>
+								<th>是否送审</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach($hotel in $!page.list)
+							<tr>
+								<td>$!vCount</td>
+								<td><a href="/hotel/order/detail/$!hotel.orderno">$!hotel.orderno</a></td>
+								<!-- <td class="table_caozuo">
+									<div class="clear table-btn-div">
+										<button type="button" class="btn btn-default1 btn-small">支付</button>
+										<button type="button" class="btn btn-default btn-small">取消</button>
+									</div>	
+								</td> -->
+								<td><div class="hoverTips hover_content">$!hotel.username</div></td>
+								<td>$!hotel.cityName</td>
+								<td>$!hotel.arrdate</td>
+								<td>$!hotel.depdate</td>
+								<td><div class="hoverTips hover_content"><span class="color-default">#if($!hotel.paymentType == "Prepay")预付#else#if($!hotel.paymentType == "SelfPay")到店付#end#end</span>$!hotel.hotelName</div></td>
+								<td>$!hotel.roomName</td>
+								<td>$!hotel.intervalDay</td>
+								<td>$!hotel.totalPrice</td>
+								<td>$!hotelUtil.getApproveStatus($!hotel.approvestatus)</td>
+								<td><div class="hoverTips hover_content">$!hotelUtil.getPayType($!hotel.paystatus)
+								#if($!hotel.paystatus == 1)
+									 - #if($!hotel.pay_type == 1)
+									 	协议欠款
+									 #else #if($!hotel.pay_type == 2)
+									 	现结科目
+									 #else #if($!hotel.pay_type == 2)
+									 	所有科目
+									 #end#end#end
+								#end</div></td>
+								<td>#if($!hotel.status == 7)<span class="color-default">$!hotelUtil.getOrderStatus($!hotel.status)</span>#else$!hotelUtil.getOrderStatus($!hotel.status)#end</td>
+								<td>#if($!hotel.approvestatus == 3)否#else是#end</td>
+							</tr>
+							#end
+						</tbody>
+					</table>
+					#end
+				</div>
+				<!-- table 表格部分 end -->
+				
+				#if(!$noData)
+				<div id="kkpager"></div>
+				#end
+				
+			</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/my-chailv/my-chailv.js"></script>
+		<script type="text/javascript">
+			kkpagerMain({'pno':$!page.pageNum,'total':$!page.pages,'totalRecords':$!page.total,'pageSize':$!pageSize,'pageNo':$("#pageNo"),'submit_element':$("#HotelOrderForm")}); //初始化分页
+		</script>
+	</body>
+</html>

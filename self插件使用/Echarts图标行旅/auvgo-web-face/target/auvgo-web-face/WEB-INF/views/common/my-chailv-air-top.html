@@ -1,0 +1,29 @@
+<form action="" method="POST" id="">
+	<div class="input-select clear">
+		<div class="margin-bottom-10 clear">
+			<select id="date_select" class="_select_" name="dateType" value="$!dateType" data-value="$!dateType">
+				<option value="">日期类型</option>
+				<option value="createtime">预订日期</option>
+				<option value="deptdate">出发日期</option>
+			</select>
+			
+			<input type="text" class="input border-radius" name="" value="" placeholder="请选择起始日期" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+			<input type="text" class="input border-radius" name="" value="" placeholder="请选择截止日期" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+			<input type="text" class="input border-radius" name="" value="" placeholder="预订人">
+		</div>
+		<div class="margin-bottom-10 clear">
+			<input type="text" class="input border-radius" name="" value="" placeholder="乘机人">
+			<select class="_select_" name="" data-value="">
+				<option value="">成本中心</option>
+					<option value="1">AAA</option>
+					<option value="2">BBB</option>
+				</select>
+				<select class="_select_" name="" data-value="">
+				<option value="">项目</option>
+					<option value="1">XIANGMU-A</option>
+					<option value="2">XIANGMU-B</option>
+				</select>
+			<button type="submit" class="btn btn-default btn-big">查询</button>
+		</div>
+	</div>
+</form>

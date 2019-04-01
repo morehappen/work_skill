@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>首页</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/server/demand.css"/>
+	</head>
+	<body class="background-f0f4ff clear">
+		#parse("/common/head.html")
+		<div class="main-content main-body-content position guoji-needs">
+		  <form action="/air/international/save" method="post" id="createXQD">
+			<div class="main-model position clear">
+				<div class="iframe-model">
+					<div class="air-query-model">
+						<div class="formContent">
+							<div class="clear">
+								<div class="float-left position e-input">
+									<div>出发城市</div>
+									<b style="color:red;" class="position-ab">*</b>
+									<input type="text" name="orgname" value="" datatype="*" nullmsg="请填写出发城市" placeholder="出发城市（必填）" class="input from_gg_name">
+								<!-- 	<input type="hidden" name="orgcode" value=""/> -->
+								</div>
+								<div class="float-left tab-button-c float-left">
+									<!-- <button class="tab-city"></button> -->
+								</div>
+								<div class="float-right position e-input">
+									<div>到达城市</div>
+									<b style="color:red;" class="position-ab">*</b>
+									<input type="text" name="arrivename" placeholder="到达城市（必填）"  datatype="*" nullmsg="请填写到达城市" value="" class="input to_gg_name">
+									<!-- <input type="hidden" name ="arrivecode" value=""/> -->
+								</div>
+							</div>
+							<div class="clear margin-bottom-10">
+								<div class="float-left position e-input">
+									<div>出发日期</div>
+									<b style="color:red;" class="position-ab">*</b>
+									<input type="text" name="fromday" datatype="*" readonly value="" id="beginDate" class="input" nullmsg="请选择出发日期" onfocus="var endDate=$dp.$('endDate');WdatePicker({doubleCalendar:true,minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+365}',onpicked:function(){endDate.focus()},isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})" />
+								</div>
+								<div class="float-right position e-input fancheng_date">
+									<div>返程日期</div>
+									<b style="color:red;" class="position-ab">*</b>
+									<input type="text" name="arriveday"  datatype="*" readonly value="" id="endDate" value="" class="input" nullmsg="请选择返程日期" onfocus="WdatePicker({doubleCalendar:true,minDate:'#F{$dp.$D(\'beginDate\')}',maxDate:'%y-%M-{%d+365}',isShowClear:false,isShowToday:false,readOnly:true})">
+								</div>
+							</div>
+							<div class="clear margin-bottom-10">
+								<div class="float-left position e-input">
+									<b style="color:red;" class="position-ab">*</b>
+									<input type="text" name="linkman" value="$!user.name"  datatype="*"  nullmsg="请填写联系人" placeholder="联系人（必填）" class="input">
+								</div>
+								<div class="float-right position e-input">
+									<b style="color:red;" class="position-ab">*</b>
+									<input type="text" name="mobile" value="$!user.mobile"  datatype="*"  nullmsg="请填写手机号码" placeholder="手机号码（必填）" class="input">
+								</div>
+							</div>
+							<div class="clear margin-bottom-10">
+								<div class="float-left position e-input">
+									<input type="text" name="passport" value="" placeholder="护照号码（选填）" class="input">
+								</div>
+								<div class="float-right position e-input">
+									<input type="text" name="passportdate" value="" placeholder="护照有效期（选填）" class="input ">
+								</div>
+							</div>
+							<div class="clear position textarea-c">
+								<input type="hidden" value="$!p.get('traverorderno')" name="travelOrderno">
+								<div class="textarea-title">需求描述</div>
+								<b style="color:red;" class="position-ab">*</b>
+								<textarea name="remark"  datatype="*" rows="3" cols="160" value="" nullmsg="请填写需求描述" placeholder="需求描述（必填）" style="width: 1130px;height:100px;padding: 5px 10px;border: 2px solid #e2ecff;resize:none;"></textarea>
+							</div>
+							<input type="hidden" name="token" value="$!token"/>
+							<div class="clear text-align btn-group">
+								<button type="submit" class="btn btn-default btn-big radius validform-submit">提交需求</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</form>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/demand/common-demand.js"></script>
+		<script type="text/javascript" src="/static/js/demand/air-guoji-demand.js"></script>
+	</body>
+</html>

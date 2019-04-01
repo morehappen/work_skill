@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>我的差旅-酒店订单列表页</title>
+	<link rel="stylesheet" href="../../static/css/common/common.css">
+	<link rel="stylesheet" type="text/css" href="../../resources/css/hotel/hotel-order-list.css">
+	<link rel="stylesheet" href="../../static/css/common/plugin.css">
+</head>
+<body class="background-6461e2">
+	<div class=" list-content">
+		<ul class="tab-model clear">
+			<li class="float-left"><a href="/myChailv/toNewHotelOrder/personal?tag=hotel" data-flag="personal" class="position float-left">个人订单</a></li>
+			<li class="float-left"><a href="/myChailv/toNewHotelOrder/all?tag=hotel" data-flag="all" class="position float-left">全部订单</a></li>
+		</ul>
+		<form action="/myChailv/toNewHotelOrder/personal?tag=hotel" method="POST" id="HotelOrderForm" data-query="queryForm" class="query_form">
+			<div class="input-select clear">
+				<input id="pageNo" type="hidden" name="pageNum">
+				<input id="pageSize" type="hidden" name="pageSize" value="30">
+				<div class="margin-bottom-10 clear">
+					<select id="date_select" class="_select_" name="dateType" data-ele="datatype" value="" data-value="">
+						<option value="">日期类型</option>
+						<option value="yuding">预订日期</option>
+						<option value="ruzhu">入住日期</option>
+						<option value="lidian">离店日期</option>
+					</select>
+					<input type="text" class="input border-radius" id="GTE_date" data-ele="sdate" name="GTE_date" value=""
+						   placeholder="请选择起始日期" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+					<input type="text" class="input border-radius" id="LTE_date" data-ele="edate" name="LTE_date" value=""
+						   placeholder="请选择截止日期" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+					<input type="text" class="input border-radius bookPerson" data-ele="bookperson" name="q_LIKE_orders.bookusername"
+						   value="" placeholder="预订人">
+				</div>
+				<div class="margin-bottom-10 clear">
+					<input type="text" class="input border-radius passPerson" data-ele="passperson" name="q_LIKE_users.name" value="" placeholder="乘机人">
+					<select class="_select_ costCenter_select" data-ele="costcenter" name="q_EQ_orders.costid" data-value="">
+						<option value="">成本中心</option>
+						
+					</select>
+					<select class="_select_ project_select" data-ele="project" name="q_EQ_orders.proname" data-value="">
+						<option value="">项目</option>
+						<option value="147">002</option>
+						<option value="135">北京项目</option>
+					</select>
+					<select class="_select_" name="q_EQ_orders.status" data-value="">
+						<option value="">订单状态</option>
+						<option value="8">已完成</option>
+						<option value="4">已确认</option>
+						<option value="3">确认中</option>
+						<option value="2">等待确认</option>
+						<option value="7">已提交</option>
+						<option value="6">已取消</option>
+					</select>
+					<button type="submit" class="btn btn-default btn-big">查询</button>
+				</div>
+			</div>
+		</form>
+		<div class="margin-top-30 orde-table-wraper">
+			<table class="table table-align">
+				<thead>
+				<tr>
+					<th>序号</th>
+					<th>订单编号</th>
+					<!-- <th>操作</th> -->
+					<th>入住人</th>
+					<th>城市</th>
+					<th>入住日期</th>
+					<th>离店日期</th>
+					<th>酒店名称</th>
+					<th>房型</th>
+					<th>间夜数</th>
+					<th>总价</th>
+					<th>审批状态</th>
+					<th>支付状态</th>
+					<th>订单状态</th>
+					<th>是否送审</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>1</td>
+					<td>
+						<a data-href_="/myChailv/toHotelOrderDetail/H180404424364" href="javascript:void(0);" class="orderToDetail">H180404424364</a>
+					</td>
+					<td><div class="hoverTips hover_content">yuewang</div></td>
+					<td>艺龙测试</td>
+					<td>2018-04-05</td>
+					<td>2018-04-06</td>
+					<td><div class="hoverTips hover_content"><span class="color-default">到店付</span>产品测试酒店价格</div></td>
+					<td>标准间-特价(无窗)</td>
+					<td>1</td>
+					<td>100.0</td>
+					<td>审批中</td>
+					<td><div class="hoverTips hover_content">未支付
+					</div></td>
+					<td><span class="color-default">已提交</span></td>
+					<td>是</td>
+				</tr>
+				
+				</tbody>
+			</table>
+			<div id="kkpager"></div>
+			<input type="hidden" data-ele="pagenum" value="1">
+			<input type="hidden" data-ele="pages" value="4">
+			<input type="hidden" data-ele="total" value="97">
+			<input type="hidden" data-ele="pagesize" value="30">
+		</div>
+</div>
+</body>
+</html>
+

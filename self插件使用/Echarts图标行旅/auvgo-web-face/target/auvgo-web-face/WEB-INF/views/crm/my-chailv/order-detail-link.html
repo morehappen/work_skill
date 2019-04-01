@@ -1,0 +1,49 @@
+## 机票||火车票||酒店-详情页面联系人模块
+<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12" data-model="${model}">
+    <div class="o-title font-size-18">联系人</div>
+    <div class="o-content">
+        <div class="clear margin-bottom-20">
+            <div class="o-e-pass float-left">
+                <div class="color-gray margin-b-14">姓名</div>
+                <div class="e-pass hoverTips hover_content">
+                    #if("$!{linkName}" != "")
+                        $!{linkName}
+                    #else
+                        --
+                    #end
+                </div>
+            </div>
+            <div class="o-e-cert float-left">
+                <div class="color-gray margin-b-14">电话</div>
+                <div>
+                    #if("$!{linkPhone}" != "")
+                        $!{linkPhone}
+                    #else
+                        --
+                    #end
+                </div>
+            </div>
+            <div class="o-e-cert float-left">
+                <div class="color-gray margin-b-14">邮箱</div>
+                <div>
+                    #if("$!{linkEmail}" != "")
+                        $!{linkEmail}
+                    #else
+                        --
+                    #end
+                </div>
+            </div>
+            <div class="float-left">
+                <div class="color-gray margin-b-14">发送通知</div>
+                <div>
+                    #if($!{isSend} || $!{isSendEmail})
+                        #if($!{isSend})短信#end
+                        #if($!{isSendEmail}) 邮件#end
+                    #else
+                       	 无
+                    #end
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

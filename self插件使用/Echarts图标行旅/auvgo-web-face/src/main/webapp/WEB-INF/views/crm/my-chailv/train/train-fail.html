@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>火车票-提交失败</title>
+	<link rel="icon" sizes="any" href="/resources/images/common/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/train/train-fail.css">
+</head>
+
+<body class="clear">
+#parse("/common/head.html")
+<div class="main-content main-content_s">
+	<div class="success-model background-fff clear">
+		<div class="clear success-m-tips">
+			<div class="float-left">
+				<img src="/resources/images/common/fail.png">
+			</div>
+			<div class="float-left s-t-c">
+				<div class="s-text">提交失败</div>
+				<div class="font-size-12">
+					<p style="margin-bottom: 5px;font-size:14px;">$!{failMsg}</p>
+				</div>
+			</div>
+		</div>
+		<div class="btn-group text-align-l" style="margin-top:100px;text-align: inherit;margin-left:30px;">
+			<a href="$!{returnFlag}" class="btn btn-default btn-big text-align">返回订单</a>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>

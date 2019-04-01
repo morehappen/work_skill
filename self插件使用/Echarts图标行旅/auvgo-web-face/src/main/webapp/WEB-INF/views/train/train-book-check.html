@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>火车票-核对信息</title>
+    #parse("/common/styleSheetCommon.html")
+    <link rel="stylesheet" type="text/css" href="/static/css/air/air-book.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/train/train-book.css" />
+</head>
+<body class="background-6461e2 clear">
+#parse("/common/head.html")
+<input type="hidden" class="fanxian" value="false">
+<input type='hidden' class='project-code-shut' value='1'>
+<!--BKJT判断标志-->
+<input type="hidden" class="getShowname">
+<!--拿到临时部门的id-->
+<input type="hidden" class="fanxian-linshi" value="">
+<input type="hidden" value="" class="cid">
+## $flag 区分
+## 机票模块users || 火车票模块order
+#set($flag = 'order')
+<div class="main-content clear margin-top-20" id="model-flag" data-modelflag="${flag}">
+    <div class="float-left background-fff book-model">
+        <input type="hidden" value="$!model.users.approveid" class="approveid">
+        <form action="/train/createorder" method="post" id="train-book-form">
+            <div class="person-model" data-editctr="1" data-seats="$!seatMap.seats">
+                <div class="p-m-title clear">
+                    <span class="p-m-t font-size-18 float-left">乘车人</span>
+                </div>
+                <div class="clear passanger-container">
+                    <div class="passanger-model" data-loginlevel="" data-logindept="">
+                        #foreach($trainUsers in $!model.users)
+                        <div class="e-p-model font-size-12 " style="border-bottom: 1px dashed #e5dfff;" data-id="$!trainUsers.userId" data-level="$!trainUsers.zhiwei" data-certtype="$!trainUsers.idsType" data-certno="$!trainUsers.userIds" data-name="$trainUsers.name" data-deptname="$!trainUsers.depname" data-passtype="1" data-mobile="$!trainUsers.mobile" data-costId="$!trainUsers.costId" data-costName="$!trainUsers.costName" data-itemNumberId="$!trainUsers.itemNumberId" data-itemNumber="$!trainUsers.itemNumber">
+                            <div class="clear margin-bottom-10">
+									<span class="float-left p-m-name clear position">
+										<span class="loginName p-every-passes text-ellipsis" title="">$!trainUsers.userName</span>
+									</span>
+                            </div>
+                            <div class="clear margin-bottom-10 p-t-999">
+                                <div class="float-left p-w-160">证件类型</div>
+                                <div class="float-left p-w-160">证件号码</div>
+                                #if("$!trainUsers.costName"!="")
+                                <div class="float-left p-w-160">成本中心</div>
+                                #end
+                               
+                                #if("$!trainUsers.itemNumber"!="")
+                                <div class="float-left p-w-160 detail-title isHuiChuan_text">项目中心</div>
+                                #end
+                            </div>
+                            <div class="clear margin-bottom-10" >
+                                <div class="float-left p-w-160"  style="height: 16px">
+                                    #if($!trainUsers.idsType == "1") 二代身份证
+                                    #elseif($!trainUsers.idsType == "ID") 其他
+                                    #elseif($!trainUsers.idsType == "C") 港澳通行证
+                                    #elseif($!trainUsers.idsType == "G") 台湾通行证
+                                    #elseif($!trainUsers.idsType == "B") 护照 #end
+                                </div>
+                                <div class="float-left p-w-160 input-centro" style="height: 16px">
+                                    $!trainUsers.userIds
+                                </div>
+                                #if("$!trainUsers.costName"!="")
+                                <div class="float-left p-w-160 input-mobile" style="min-height:16px;_height:16px;word-wrap: break-word; word-break: normal;">
+                                    $!trainUsers.costName
+                                </div>
+                                #end
+                                #if("$!trainUsers.itemNumber"!="")
+                                <div class="float-left p-w-160" style="min-height:16px;_height:16px;word-wrap: break-word; word-break: normal;">
+                                    $!trainUsers.itemNumber
+                                </div>
+                                #end
+                            </div>
+                            <div class="clear margin-bottom-10 p-t-999">
+                                <div class="float-left p-w-160">手机号码</div>
+                                <div class="float-left p-w-160">邮箱</div>
+                                <div class="float-left p-w-160">所属部门</div>
+                                <div class="float-left p-w-160">发送通知</div>
+                            </div>
+                            <div class="clear margin-bottom-10">
+                                <div class="float-left p-w-160 input-email" style="height: 16px">
+                                    $!trainUsers.userPhone
+                                </div>
+                                <div class="float-left p-w-160 "  style="height: 16px">
+                                    $!trainUsers.email
+                                </div>
+                                <div class="float-left p-w-160 "  style="height: 16px">
+                                    $!trainUsers.deptname
+                                </div>
+                                <div class="float-left p-w-160 " style="height: 16px">
+                                    #if($!trainUsers.isSend || $!trainUsers.isSendEmail)
+                                    	#if($!trainUsers.isSend == true) 短信#end 
+                                    	#if($!trainUsers.isSendEmail == true) 邮件#end
+                                    #else
+                                    	无
+                                    #end
+                                </div>
+                            </div>
+                            <div class="clear margin-bottom-10 p-t-999">
+                                <div class="float-left p-w-160 showNameCode">SHOWCODE：</div>
+                            </div>
+                            <div class="clear margin-bottom-10">
+                                <div class="float-left p-w-160 input-email"  style="height:16px;">$!trainUsers.showCode</div>
+                            </div>
+                        </div>
+                        #end
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="order.weibeiflag" value="0" class="weibeiflag">
+            <input type="hidden" value="${auvgo_token}" name="auvgo_token" />
+            <div class="chailv-mation chailv-mation-remove" style="margin-top: 10px">
+                <div class="p-m-title">
+                    <span class="p-m-t">差旅信息</span>
+                </div>
+                <div class="cl-m-content font-size-12">
+                    <div class="clear padding-bottom-14">
+                        <div class="float-left input-150 travelorder-c input-c position " style="width:30%;">
+                            <span >出差单号：</span>
+                            <span></span>
+                            $!model.order.shenqingno
+                        </div>
+                        <div class="float-left input-c input-r-c chailvR-c position">
+                            <span >出差事由：</span>
+                            $!model.order.chailvitem
+                        </div>
+                        <!--<div class="float-left input-c input-r-c chailvR-c position">-->
+                            <!--<span >超标事项：</span>-->
+                            <!--$!model.order.bookpolicy-->
+                        <!--</div>-->
+                        <!--<div class="float-left input-c input-r-c chailvR-c position">-->
+                            <!--<span >超标原因：</span>-->
+                            <!--$!model.order.wbreason-->
+                        <!--</div>-->
+                    </div>
+                    <div class="clear padding-bottom-20 approve_content drop-float drop-150">
+                        <span class="float-left sp-guize-name">审批规则：</span>
+                        <span class="approve_rule" style="line-height: 34px;">$!approvename</span>
+                    </div>
+                    <div class="sp-show clear">
+                        #foreach($approve in $!model.approves)
+                        <div class="clear"></div>
+                        <div class="sp-jb float-left ">
+                            <div class="clear"></div>
+                            <div style="margin-top: 10px">  $!approve.level级审批</div>
+                        </div><div class=" float-left">
+                        <div class="sp-jb-person"><div class="sg-jb-p" data-sprid="1640">
+                            $!approve.name
+                        </div>
+                        </div>
+                    </div>
+                        #end
+                    </div>
+                </div>
+            </div>
+            <div class="p-m-title">
+                <span class="p-m-t">联系人</span>
+            </div>
+            <div class="clear font-size-12 book-relations padding-bottom-14">
+                <div class="clear margin-bottom-10 p-t-999">
+
+                    <div  class="float-left p-w-160">联系人</div>
+                    <div class="float-left p-w-160">手机号码</div>
+                    <div class="float-left p-w-160">邮箱</div>
+                    <div  class="float-left p-w-120">发送通知</div>
+                </div>
+                <div class="clear margin-bottom-10">
+
+                    <div class="float-left p-w-160" style="height: 16px;">
+                        $!model.order.linkName
+                    </div>
+                    <div class="float-left p-w-160" style="height: 16px;">
+                        $!model.order.linkPhone
+                    </div>
+                    <div class="float-left p-w-160 " style="height: 16px;">
+                        $!model.order.linkEmail
+                    </div>
+                    <div class="float-left p-w-120">
+                        #if($!model.order.isSend || $!model.order.isSendEmail)
+                        	#if($!model.order.isSend == true)短信 #end
+                        	#if($!model.order.isSendEmail == true) 邮件 #end
+                        #else
+                        	无
+                        #end
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="signature" value="$!model.signature">
+            <div class="clear btn-submit text-align">
+                <button class="btn btn-cancel btn-big train-submit" data-do="pre" type="button" style="margin-right: 30px">上一步</button>
+                <button class="btn btn-default btn-big train-submit" data-do="next" type="button">提交订单</button>
+            </div>
+        </form>
+    </div>
+    <div class="float-right">
+        <div class="book-xingcheng position margin-bottom-10">
+            <div class="b-x-cityName clear">
+                <span data-traincode=$!trainDto.trainNo >$!trainDto.trainNo</span>
+                <span>|</span>
+                <span data-seatcode="$!seatMap.seatType">$!seatMap.seatName</span>
+                <span style="margin-left: 80px">$!train_query.startDate</span> $!travelTime
+            </div>
+            <div class="clear font-size-12 margin-bottom-30" style="margin-left: 10px">
+                <div class="float-left book-time text-align-l">
+                    <div class="book-times">$!trainDto.fromTime</div>
+                    <div>$!trainDto.fromStation</div>
+                </div>
+                <div class="float-left">
+                    <div class="position book-jiantou text-align">
+                        <span class="t-yx">$!trainDto.runTime</span>
+                        <span class="position-ab t-code">时刻表</span>
+                    </div>
+                </div>
+                <div class="float-left book-time text-align-r">
+                    <div class="book-times">$!trainDto.toTime</div>
+                    <div>$!trainDto.toStation </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="price-model" data-ticketprice="$!seatMap.price">
+            <div class="p-m-title p-m-tprice clear">
+                <span class="float-left" >应付金额</span>
+                <span class="float-right">
+							<span class="font-size-12 p-m-mp">￥</span>
+						<span class="p-m-price">$!model.order.totalprice</span>
+						</span>
+            </div>
+            <div class="cost-show font-size-12">
+                <div class="clear e-p-count ticket-p">
+                    <div class="float-left e-p-title">票价</div>
+                    <div class="float-left e-p-num">$!model.users.get(0).amount * $!model.users.size()</div>
+                    <div class="float-left text-align-r e-p-total">$!model.order.ticketprice</div>
+                </div>
+                <div class="clear e-p-count service-p" data-traintype=$!fuwufei.traintype data-traindd=$!fuwufei.traindd
+                     data-trainweb=$!fuwufei.trainweb
+                     data-trainpertype=$!fuwufei.trainpertype
+                     data-trainper=$!fuwufei.trainper>
+                    <div class="float-left e-p-title">服务费</div>
+                    <!--<div class="float-left e-p-num">$!model.order.ticketprice * $!fuwufei.trainper%</div>-->
+                   
+                    <div class="float-left e-p-num">#if($!trainWeb) $!trainWeb #else $!model.order.ticketprice #end*
+                        <span>
+                            #if($!trainWeb)
+                            $!model.users.size()
+                            #else
+                            $!trainPer1
+                            $!trainPer2
+                            #end
+                        </span>
+                    </div>
+                    #set($fuf = $!model.users.get(0).fuwufei * $!model.users.size())
+                    <div class="float-left text-align-r e-p-total">$!fuf</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("/common/foot.html")
+<div id="menuContent" class="menuContent" style="display: none; position: absolute; background: #e9e9e9;z-index: 99;">
+    <ul id="treeDemo" class="ztree" style="margin-top: 0; width: 250px; height: 240px; overflow: auto;"></ul></div>
+<script type="text/javascript" src="/static/js/common/chailv-controller.js"></script>
+<script type="text/javascript">
+	//判断是否是分销公司
+	$.ajax({
+		url:"/crm/jiesuan",
+		type:"post",
+		success:function(data){
+			// console.log(data);
+			if(data.data.fukuankemu=="4"){
+				//判断是否是分销公司  是分销的不显示出差事由
+				$('.chailv-mation-remove').remove();
+			}
+			
+		}
+	});
+    $("body").on("click", ".train-submit", function(){
+        var descStr = $(this).attr('data-do');
+        var signature = $('input[name="signature"]').val();
+        var actionStr = descStr == 'pre' ? '/train/checkOrder' : '/train/createorder';
+        if(descStr=='pre'){
+			$('#train-book-form').attr('action', actionStr).submit();
+        }else{
+            $.ajax({
+                url:"/shareAcc/check",
+                type:"post",
+				beforeSend:function(){
+					loadingCommon();
+                },
+				data:{signature:signature,type:"train"},
+                success:function(data){
+                    if(data.status=='200'){
+						$('#train-book-form').attr('action', actionStr);
+						$("#train-book-form").ajaxSubmit(function(data){
+                            if(data.status==200){
+								loadingCommon();
+                            	location.href = data.data;
+                            }else{
+								loadingCommon();
+								layer.msg(data.msg);
+                            }
+						});
+                    }else if(data.status=='300'){
+						loadingCommon();
+                        layer.alert(data.msg);
+                
+                    }else{
+						loadingCommon();
+                        layer.alert(data.msg);
+                    }
+                },
+                error:function(err){
+					loadingCommon();
+                    layer.alert(data.msg);
+                    return ;
+                }
+            });
+		}
+	
+	
+	});
+</script>
+</body>
+</html>

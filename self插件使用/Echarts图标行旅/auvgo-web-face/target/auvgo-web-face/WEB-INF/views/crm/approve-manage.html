@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>审批级别</title>
+		#parse("/common/styleSheetCommon.html")
+	</head>
+	<body class="background-6461e2">
+		
+		#parse("/common/head.html")
+		
+		<!-- breadcrumbs -->
+
+		<div class="bread-crums-new main-content-new margin-top-10 float-left">
+			#parse("/common/bread-crumbs.html") > <a href="/crm/approve/" class="normal_a">审批级别</a>
+		</div>
+		
+		<!-- 主体 begin -->
+		<div class="main-content-new margin-top-10 background-fff auto_bottom">
+			<div class="content-only">
+				<div class="margin-bottom-20">
+					<form action="/crm/approve/" method="POST" id="approve-manage-form">
+						<input id="pageNo" type="hidden" name="pageNum">
+						<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+						<input type="text" class="input" name="q_EQ_bianhao" value="$!q_EQ_bianhao" placeholder="审批级别编号"/>
+						<input type="text" class="input"  name="q_LIKE_name" value="$!q_LIKE_name" placeholder="审批级别名称"/>
+						
+						<button type="submit" class="btn btn-default btn-big">查询</button>
+					</form>
+				</div>
+				
+				<div class="margin-bottom-20">
+					<a href="/crm/approve/add/" class="btn btn-default btn-big">添加审批级别</a>
+				</div>
+				
+				
+				<!-- table 表格部分 begin -->
+				<div class="margin-top-30">
+					## 全局变量-没有数据
+					#set ($noData = ($!page.list.size() == 0))
+					#if($noData)
+					#parse("/common/no-data.html")
+					#else
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<!-- <th>
+									<label class="label label-checkbox">		
+										<input type="checkbox" name="" value="">
+									</label>
+								</th> -->
+								<th>级别编号</th>
+								<th>级别名称</th>
+								<th>审批人</th>
+								<th>试用范围</th>
+								<th class="table_caozuo">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach($ap in $page.list)
+								<tr>
+									<td>$!ap.bianhao</td>
+									<td>$!ap.name</td>
+									<td>#foreach($spr in $!ap.shenpirens) $!{vCount}级$!{spr.name}, #end</td>
+									<td>
+										<a class="associated-dept" data-apid=$!{ap.id}>关联部门</a>
+										<a href="/crm/approve/relationemployee/$!{ap.id}">关联个人</a>
+									</td>
+									<td class="table_caozuo">
+										<div class="clear table-btn-div">
+											<a href="/crm/approve/edit/$!ap.id" class="btn btn-default btn-small">编辑</a>
+											<!-- /crm/approve/remove/$!{ap.companyid}/$!{ap.id} -->
+											<button type="button" class="btn btn-danger btn-small" data-id="$!{ap.id}">删除</button>
+										</div>	
+									</td>
+								</tr>
+							#end
+						</tbody>	
+					</table>
+					#end
+				</div>
+				<!-- table 表格部分 end -->
+				#if(!$noData)
+				<div id="kkpager"></div>
+				#end
+			</div>
+		</div>
+		<!-- 主体 end -->
+		
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/approve-manage.js"></script>
+		<script type="text/javascript">
+			kkpagerMain({'pno':$!page.pageNum,'total':$!page.pages,'totalRecords':$!page.total,'pageSize':$!pageSize,'pageNo':$("#pageNo"),'submit_element':$("#approve-manage-form")}); //初始化分页
+		</script>
+	</body>
+</html>

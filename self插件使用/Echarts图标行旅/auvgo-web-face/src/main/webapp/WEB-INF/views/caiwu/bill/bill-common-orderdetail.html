@@ -1,0 +1,17 @@
+#if("$!bill.proType"=="AIR") 
+#if("$!bill.ticketStatus"=="ZC")
+<a href="/myChailv/toAirOrderDetail/$!{bill.orderNo}?flag=personal" target="_blank">$!bill.ticketNo</a>
+#elseif("$!bill.ticketStatus"=="TP")
+<a href="/myChailv/toAirRefundDetail/$!{bill.orderNo}?flag=personal" target="_blank">$!bill.ticketNo</a>
+#elseif("$!bill.ticketStatus"=="GQ")
+<a href="/myChailv/toAirEndroseDetail/$!{bill.orderNo}?flag=personal" target="_blank">$!bill.ticketNo</a>
+#end #elseif("$!bill.proType"=="HOTEL")
+<a href="/hotel/order/per/input/$!{bill.orderNo}?tag=hotel" target="_blank">$!bill.ticketNo</a>
+#elseif("$!bill.proType"=="TRAIN") 
+#if("$!bill.ticketStatus"=="ZC")
+<a href="/myChailv/toTrainOrderDetail/$!{bill.orderNo}?flag=personal" target="_blank">$!bill.ticketNo</a>
+#elseif("$!bill.ticketStatus"=="TP")
+<a href="/myChailv/toTrainRefundDetail/$!{bill.orderNo}?flag=personal" target="_blank">$!bill.ticketNo</a>
+#elseif("$!bill.ticketStatus"=="GQ")
+<a href="/myChailv/toTrainEndroseDetail/$!{bill.orderNo}?flag=personal" target="_blank">$!bill.ticketNo</a>
+#end #end

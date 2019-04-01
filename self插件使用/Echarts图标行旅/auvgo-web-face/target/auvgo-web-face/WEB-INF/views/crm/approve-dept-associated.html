@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>关联部门</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/role-permissions-user.css"/>
+	</head>
+	<body>
+		<form action="/crm/approve/saveapprovedept" method="post"  class="alert-form" id="costForm">
+			<input type="hidden" name="cid" value="$!company.id" />
+			<input type="hidden" name="approveid" value="$!approveid" />
+			<input type="hidden" name="deptids" id="_deptids" />
+			<div class="pos-a">
+				<ul id="treeDemo" class="ztree"></ul>
+				
+				<div class="form-row-button">
+					<button type="submit" class="btn btn-default btn-big">保存</button>
+					<button type="button" class="btn btn-cancel btn-big alert_close_">取消</button>
+				</div>
+			</div>
+		</form>
+		#parse("/common/foot.html")
+		<script type="text/javascript">
+			var setting = {view:{dblClickExpand:false,showLine:false,selectedMulti:false},check:{enable: true},data:{simpleData: {enable: true}}, callback:{onCheck:onCheck}};
+			var zNodes = $!{depttree};
+			$(document).ready(function() {
+				setting.check.chkboxType = { "Y" : "ps", "N" : "ps" };
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			});
+			function onCheck(e,treeId,treeNode){
+				var treeObj=$.fn.zTree.getZTreeObj("treeDemo"),
+		        nodes=treeObj.getCheckedNodes(true);
+				var value="";
+				 for(var i=0;i<nodes.length;i++){
+					 if(null!=nodes[i].id){
+					 	value+=nodes[i].id+"/";
+					 }
+				 }
+				 $("#_deptids").val(value);
+		    }
+			$("#costForm").Validform({
+				ajaxPost : true,
+				callback : function(data) {
+					$("#Validform_msg").hide();
+					if (data.status == 200) {
+						zh.alerts({
+							title:"提示",
+							text:"关联部门成功"
+						})
+						$("body").on("click",".alert_event",function(){
+							top.location.reload();
+						});
+					} else {
+						zh.alerts({
+							title:"提示",
+							text:"关联部门失败！"
+						})
+					}
+				}
+			});			
+		</script>
+		
+	</body>
+</html>

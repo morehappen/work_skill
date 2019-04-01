@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>关联部门</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/role-permissions-user.css"/>
+	</head>
+	<body>
+		<form action="/crm/project/save/relateDepart" method="post"  class="alert-form" id="proForm">
+			<input type="hidden" name="proid" value="$!project" />
+			<input type="hidden" name="deptids" id="_deptids" />
+			<input type="hidden" name="flag"/>
+			<div class="pos-a">
+				<ul id="treeDemo" class="ztree"></ul>
+				
+				<div class="form-row-button">
+					<button type="button" data-iscaozuo="0" class="btn btn-default btn-big bc_submit">保存</button>
+					<button type="button" class="btn btn-cancel btn-big alert_close_">取消</button>
+				</div>
+			</div>
+		</form>
+		#parse("/common/foot.html")
+		<script type="text/javascript">
+			var setting = {view:{dblClickExpand:false,showLine:false,selectedMulti:false},check:{enable: true},data:{simpleData: {enable: true}}, callback:{onCheck:onCheck}};
+			var zNodes = $!{depttree};
+			$(document).ready(function() {
+				setting.check.chkboxType = { "Y" : "ps", "N" : "ps" };
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			});
+			function onCheck(e,treeId,treeNode){
+				var treeObj=$.fn.zTree.getZTreeObj("treeDemo"),
+		        nodes=treeObj.getCheckedNodes(true);
+				var value="";
+				 for(var i=0;i<nodes.length;i++){
+					 if(null!=nodes[i].id){
+					 	value+=nodes[i].id+"/";
+					 }
+				 }
+				 $("#_deptids").val(value);
+				 $(".bc_submit").data("iscaozuo",'1');
+		    }
+			$("body").on("click",".bc_submit",function(){
+				if($(".bc_submit").data("iscaozuo")=='0'){
+					parent.$(".alert_window").next().remove().end().remove();			
+				}else{
+					$(".bc_submit").attr("type","submit");
+				}
+			});
+			$("#proForm").Validform({
+				ajaxPost : true,
+				callback : function(data) {
+					$("#Validform_msg").hide();
+					if (data.status == 200) {
+						zh.alerts({
+							title:"提示",
+							text:data.msg
+						});
+						$("body").on("click",".alert_event",function(){
+							top.location.reload();
+						});
+					} else if(data.status==300) {
+						if(data.data!="" && data.data!=null){
+							var list = JSON.parse(data.data);
+							var html = '<ul>';
+							$.each(list,function(index,item){
+								html+='<li><span>'+item.ame+'</span><span>已经关联在</span><span>'+item.name+'</span></li><br>'
+							});
+							html+="</ul>";
+							zh.confirms({title:"提示",text:html});
+							$("body").on("click",".confirm_sure",function(){
+								$('input[name="flag"]').val("1");
+								$("#proForm").submit();
+								parent.location.reload();
+							});
+						}else{
+							zh.alerts({
+								title:"提示",
+								text:data.msg
+							});
+						}
+					}
+				}
+			});			
+		</script>
+		
+	</body>
+</html>

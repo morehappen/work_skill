@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="/resources/css/common/common.css">
+	<link rel="icon" sizes="any" href="/resources/images/common/favicon.ico">
+	<link rel="stylesheet" href="/resources/css/common/guarantee.css">
+	<title>#if($!target=="pay")支付#else担保#end</title>
+</head>
+<body >
+	<div class="guarantee-box" style="position:relative;height:100%">
+		#parse("/common/head.html")
+		<!--cvv输入-->
+		<form id="hotel-book-form" method="post">
+			<input name="auvgo_token" type="hidden" value="${auvgo_token}"/>
+			<input type="hidden" name="target" value="$!{target}"/>
+			<input type="hidden" name="signature" value="$!{bookModel.signature}"/>
+		<div class="cvv-box dz-clickable" id="xvv-box" >
+			<div class="cvv-msg " ></div>
+			<!--<div class="cvv-content" >-->
+				<!--<h2 >输入卡验码 <span class="delete">X</span></h2>-->
+				<!--<div class="cvv-input" style="">cvv <input type="text" id="cvv-val" lenght="3"  placeholder="请输入卡验码" ><br><button class="btn-default" type="submit" id="cvv-btn" >确定</button></div>-->
+			<!--</div>-->
+		</div>
+		<div class="gt-header">
+		   #if($!bookModel.settlement=="Personage") 
+			    #if($!bookModel.isGuarantee)请填写担保信息
+			    #elseif($!bookModel.paymentType=="Prepay")请填写支付信息
+			    #else
+			    请填写支付信息
+			    #end
+		 #else 
+		   请填写支付信息
+		 #end
+		</div>
+		<div class="guarantee clearfloat aircraft-flie">
+			<input type="hidden" id="cvv-val-hidden" name="creditCard.cvv">
+			<div class="guarantee-top clearfloat">
+				<!--<div class="gt-name">$!{hotelName}</div>-->
+				<div class="gt-detaile clearfloat">
+					<div class="gt-name">$!{hotelName}</div>
+					<div class="gt-right">
+						<span class="business">$!{roomName}</span>
+						<span class="gt-night">$!{bookModel.roomCount}间/$!{day}夜</span>
+						<span class="gt-ps" style="position:relative;">
+							<span class="gt-occupant label">入住人：#if(!$orderNo)#foreach($custom in $!bookModel.customers) $!{custom.uname}#end #else $!{guests}#end</span>
+							<span  class="text-hover">入住人：#if(!$orderNo) #foreach($custom in $!bookModel.customers) $!{custom.uname}#end #else $!{guests}#end</span>
+						</span>
+					</div>
+					<div class="gt-payment">
+						<span class="payment-nunber">
+							￥#if($!bookModel.isGuarantee)$!{bookModel.guaranteeRate} #else
+							#if(!$orderNo) #set($balance=$!{bookModel.total} * $!{bookModel.roomCount})$!{balance} 
+							#else $!{totalPrice}#end #end<span>（ 支付金额 ）</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="gt-box">
+				<div class="gt-prompt">
+					<span class="careful"></span>
+					系统不会保留您的信用卡信息，下次预定时，还需重新输入
+				</div>
+				<div class="guarantee-input clearfloat">
+					<div class="guarantee-left">
+						<span>
+							信用卡号：
+						</span>
+						<div class="card-number card-box">
+							<input type="text" name="creditCard.number" id="card-number" class="card-box-input" maxlength="20" placeholder="8888 8888 8888 8888">
+						</div><br>
+						<span>
+							有效期：
+						</span>
+						<div class="term-validity card-box">
+							<select name="creditCard.expirationYear" maxlength="4" class="vd vd-start" id="vd-start"></select>年
+							<select name="creditCard.expirationMonth" maxlength="2" class="vd vd-end" id="vd-end"></select>
+							月
+							<!--<input type="text" id="vd-start" name="creditCard.expirationYear" maxlength="4" class="vd vd-start">年-->
+							<!--<input type="text" id="vd-end" name="creditCard.expirationMonth" maxlength="2" class="vd vd-end">月-->
+						</div>
+						<br>
+						<span>
+							持卡人姓名：
+						</span>
+						<div class="cardholder-name card-box">
+							<input type="text" id="cardholder-name" name="creditCard.holderName" class="card-box-input" maxlength="50">
+						</div>
+						</br>
+						<span>
+							证件类型：
+						</span>
+						<div class="document-type card-box">
+						  <select name="creditCard.idType" id="document-type" class="card-box-input">
+						     <option value="">请选择</option>
+						     <option value="IdentityCard">身份证</option>
+						     <option value="Passport">护照</option>
+						     <option value="Other">其他</option>
+						  </select>
+						</div>
+						</br>
+						<span>
+							证件号码：
+						</span>
+						<div class="certificates-number card-box">
+							<input type="text" id="certificates-number" name="creditCard.idNo" class="card-box-input" maxlength="20">
+						</div>
+						<div class="gt-btn">
+							<input type="button" class="btn-submit" value="#if(!$orderNo)提&nbsp;&nbsp;交#else 支&nbsp;&nbsp;付#end">
+						</div>
+					</div>
+					<div class="guarantee-right">
+						<div class="unionpay">
+							<div class="up-left up" style="position:relative;">
+								<div class="up-icon clearfloat">
+									<div></div>
+								</div>
+								<p class="up-number">
+									8888 8888  8888 8888
+								</p>
+								<p class="up-p">
+									VALID THRD
+								</p>
+								<p>07/17</p>
+								<div class="border-frame month">
+									<span class="garden-right"></span>
+									<span class="garden-left"></span>
+									<div class="month-text">有效期（月）</div>
+									<div class="border-frame year" style="width:65px;height:24px;position: absolute;right:0;">
+										<span class="garden-right"></span>
+										<span class="garden-left"></span>
+										<div class="year-text">有效期（年）</div>
+									</div>
+								</div>
+							</div>
+							<div class="up-right up">
+								<div class="stripe"></div>
+								<div class="code-box" style="position:relative;">
+									<p class="stripe-number stripe-left">1367</p>
+									<p class="stripe-number stripe-right">786</p>
+									<div class="code">
+										<span class="code-left"></span>
+										<span class="code-right"></span>
+										<div class="code-text">卡验证码</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="explain aircraft-gray">
+							<h2>取消说明</h2>
+							<div class="clearfloat">
+								<span></span>
+								<p>$!{bookModel.refundRule}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+</body>
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-oa.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/layer/layer.js"></script>
+<script type="text/javascript" src="/resources/js/hotel/hotel-book-guarantee.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-ajax.js"></script>
+</html>

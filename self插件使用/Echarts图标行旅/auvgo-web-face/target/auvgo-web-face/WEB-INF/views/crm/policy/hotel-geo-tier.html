@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="/resources/css/common/common.css">
+#parse("/common/styleSheetCommon.html")
+<title>客户管理</title>
+</head>
+<body>
+#parse("/common/head.html")
+<div style="width:1200px;margin:0 auto;">
+	<!-- breadcrumbs -->
+	<div class="bread-crums main-content margin-top-10">
+		#parse("/common/policy.html") > 城市级别
+	</div>
+	<nav class="breadcrumb" style="padding:0 20px;">
+		
+		<a class="btn btn-success radius r" href="javascript:location.replace(location.href);" title="刷新">
+			<i class="Hui-iconfont">&#xe68f;</i>
+		</a>
+	</nav>
+	<div class="pos-a" style="width: 400px; left: 315px; top: 56px; bottom: 0; height: 100%;">
+		<button name="btnRest" style="background:#614EC2;color:#fff;padding:5px 10px;border-radius: 3px" onclick="btnReset(${cid})" class="btn btn-primary btn-24-height btn-auto radius" type="button">还原默认</button>
+		<div class="search-bar">
+			<br/>
+			<br/>
+			<!--搜索框-->
+			<div class="padd" style="padding-bottom: 0px;">
+				<div class="input-append row-fluid" style="margin-bottom: 0px;">
+					<input id="keyword" style="width:320px;height:24px;border:1px solid #ccc;" type="text" placeholder="请输入搜索条件" class="f-input"/>
+					<button type="button" id="search-bt" class="btn btn-info btn-primary" style="margin-left:10px; background: #614EC2;padding:5px 10px;">搜索</button>
+				</div>
+			</div>
+		</div>
+		<ul id="geoTree" class="ztree"></ul>
+	</div>
+</div>
+
+
+<script type="text/javascript"  src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/layer/layer.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/zTree/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/zTree/jquery.ztree.exhide.min.js" charset="UTF-8" ></script>
+
+	<script type="text/javascript">
+	    var cid=${cid};
+		var zNodes = ${tree};
+		var hiddenNodes=[];	//用于存储被隐藏的结点
+		$(function(){
+			init();
+		});
+
+		function init(){
+			var setting = {
+					view:{dblClickExpand:false,showLine:false,selectedMulti:false},
+					data:{simpleData:{enable:true}},
+					edit: {enable:true,showRemoveBtn:false,drag:{isCopy:false,isMove:true,prev:true,next:true,inner:true},
+						showRenameBtn: showRenameBtn},
+					callback:{
+						beforeDrag: beforeDrag,
+						beforeDrop: beforeDrop,
+						beforeRename: beforeRename,
+						onRename: ztreeOnRename
+					}
+			};
+			zTreeObj = $.fn.zTree.init($("#geoTree"), setting, zNodes);
+			$("#search-bt").click(filter);
+		};
+
+		//过滤ztree显示数据
+		function filter(){
+			zTreeObj.expandAll(false);
+			//显示上次搜索后背隐藏的结点
+			zTreeObj.showNodes(hiddenNodes);
+			//查找不符合条件的叶子节点
+			var _keywords;
+			function filterFunc(node){
+				_keywords=$("#keyword").val();
+				if(node.isParent||node.name.indexOf(_keywords)!=-1) return false;
+				return true;		
+			};
+			//获取不符合条件的叶子结点
+			hiddenNodes=zTreeObj.getNodesByFilter(filterFunc);
+			//隐藏不符合条件的叶子结点
+			zTreeObj.hideNodes(hiddenNodes);
+ 			if(_keywords.length>1){
+ 				//console.log(_keywords);
+				close_ztree("geoTree");
+			}
+		};
+		
+		
+	    /**
+		 * 收起树：只展开根节点下的一级节点
+		 * @param treeId
+		 */
+	    function close_ztree(treeId){
+	        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+	        var nodes = treeObj.transformToArray(treeObj.getNodes());
+	        var nodeLength = nodes.length;
+	        for (var i = 0; i < nodeLength; i++) {
+	            if (nodes[i].level == 0) {
+	                //根节点：展开
+	                treeObj.expandNode(nodes[i], true, true, false);
+	            } else {
+	                //非根节点：收起
+	                treeObj.expandNode(nodes[i], false, true, false);
+	            }
+	        }
+	    }
+
+		
+		/***修改名称***/
+		function ztreeOnRename(event,treeId,treeNode,isCancel){
+			rename(treeNode.id,treeNode.name,cid)
+		};
+		/**只允许编辑父节点**/
+		function showRenameBtn(treeId,treeNode) {
+			return treeNode.isParent;
+		};
+		/****只允许编辑定级数据 名字不能为空***/
+		function beforeRename(treeId, treeNode, newName, isCancel) {
+			if(newName.length<=0 || treeNode.level==1){
+				return false;
+			}else{
+				return true;
+			}
+		};
+		/***只允许拖拽子数据 父节点不允许拖拽***/
+		function beforeDrag(treeId, treeNodes) {
+			for (var i=0,l=treeNodes.length; i<l; i++) {
+				if(treeNodes[i].level!=1 || treeNodes[i].isParent){
+					return false;
+				}
+			}
+			return true;
+		};
+		function beforeDrop(treeId, treeNodes, targetNode, moveType) {
+			var rs=false;
+			for (var i=0,l=treeNodes.length; i<l; i++) {
+				//目标节点 为一节节点 只能向内移动       当目标为二级节点 只能向 pre和next
+				if(targetNode!=null && (((targetNode.level==0 || targetNode.parentTId==null) && moveType=="inner") || (targetNode.level==1 && moveType!="inner"))){
+					rs=true;
+					var level = targetNode.id
+					if(targetNode.pId != undefined  || targetNode.pId != null){
+						level = targetNode.pId;
+					}
+				    updateParent(treeNodes[i].id, level ,cid);
+					break;
+				}
+			}
+			return rs;
+		};
+		function updateParent(geoId,parent,c_id){
+			var data={"geoId":geoId,"parent":parent,"cid":c_id};
+			sendRequest("/chailv/hotel/geo/update/parent",data,false);
+		};
+		
+		function rename(level,name,c_id){
+			var data={"level":level,"name":name,"cid":c_id};
+			sendRequest("/chailv/hotel/geo/update/rename",data,false);
+		};
+		
+		function btnReset(c_id){
+			layer.confirm('确认还原系统默认吗？', {
+				  btn: ['确认','取消'] //按钮
+				}, function(){
+				    var data={"cid":c_id};
+					sendRequest("/chailv/hotel/geo/reset",data,true);
+				}, function(){
+				});
+		};
+		
+		function sendRequest(url,data,refresh){
+			$.ajax({
+			    url:url,
+			    method: "POST",
+			    dataType:"JSON",
+				data:data,
+			    success:function(json){
+				    if(json.status==200){
+					   layer.msg("操作成功");
+					   if(refresh){
+						   location.reload();
+					   }
+					 }else{
+					    layer.msg("操作失败");
+					 }
+			   }
+		  });
+		};
+		</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+ #if("$!company.bianhao"!="SCST")
+<div class="second-side-nav">
+	#if($!companybusiness.get(1)==1)
+	<dl>
+		<dt class="position">
+			<a href="javascript:void(0);" class="ss-every-model"> <span class="position-ab icon-img s-nav-bg icon-air-order-second"></span> 机票订单 <span
+				class="position-ab icon-img s-nav-bg s-jt-bg icon-down-jt-second"></span>
+			</a>
+		</dt>
+		<dd>
+			<a href="/myChailv/toNewAirOrder/personal?tag=air" data-tag="air">机票正常单</a>
+		</dd>
+		<dd>
+			<a href="/myChailv/toNewAirGaiOrder/personal?tag=airEndrose" data-tag="airEndrose">机票改签单</a>
+		</dd>
+		<dd>
+			<a href="/myChailv/toNewAirTuiOrder/personal?tag=airRefund" data-tag="airRefund">机票退票单</a>
+		</dd>
+		<dd>
+			<a href="/myChailv/toNoshowAirOrder/personal?tag=airNoShow" data-tag="airNoShow">noshow机票单</a>
+		</dd>
+	</dl>
+	#end
+	<!-- #if($!companybusiness.get(2)==1)
+	<dl>
+		<dt>
+			<a href="/myChailv/toNewHotelOrder/personal?tag=hotel" data-tag="hotel" class="ss-link position">
+				<span class="position-ab icon-img s-nav-bg icon-hotel-second"></span>
+				酒店订单
+			</a>
+		</dt>
+	</dl>
+	#end -->
+	#if($!companybusiness.get(0)==1)
+	<dl>
+		<dt class="position">
+			<a href="javascript:void(0);" class="ss-every-model"> <span class="position-ab icon-img s-nav-bg icon-train-second"></span> 火车票订单 <span
+				class="position-ab icon-img s-nav-bg s-jt-bg icon-down-jt-second"></span>
+			</a>
+		</dt>
+		<dd>
+			<a href="/myChailv/toNewTrainOrder/personal?tag=train" data-tag="train">火车票正常单</a>
+		</dd>
+		<dd>
+			<a href="/myChailv/toNewTrainGaiOrder/personal?tag=trainEndrose" data-tag="trainEndrose">火车票改签单</a>
+		</dd>
+		<dd>
+			<a href="/myChailv/toNewTrainTuiOrder/personal?tag=trainRefund" data-tag="trainRefund">火车票退票单</a>
+		</dd>
+	</dl>
+	#end #if($!companybusiness.get(2)==1)
+	<dl>
+		<dt class="position">
+			<a href="javascript:void(0);" class="ss-every-model"> <span class="position-ab icon-img s-nav-bg icon-hotel-second"></span> 酒店订单 <span
+				class="position-ab icon-img s-nav-bg s-jt-bg icon-down-jt-second"></span>
+			</a>
+		</dt>
+		<dd>
+			<a href="/hotel/order/my/list?tag=hotel" data-tag="hotel">酒店订单</a>
+		</dd>
+		<dd>
+			<a href="/hotel/order/wait/pay/list?tag=hotelPay" data-tag="hotelPay">待支付订单</a>
+		</dd>
+	</dl>
+	#end
+	<dl class="fenxiao-chailv-remove">
+		<dt>
+			<a href="/myChailv/toNewChailvApp/personal?tag=chailv" data-tag="chailv" class="ss-link position"> <span
+				class="position-ab icon-img s-nav-bg icon-travel-apply-second"></span> 出差申请单
+			</a>
+		</dt>
+	</dl>
+	<dl>
+		<dt>
+			<a href="/myChailv/toNewAirInternationalOrder/personal?tag=international" data-tag="international" class="ss-link position"> <span
+				class="position-ab icon-img s-nav-bg icon-international-second"></span> 国际需求单
+			</a>
+		</dt>
+	</dl>
+	<!-- <dl>
+		<dt>
+			<a href="/myChailv/toNewRentOrder/personal?tag=rent" data-tag="rent" class="ss-link position">
+				<span class="position-ab icon-img s-nav-bg icon-rent-second"></span>
+				租车需求单
+			</a>
+		</dt>
+	</dl>
+	<dl>
+		<dt>
+			<a href="/myChailv/toNewVisaOrder/personal?tag=visa" data-tag="visa" class="ss-link position">
+				<span class="position-ab icon-img s-nav-bg icon-visa-second"></span>
+				签证需求单
+			</a>
+		</dt>
+	</dl>
+	<dl>
+		<dt>
+			<a href="/myChailv/toNewMeetingOrder/personal?tag=meeting" data-tag="meeting" class="ss-link position">
+				<span class="position-ab icon-img s-nav-bg icon-metting-second"></span>
+				会议需求单
+			</a>
+		</dt>
+	</dl> -->
+	<!-- <dl>
+		<dt>
+			<a href="javascript:void(0);" class="ss-every-model position">
+				<span class="position-ab s-nav-bg icon-qushi-second"></span>
+				行走记忆
+				<span class="position-ab s-nav-bg s-jt-bg icon-down-jt-second"></span>
+			</a>
+		</dt>
+		<dd>
+			<a href="#">记忆1</a>
+		</dd>
+		<dd>
+			<a href="#">记忆2</a>
+		</dd>
+		<dd>
+			<a href="#">记忆3</a>
+		</dd>
+	</dl> -->
+</div>
+#end
+
+
+
+
+
+

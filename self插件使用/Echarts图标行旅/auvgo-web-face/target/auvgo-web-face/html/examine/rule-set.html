@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="rule.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/colorStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/plugin.css"/>
+</head>
+<body>
+<div class="main-content-new ">
+<div class="main-content-new ">
+<div class="asd">
+    <div class="speacile">自定义设置</div>
+    <div><span  class="add_person">通用规则设置</span>
+        <div class="add_new  add_rank">添加</div>
+
+    </div>
+</div>
+</div>
+    <div class="main-content-new margin-top-5 clear">
+        <div class="content-hend">
+    <div class="float-left speacile" >特殊设置</div>
+        <span class="exclamation-mark float-left"></span>
+        <div class="float-left different">
+            <div class="hide-size" >可以为不同的出行人 设置不同的审批规则</div>
+
+            </div>
+        <div class="float-left add_new add_btn margin-left-25">添加</div>
+        </div>
+        <div class="add_content" style="margin-top: 10px"></div>
+    </div>
+<div class="main-content-new margin-top-5 droper">
+    <div class="speacile">其他设置</div>
+  <div class="margin-top-20"><span class="add_change">审批人重复出现</span></div>
+    <select  name="certtype" class="_select_ certCard"  nullmsg="请选择" errormsg="请选择！" >
+        <option value="">启动自动去重1</option>
+        <option value="">启动自动去重2</option>
+        <option value="">启动自动去重3</option>
+    </select>
+</div>
+<div class=" margin-top-30">
+<button type="text" class="btn btn-default  btn_set "  style="margin-left: 350px">保存</button>
+<button type="text" class="btn btn-cancel btn_set">返回</button>
+</div>
+</div>
+
+<script type="text/javascript" src="../../resources/js/common/jquery.js"></script>
+    <script type="text/javascript" src="../../static/js/common/plugin.js"></script>
+<script>
+    // 提示框
+    $('.exclamation-mark').hover(function () {
+        $('.different').addClass('bd');
+    }, function () {
+        $('.different').removeClass('bd');
+    })
+//点击添加增加级别
+    var n = 0;
+    $(".add_rank").click(function () {
+        n++;
+        var _html = '';
+        var closeImgSrc = '../../static/img/common/close1.png';
+        var nextImgSrc = '../../static/img/common/next_.png';
+        if (n % n === 0&&n!=1) {
+            _html = "<div class='add_set_box'><img style='padding:0px 10px' class='close-button' src="+ nextImgSrc +"><div class=\"add_set\"> 上一级领导<img  src=" + closeImgSrc + " class='close'></div></div>";
+        } else {
+            _html = "<div class='add_set_box' style='margin-left: 20px'><div class=\"add_set\"> 上一级领导</div></div>";
+        }
+        $(".add_person").append(_html);
+    })
+    //点击close删除add_set_box
+    $(document).on('click', '.close', function () {
+        $(this).parents('.add_set_box').remove();
+    })
+    //特殊设置点击添加
+    $(".add_btn").click(function(){
+        $(".add_content").append("<div class=\"float-left flow\">\n" +
+            "            <div><span class=\"user-name\">姓名</span>\n" +
+            "            <div class=\"float-right amend-del\">\n" +
+            "                <span class=\"amend cursor\">修改</span>\n" +
+            "                <span class=\"del cursor\">删除</span>\n" +
+            "            </div>\n" +
+            "            </div>\n" +
+            "            <div class=\"add_set margin-top-20 margin-left-30 font-size-14 \"> 上一级领导</div>\n" +
+            "            <img class='close-button' src='../../static/img/common/next_.png'>\n" +
+            "            <div class=\"add_set margin-top-20 font-size-14\"> 上一级领导</div>\n" +
+            "        </div> ")
+    })
+  //点del删除flow
+    $(document).on('click', '.del', function () {
+        $(this).parents('.flow').remove();
+    })
+
+    //调用下拉框框
+    new SelectMain().creatSelect($('.certCard'));
+
+
+
+</script>
+</body>
+</html>

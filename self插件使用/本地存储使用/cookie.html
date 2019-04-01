@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="./中转无用.html">测试按钮</a>
+</body>
+<script src="../jquery-1.12.4.min.js"></script>
+<script src="./cookie.js"></script>
+<script>
+    //注意这个地方的使用技巧，是需要跑服务的才行。
+    $(function() {
+        debugger
+        // path字段的反斜杠引入，在很多项目的跳转过程中，才能生效
+        // 存储数据
+        $.cookie("gqreason_val", '11', {
+            expires: 7,
+            path: '/'
+        });
+        $.cookie("gqremark_val", '22', {
+            expires: 7,
+            path: '/'
+        });
+        // 读取数据
+        var a = $.cookie('gqreason_val');
+        var aa = $.cookie('gqremark_val');
+        console.log(a, aa);
+    })
+</script>
+
+</html>

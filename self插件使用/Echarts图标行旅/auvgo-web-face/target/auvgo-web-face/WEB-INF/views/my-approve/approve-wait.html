@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>审批订单列表</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/my-chailv.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/approve-wait.css"/>
+
+</head>
+<body class="background-6461e2">
+#parse("/common/head.html")
+<!-- 主体 begin -->
+<div class="main-content main-myChailv-c clear">
+#if("$!hidenMenu"!="all"&&"$!hidenMenu"!="left")
+	<div class="float-left">
+		<div class="second-side-nav">
+			<dl>
+				<dt>
+					<a href="javascript:void(0)" class="position">
+						待审批
+					</a>
+				</dt>
+			</dl>
+			<dl>
+				<dt>
+					<a href="javascript:void(0)" class="position">
+						已审批
+					</a>
+				</dt>
+			</dl>
+		</div>
+	</div>
+	#end
+	<div class="float-left list-content" style="padding-top: 10px">
+		<ul class="tab-model #if($!types == 0)approve-tab-model#else margin-bottom-20 #end clear">
+			<li class="float-left"><a href="javascript:void(0)" class="position float-left">全部($!tickets.get("all"))</a></li>
+			<li class="float-left"><a href="javascript:void(0)" class="position float-left">机票($!tickets.get("air"))</a></li>
+			<li class="float-left"><a href="javascript:void(0)" class="position float-left">酒店($!tickets.get("hotel"))</a></li>
+			<li class="float-left"><a href="javascript:void(0)" class="position float-left">火车票($!tickets.get("train"))</a></li>
+			<li class="float-left"><a href="javascript:void(0)" class="position float-left">出差申请单($!tickets.get("appform"))</a></li>
+			<li class="float-left"><a href="javascript:void(0)" class="position float-left">新酒店($!tickets.get("newhotel"))</a></li>
+		</ul>
+		#if($!types == 1)
+		<form action="" method="post">
+			<input id="pageNo" type="hidden" name="pageNum">
+			<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+			<div class="clear">
+				<div class="input-model margin-default-r margin-10-b middle-line position-rel">
+					<div class="i-m-text">开始日期</div>
+					<div class="i-m-input">
+						<input type="text" id="GTE_date" data-ele="sdate" name="q_GTE_approve.approvetime" value='$!GTE_date' onfocus="var endDate=$dp.$('LTE_date');WdatePicker({doubleCalendar:true,minDate:'%y-%M-{%d-92}',maxDate:'%y-%M-%d',onpicked:function(){endDate.focus()},isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})" readonly="readonly">
+					</div>
+				</div>
+				<div class="input-model margin-default-r margin-10-b">
+					<div class="i-m-text">截止日期</div>
+					<div class="i-m-input">
+						<input type="text" id="LTE_date" data-ele="edate" name="q_LTE_approve.approvetime" value="$!LTE_date" onfocus="WdatePicker({doubleCalendar:true,minDate:'#F{$dp.$D(\'GTE_date\')||\'%y-%M-{%d-92}\'}',maxDate:'%y-%M-%d',isShowClear:false,isShowToday:false,readOnly:true})" readonly="readonly">
+					</div>
+				</div>
+				<div class="input-model margin-default-r margin-10-b">
+					<div class="i-m-text">审批状态</div>
+					<div class="i-m-input">
+						<select class="_select_ costCenter_select" data-ele="costcenter" name="q_EQ_approve.opstatus" data-value="$!approve_opstatus">
+							<option value="">全部</option>
+							<option value="1">审批通过</option>
+							<option value="2">审批否决</option>
+						</select>
+					</div>
+				</div>
+				<div class="input-model margin-default-r margin-10-b">
+					<div class="i-m-text">申请人</div>
+					<div class="i-m-input">
+						<input type="text" class="bookPerson" name="q_LIKE_orders.bookusername" value="$!bookusername">
+					</div>
+				</div>
+				<div class="input-model margin-10-b">
+					<div class="i-m-text"></div>
+					<div class="i-m-input">
+						<button type="submit" class="btn btn-default btn-big">查询</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		#end
+		<div class="#if($!types == 0)margin-top-30#end">
+			## 全局变量-没有数据   
+			#set ($noData = ($!page.list.size() == 0))
+			#if($noData)
+			#parse("/common/no-data.html")
+			#else
+			<div class="big-list">
+				<!-- table 表格部分 begin -->
+				<table class="table table-align table-line">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>操作</th>
+							<th>订单号</th>
+							<th>产品类型</th>
+							<th>行程/城市</th>
+							<th>申请人</th>
+							<th>出行/入住人</th>
+							<th>出发/入住日期</th>
+							<th>到达/离店日期</th>
+							#if($!types == 1)<th>审批日期</th>#end
+						</tr>
+					</thead>
+					<tbody>
+						#foreach($approve in $!page.list)
+						<tr>
+							<input type="hidden" data-type="#if($!approve.type == 'airgq')air#elseif($!approve.type == 'appform')myApproval#else$!approve.type#end" value="$!approve.orderno">
+							<td>$!vCount</td>
+							<td class="table_caozuo">
+								#if($!types == 0)
+									<button type="button" class="btn btn-default btn-small">通过</button>
+									<button type="button" class="btn btn-danger btn-small">否决</button>
+								#else
+									#if($!approve.opstatus == 1)
+										<span class="color-green">审批通过</span>
+									#elseif($!approve.opstatus == 2)
+										<span class="color-red">审批否决</span>
+									#end
+								#end
+							</td>
+							<td>
+								<a href="javascript:void(0);">$!approve.orderno</a>
+							</td>
+							<td>#if($!approve.type =="airgq" || $!approve.type =="air")机票 #elseif($!approve.type =="hotel" || $!approve.type =="newhotel")酒店#elseif($!approve.type =="appform")出差申请单#else火车票#end</td>
+							<td>
+								<div class="hoverTips hover_content">
+									#if($!approve.type =="airgq" )$!approve.orgname - $!approve.arriname#elseif( $!approve.type =="air") $!approve.segmentname   #elseif($!approve.type =="hotel" || $!approve.type =="newhotel")$!approve.hotelName#elseif($!approve.type =="appform")$!approve.targetwhere #else $!approve.fromStation-$!approve.arriveStation#end
+								</div>
+							</td>
+							<td>$!approve.bookname</td>
+							<td><div class="hoverTips hover_content">#if($!approve.type =="appform")$!approve.empname#else$!approve.chencheRen#end</div></td>
+							<td>#if($!approve.type =="appform")$!approve.starttime #elseif($!approve.type =="hotel" || $!approve.type =="newhotel")$!dateTool.format("yyyy-MM-dd",$!approve.arrivalDate)#elseif($!approve.type =="train")$!approve.travelTime#elseif($!approve.type =="air")$!approve.depttimes #else $!approve.deptdate#end</td>
+							<td>#if($!approve.type =="hotel" || $!approve.type =="newhotel")$!dateTool.format("yyyy-MM-dd",$!approve.departureDate)#elseif($!approve.type =="train")$!approve.arrivalTime#elseif($!approve.type =="air")$!approve.arritimes#else$!approve.arridate#end</td>
+							#if($!types == 1)<td>$!dateTool.format("yyyy-MM-dd",$!approve.approvetimesort)</td>#end
+						</tr>
+						#end
+					</tbody>
+				</table>
+				#end
+			</div>
+			<!-- table 表格部分 end -->
+			#if($!page.list.size() > 20)
+			<div id="kkpager"></div>
+			#end
+			<input type="hidden" data-ele="pagenum" value="$!page.pageNum">
+			<input type="hidden" data-ele="pages" value="$!page.pages">
+			<input type="hidden" data-ele="total" value="$!page.total">
+			<input type="hidden" data-ele="pagesize" value="$!pageSize">
+		</div>
+	</div>
+</div>
+<!-- 主体 end -->
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/js/approve/approve-wait.js"></script>
+</body>
+</html>
+

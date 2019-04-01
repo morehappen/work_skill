@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 重复提交解决办法
+    // 1、如果提交对象为按钮的话，可以对按钮设置disabled，此办法适应于按钮提交，此种方法简单粗暴，也是很多人用的办法，代如下：
+    $("input[type=submit]").attr('disabled', true); //在按钮提交之后和AJAX提交之前将按钮设置为禁用
+    $.ajax({
+        url: '/post.php',
+        data: {
+            a: 1,
+            b: 1,
+
+        },
+        success: function() {
+            $("input[type=submit]").attr('disabled', false) //在提交成功之后重新启用该按钮
+        },
+        error: function() {
+            $("input[type=submit]").attr('disabled', false) //即使AJAX失败也需要将按钮设置为可用状态，因为有可能是网络问题导致的失败，所以需要将按钮设置为可用
+        }
+    });
+    // 经过以上对按钮的处理就避免了重复提交的问题
+    // 2、非按钮对象提交
+    // 有时候我们在提交数据的时候没有from，只有单个表单组件（input、textarea、radio、checkbox等），所以我们就可以将任何
+    // 一个对象设置提交对象来完成提交，由于普通对象没有disabled属性，所以我们需要用其它方式来防止重复提交
+    var post_flag = false; //设置一个对象来控制是否进入AJAX过程
+    function post() {
+        if (post_flag) return; //如果正在提交则直接返回，停止执行
+        post_flag = true; //标记当前状态为正在提交状态
+        $.ajax({ //进入AJAX提交过程
+            url: '/post.php',
+            data: {
+                a: 1,
+                b: 1
+            },
+            success: function() {
+                post_flag = false; //在提交成功之后将标志标记为可提交状态
+            },
+            error: function() {
+                post_flag = false; //AJAX失败也需要将标志标记为可提交状态
+            }
+        })
+    }
+</script>
+
+</html>

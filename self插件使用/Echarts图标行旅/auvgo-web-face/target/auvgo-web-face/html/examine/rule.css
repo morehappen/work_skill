@@ -1,0 +1,95 @@
+body{background-color: gainsboro;}
+input{width:200px;height:32px;border:1px solid rgba(224,224,224,1);border-radius:2px;box-sizing: border-box;}
+span{font-size:14px;font-family:MicrosoftYaHeiLight;font-weight:300;color:rgba(51,51,51,1);}
+.margin-right-10{margin-right: 10px}
+.margin-top-20{margin-top: 20px}
+.margin-left-20{margin-left: 20px}
+.margin-top-50{margin-top: 50px}
+.margin-left-60{margin-left: 60px}
+.margin-left-75{margin-left: 75px}
+.margin-left-170{margin-left: 170px}
+.margin-left-200{margin-left: 200px}
+.padding-50{padding:50px 30px 30px 20px}
+.padding-25{padding: 25px}
+/*新建审批规则*/
+.margin-left-10{margin-left: 10px}
+.label_new{margin-left: 90px;margin-top: 20px}
+.label_new:first-child,.label_new:nth-child(4n){margin-left: 0px}
+.new_examine{width:600px;height: 380px; margin: auto;}
+.headline{line-height:50px;background:rgba(100,97,226,1);border-radius:5px 5px 0px 0px;font-size:16px;font-family:MicrosoftYaHei;font-weight:400;color:rgba(255,255,255,1); padding-left: 20px}
+.prescribed_limit{ margin-top: 50px;display: inline-block;margin-left: 20px}
+.specialized_range{width: 75px;height: 60px;margin-top: 60px;margin-left: 20px;box-sizing: border-box}
+.module_change{display: flex;flex-wrap: wrap;width: 525px;height: 60px;margin-top: 43px}
+.btn_change{margin-top: 60px;margin-left: 250px;width: 120px;height: 32px;box-sizing: border-box}
+.btn_set{width: 120px;height: 32px;box-sizing: border-box;font-size: 14px}
+#regulation{height: 330px; background-color:#fff; border-radius:0px 0px 5px 5px}
+.close-person {font-size: 28px;top: 0; color: white;margin-left: 450px}
+/*审批规则*/
+a{text-decoration: none;margin-top: 20px}
+.main-content-new{width: 990px;margin: auto;background:#ffffff;}
+.every-card{width:216px;height:260px;background:rgba(255,255,255,1);border-radius:5px;box-shadow:0px 5px 12px 0px rgba(200,199,199,0.9);margin-left: 20px;margin-top: 30px}
+.flex{display: flex;flex-wrap: wrap;margin-left: 20px;}
+.rule{font-size:14px;font-family:MicrosoftYaHeiLight;font-weight:300;color:rgba(100,97,226,1);}
+.new_rule{width:140px;line-height:34px ;background:rgba(100,97,226,1);border-radius:5px;float: right;margin-right: 30px;margin-top: 25px;color: #ffffff;text-align: center;font-size:14px;font-family:MicrosoftYaHeiLight;}
+.size_one{font-size:18px;font-family:MicrosoftYaHei;font-weight:600;color:rgba(51,51,51,1);text-align: center}
+.size_two{ font-size:14px;font-family:MicrosoftYaHeiLight;width: 140px;font-weight:300;text-align: center;margin-left: 40px;margin-top: -10px;color:rgba(51,51,51,1);}
+.set_size{margin-top:20px;display: flex;flex-direction: column;text-align: center }
+.btn-disabled-new { color: #f5f5f5; cursor: auto;  }
+/*设置*/
+.exclamation-mark{margin-top: 23px;width: 16px;height: 16px;margin-left: -15px; background: url('../../../../static/project-resource/img/common/train1.png') no-repeat}
+.float-left{float: left}
+.font-size-14{font-size: 14px}
+.margin-left-30{margin-left: 30px}
+.margin-top-5{margin-top: 5px}
+.margin-left-20{margin-left: 20px}
+.margin-left-25{margin-left: 25px}
+.add_new{width:70px; margin-top:20px;cursor:pointer;line-height:26px;border:1px solid rgba(100,97,226,1);border-radius:2px;font-size:14px;font-family:MicrosoftYaHeiLight;font-weight:300;display: inline-block;color:rgba(100,97,226,1); text-align: center}
+.speacile{font-size:16px;font-family:MicrosoftYaHei;font-weight:400;color:rgba(51,51,51,1);padding: 20px 20px 0px 20px;}
+.droper .drop{margin-top: -24px;margin-left: 150px;}
+.droper .drop_title{width: 135px}
+.drop .drop_option{width: 160px}
+.different{width:150px;height:50px;background:rgba(233,238,248,1);border-radius:5px;font-size:14px;font-family:MicrosoftYaHeiLight;font-weight:300;color:rgba(77,77,77,1);box-shadow:0px 5px 15px 0px rgba(190,227,202,0.35); margin-top: 40px;margin-left: 20px;display:none;position: absolute;z-index: 6}
+.bd{display: block}
+.asd{margin-bottom: 20px}
+.add_person,.add_change{padding:0px 20px}
+.add_set_box{display: inline-block}
+.add_set{display:inline-block;width:140px;line-height:32px;border:1px solid rgba(204,204,204,1);border-radius:2px;text-align: center;position: relative;box-sizing: border-box}
+.add_set img{position: absolute;right: -5px;top: -5px; }
+.flow{width:950px;background:rgba(255,255,255,1);border-radius:5px;box-shadow:0px 0px 30px rgba(170,170,170,0.35);margin:5px 0px 10px 15px;margin-top: 5px;padding: 20px;box-sizing: border-box}
+.flow span {font-size:16px;font-family:MicrosoftYaHeiLight;font-weight:300;}
+.amend{color:rgba(100,97,226,1);}
+.del{color:rgba(190,57,57,1);margin-left: 20px}
+.amend-del{margin-right: 20px;display: inline-block;}
+.user-name{margin-left: 30px}
+.content-hend{ height: 60px;}
+.hide-size{width:127px;height:35px;margin: auto}
+
+.add_new_big{width:120px; margin:20px 0px 0px 20px;cursor:pointer;line-height:26px;border:1px solid rgba(100,97,226,1);border-radius:2px;font-size:14px;font-family:MicrosoftYaHeiLight;font-weight:300;display: inline-block;color:rgba(100,97,226,1); text-align: center}
+/*设置审批人*/
+
+.font-size-18{font-size:18px;font-family:MicrosoftYaHeiLight;font-weight:300;color:rgba(51,51,51,1);}
+.font-size{font-size:14px;font-family:MicrosoftYaHeiLight;font-weight:300;color:rgba(51,51,51,1);}
+.header{margin-top: 30px;display: flex;flex-wrap: wrap;margin-left: -20px}
+.header-only{margin-top: 10px;display: flex;flex-wrap: wrap;margin-left: -35px}
+.ban-only{width:100px;line-height:32px;font-size:14px;font-family:MicrosoftYaHeiLight;font-weight:bold;color:rgba(51,51,51,1);border:1px solid rgba(204,204,204,1);border-radius:2px;margin:20px 0px 0px 35px;text-align: center;}
+.ban{width:100px;line-height:32px;font-size:14px;font-family:MicrosoftYaHeiLight;font-weight:bold;color:rgba(51,51,51,1);border:1px solid rgba(204,204,204,1);border-radius:2px;margin:20px 0px 0px 35px;text-align: center;}
+.btn_color{color: white;border: 0px}
+.btn_red{border:1px solid rgba(190,57,57,1);border-radius:2px;color:rgba(190,57,57,1);font-size: 14px }
+.exclamation-mark-new{width: 16px;height: 16px; margin:2px 0px 0px 10px; background: url('../../../../static/project-resource/img/common/train1.png') no-repeat}
+.review{display:inline-block;width:220px;line-height:22px;text-align: center;background:rgba(233,238,248,1);font-size:12px;font-family:MicrosoftYaHeiLight;font-weight:300;margin-left: 20px;color:rgba(102,102,102,1);margin-top: 20px;border-radius:11px;}
+.optional{ display:inline-block;width:400px;line-height:22px;text-align: center;background:rgba(233,238,248,1);font-size:12px;font-family:MicrosoftYaHeiLight;font-weight:300;margin-left: 20px;color:rgba(102,102,102,1);border-radius:11px;}
+.droper-one-left .drop{margin-top: -24px;margin-left:150px;}
+.droper-one-left  .drop_title{width:175px}
+.droper-one-left  .drop .drop_option{width: 200px}
+.droper-one .drop{margin-top: -24px;margin-left: 280px;}
+.droper-one .drop_title{width:175px}
+.droper-one .drop .drop_option{width: 200px}
+.red{color:rgba(190,57,57,1); }
+.purple{color:rgba(100,97,226,1);}
+.add-card{width:700px;height:120px;background:rgba(255,255,255,1);border-radius:5px;box-shadow:0px 0px 10px 0px rgba(190,189,189,0.35);}
+.my-pagination .swiper-pagination-bullet { text-align: center; border-radius: 0; opacity: 1; }
+.my-pagination ul { display: -webkit-box; }
+.my-pagination li { display: block; background: #fff; overflow: hidden; box-flex: 1; -moz-box-flex: 1; -webkit-box-flex: 1; height: 40px; line-height: 40px; position: relative; font-size: 15px; }
+.my-pagination li:after { position: absolute; top: auto; right: auto; bottom: 0; left: 0; z-index: 1; display: block; width: 100%; height: 1px; content: ''; background-color: rgba(100,97,226,1);border-bottom: 1px solid grey;  -webkit-transform-origin: 50% 100%; transform-origin: 50% 100%; -webkit-transform: scaleY(.5) }
+.my-pagination .swiper-pagination-bullet-active { color:rgba(100,97,226,1); }
+.my-pagination .swiper-pagination-bullet-active:after { opacity: 1; color:rgba(100,97,226,1); height: 4px; }

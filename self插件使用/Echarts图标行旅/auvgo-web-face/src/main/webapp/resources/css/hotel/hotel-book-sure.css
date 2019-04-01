@@ -1,0 +1,416 @@
+body {
+    color: #333
+}
+
+.process {
+    width: 100%
+}
+
+.color-gray {
+    color: #999
+}
+
+.color-purple {
+    color: #d10773
+}
+
+.border-r5 {
+    border-radius: 5px
+}
+
+.tarin-bg {
+    background: url(../../../resources/images/common/train-bg.png) no-repeat
+}
+
+.time-limit {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 34px;
+    line-height: 34px;
+    background: #e6edf8;
+    border: 1px solid #acc4f2;
+    border-radius: 2px
+}
+
+.order-status-wraper {
+    padding: 31px 0
+}
+
+.order-status {
+    width: 116px;
+    height: 37px;
+    line-height: 37px;
+    background-position: 0 -114px;
+    margin-right: 50px
+}
+
+.jincheng {
+    margin: 0;
+    margin-right: 30px
+}
+
+.order-num {
+    margin-right: 58px
+}
+
+.order-num, .account-num {
+    line-height: 18px
+}
+
+.order-left {
+    padding: 30px;
+    width: 750px
+}
+
+.order-right {
+    padding: 30px;
+    width: 310px
+}
+
+.o-title {
+    margin-bottom: 20px
+}
+
+.order-from, .order-arrive {
+    width: 160px
+}
+
+.order-mid {
+    width: 138px;
+    padding-top: 24px
+}
+
+.arrow-big {
+    width: 137px;
+    height: 6px;
+    background-position: 0 -153px;
+    margin: 0 0 4px
+}
+
+.margin-b-14 {
+    margin-bottom: 14px
+}
+
+.o-e-room {
+    width: 75px
+}
+
+.e-pass {
+    width: 60px;
+    margin-right: 16px
+}
+
+.o-e-pass {
+    position: relative
+}
+
+.o-e-pass .btn-small-small {
+    position: absolute;
+    left: -25px;
+    top: 0
+}
+
+.o-e-cert {
+    width: 126px;
+    margin-right: 60px
+}
+
+.o-e-little {
+    width: 90px;
+    margin-right: 60px
+}
+
+.o-e-min {
+    width: 45px;
+    margin-right: 60px
+}
+
+.o-e-max, .travel-land {
+    width: 240px;
+    margin-right: 0
+}
+
+.o-e-insur {
+    width: 110px
+}
+
+.o-e-dept {
+    width: 130px
+}
+
+.o-e-room-dept {
+    width: 300px
+}
+
+.o-e-qpnum {
+    width: 90px
+}
+
+.g-height-17 {
+    margin-right: 60px
+}
+
+.g-height-17 div {
+    height: 17px;
+    line-height: 17px
+}
+
+.e-mation-margin {
+    margin-bottom: 15px
+}
+
+.e-wrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 10px
+}
+
+.chailv-cell {
+    float: left;
+    margin-bottom: 20px;
+    width: 33%
+}
+
+.yingfu {
+    font-weight: 600;
+    margin-bottom: 28px;
+    font-size: 20px
+}
+
+.yf-detail-left {
+    width: 50%
+}
+
+.yf-detail-mid {
+    width: 20%
+}
+
+.yf-detail-right {
+    width: 30%
+}
+
+.approve-title {
+    width: 32%;
+    line-height: 26px
+}
+
+.approve-title-box {
+    width: 68%;
+    line-height: 26px
+}
+
+.approve-title-ch {
+    width: 50%;
+    line-height: 26px
+}
+
+.Unapproved {
+    line-height: 30px
+}
+
+.e-approve-person {
+    margin-right: 16px;
+    height: 26px;
+    line-height: 26px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    text-align: center;
+    cursor: default
+}
+
+.approve-active {
+    color: #fff;
+    background: #6461E2
+}
+
+.approve {
+    color: #7b3af4;
+    border: 1px solid #7b3af4;
+    background: #ffffff
+}
+
+.approve-active-no {
+    color: #fff;
+    background: #f47983
+}
+
+.approve-text {
+    height: 14px;
+    line-height: 14px
+}
+
+.approve-status-text {
+    height: 20px;
+    line-height: 20px
+}
+
+.approve-before {
+    color: #fff;
+    background: #b5a6ff
+}
+
+.approve-allow {
+    background: #fff url("../../../resources/images/common/approve-allow.png") no-repeat 245px 25px
+}
+
+.approve-reject {
+    background: #fff url("../../../resources/images/common/approve-reject.png") no-repeat 245px 25px
+}
+
+.approve-in {
+    background: #fff url("../../../resources/images/common/approve-in.png") no-repeat 245px 25px
+}
+
+.btn-small-small {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px
+}
+
+.border-top-dashed {
+    border-top: 1px dashed #e5dfff
+}
+
+.check-box {
+    background: #ffffff;
+    width: 310px;
+    padding: 10px 30px 0;
+    height: 110px;
+    margin-bottom: 8px
+}
+
+.check-box .book-sure-icon {
+    width: 100px;
+    margin-bottom: 20px;
+    line-height: 18px
+}
+
+.check-box-name {
+    margin-bottom: 20px;
+    line-height: 18px
+}
+
+.check-box .book-sure-icon .e-f-text {
+    width: 35%;
+    line-height: 22px;
+    padding: 0 6px
+}
+
+.book-sure-icon .e-f-bg {
+    margin: 5px 4px 0px 0px;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background: url("../../images/hotel/server.png") no-repeat 0 0
+}
+
+.book-sure-icon .e-fs-01 {
+    background-position: 0 -21px
+}
+
+.book-sure-icon .e-fs-02 {
+    background-position: 0 -62px
+}
+
+.book-sure-icon .e-fs-03 {
+    background-position: 0 -86px
+}
+
+.book-sure-icon .e-fs-04 {
+    background-position: 0 -172px
+}
+
+.book-sure-icon .e-fs-05 {
+    background-position: 0 -126px
+}
+
+.book-sure-icon .e-fs-06 {
+    background-position: 0 -44px;
+    height: 20px
+}
+
+.pro-submit {
+    background: #614dc2 url("../../images/hotel/submit-ico.png") no-repeat center
+}
+
+.pro-apply {
+    background: #fff url("../../images/hotel/apply-f.png") no-repeat center
+}
+
+.pro-payment {
+    background: #fff url("../../images/hotel/payment-f.png") no-repeat center
+}
+
+.pro-confirm {
+    background: #FFFFFFFf url("../../images/hotel/confirm-f.png") no-repeat center
+}
+
+.pro-complete {
+    background: #fff url("../../images/hotel/complete-f.png") no-repeat center
+}
+
+.width-122 {
+    width: 150px !important
+}
+
+.width-1200 {
+    width: 1200px;
+    margin: 0 auto
+}
+
+.border-4-614dc2 {
+    width: 216px !important;
+    border-bottom: 4px solid #ffffff !important
+}
+
+.width-131 {
+    border-bottom: 4px solid #ffffff !important
+}
+
+.pro-m-1 {
+    left: 122px
+}
+
+.pro-m-2 {
+    left: 325px
+}
+
+.pro-m-3 {
+    left: 580px
+}
+
+.pro-m-4 {
+    left: 810px
+}
+
+.pro-m-5 {
+    left: 1039px
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px
+}
+
+.prepaid-notice-box {
+    background: #eeeeff;
+    border: 2px solid #bebcff
+}
+
+.occupant {
+    width: 60px
+}
+
+.Occupant-box-list-bottom {
+    border-top: 1px dashed #e5dfff
+}
+
+.Occupant-box-list {
+    width: 100%
+}
+
+.prompt-violet {
+    background: url("/resources/images/hotel/prompt-violet.png") no-repeat center;
+    background-position: 0 0
+}

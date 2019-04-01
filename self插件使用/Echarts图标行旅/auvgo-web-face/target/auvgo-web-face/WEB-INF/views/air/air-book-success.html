@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>首页</title> #parse("/common/styleSheetCommon.html")
+<link rel="stylesheet" type="text/css" href="/static/css/air/air-book-success.css">
+</head>
+<body class="background-fff clear">
+	#parse("/common/head.html")
+	<div class="main-content">
+		<div class="success-model background-fff">
+			<div class="clear jincheng-wraper">
+			#if($!jpautoflag != 1)
+				  <div class="jincheng clear position float-right">
+					<div class="position-ab part part-1 part-success">
+						<div class="flag_img"></div>
+						<div class="flag_text">预订</div>
+					</div>
+					<div class="position-ab part part-2 #if($!airorder1.approvestatus==3)part-noApprove#end">
+						<div class="flag_img"></div>
+						<div class="flag_text">审批</div>
+					</div>
+					<div class="position-ab part part-3">
+						<div class="flag_img"></div>
+						<div class="flag_text">支付</div>
+					</div>
+					<div class="position-ab part part-4">
+						<div class="flag_img"></div>
+						<div class="flag_text">完成</div>
+					</div>
+				</div>
+				#end
+			</div>
+			<div class="clear success-m-tips">
+				<div class="float-left">
+					<img src="/static/img/airImg/success-flag.png" alt="">
+				</div>
+				<div class="float-left s-t-c">
+					#if($!jpautoflag == 1)
+					<div class="s-text">出票成功</div>
+					#else
+					<div class="s-text">预订成功</div>
+					#end
+					<div class="font-size-12">$!orderMsg</div>
+				</div>
+			</div>
+			<input type="hidden" id="normal-orderno" data-orderno="$!airorder1.orderno">
+			<div class="order-detail font-size-14">
+				#if($!jpautoflag == 1)<!--无审批自动出票  -->
+				<div class="clear">
+				<p class="o-r-de">您可以在“我的订单”-“机票订单”中查看所有订单。</p>		
+				</div>		
+				#elseif(($!jpautoflag == 2  || $!jpspautoflag == 1 || $!jpspautoflag == 2) && $!route1.pricefrom =='W')
+				<div class="clear ">
+				<p class="o-r-de">1、官网价实时变动，请尽快确认出票；</p>	
+				<p class="o-r-de"> 2、官网价出票时间略有延迟，建议及早预订；</p>
+				<p class="o-r-de"> 3、官网票退改处理时间略长，需等待；</p>				
+				<p class="o-r-de"> 4、官网票改签后退票，退回乘机人银行卡中。</p>
+				</div>
+				#else
+				<div class="clear o-r-de">
+					<div class="float-left o-d-l">订单号：<a href="/myChailv/toAirOrderDetail/$!airorder1.orderno?flag=personal">$!airorder1.orderno</a> #if($!single ==1), <a href="/myChailv/toAirOrderDetail/$!route2.orderno?flag=personal">$!route2.orderno</a>#end</div>
+					<div class="float-left">
+						#if($!single ==1) <span class="float-left font-size-12 qc-flag text-align">去</span> #end <span class="float-left">$!route1.orgname</span> <span
+							class="float-left qc-point"></span> <span class="float-left">$!route1.arriname</span> <span class="o-d-date">$!route1.deptdate $!route1.depttime</span>
+					</div>
+				</div>
+				<div class="clear o-r-de">
+					<div class="float-left o-d-l">
+						乘机人：<span>$!passengerName</span>
+					</div>
+					#if($!single==1)
+					<div class="float-left">
+						<span class="float-left font-size-12 qc-flag text-align">返</span> 
+						<span class="float-left">$!route2.orgname</span>
+						 <span class="float-left qc-point"></span> <span
+							class="float-left">$!route2.arriname</span>
+							<span class="o-d-date">$!route2.arridate $!route2.arritime</span>
+					</div>
+					#end
+				</div>
+				#end
+			</div>
+			
+			<div class="btn-group text-align">
+				#if(!(($!company.bianhao == 'CLKJ') && ("$!p.get('traverorderno')" == "")))
+					#if(!$!isoalogin)
+					<a href="/toBook" title="" class="btn btn-default btn-big">继续预订</a>
+					#end
+				#end
+				#if($!route1.pricefrom =='W')
+				<a href="/myChailv/toAirOrderDetail/$!airorder1.orderno?flag=personal" title="机票订单详情" class="btn btn-default btn-big">查看订单</a>
+				#end
+				#if($!jpautoflag == 2 && $!route1.pricefrom =='W' && $!flag == 1)
+				<button type="button" class="btn btn-default btn-middle confirm" style="height:40px">确认出票</button>
+				#end
+			</div>
+		</div>
+	</div>
+	<!-- 主体 end -->
+	#parse("/common/foot.html")
+	<script type="text/javascript">
+	$('body').on('click', '.confirm', function(){
+		var orderno = '$!airorder1.orderno';
+		changePrice("");
+		function changePrice (price) {
+			$.ajax({
+				url: '/air/confirm',
+				data: {orderno: orderno,price: price},
+				type: 'POST',
+				success: function(data){
+					if (data.status == 200) {
+						layer.msg(data.msg);
+						setTimeout(function(){ location.href='/myChailv/toAirOrderDetail/$!airorder1.orderno?flag=personal' }, 3000);
+						return;
+					}
+					if(data.status == 301){
+						var layShow = layer.confirm(data.msg + data.data + "，是否继续出票?", {
+							btn: ['确认出票','重新预订']
+						}, function(){
+							return changePrice(data.data);
+						}, function(){
+							return cancleOrderMain(orderno,layShow);
+						});
+					}
+					if(data.status == 500){
+						layer.msg(data.msg);
+						return;
+					}
+					if(data.status == 300){
+						layer.msg(data.msg);
+						return;
+					}
+				},
+				error: function(xhr, errorType, error){
+					console.error(xhr);
+					console.error(errorType || error);
+				}
+			});
+		}
+
+	});
+	
+	function cancleOrderMain(orderno,layShow) {
+		$.ajax({
+			url: '/air/cancle',
+			data: {'orderno':orderno},
+			type: 'POST',
+			success: function(data){
+				layer.msg(data.msg);
+				layer.close(layShow);
+				if (data.status == 200) {
+					setTimeout(function(){ location.href="/toBook" }, 3000);
+				}
+			},
+			error: function(xhr, errorType, error){
+				console.error(xhr);
+				console.error(errorType || error);
+				layer.close(layShow);
+			}
+		});
+	}
+	</script>
+	<script type="text/javascript" src="/static/js/common/order-details-common.js">
+	<script type="text/javascript" src="/static/js/crm/my-chailv/air-order-detail.js"></script>
+</body>
+</html>

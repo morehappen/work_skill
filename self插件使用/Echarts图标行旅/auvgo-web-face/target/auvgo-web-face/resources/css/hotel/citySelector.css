@@ -1,0 +1,23 @@
+.citySelector{  font:12px/1.5 tahoma,arial;font-family:"Microsoft Yahei"; background: #fff; }
+.cityslide {width:250px;list-style:none; margin:0;padding:0; /*border: 1px solid #7b3af4;*/ border-right-color: #3485C0; border-bottom-color: #3485C0;box-shadow: 2px 2px 3px rgba(0,0,0,0.3);margin-top:-2px;}
+.cityslide li {padding-left:10px;list-style:none; height:24px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display: inline-block;width:240px}
+.cityslide li.on{background:rgba(244,248,251,1); color:#333333;}
+.cityslide li b { font-weight:normal;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+.cityslide li.empty{ background: #fff2e8; color: #666;}
+.cityslide li.empty em{color: red; font-style:normal;}
+.cityname {float:left;}
+.cityspell {float:right;max-width:100px;white-space: nowrap;}
+.cityBox{ width: 460px; border: 1px solid #3e4eb2; overflow: visible; /*box-shadow: 2px 2px 3px rgba(0,0,0,0.3);*/}
+.cityBox ul{margin: 0;margin-top:5px;padding: 0; overflow: hidden;}
+.cityBox ul li{float: left; list-style: none; padding: 4px 8px; cursor:pointer; display: inline; background: #fff;}
+.cityBox ul li.on{border-top:1px solid #3e4eb2;border-right:1px solid #3e4eb2;border-left:1px solid #3e4eb2;background: #fff; border-bottom-color:#fff; position: relative;}
+.hide{ display: none;}
+p.tip{ color:#fff; line-height: 20px; padding: 5px; margin: 0; text-indent: 3px;background:#3e4eb2}
+.hotCity{ border-top: 1px solid #3e4eb2; margin-top: -1px; clear:left; overflow: visible; padding-bottom: 5px; padding-top: 5px; _margin-bottom:8px;}
+.cityTab{overflow: hidden;}
+.cityTab dl{ margin:0; padding: 0; overflow: hidden; }
+.cityTab dl dt{float: left; padding-left: 3px;text-indent: 5px; font-family:"Microsoft Yahei";line-height: 22px; font-size: 14px; width: 20px;}
+.cityTab dl dd{ margin-left:2px; float:left; width: 430px;}
+hr{height:0;width:98%;border-bottom:1px dashed #CBCBCB;margin:5px 1%;overflow:hidden;cursor:default;*float:none;*margin-bottom:-5px;}
+.cityTab dl dd a{padding-left:8px; width:90px;overflow:hidden;line-height: 22px;height:22px; display: inline-block; color: #000; text-decoration: none;text-overflow:ellipsis;white-space:nowarp}
+.cityTab dl dd a:hover{text-decoration:none;background:#F4F8FB;}

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>酒店-列表</title>
+    #parse("/common/styleSheetCommon.html")
+    <link rel="stylesheet" type="text/css" href="/static/css/air/air-query-list.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/hotel/hotel-common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/hotel/hotel-query-list.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/common/city-plugin.css"/>
+</head>
+
+<body class="background-6461e2 clear">
+#parse("/common/head.html")
+
+<div class="main-content">
+    <div class="query_form background-fff margin-bottom-10 clear">
+        <div class="float-left position">
+            <span class="icon-img icon-search position-ab icon-position-ccc"></span>
+            <input type="text" name="cityName" value="$!{hotelQueryParam.cityName}"
+                   class="show-city city-name input float-left" autocomplete="off"/>
+     		<input type="hidden" id="propertiesId" name="propertiesId" value="$!{hotelQueryParam..propertiesId}" class="propertiesId"/>
+            <input type="hidden" name="cityId" value="$!{hotelQueryParam.cityId}" class="city-code"/>
+        </div>
+        <div class="float-left position">
+            <span class="icon-img icon-search position-ab icon-date-ccc"></span>
+            <input type="text" name="arrivalDate"
+                   value="$!dateTool.format('yyyy-MM-dd',$!{hotelQueryParam.arrivalDate})" readonly id="beginDate"
+                   class="input float-left"
+                   onfocus="var endDate=$dp.$('endDate');WdatePicker({doubleCalendar:true,minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+179}',onpicked:function(){endDate.focus()},isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})"/>
+        </div>
+        <div class="float-left position">
+            <span class="icon-img icon-search position-ab icon-date-ccc"></span>
+            <input type="text" name="departureDate"
+                   value="$!dateTool.format('yyyy-MM-dd',$!{hotelQueryParam.departureDate})" readonly id="endDate"
+                   class="input float-left"
+                   onfocus="WdatePicker({doubleCalendar:true,minDate:'#F{$dp.$D(\'beginDate\', {d:1})}',maxDate:'%y-%M-{%d+179}',onpicked:function(){triggerQuery()},isShowClear:false,isShowToday:false,readOnly:true})"/>
+        </div>
+        <div class="float-left position">
+            <span class="icon-search icon-img position-ab icon-keyword"></span>
+            <input type="text" name="keyword" value="$!{hotelQueryParam.queryText}" placeholder="(选填)酒店名、位置、品牌"
+                   class="input float-left keyword-search-input"/>
+            <input type="hidden" name="queryText" value="$!{hotelQueryParam.queryText}" id="query-text"/>
+            <ul class="search-list hide"></ul>
+        </div>
+        <div class="float-left">
+            <button type="button" class="btn btn-default btn-big float-left hotel-query" data-isfirst="1">查询</button>
+            <button type="button" class="btn btn-cancel btn-big float-left hotel-back">返回</button>
+        </div>
+    </div>
+
+    <div class="model-wraper font-size-12">
+
+        <!-- 原页面 begin -->
+        <div class="model-list">
+            <div class="filter-wraper">
+
+                <!-- 位置 begin -->
+                <div class="clear e-filter-area">
+                    <div class="float-left e-filter-t clear">
+                        <span>位置</span>
+                        <button type="button" class="btn btn-default btn-middle btn-no-limit" data-flag="position">不限
+                        </button>
+                    </div>
+                    <div class="float-left e-filter-c" id="position"></div>
+                </div>
+                <!-- 位置 end -->
+
+                <!-- 房价 begin -->
+                <div class="clear e-filter-area">
+                    <div class="float-left e-filter-t clear">
+                        <span>房价</span>
+                        <button type="button" class="btn btn-default btn-big btn-no-limit" data-flag="price">不限</button>
+                    </div>
+                    <div class="float-left e-filter-c" id="price">
+                        <div class="price-c-wraper clear">
+                            <div class="label label-radio e-label clear" id="price-600">
+                                <span class="show_choice"></span>
+                                <input type="radio" name="price" value="600-"/>
+                                <span>600元以上</span>
+                            </div>
+                            <div class="label label-radio e-label clear" id="price-300-600">
+                                <span class="show_choice"></span>
+                                <input type="radio" name="price" value="300-600"/>
+                                <span>300-600元</span>
+                            </div>
+                            <div class="label label-radio e-label clear" id="price-150-300">
+                                <span class="show_choice"></span>
+                                <input type="radio" name="price" value="150-300"/>
+                                <span>150-300元</span>
+                            </div>
+                            <div class="label label-radio e-label clear" id="price-150">
+                                <span class="show_choice"></span>
+                                <input type="radio" name="price" value="0-150"/>
+                                <span>150元以下</span>
+                            </div>
+                            <div class="clear position">
+                                <input type="text" placeholder="￥" class="define-price input float-left" id="lowRate"/>
+                                <span class="float-left middle-line">—</span>
+                                <input type="text" placeholder="￥" class="define-price input float-left" id="highRate"/>
+                                <button type="button" class="btn btn-price-confirm">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 房价 end -->
+
+                <!-- 星级 begin -->
+                <div class="clear e-filter-area">
+                    <div class="float-left e-filter-t clear">
+                        <span>星级</span>
+                        <button type="button" class="btn btn-default btn-middle btn-no-limit" data-flag="starRate">不限
+                        </button>
+                    </div>
+                    <div class="float-left e-filter-c" id="starRate">
+                        <div class="price-c-wraper clear">
+                            <div class="label label-checkbox e-label clear" id="start-5">
+                                <span class="show_choice"></span>
+                                <input type="checkbox" name="start" value="5"/>
+                                <span>豪华/五星</span>
+                            </div>
+                            <div class="label label-checkbox e-label" id="start-4">
+                                <span class="show_choice"></span>
+                                <input type="checkbox" name="start" value="4"/>
+                                <span>高档/四星</span>
+                            </div>
+                            <div class="label label-checkbox e-label" id="start-3">
+                                <span class="show_choice"></span>
+                                <input type="checkbox" name="start" value="3"/>
+                                <span>舒适/三星</span>
+                            </div>
+                            <div class="label label-checkbox e-label" id="start-2">
+                                <span class="show_choice"></span>
+                                <input type="checkbox" name="start" value="2,1,0"/>
+                                <span>经济</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 星级 end -->
+
+                <!-- 品牌 begin -->
+                <div class="clear e-filter-area">
+                    <div class="float-left e-filter-t clear">
+                        <span>品牌</span>
+                        <button type="button" class="btn btn-default btn-middle btn-no-limit" data-flag="brands">不限
+                        </button>
+                    </div>
+                    <div class="float-left e-filter-c" id="brands"></div>
+                </div>
+                <!-- 品牌 end -->
+
+                <!-- 偏好 begin -->
+                <div class="clear e-filter-area hide">
+                    <div class="float-left e-filter-t clear">
+                        <span>偏好</span>
+                        <button type="button" class="btn btn-default btn-middle btn-no-limit" data-flag="favourate">不限
+                        </button>
+                    </div>
+                    <div class="float-left e-filter-c" id="favourate"></div>
+                </div>
+                <!-- 偏好 end -->
+
+                <!-- 设施 begin -->
+                <div class="clear e-filter-area hide f-w-all">
+                    <div class="float-left e-filter-t clear">
+                        <span>设施</span>
+                        <button type="button" class="btn btn-default btn-middle btn-no-limit" data-flag="facility">不限
+                        </button>
+                    </div>
+                    <div class="float-left e-filter-c" id="facility"></div>
+                </div>
+                <!-- 设施 end -->
+
+                <div class="text-align">
+							<span id="more-trig" class="fold position">
+								更多
+								<span class="icon-img position-ab flod-img"></span>
+							</span>
+                </div>
+            </div>
+
+            <div class="clear">
+
+                <!-- 筛选结果酒店列表 biegin -->
+                <div class="filter-c-l margin-bottom-20">
+                    <div class="filter-result">
+                        <div class="f-r-wraper"><b id="hotel-count"></b> 家酒店满足条件</div>
+                        <div class="all-con-wraper clear hide">
+                            <div id="all-filter-wraper"></div>
+                            <button type="button" class="btn btn-cancel btn-middle" id="remove-all-filter">清 空</button>
+                        </div>
+                    </div>
+
+                    <div class="hotel-list-content airline-content">
+                        <div class="filter clear margin-b-14">
+                            <span class="float-left f-t-r stg-sort-recommend cursor">推荐</span>
+                            <span class="float-left f-t-p stg-sort stg-sort-price" data-flag="">价格</span>
+                            <div class="float-left clear hotel-type-wraper"></div>
+                            <div class="float-left f-t-pay">
+                                <span class="float-left f-t-pay-t">支付方式：</span>
+                                <div class="float-left pay-type-wraper"></div>
+                            </div>
+                        </div>
+                        <div class="hotel-list-wraper">
+                            <div class="hotel-list"></div>
+                            <div class="page-wraper text-align" data-page="1">
+                                <span class="list-page page-up no-page">上一页</span>
+                                <span class="list-page page-down no-page">下一页</span>
+                            </div>
+                            #parse("/common/no-data.html")
+                        </div>
+                    </div>
+                </div>
+                <!-- 筛选结果酒店列表 end -->
+
+                <!-- 浏览记录||list-百度地图 biegin -->
+                <div class="filter-c-r position">
+                    <div class="view-map-flag">
+                        <div class="view-map-flag-wraper"></div>
+                        <div class="view-map-flag-text">
+                            <span class="icon-position"></span>查看大地图
+                        </div>
+                    </div>
+                    <div class="baidu-map" id="map-container"></div>
+                    <div class="glance-history-wraper hide">
+                        <div class="g-title">最近浏览过的酒店</div>
+                        <ul class="background-fff" id="recently-view"></ul>
+                    </div>
+                </div>
+                <!-- 浏览记录||list-百度地图 end -->
+
+            </div>
+        </div>
+        <!-- 原页面 end -->
+
+        <!-- 筛选弹窗 begin -->
+        <div class="model-map clear hide">
+            <div class="float-left">
+                <div class="f-fliter-t-w clear">
+                    <div class="f-filter-t" data-tab="filter">筛选条件</div>
+                    <div class="f-filter-t active" data-tab="list">酒店列表</div>
+                </div>
+                <div class="map-tabcon">
+                    <div class="f-filter-c-w" data-con="filter">
+                        <div class="f-filter-c-c">
+                            <div class="e-filter" id="map-price">
+                                <div class="e-f-title background-fff position">
+                                    <span class="b-filter icon-img svg position-ab b-filter-p"></span>房价
+                                </div>
+                                <ul class="hide map-price-filter">
+                                    <li>
+                                        <div class="label label-radio label-select-radio label-margin-right clear"
+                                             id="map-price-nolimit">
+                                            <span class="show_choice e-filter-ctrl"></span>
+                                            <input type="radio" name="mapprice" value="" checked/>
+                                            <span class="e-filter-text">不限</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="label label-radio label-margin-right clear" id="map-price-150">
+                                            <span class="show_choice e-filter-ctrl"></span>
+                                            <input type="radio" name="mapprice" value="0-150"/>
+                                            <span class="e-filter-text">150元以下</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="label label-radio label-margin-right clear" id="map-price-150-300">
+                                            <span class="show_choice e-filter-ctrl"></span>
+                                            <input type="radio" name="mapprice" value="150-300"/>
+                                            <span class="e-filter-text">150-300元</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="label label-radio label-margin-right clear" id="map-price-300-600">
+                                            <span class="show_choice e-filter-ctrl"></span>
+                                            <input type="radio" name="mapprice" value="300-600"/>
+                                            <span class="e-filter-text">300-600元</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="label label-radio label-margin-right clear" id="map-price-600">
+                                            <span class="show_choice e-filter-ctrl"></span>
+                                            <input type="radio" name="mapprice" value="600-"/>
+                                            <span class="e-filter-text">600元以上</span>
+                                        </div>
+                                    </li>
+                                    <li class="define-price-wraper">
+                                        自定义
+                                        <input type="text" placeholder="￥" class="define-price input border-radius"
+                                               id="map-lowRate"/>
+                                        <span class="middle-line">—</span>
+                                        <input type="text" placeholder="￥" class="define-price input border-radius"
+                                               id="map-highRate"/>
+                                        <button type="button" class="btn btn-default btn-small map-btn-price-confirm">
+                                            确定
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="e-filter" id="map-start">
+                                <div class="e-f-title background-fff position">
+                                    <span class="b-filter icon-img svg position-ab b-filter-s"></span>星级
+                                </div>
+                                <ul class="hide">
+                                    <li>
+                                        <div class="label label-checkbox label-margin-right clear" id="map-start-5">
+                                            <span class="show_choice e-filter-ctrl"></span>
+                                            <input type="checkbox" name="mapstart" value="5">
+                                            <span class="e-filter-text">豪华/五星</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="label label-checkbox label-margin-right" id="map-start-4">
+                                            <span class="show_choice e-filter-ctrl"></span>
+                                            <input type="checkbox" name="mapstart" value="4">
+                                            <span class="e-filter-text">高档/四星</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="label label-checkbox label-margin-right" id="map-start-3">
+                                            <span class="show_choice e-filter-ctrl"></span>
+                                            <input type="checkbox" name="mapstart" value="3">
+                                            <span class="e-filter-text">舒适/三星</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="label label-checkbox label-margin-right" id="map-start-2">
+                                            <span class="show_choice e-filter-ctrl"></span>
+                                            <input type="checkbox" name="mapstart" value="2,1,0">
+                                            <span class="e-filter-text">经济</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="e-filter position" id="map-brands">
+                                <div class="e-f-title background-fff position">
+                                    <span class="b-filter icon-img svg position-ab b-filter-b"></span>品牌
+                                </div>
+                                <ul class="hide map-brands background-fff"></ul>
+                            </div>
+
+                        </div>
+                        <div class="f-filter-c-l"></div>
+                    </div>
+
+                    <div class="f-filter-l-w active" data-con="list">
+                        <div class="f-filter-list-title">
+                            <span class="float-left f-t-p stg-sort stg-sort-price" style="visibility: hidden;"
+                                  data-flag="">价格</span>
+                            <div class="float-left hotel-type-wraper"></div>
+                            <div class="float-left f-c-pay">
+                                <div class="float-left pay-type-wraper"></div>
+                            </div>
+                        </div>
+
+                        <div class="map-list-container mCustomScrollbar" style="width: 310px;overflow: auto;">
+                            <div class="f-filter-list-content"></div>
+                        </div>
+
+                        <div class="f-filter-list-page">
+                            <div class="page-wraper text-align" data-page="1">
+                                <span class="list-page page-up no-page">上一页</span>
+                                <span class="list-page page-down no-page">下一页</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="float-right">
+                <div class="baidu-map-big" id="big-map-container"></div>
+            </div>
+        </div>
+        <!-- 筛选弹窗 end -->
+
+    </div>
+</div>
+
+<!-- 遮罩层 begin -->
+<div class="position-ab Screen-full hide">
+    <div class="Screen-zhezhao"></div>
+    <div class="position-ab query-loading">
+        <div class="text-align">请稍等...</div>
+        <div class="loadingImg text-align">
+            <img src="/static/project-resource/img/loading-line.gif" style="width: 555px;height: 22px;">
+        </div>
+        <div class="font-size-14 text-align query-status">正在努力为您查询实时的酒店信息</div>
+        <div class="font-size-14 text-align query-tips"></div>
+        <div class="query-hc">
+            <span class="float-left wait-icon icon-hotel"></span>
+            <span class="float-left wait-city mask-arrive-date"></span>
+            <span class="float-left a-l-point wait-jiantou position">
+						<span class="wait-hb-date position-ab text-align mask-location"></span>
+					</span>
+            <span class="float-left wait-city mask-depart-date text-align-r"></span>
+        </div>
+    </div>
+</div>
+<!-- 遮罩层 end -->
+#set($isNeedBaiduMap = true)
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/plugin/jquery-cookie-1.4.2/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/js/common/model-city.js"></script>
+<script type="text/javascript" src="/static/js/hotel/hotel-common.js"></script>
+<script type="text/javascript" src="/static/js/hotel/hotel-query-list.js"></script>
+</body>
+</html>

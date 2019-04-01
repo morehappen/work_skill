@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="../../resources/css/common/common.css">
+	<style>
+		.operation-box{
+			width:500px;
+			min-height:300px;
+			background: #ccc;
+			padding:25px 20px 20px;
+		}
+		.operation{
+			/*width:227px;*/
+			/*margin:auto;*/
+			
+		}
+		.cancel{
+			background: #fff;
+			margin-left:16px;
+		}
+		.none{
+			display:none;
+		}
+		selsect:hover{
+			background: #6461e2;
+		}
+		.input-state{
+			width:100%;
+			text-align: center;
+			margin-bottom:10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="operation-box">
+		<div class="operation">
+			<div>订单状态</div>
+			<div class="input-state"><input type="radio" checked="true" name="orderStatus" id="radio" class="radio" value="1">已确认<input type="radio" class="radio" name="orderStatus" value="2">转取消<input class="radio"  name="orderStatus" type="radio" value="3">转无效</div>
+		</div>
+		<div>
+			<div class="input-state">
+				<!--<input type="text" style="width:200px;height:60px;" placeholder="取消原因">-->
+				<textarea placeholder="请输入取消原因" rows="5" cols="70"  style="resize:none"  class="textarea"></textarea>
+			</div>
+			<div class="clear">
+				<div style="font-size:12px;line-height:30px;" class="float-left">如有防损信息请录入房间损失：</div>
+				<select name="" id="" style="height:30px;" class="float-left">
+					<option>请选择房损类型</option>
+					<option>取消订单</option>
+					<option>noshow罚金</option>
+				</select>
+				<input type="text" placeholder="请输入防损金额" class="input-loss" style="margin-left:5px;width:100px;height:30px;" class="float-left">
+			</div>
+		</div>
+		<!--<div style="margin-top:20px;text-align: center;"><button class="btn-default btn-big" id="btn">确认</button> <button class="btn-big cancel" >取消</button></div>-->
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="../../resources/js/common/jquery.js"></script>
+<script type="text/javascript">
+	$("#radio").prop("chcked",true);
+	$("body ").on("click",'.radio',function(){
+		$(".radio").prop("chcked",false);
+		$(this).prop("chcked",true);
+		
+	})
+</script>

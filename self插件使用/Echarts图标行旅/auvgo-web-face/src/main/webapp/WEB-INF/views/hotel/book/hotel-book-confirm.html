@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>酒店订单-详情</title>
+	<link rel="icon" sizes="any" href="/resources/images/common/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/resources/css/hotel/hotel-book-sure.css" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/hotel/hotel-book-confirm.css">
+
+</head>
+<body class="background-6461e2">
+#parse("/common/head.html")
+<div class="main-content main-content-box">
+	<div class="clear">
+		<div class="float-left">
+			<!-- 酒店 begin -->
+			<div class="order-left background-fff margin-bottom-10 border-r5 font-size-12">
+				<div class="clear o-title font-size-18 clear">
+					<span class="float-left">$!{detail.nameCn}</span>
+					#if($!{bookModel.platform}=="PROTOCOL" || $!{bookModel.platform}=="SELF")<span class="xieyi-flag float-left">协议</span>#end
+					<div class="float-left  animated bounceInRight latest-arrival-time">
+						<span class="icon-img warn-mark" ></span></span>
+						通常酒店${detail.arrivalTime}:00点办理入住，早到可能等待
+					</div>
+					
+				</div>
+				<div class="o-content font-size-12">
+					<!--<div class="margin-bottom-10 font-size-14"></div>-->
+					<div class="margin-bottom-10 clear line-height-30 clear">
+						<div class="float-left margin-right-35">
+							<div>
+								<span class="color-888">入住时间：</span>
+								<span class="color-000">$!{bookModel.checkIn}</span>
+							</div>
+							<div>
+								<span class="color-888">离店时间：</span>
+								<span class="color-000">$!{bookModel.checkOut}</span>
+							</div>
+							<div>
+								<span class="color-888">最晚到店：</span>
+								<span class="color-000">$!{bookModel.latestCheckTime}</span>
+							</div>
+						</div>
+						<div class="float-left font-size-12 margin-right-35">
+							<div>
+								<span class="color-888">早餐：</span>
+								<span class="color-000">$!{bookModel.breakfast}</span>
+							</div>
+							<div>
+								<span class="color-888">房间数：</span>
+								<span class="color-000">$!{bookModel.roomCount}间/$!{day}夜</span>
+							</div>
+							<div>
+								<span class="color-888">产品名称：</span>
+								<span class="color-000">$!{bookModel.planName} | #if($!bookModel.paymentType=="Prepay")预付#else 现付#end  #if($!bookModel.isGuarantee)（担保）#end</span>
+							</div>
+						</div>
+						<div class="float-left">
+							<div class="" >
+								<span class="color-888">均价：</span>
+								<span >
+									<span class="color-000 border-bottom-1">￥$!{bookModel.averageDaily}</span>
+								</span>
+							</div>
+							<div>
+								<span class="color-888">酒店电话：</span>
+								<span class="color-000">$!{detail.phone}</span>
+							</div>
+							<div class="clear">
+								<span class="color-888 float-left">酒店地址：</span>
+								<span class="color-000 float-left hotels-address-w ">$!{detail.addressCn}</span>
+							</div>
+							
+						</div>
+						<!--<div class="float-left">-->
+							<!--<span class="prompt-violet warn-mark"></span>通常酒店${detail.arrivalTime}:00点办理入住，早到可能等待-->
+						<!--</div>-->
+					</div>
+					<div class="clear">
+						<!--<div class="chailv-cell">-->
+							<!--<div class="color-gray margin-b-14">酒店电话</div>-->
+							<!--<div>$!{detail.phone}</div>-->
+						<!--</div>-->
+						<!--<div class="chailv-cell">-->
+							<!--<div class="color-gray margin-b-14">酒店地址</div>-->
+							<!--<div class="hoverTips hover_content" style="width: 100%;">$!{detail.addressCn}</div>-->
+						<!--</div>-->
+					</div>
+				</div>
+			</div>
+			<!-- 酒店 end -->
+
+			<!-- 入住人 begin -->
+			<div class="order-left background-fff margin-bottom-10  border-r5 font-size-12 clear border-bottom-E0E8ED">
+				<div class="o-title font-size-18">入住人</div>
+				#foreach($elem in $bookModel.customers)
+				#set($index = $vCount )
+				<div  class="Occupant-box-list Occupant-box-list-bottom padding-top-20 clear">
+					<div class="clear margin-bottom-20">
+						<div class="float-left">
+							<span class="pass-bg">$index</span>
+						</div>
+						<div class="float-left clear occupant" >
+							$!{elem.uname}
+						</div>
+					</div>
+					
+					<div class="o-content clear">
+						<!--style="background: red;width:80%; margin-left: 10px;"-->
+						<div class="chailv-cell">
+							<div class="color-gray float-left b-m-c-t">电话：</div>
+							<div class="float-left line-height-30">$!{elem.phone}</div>
+						</div>
+						<div class="chailv-cell">
+							<div class="color-gray  float-left b-m-c-t">发送通知：</div>
+							<div class="hoverTips hover_content float-left line-height-30" >
+								#if($!elem.isSend || $!elem.isSendEmail)
+								#if($!elem.isSend)短信#end #if($!elem.isSendEmail)邮件#end
+								#else
+								否
+								#end
+							</div>
+						</div>
+						<div class="chailv-cell">
+							<div class="color-gray float-left b-m-c-t">邮箱：</div>
+							<div class="float-left line-height-30">$!{elem.email}</div>
+						</div>
+						<div class="chailv-cell">
+							<div class="color-gray float-left b-m-c-t">部门：</div>
+							<div class="float-left line-height-30">$!{elem.deptName}</div>
+						</div>
+						#if("$!{elem.costName}" != "")
+							<div class="chailv-cell">
+								<div class="color-gray  float-left b-m-c-t">成本中心：</div>
+								<div class="float-left line-height-30" style="width: 290px;line-height:30px;word-wrap: break-word; word-break: normal;">$!{elem.costName}</div>
+							</div>
+						#end
+						#if("$!{elem.itemNumber}" != "")
+							<div class="chailv-cell">
+								<div class="color-gray  float-left isHuiChuan_text b-m-c-t">#if($!{comType} == "1")SHOWNAME#else项目中心#end：</div>
+								<div class="hoverTips line-height-30 float-left " style="width: 290px;line-height:30px;word-wrap: break-word; word-break: normal;">$!{elem.itemNumber}</div>
+							</div>
+							#if($!{comType} == "1")
+								<div class="chailv-cell">
+									<div class="color-gray  float-left b-m-c-t">SHOWCODE：</div>
+									<div class="float-left line-height-30">$!{elem.showCode}</div>
+								</div>
+							#end
+						#end
+						
+					</div>
+				</div>
+			     #end
+			</div>
+			<!-- 入住人 end -->
+
+			<!-- 差旅信息 begin -->
+			#if("$!{bookModel.travelNo}" != "" || "$!{bookModel.travelReason}" != "" || "$!{bookModel.overItem}" != "" || "$!{bookModel.overMsg}" != ""||"$bookModel.isApproved"!="")
+				<div class="order-left background-fff margin-bottom-10 border-r5 font-size-12">
+					<div class="o-title font-size-18">差旅信息</div>
+					<div class="o-content clear color-666">
+						<div class="clear">
+							#if("$!{bookModel.travelNo}" != ""||"$!{bookModel.custOrderNo}" != "")
+								<div class="chailv-cell float-left">
+									<div class=" float-left b-m-c-t ">出差单号：</div>
+									<div class="float-left b-m-c-c">$!{bookModel.travelNo}$!{bookModel.custOrderNo}</div>
+								</div>
+							#end
+							#if("$!{bookModel.travelReason}" != "")
+								<div class="chailv-cell float-left clear">
+									<div class=" float-left b-m-c-t  b-m-c-t">出差事由：</div>
+									<div class="hoverTips float-left hover_content b-m-c-c" >$!{bookModel.travelReason}</div>
+								</div>
+							#end
+						</div>
+						
+						#if("$!{bookModel.overItem}" != "")
+						<div class="clear">
+							<div class="chailv-cell clear">
+								<div class="float-left  b-m-c-t">超标事项：</div>
+								<div class="float-left b-m-c-c">$!{bookModel.overItem}</div>
+							</div>
+						</div>
+						#end
+						#if("$!{bookModel.overMsg}" != "")
+							<div class="clear">
+								<div class="chailv-cell clear">
+									<div class=" float-left color-gray  b-m-c-t">超标原因：</div>
+									<div class="float-left b-m-c-c ">$!{bookModel.overMsg}</div>
+								</div>
+							</div>
+						#end
+						<!-- 判断是否需要审批 -->
+						#if($bookModel.isApproved)
+						<div class="clear">
+							<div class="clear">
+								<div class="chailv-cell clear">
+									<div class="float-left  b-m-c-t">审批级别：</div>
+									<div class="float-left b-m-c-c">$!{bookModel.appRuleName}</div>
+								</div>
+							</div>
+							<div class="approve-wraper font-size-12">
+								#foreach($approve in ${approMap.keySet()})
+								<div class="clear e-approve-line ">
+									<div class="float-left b-m-c-t">第$!{approve}级审批</div>
+									#foreach($approval in ${approMap.get($approve)})
+									<div class="float-left e-approve-person  border-radius">$!{approval.userName}</div>
+									#end
+								</div>
+								#end
+							</div>
+						</div>
+						#end
+					</div>
+				</div>
+			#end
+			<!-- 差旅信息 end -->
+			<!--最晚到店时间begin-->
+			<!--<div class="order-left margin-bottom-10 latest-timer background-fff font-size-12 color-666">-->
+				<!--<div class="o-title font-size-16">最晚到店</div>-->
+				<!--<div class="clear">-->
+					<!--<div class="float-left">-->
+						<!--最晚到店：-->
+					<!--</div>-->
+					<!--<div class="float-left margin-right-20">$!{bookModel.latestCheckTime}</div>-->
+					<!---->
+				<!--</div>-->
+			<!---->
+			<!--</div>-->
+			<!--最晚到店时间end-->
+
+			<!-- 联系人 begin -->
+			<div class="order-left background-fff margin-bottom-30 border-r5 font-size-12">
+				<div class="o-title font-size-16">联系人</div>
+				<div class="o-content">
+					<div class="clear margin-bottom-20">
+						<div class="o-e-pass float-left">
+							<div class="color-gray margin-b-14 float-left">联系人：</div>
+							<div class="e-pass hoverTips hover_content">$!{bookModel.contact.name}</div>
+						</div>
+						<div class="o-e-cert float-left clear">
+							<div class="color-gray margin-b-14 float-left">电话：</div>
+							<div class="float-left">$!{bookModel.contact.mobile}</div>
+						</div>
+						<div class="o-e-cert-email float-left">
+							<div class="color-gray margin-b-14 float-left">邮箱：</div>
+							<div class="float-left">$!{bookModel.contact.email}</div>
+						</div>
+						<div class=" float-left color-666">
+							<div class="color-gray margin-b-14 float-left">发送通知：</div>
+							<div class="float-left">
+								#if($!bookModel.contact.msgAffirm || $!bookModel.contact.isSendEmail)
+									#if($!bookModel.contact.msgAffirm)短信#end #if($!bookModel.contact.isSendEmail)邮件#end
+								#else
+									否
+								#end
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 联系人 end -->
+			<div class="text-align margin-bottom-50">
+			    <form id="hotel-book-form" method="post">
+					<input name="auvgo_token" type="hidden" value="${auvgo_token}"/>
+					<input type="hidden" name="hotelName" value="$!{detail.nameCn}"/>
+					<input type="hidden" name="roomName" value="$!{room.rname}"/>
+					<input type="hidden" name="signature" value="${bookModel.signature}"/>
+					<button type="button" id="hotel-book-cancle" class="btn btn-cancel btn-middle">上一步</button>
+					 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					#if($!bookModel.settlement=="Personage")
+						#if($!bookModel.isGuarantee && $!bookModel.paymentType=="SelfPay" && $!bookModel.platform=="ELONG")
+							<button type="button" id="btn-pay-fee" class="btn btn-default-new btn-middle">支付担保金</button>
+						#elseif($!bookModel.paymentType=="Prepay")
+							<button type="button" id="btn-submit" class="btn btn-default-new btn-middle">提交申请</button>
+							<!-- <button type="button" id="btn-pay-fee" class="btn btn-default btn-middle">支付房费</button> -->
+						#else
+						 <button type="button" id="btn-submit" class="btn btn-default-new btn-middle">提交申请</button>
+						#end
+					#else
+						<button type="button" id="btn-submit" class="btn btn-default-new btn-middle">提交申请</button>
+					#end
+				</form>
+			</div>
+		</div>
+
+		<div class="float-right">
+			<div class="hotel-infor-model background-fff  font-size-12 position">
+				<div class="h-infor-h margin-bottom-20">
+					<div class="h-infor-h-t-w margin-bottom-10 clear">
+						<div class=" font-size-16 font-600  ">
+							$!{detail.nameCn}
+							<!--<span class="star-level"></span>-->
+							#if($!detail.category==5)
+							<span class="star-level"></span>
+							<span class="star-level"></span>
+							<span class="star-level"></span>
+							<span class="star-level"></span>
+							<span class="star-level"></span>
+							#elseif($!detail.category==4)
+							<span class="star-level"></span>
+							<span class="star-level"></span>
+							<span class="star-level"></span>
+							<span class="star-level"></span>
+							<span class="nothing-star-level"></span>
+							#elseif($!detail.category==3)
+							<span class="star-level"></span>
+							<span class="star-level"></span>
+							<span class="star-level"></span>
+							<span class="nothing-star-level"></span>
+							<span class="nothing-star-level"></span>
+							#elseif($!detail.category==2)
+							<span class="star-level"></span>
+							<span class="star-level"></span>
+							<span class="nothing-star-level"></span>
+							<span class="nothing-star-level"></span>
+							<span class="nothing-star-level"></span>
+							#end
+						</div>
+					</div>
+					<div class="h-infor-h-desc clear">
+						<span class=" float-left  color-888 margin-right-10 h-name-w" data-cityid="0101">$!{detail.addressCn}</span>
+						<span class="float-left">
+							#if($!detail.category==5)
+								豪华型
+							#elseif($!detail.category==4)
+								高档型
+							#elseif($!detail.category==3)
+								舒适型
+							#else
+								经济型
+							#end
+						</span>
+					</div>
+				</div>
+				<div class="h-infor-i">
+					<img src="$!{detail.coverImage.replace('120_120','480_350')}"   >
+				</div>
+			</div>
+			
+			<div class="check-box border-r5" >
+				<div class="o-title font-size-18 check-box-name text-align-c">$!{room.rname}，${bookModel.roomCount}间/${day}晚</div>
+				<div class="font-size-12 clear">
+					<div class="book-sure-icon float-left clear ">
+						<span class=" e-f-bg  e-fs-01 float-left"></span>
+						<span class="e-f-text float-left">#if($!room.windows=="1")有窗 #elseif($!room.windows=="2")部分有窗#else 无窗#end</span>
+					</div>
+					<div class="book-sure-icon float-left clear " >
+						<span class="e-f-text float-right">$!{room.floor}层</span>
+						<span class="e-f-bg  e-fs-02 float-right"></span>
+					</div>
+					<div class="book-sure-icon float-left clear " >
+						<span class="e-f-bg  e-fs-03 float-left"></span>
+						<span class="e-f-text float-left">$!{room.area}㎡</span>
+					</div>
+					<div class="book-sure-icon float-left clear ">
+						<span class="e-f-text float-right">$!{room.bedDesc}</span>
+						<span class="e-f-bg  e-fs-04 float-right"></span>
+					</div>
+					<div class="book-sure-icon float-left clear ">
+						<span class=" e-f-bg  e-fs-05 float-left"></span>
+						<span class="e-f-text float-left">可住$!{room.capacity}人</span>
+					</div>
+					<div class="book-sure-icon float-left clear ">
+						<span class="e-f-text float-right">#if($!room.broadNet=="1")免费宽带 #elseif($!room.windows=="2")收费宽带 #elseif($!room.windows=="3")免费WIFI#elseif($!room.windows=="4")收费WIFI#else 无#end</span>
+						<span class=" e-f-bg  e-fs-06 float-right"></span>
+					</div>
+				</div>
+			</div>
+			<div class="h-infor-f order-right background-fff margin-bottom-10 border-r5">
+				<div class="clear yingfu">
+					<div class="float-left">房费</div>
+					<div class="float-right color-D44A9F">
+						<span class="font-size-12">￥</span><span>#set($balance=$!{bookModel.total} * $!{bookModel.roomCount})  $!{balance}</span>
+					</div>
+				</div>
+				#if($!bookModel.isGuarantee)
+				<div class="font-size-12 clear line-height-20">
+					<span class="float-left ">担保费</span>
+					<span class="float-right color-000">$!{bookModel.guaranteeRate}</span><!-- 担保金额 -->
+				</div>
+				#end
+				<div class="font-size-12 clear line-height-20">
+					<span class="float-left ">服务费</span>
+					<span class="float-right color-000">$!{bookModel.coverCharge}</span><!-- 服务费 -->
+				</div>
+				<div class="font-size-12 clear line-height-20">
+					<span class="float-left">小计</span>
+					#set($total=$!balance + $bookModel.coverCharge)
+					<span class="float-right color-000">$!{bookModel.total} * $!{bookModel.roomCount} + $!{bookModel.coverCharge} = $!{total}</span>
+				</div>
+			</div>
+			
+			<div class="order-right h-infor-f background-fff border-r5 prepaid-notice-box">
+				<div class="font-size-16 margin-bottom-20 clear font-weight-600 color-000">预订须知</div>
+				<div class="font-size-12 clear">
+					<span class="float-left w-p-70">#if($!bookModel.refundType=="NeedSomeDay")限时取消#elseif($!bookModel.refundType=="NoChange")不可取消#else 免费取消#end：</span>
+					<div class="float-left w-p-246">
+						$!{bookModel.refundRule}
+					</div>
+				</div>
+				<div class="font-size-12 clear #if(!$!bookModel.isGuarantee)hide#end">
+					<span class="float-left w-p-70">担保信息：</span>
+					<div class="float-left w-p-246">
+						房量紧张，订单提交后需在线支付 <span id="guaranteeRoomUnit">¥ $!{bookModel.guaranteeRate}</span>担保金，如未预订成功，担保金全部原路退还;<br/>
+						入住结账，艺龙向酒店确认后，担保金全额原路退还;<br/>
+						退还金额境内卡5个工作日内到账，境外卡20个工作日内到账;<br/>
+					</div>
+				</div>
+				#if($!bookModel.bookRule!="" || $!bookModel.customerType !="All")
+				<div class="font-size-12 clear">
+					<span class="float-left w-p-70">入住提示：</span>
+					<div class="float-left w-p-246">
+						#if("$!{bookModel.bookRule}"!="")
+							<div>$!{bookModel.bookRule};</div>
+						#end
+						#if("OtherForeign"==$!bookModel.customerType || "FOREIGNER"==$!bookModel.customerType)
+						酒店要求入住人须持国外护照办理入住！
+						#elseif("HongKong"==$!bookModel.customerType)
+						酒店要求入住人须持港澳台身份证办理入住！
+						#elseif("Japanese"==$!bookModel.customerType)
+						酒店要求入住人须持日本护照入住办理入住！
+						#elseif("DOMESTIC"==$!bookModel.customerType || "Chinese"==$!bookModel.customerType)酒店要求入住人须持有效大陆身份证办理入住。 #end
+					</div>
+				</div>
+				#end#if($!bookModel.paymentType=="SelfPay")
+                <div class="font-size-12 clear">
+                    <span class="float-left w-p-70">发票提示：</span>
+                    <div class="float-left w-p-246 font-size-12">
+                        退房时酒店前台开取发票
+                    </div>
+                </div>
+                #else
+                <div class="font-size-12 clear">
+                    <span class="float-left w-p-70">发票提示：</span>
+                    <div class="float-left w-p-246 font-size-12">
+                        #if("$!{company.serverNo}"=="FLT_ADMIN")
+                        由福旅通代开增值税普通发票
+                        #else
+                        由行旅国际代开增值税普通发票
+                        #end
+                    </div>
+                </div>
+                #end
+				<div class="font-size-12 clear">
+					<span class="w-p-70 float-left">入住离店：</span>
+					<div class="float-left w-p-246">
+						${detail.arrivalTime}点之后允许客人入住；
+						酒店离店的最晚${detail.departureTime}点;
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--底部-->
+#parse("/common/footer-bottom.html")
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-oa.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/layer/layer.js"></script>
+<script type="text/javascript" src="/resources/js/hotel/hotel-book-confirm.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-ajax.js"></script>
+<script>
+    (function(){
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        };
+        if(!($(".guoji-needs").is("div"))){
+            var flag_check = $.getUrlParam("flag");
+            var pathname=window.location.pathname.split("/")[1];
+//		console.log(window.location);
+//		console.log(window.location.pathname);
+            $(".target_a").removeClass("target_a");
+            $(".sub-active").removeClass("sub-active");
+
+            $(".nav_main[href^='/"+pathname+"']").addClass("target_a");
+
+            $(".sub-nav a[href='/"+pathname+"']").not(".go-home").addClass("sub-active");
+            if (!flag_check && (pathname == 'air'||pathname == 'hotel'||pathname == 'train')) {
+
+                $(".sub-nav a[href^='/" + pathname + "']").removeClass("sub-active");
+                $(".sub-nav a[href^='/index']").addClass("sub-active");
+
+            };
+            $(".sub-nav a[data-default='/" + pathname + "']").addClass("sub-active");
+            // 订单列表页面控制左侧导航
+            var _pathname = window.location.pathname.split("/")[2];
+            $('#order-left-nav').find('[data-orderflag="' + _pathname + '"]').addClass('color-6461e2');
+            //icon-up-jt-second
+            // 数据管理页面控制左侧导航
+            var __pathname = window.location.pathname.split("/")[3];
+            __pathname == 'design' && (__pathname = 'city');
+            $('#data-manage-left').find('[data-manageflag="' + __pathname + '"]').addClass('color-6461e2');
+        }else{
+            $('[data-flag="guoji"]').addClass("sub-active");
+        }
+
+    })();
+</script>
+<script>
+    $(function () {
+        // 右上角个人中心悬停事件
+
+        $('body').on('mouseenter', '.user-box', function () {
+            $('.user_drap').removeClass("hide");
+            $('.selectbox_arrow').removeClass('hide');
+            $('.selectbox_up').addClass('hide');
+        });
+        $('body').on('mouseleave', '.user-box', function () {
+            $('.user_drap').addClass("hide");
+            $('.selectbox_arrow').removeClass('hide');
+            $('.selectbox_down').addClass('hide');
+        });
+
+    })
+</script>
+</body>
+</html>
+
+
+

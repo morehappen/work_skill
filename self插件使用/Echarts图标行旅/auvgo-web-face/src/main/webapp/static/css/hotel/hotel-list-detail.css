@@ -1,0 +1,146 @@
+.w-860{width: 860px;}
+.w-320{width: 320px;}
+
+.r-head{padding: 20px 30px;}
+.r-head-l{width: 850px;}
+.r-head-r{width: 290px;}
+
+.card-bg{float:left;margin: 2px 10px 2px 0;width: 25px;height: 16px;}
+.card-01{background-position: 0 -14px;}
+.card-02{background-position: -27px -14px;}
+.card-03{background-position: -54px -14px;}
+.card-04{background-position: -81px -14px;}
+.card-05{background-position: -126px -100px;}
+
+.e-faciligy{float:left;margin-right: 20px;}
+.facility-bg{float:left;margin-right: 6px;width: 20px;height: 20px;}
+.facility-text{height: 20px;line-height: 20px;}
+.f-b-01{background-position: -65px -89px;}
+.f-b-02{background-position: -69px -176px;}
+.f-b-03{background-position: -34px -210px;}
+.f-b-04{background-position: -45px -115px;}
+
+.r-head-r-bg{width: 18px;height: 18px;}
+.r-h-r-01{background-position: -66px -109px;}
+.r-h-r-02{background-position: -73px -238px;}
+.r-head-r-text{height: 18px;line-height: 18px;padding-left:10px;vertical-align: top;}
+
+.r-head-r-btn{margin-bottom: 21px;}
+.r-head-r-phone{margin-bottom: 14px;}
+
+
+/* 轮播图 */
+.slider-big{position: relative;margin-bottom: 10px;height: 375px;background: url(/static/project-resource/img/hotel/hotel-rt-big-replace.png) no-repeat;overflow: hidden;}
+
+.slider-big{background-image: url('/static/project-resource/img/hotel/hotel-rt-big-replace.png');background-size: cover;background-position: center;}
+
+.slider-big img{width: 860px;height: 375px;}
+.tab-bg-wraper{position: absolute;bottom: 0;width: 100%;height: 40px;background: #000;opacity: 0.4;filter:alpha(opacity=40);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";}
+.tab-wraper{position: absolute;bottom: 0;left: 20px;height: 40px;line-height: 40px;color: #fff;}
+.e-tab{padding: 0 10px;cursor: pointer;}
+.e-tab.active{opacity: 0.8;filter:alpha(opacity=80);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";}
+.slider-small{position: relative;height: 65px;overflow: hidden;}
+.slider-small-wraper{overflow: hidden;width: 860px;height: 65px;}
+.e-slider-con{display: none;left: 0;}
+.e-slider-con.active{display: block;}
+.e-img{position: relative;float: left;width: 120px;height: 65px;background: url(/static/project-resource/img/hotel/hotel-rt-sma-replace.png) no-repeat;margin-right: 5px;cursor: pointer;}
+.slider-small-wraper img{width: 120px;height: 65px;}
+.small-mask{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background: rgba(255, 255, 255, 0.3);}
+/*.e-img:before{content: '';display: inline-block;position: absolute;top: 0;left: 0;width: 100%;height: 100%;background: rgba(255, 255, 255, 0.3);}*/
+.e-img.active>.small-mask,.e-img:hover>.small-mask{display: none;}
+
+.slider-small>.slider-arrow{position: absolute;z-index: 9;width: 18px;height: 65px;line-height: 65px;text-align: center;background: #666;opacity: 0.5;filter:alpha(opacity=50);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";}
+.slider-small>.slider-arrow:hover{opacity: 1;filter:alpha(opacity=100);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";cursor: pointer;}
+.slider-arrow>span{position: relative;top: 25px;left: 5px;float: left;width: 8px;height: 14px;}
+.right-arrow{right: 0;}
+.l-arrow{background-position: -88px -32px;}
+.r-arrow{background-position: -98px -32px;}
+
+
+/* 轮播图右侧 */
+.evaluation{height: 65px;line-height: 65px;background: #fff;cursor: default;}
+.evaluation-left{width: 135px;background-position: -108px 0;font-size: 14px;}
+.thumb{position: relative;top: 4px;display: inline-block;*zoom:1;*display:inline;margin-right: 10px;width: 22px;height: 22px;background-position: -33px -230px;}
+.evaluation-right{width: 155px;padding-right: 30px;font-size: 24px;font-weight: 600;}
+
+.baidu-map{height: 450px;background: #fff;}
+
+
+
+/* 酒店介绍 */
+.room-type-title{height: 36px;line-height: 36px;font-siz: 16px;}
+.introduction-wraper{padding: 30px;}
+.intro-con{text-align: justify;line-height: 20px;padding-left: 32px;}
+.overflow-hidden{height: 38px;overflow: hidden;}
+.intro-more{cursor: default;}
+
+
+.date-wraper{padding: 16px 30px;}
+.date-wraper .date-ctrl {margin-right: 25px;}
+.date-ctrl .input {width: 212px;padding-left: 36px;}
+.icon-p {font-size: 18px;color: #ccc;top: 8px;left: 10px;}
+
+.date-count{line-height: 32px;}
+
+/* 附近酒店 */
+.e-near-h{padding: 20px;border-bottom: 1px solid #eee;}
+.e-near-h:last-child{border-bottom: none;}
+.e-near-h-l{width: 185px;}
+.e-near-h-t{width: 100%;}
+.e-near-h-r{width: 75px;}
+
+
+/* 房型列表 */
+.e-room-t{margin-bottom: 10px;}
+.e-room-t:last-child{margin-bottom: 0;}
+.e-room-t-head{padding: 13px 40px 15px 30px;background: #fff;cursor: default;}
+.e-room-t-h-l{float: left;}
+.e-room-t-h-r{float: right;}
+.e-room-img{width: 140px;height: 86px;background: url(/static/project-resource/img/hotel/hotel-rt-replace.png) no-repeat;}
+.e-room-img img{width: 140px;height: 86px;}
+.e-room-desc{margin-left: 20px;}
+.e-room-title{height: 40px;line-height: 40px;}
+.e-room-f-wraper{float: left;margin-right: 10px;}
+.e-room-f-wraper .e-f-bg{float: left;margin-right: 4px;width: 22px;height: 22px;}
+.e-f-01{background-position: -45px -162px;}
+.e-f-02{background-position: -69px -151px;}
+.e-f-03{background-position: -70px -127px;}
+.e-f-04{background-position: -46px -186px;}
+.e-f-05{background-position: -46px -138px;}
+.e-room-f-wraper .e-f-text{height: 22px;line-height: 22px;}
+.room-count{top: 3px;left: 60px;padding: 1px 6px;line-height: normal;color: #6461E2;background: #fff;border: 1px solid #6461E2;cursor: default;}
+
+.t-con-flag-w{width: 43px;}
+.t-con-flag-w .t-con-flag{position: relative;top: 22px;float: left;width: 43px;height: 43px;background-position: -45px -100px;}
+.low-price-wraper{float: right;height: 86px;line-height: 86px;}
+.low-price-wraper .exceed-flag{line-height: normal;margin-top: 32px;}
+
+.t-con-s-flag-w{height: 100%;}
+.t-con-s-flag{position: relative;top: 24px;float: left;width: 34px;height: 29px;background-position: -90px -100px;}
+
+.w-640{width: 640px;}
+.w-150{width: 150px;}
+
+
+.e-room-t-b{display: none;padding: 0 30px 20px 30px;border-top: 1px solid #eee;background: #fafafa;}
+.w-190{width: 160px;padding-left: 30px;}
+.w-113{width: 113px;}
+.w-134{width: 134px;}
+.w-76{width: 76px;}
+.w-58{width: 58px;}
+.w-127{width: 127px;}
+.w-100{width: 100px;}
+.h-53{height: 53px;line-height: 53px;}
+
+.e-r-con-wraper{background: #fff;}
+.e-con-w{border-bottom: 1px solid #eee;}
+.e-r-con-wraper .e-con-w:last-child{border-bottom: none;}
+
+/* 取消规则 */
+.cancel-rules{position: relative;}
+.cancel-title{color: #6461E2;border-bottom: 1px dashed #6461E2;cursor: default;}
+.cancel-desc{display: none;position: absolute;top: 45px;left: -200px;z-index: 10;padding: 12px;border: 1px solid #eee;width: 425px;line-height: normal;text-align: justify;background: #fff;box-shadow: 0 0 7px 0 #999;}
+/*.cancel-desc:before{content: '';position: absolute;top: -21px;left: 95px;z-index: 15;display: inline-block;width: 0;height: 0;border: 10px solid #f5f5f5;border-top-color: transparent;border-left-color: transparent;border-right-color: transparent;}*/
+
+
+.ie-7 .now-book,.ie-8 .now-book{position: absolute;top: 11px;}

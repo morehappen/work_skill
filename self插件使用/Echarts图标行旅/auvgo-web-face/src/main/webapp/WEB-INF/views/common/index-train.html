@@ -1,0 +1,56 @@
+<div class="train-query-model">
+	<input type="hidden" name="hoverFlag" value="train">
+	<!--<div class="airline-tab"></div>-->
+	<form action="/train/clquery" method="post" accept-charset="utf-8" id="train-form">
+		<div class="formContent">
+			<div class="clear">
+				<div class="float-left position e-input  width-330">
+					<div class="color-fff-in font-size-12 city-name-class">始发站</div>
+					<input type="text" class="show-city city-name from-city public-city width-330" name="fromName" value="北京" autocomplete="off" />
+					<input type="hidden" class="city-code from-city-code" name="from" value="beijing" />
+					<!--<span class="position-ab icon-img icon-position"></span>-->
+				</div>
+				<div class="float-left tab-button-c margin-auto-11">
+					<button type="button" class="tab-city float-left"></button>
+				</div>
+				<div class="float-left  position e-input  width-330">
+					<div class="color-fff-in font-size-12 city-name-class">到达站</div>
+					<input type="text" class="show-city city-name to-city public-city width-330" name="arriveName" value="上海" autocomplete="off" />
+					<input type="hidden" class="city-code to-city-code" name="arrive" value="shanghai" />
+					<!--<span class="position-ab icon-img icon-position"></span>-->
+				</div>
+			</div>
+			<div class="clear margin-top-31">
+				<div class="float-left position e-input width-330 margin-right-85">
+					<div  class="position-ab position-left-12" >出发日期</div>
+					<input type="text" name="startDate" value="" id="beginDate" class="input from-time public-date " onfocus="var endDate=$dp.$('endDate');WdatePicker({doubleCalendar:true,minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+29}',onpicked:function(){endDate.focus()},isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})" />
+					<span class="position-ab icon-img icon-date"></span>
+				</div>
+				<div class="float-left position e-input width-330 ">
+					<div class="position-ab position-left-12">车次类型</div>
+					<input type="text" class="input _autoFile_ train-type public-date" readonly="readonly" value="不限">
+					<input type="hidden" name="trainType" value="" class="_autoFileCode_">
+					<span class="position-ab icon-img icon-train"></span>
+				</div>
+			</div>
+			<div class="clear margin-top-30">
+				
+				<div class="float-right position e-input margin-right-36" style="top: 53px;">
+					<button type="button" class="btn btn-default-new btn-big float-right train-query">查询车次</button>
+				</div>
+				<div class="float-left train-reminder" >
+					温馨提示：<br/>
+					#if($!company.bianhao == 'CLKJ')
+					#parse("/common/tips.html")
+					2、每日06:00-22:55提供服务，<br/>
+					3、购票、改签和退票须不晚于开车前36分钟;
+					#else
+					每日06:00-22:55提供服务，<br/>购票、改签和退票须不晚于开车前36分钟;
+					#end
+					
+				</div>
+			</div>
+		</div>
+		
+	</form>
+</div>

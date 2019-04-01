@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>新增审批管理</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/add-approve-manage.css"/>
+	</head>
+	<body class="background-6461e2">
+		
+		#parse("/common/head.html")
+		
+		<!-- breadcrumbs -->
+		<div class="bread-crums main-content margin-top-10">
+			#parse("/common/bread-crumbs.html") > <a href="/crm/approve/" class="normal_a">审批级别</a> > 添加审批级别
+		</div>
+		
+		<!-- 主体 begin -->
+		<div class="main-content margin-top-10 background-fff auto_bottom">
+			<form action="/crm/approve/save" method="post" id="approveForm">
+				<input type="hidden" name="id" value="$!approve.id">
+				<input type="hidden" name="companyid" value="$!company.id">
+				<div class="content-only">
+					<div class="clear">
+						<div class="float-left">
+							<span class="span-input">审批规则编号</span>
+							<input type="text" name="bianhao" value="$!approve.bianhao" class="input" placeholder="" autocomplete="off" datatype="*1-70" nullmsg="审批规则编号"/>
+						</div>
+						<div class="float-left">
+							<span class="span-input">审批规则名称</span>
+							<input type="text" name="name" value="$!approve.name" class="input" placeholder="" autocomplete="off" datatype="*1-70" nullmsg="审批规则名称"/>
+						</div>
+					</div>
+					
+					
+					<!-- table 表格部分 begin -->
+					<div class="margin-top-30">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>审批级别</th>
+									<th>审批人</th>
+									<th class="table_caozuo">操作</th>
+								</tr>
+							</thead>
+							<tbody id="approve-wrapper">
+							#if("$!approve.shenpirens"=="")
+								<tr>
+									<td>1级审批</td>
+									<td class="input-td">
+									
+										<input type="text" class="input"  name="spname" id="name_1"   datatype="*1-70" nullmsg="请选择审批人" readonly="readonly"/>
+										<ul class="input-ul"></ul>
+										
+										<input type="hidden" name="spuserid" id="userid_$!vCount" value="$!spr.employeeid" />
+										<input type="hidden" name="splevel" value="1" />
+									</td>
+									<td class="table_caozuo">
+										<div class="clear table-btn-div">
+											<button type="button" class="btn btn-default btn-small add-approve">添加</button>
+										</div>	
+									</td>
+								</tr>
+							#else #foreach($spr in $!approve.shenpirens)	
+								<tr>
+									<td>$!{spr.level}级审批</td>
+									<td class="input-td">
+									
+										<input type="text" class="input" name="spname" id="name_$!vCount" value="$!spr.name" readonly="readonly"/>
+										<ul class="input-ul"></ul>
+										
+										<input type="hidden" name="spuserid" id="userid_$!vCount" value="$!spr.employeeid" />
+										<input type="hidden" name="splevel" value="$!vCount" />
+									</td>
+									<td class="table_caozuo">
+										<div class="clear table-btn-div">
+											#if($!vCount == 1)
+												<button type="button" class="btn btn-default btn-small add-approve">添加</button>
+											#else
+												<button type="button" class="btn btn-danger btn-small">删除</button>
+											#end
+										</div>	
+									</td>
+								</tr>
+							#end#end
+								
+							</tbody>
+						</table>
+					</div>
+					<!-- table 表格部分 end -->
+					<div class="clear margin-top-20 margin-bottom-30 text-align">
+						<button class="btn btn-default btn-big">确定</button>
+						<a href="/crm/approve/" class="btn btn-cancel btn-big">取消</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script	type="text/javascript" src="/static/js/crm/add-approve-manage.js"></script>
+	</body>
+</html>

@@ -1,0 +1,21 @@
+<div class="person-model background-fff margin-bottom-10 padding-right" style="padding-bottom: 10px;" data-editctr="0">
+	#if("$!{modifyCustomer}" != "0")
+		<div class="p-m-title clear">
+			<span class="float-left p-m-t">入住人</span>
+			#if($user.ifallowbook == "1")
+				<button type="button" data-person="choice" data-flag="1" class="float-right p-m-t sell-btn"><span class="add-person-icon"></span>选择入住人</button>
+			#end
+		</div>
+	#end
+		<div class="air-common-p clear  hide" data-js="contact">
+			<span class="float-left  font-size-12 text-align color-666" style="line-height:30px;margin-right:10px;">常用出行人</span>
+			<div class="float-left a-c-p-c font-size-12 text-align contacts default-height" data-js="contact-container">
+				<div id="often-contacts" class="clear" data-js="contactcontent"></div>
+			</div>
+			<button type="button" class="float-right p-m-t sell-btn contacts-btn" style="width:102px; border:0 ;color:#6BA8F3;" data-js="contactshut">展开</button>
+		</div>
+    <div id="container_hotel">
+    	#parse("/hotel/book/hotel-book-gust.html")
+	</div>
+</div>
+

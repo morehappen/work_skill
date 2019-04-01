@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>里程分析</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/common/plugin.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/common/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/page/pager_blue.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common/second-nav.css"/>
+
+    <link rel="stylesheet" type="text/css" href="../../resources/js/plugin/daterangepicker/iconfont/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/js/plugin/daterangepicker/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/js/plugin/daterangepicker/css/daterangepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/tTravel-analysis/analysis.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/tTravel-analysis/travelAnalysis.css"/>
+</head>
+<body>
+<div class="main-content clear">
+    <div class="float-left second-side-nav-box">
+        <div class="second-side-nav">
+            <dl>
+                <dt class="position">
+                    <a href="/myChailv/toNewChailvApp/personal?tag=chailv" class="position ss-link ss-every-model" data-tag="chailv">
+                        <span class="position-ab tip_img save_img_first"></span>
+                        节省分析
+                        <!--<span class="position-ab tip_img save_img_second s-jt-bg"></span>-->
+                    </a>
+                </dt>
+            </dl>
+            <dl>
+                <dt class="position">
+                    <a href="javascript:void(0);" class="ss-every-model">
+                        <span class="position-ab tip_img loss_img_first"></span>
+                        损耗分析
+                        <span class="position-ab tip_img travel_img_second s-jt-bg"></span>
+                    </a>
+                </dt>
+                <dd>
+                    <a href="javascript:void(0);" class="">
+                        差旅超标损耗
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        退改损耗
+                    </a>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="position">
+                    <a href="javascript:void(0);" class="ss-every-model">
+                        <span class="position-ab tip_img travel_img_first "></span>
+                        出行分析
+                        <span class="position-ab tip_img travel_img_second s-jt-bg"></span>
+                    </a>
+                </dt>
+                <dd>
+                    <a href="javascript:void(0);" class="">
+                        目的地分析
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        里程分析
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        次数/时长分析
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        热门酒店
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        航空公司分析
+                    </a>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="position">
+                    <a href="javascript:void(0);" class="ss-every-model">
+                        <span class="position-ab tip_img time_img_first"></span>
+                        时刻分析
+                        <span class="position-ab tip_img time_img_second s-jt-bg"></span>
+                    </a>
+                </dt>
+                <dd>
+                    <a href="javascript:void(0);" class="">
+                        航班时刻
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0);">
+                        火车时刻
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="float-left content_show">
+        <div class="analysis">
+            <div class="anal_top margin-bottom-10 padding-left-30 box-sizing font-size-16 color-333 background-fff">
+                <div>里程分析<em class="display-inline-block vertical-middle remind"></em></div>
+            </div>
+            <div class="total-mileage background-fff text-align-center margin-bottom-10">
+                <div class="display-inline-block vertical-middle"><em class="color-999 font-size-16">总出行里程（仅飞机）</em><i class="font-size-24">≈ 1亿公里</i></div>
+            </div>
+            <div class="clear">
+                <div class="mileage padding-left-30 padding-top-20 box-sizing margin-bottom-10 background-fff">
+                    <div class="sect-tit font-size-16 color-333 margin-bottom-20">部门里程TOP 5</div>
+                    <ul class="font-size-14">
+                        <li class="clear"><em class="float-left">销售部</em><i class="float-right margin-right-10">10000</i></li>
+                        <li class="clear"><em class="float-left">市场部</em><i class="float-right margin-right-10">5000</i></li>
+                        <li class="clear"><em class="float-left">财务部</em><i class="float-right margin-right-10">10000</i></li>
+                        <li class="clear"><em class="float-left">技术部</em><i class="float-right margin-right-10">10000</i></li>
+                        <li class="clear"><em class="float-left">产品部</em><i class="float-right margin-right-10">10000</i></li>
+                    </ul>
+                </div>
+                <div id="mileage-echarts"></div>
+            </div>
+        </div>
+        <form action="javascript:void(0);" method="POST" id="SaveAnalysisForm" class="query_form">
+            <input id="" type="hidden" name="">
+            <input id="" type="hidden" name="" value="">
+            <div class="input_select clear">
+                <div class="input_items margin-default-r margin-10-b">
+                    <div class="input_item_text">部门：</div>
+                    <div class="i_item_input">
+                        <input type="text" class="department" data-ele="department" name=""
+                               value="" placeholder="请输入部门/员工名称">
+                    </div>
+                </div>
+                <div class="input_items margin-default-r margin-10-b">
+                    <div class="input_item_text">姓名：</div>
+                    <div class="i_item_input">
+                        <input type="text" class="department" data-ele="department" name=""
+                               value="" placeholder="请输入员工姓名">
+                    </div>
+                </div>
+                <div class="input_items margin-default-r margin-10-b">
+                    <div class="input_item_text">出行工具：</div>
+                    <div class="i_item_input">
+                        <div class="drop">
+                            <select class="save_type _select_ _dropDown_" data-ele=""
+                                    name="" data-value="">
+                                <option value="">全部</option>
+                                <option value="" class="text-ellipsis">飞机</option>
+                                <option value="" class="text-ellipsis">火车</option>
+                            </select>
+                            <div class="drop_title">全部</div>
+                            <ul class="drop_option" style="">
+                                <li data-values="">全部</li>
+                                <li data-values="">飞机</li>
+                                <li data-values="">火车</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="input_items margin-default-r margin-10-b">
+                    <div class="input_item_text">时间：</div>
+                    <div class="i_item_input time_section_box">
+                        <button type="button" class="btn btn-default" id="daterange-btn">
+                            <span>
+                                <i class="icon iconfont icon-calendar1"></i>
+                                日期选择
+                            </span>
+                            <i class="icon iconfont icon-danxian-youjiantou-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="i_item_input float-left anlysis_btn_box">
+                    <button type="submit" class="btn anlysis_btn">查询</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="margin-top-30 list_table_box">
+            <!--没有数据的时候显示-->
+            <div class="no-data-wraper">
+                <div class="no-data animated rotateIn">
+                    <div class="auvgo-approve-bg no-data-pic" title="暂无数据"></div>
+                    <div class="no-data-text">暂无数据</div>
+                </div>
+            </div>
+
+            <!-- table 表格部分 begin -->
+            <table class="table table-align">
+                <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>部门</th>
+                    <th>出行工具</th>
+                    <th>里程</th>
+                    <th>费用</th>
+                    <th>费用/每公里</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>张小花</td>
+                    <td>
+                        全部
+                    </td>
+                    <td>
+                        5万
+                    </td>
+                    <td>
+                        100%
+                    </td>
+                    <td>
+                        100万
+                    </td>
+                    <td>
+                        100万
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>张小花</td>
+                    <td>
+                        全部
+                    </td>
+                    <td>
+                        5万
+                    </td>
+                    <td>
+                        100%
+                    </td>
+                    <td>
+                        100万
+                    </td>
+                    <td>
+                        100万
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>张小花</td>
+                    <td>
+                        全部
+                    </td>
+                    <td>
+                        5万
+                    </td>
+                    <td>
+                        100%
+                    </td>
+                    <td>
+                        100万
+                    </td>
+                    <td>
+                        100万
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <input type="hidden" data-ele="pagenum" value="1">
+            <input type="hidden" data-ele="pages" value="1">
+            <input type="hidden" data-ele="total" value="22">
+            <input type="hidden" data-ele="pagesize" value="30">
+        </div>
+        <div id="kkpager">
+            <div>
+                <span class="infoTextAndGoPageBtnWrap">
+                    <span class="totalText">
+                        当前第
+                        <span class="currPageNum">1</span>
+                        页
+                        <span class="totalInfoSplitStr">/</span>
+                        共
+                        <span class="totalPageNum">1</span>
+                        页
+                    </span>
+                    <span class="goPageBox">
+                         &nbsp;转到
+                        <span id="kkpager_gopage_wrap">
+                            <input type="button" id="kkpager_btn_go" onclick="kkpager.gopage()" value="确定">
+                            <input type="text" id="kkpager_btn_go_input" onfocus="kkpager.focus_gopage()"
+                                   onkeypress="return kkpager.keypress_gopage(event);" onblur="kkpager.blur_gopage()"
+                                   value="1">
+                        </span>
+                        页
+                    </span>
+                    <span style="padding-left:8px">
+                        每页显示
+                        <input type="text" value="30" class="kkpager_btn_go_input" id="everyNums">
+                        <button class="btn btn-default btn-small" id="changePages" type="button"
+                                style="vertical-align: baseline;">
+                            确定
+                        </button>
+                    </span>
+                </span>
+                <span class="pageBtnWrap">
+                    <span class="disabled">首页</span>
+                    <span class="disabled">上一页</span>
+                    <span class="curr">1</span>
+                    <span class="disabled">下一页</span>
+                    <span class="disabled">尾页</span>
+                </span>
+
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../../resources/js/common/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="../../resources/js/plugin/daterangepicker/js/moment.js"></script>
+<script type="text/javascript" src="../../resources/js/plugin/daterangepicker/js/daterangepicker.js"></script>
+<script type="text/javascript" src="../../resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="../../resources/js/plugin/echarts/echarts.common.min.js"></script>
+<script type="text/javascript" src="../../resources/js/tTravel-analysis/analysis.js"></script>
+<script type="text/javascript">
+    var dom = document.getElementById("mileage-echarts");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    option = {
+        color: ['#3E4EB2', '#FFB4E2', '#D44A9F', '#CBDAE1','#7686EE'],
+        title : {
+            text: '员工单次飞机出行里程分布（单位：公里）',
+            textStyle:{
+                fontSize:16,
+                fontWeight:'normal'
+            }
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{d}%"
+        },
+        legend: {
+            x : 'center',
+            y : 'bottom',
+            data:['800-1000','1000-1500','0-800','1500-10000','1000-1500']
+        },
+        calculable : true,
+        series : [
+            {
+                name:'面积模式',
+                type:'pie',
+                radius : [30, 110],
+                center : ['50%', '50%'],
+                roseType : 'area',
+                label:{
+                    position:'inside'
+                },
+                data:[
+                    {value:10, name:'800-1000'},
+                    {value:5, name:'1000-1500'},
+                    {value:15, name:'0-800'},
+                    {value:25, name:'1500-10000'},
+                    {value:20, name:'1000-1500'}
+                ]
+            }
+        ]
+    };
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+</html>

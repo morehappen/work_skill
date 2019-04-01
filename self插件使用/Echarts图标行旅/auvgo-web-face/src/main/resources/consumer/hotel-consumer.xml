@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-lazy-init="true">
+
+	<!--基础公共数据-->
+ 	<dubbo:reference id="auvgoHotelBimWSService"  interface="com.auvgo.hotel.api.ws.flow.IAuvgoHotelBimWSService"/>
+    <!--客户城市级别-->
+    <dubbo:reference id="auvgoHotelGeoTierWSService" interface="com.auvgo.hotel.api.ws.inside.IAuvgoHotelGeoTierWSService">
+     <dubbo:method name="updateAlias" retries="0"></dubbo:method>
+     <dubbo:method name="update" retries="0"></dubbo:method>
+     </dubbo:reference>
+	<!--酒店查询-->
+    <dubbo:reference id="auvgoHotelWSService" interface="com.auvgo.hotel.api.ws.flow.IAuvgoHotelWSService">
+       <dubbo:method name="hotelRatePlans" retries="1" timeout="6000"></dubbo:method>
+    </dubbo:reference>
+
+	<!-- 酒店订单 -->
+	<dubbo:reference id="auvgoHotelOrderWSService" interface="com.auvgo.hotel.order.api.ws.IAuvgoHotelOrderWSService">
+		 <dubbo:method name="approvalOrder" retries="0" timeout="6000"></dubbo:method>
+	</dubbo:reference>
+	<!-- 本地酒店订单 -->
+    <dubbo:reference id="auvgoHotelOrderDetailWSService" interface="com.auvgo.hotel.order.api.ws.IAuvgoHotelOrderDetailWSService"></dubbo:reference>
+	
+	<!-- 取消订单申请 -->
+    <dubbo:reference id="auvgoOrderCancelApplyWSService" interface="com.auvgo.hotel.order.api.ws.IAuvgoOrderCancelApplyWSService" timeout="5000"></dubbo:reference>
+    
+    <!-- 客服预订记录 -->
+    <dubbo:reference id="auvgoOrderBookRecordWSService" interface="com.auvgo.hotel.order.api.ws.IAuvgoOrderBookRecordWSService" timeout="5000"></dubbo:reference>
+    
+    <!--城市-->
+	<dubbo:reference id="auvgoHotelGeoWSService" interface="com.auvgo.hotel.api.ws.inside.IAuvgoHotelGeoWSService"/>
+    
+    <!-- 客户自定义城市级别  -->
+	<dubbo:reference id="auvgoHotelGeoTierAutoWSService" interface="com.auvgo.hotel.api.ws.inside.IAuvgoHotelGeoTierAutoWSService"/>
+    
+    <!-- 国家 -->
+	<dubbo:reference id="auvgoHotelCountryWSService" interface="com.auvgo.hotel.api.ws.inside.IAuvgoHotelCountryWSService"/>
+	
+	
+</beans>  

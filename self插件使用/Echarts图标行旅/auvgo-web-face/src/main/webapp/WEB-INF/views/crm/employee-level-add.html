@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>添加员工职级</title>
+			#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/staff-manage.css" />
+	</head>
+	<body>
+		<form action="/crm/employee/addEmplevel" class="alert-form" method="POST" id="EmpLevelForm">
+			<div class="form-row">
+				<span class="input-desc">职级名称</span>
+				<input type="text" name="name" placeholder="必填 " class="input_new" value="$!zidianValue.name" datatype="*2-50"/>
+				<input type="hidden" name="zidianid" value="$!zidianid">
+				<input type="hidden" name="id" value="$!zidianValue.id">
+			</div>
+			<div class="form-row">
+				<span class="input-desc">职级等级</span>
+				<input type="text" name="value" placeholder="必填  数字越大职级越大" class="input_new " value="$!zidianValue.value" datatype="n"/>
+			</div>
+			
+			<div class="form-row">
+				<span class="input-desc">职级排序</span>
+				<input type="text" name ="sort" placeholder="必填  数字从小到大排序" class="input_new" value="$!zidianValue.sort" datatype="n"/>
+			</div>
+			<div class="form-row-button">
+				<button type="submit" class="btn btn-default btn-big">保存</button>
+				<!--<button type="button" class="btn btn-cancel btn-big alert_close_ ">取消</button>-->
+			</div>
+		</form>	
+		#parse("/common/foot.html")
+		<script type="text/javascript">
+			$("#EmpLevelForm").Validform({
+				ajaxPost : true,
+			 	callback:function(data){
+			 		$("#Validform_msg").hide();
+					if(data.status==200){
+						parent.location.reload();
+					}else{
+						zh.alerts({ title:"提示", text:data.msg });
+					}
+				} 
+			});
+		</script>
+	</body>
+</html>

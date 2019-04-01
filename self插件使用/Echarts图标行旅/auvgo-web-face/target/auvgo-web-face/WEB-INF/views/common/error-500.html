@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>error-错误！</title>
+        #parse("/common/styleSheetCommon.html")
+        <style>
+            .error-body{display: table;width: 100%;background: url('/static/img/common/full-bg.png') no-repeat;}
+        </style>
+    </head>
+    <body class="background-6461e2" style="width: 100%;height: 100%;">
+        #parse("/common/head.html")
+
+        <div class="text-align error-body">
+            <div style="padding: 170px 0 74px 0;"><img src="/static/img/common/500.png"></div>
+            <p class="font-size-18">系统睡着啦！程序猿正在努力唤醒~</p>
+        </div>
+        #parse("/common/foot.html")
+        <script type="text/javascript">
+
+            var wH = $(window).height();
+
+            var navH = $('.sub-nav').height();
+
+            var hH = $('header').height();
+
+            var errorBodyH = (wH - navH - hH) + 'px';
+
+            $('.error-body').height(errorBodyH);
+
+        </script>
+
+    </body>
+</html>

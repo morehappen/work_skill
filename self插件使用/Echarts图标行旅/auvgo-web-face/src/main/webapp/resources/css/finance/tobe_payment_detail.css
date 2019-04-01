@@ -1,0 +1,47 @@
+.detail_tip{
+    height:120px;
+    background:rgba(255,255,255,1);
+    background-color: #fff;
+    margin-bottom: 30px;
+
+}
+.detail_tip{
+    text-align: center;
+}
+.detail_title{
+    padding-top: 37px;
+    font-size:18px;
+    font-weight:bold;
+    color:rgba(77,77,77,1);
+}
+.detail_money{
+    padding-top: 21px;
+    color: #D44A9F;
+    font-weight:bold;
+    color:rgba(212,74,159,1);
+}
+.detail_list_box{
+    background-color: #fff;
+    min-height: 700px;
+    padding: 30px 36px 30px 36px;
+}
+.export_detail_btn{
+    width: 102px;
+    height: 38px;
+    line-height: 38px;
+    color: #fff;
+    background-color: #D44A9F;
+    margin:0px 10px 30px 0;
+}
+.close_btn{
+    width: 102px;
+    height: 36px;
+    line-height: 36px;
+    color: #D44A9F;
+    border: 1px solid #D44A9F;
+    margin: 0px 0px 30px 0;
+    background-color: #fff;
+}
+.orde-table-wraper{
+    width: 100%;
+}

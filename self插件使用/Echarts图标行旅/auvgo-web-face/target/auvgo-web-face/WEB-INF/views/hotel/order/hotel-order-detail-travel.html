@@ -1,0 +1,72 @@
+<!-- 差旅信息 -->
+#if("$!{orderDetail.travelNo}" != "" || "$!{orderDetail.travelReason}" != "" || "$!{orderDetail.overReason}" != "" || "$!{orderDetail.overItem}" != "")
+	<div class="order-left background-fff margin-bottom-10 border-r5 font-size-12">
+		<div class="o-title font-size-18">差旅信息：</div>
+		<div class="o-content clear color-666">
+			<div class="clear">
+			#if("$!{orderDetail.travelNo}" != "")
+				<div class="chailv-cell float-left">
+					<div class=" float-left b-m-c-t ">出差单号：</div>
+					<div class="float-left b-m-c-c">$!{orderDetail.travelNo}</div>
+				</div>
+			#end
+			#if("$!{orderDetail.travelReason}" != "")
+				<div class="chailv-cell float-left clear">
+					<div class=" float-left b-m-c-t  b-m-c-t">出差事由：</div>
+					<div class="hoverTips float-left hover_content b-m-c-c" >$!{orderDetail.travelReason}</div>
+				</div>
+			#end
+			#if("$!{orderDetail.overReason}" != "")
+				<div class="clear">
+					<div class="chailv-cell clear">
+						<div class=" float-left color-gray  b-m-c-t">超标原因：</div>
+						<div class="float-left b-m-c-c ">$!{orderDetail.overReason}</div>
+					</div>
+				</div>
+			#end
+			#if("$!{orderDetail.overItem}" != "")
+				<div class="clear">
+					<div class="chailv-cell clear">
+						<div class="float-left  b-m-c-t">超标事项：</div>
+						<div class="float-left b-m-c-c">$!{orderDetail.overItem}</div>
+					</div>
+				</div>
+			#end
+			#foreach($level in [1..$!{maxLevel}])
+				<div class="clear">
+					<div class="chailv-cell clear">
+						<div class="float-left  b-m-c-t">审批级别：</div>
+						<div class="float-left b-m-c-c">$!{level}级审批</div>
+					</div>
+				</div>
+				<div class="clear">
+					<div class="chailv-cell clear">
+						<div class="float-left  b-m-c-t">审批人：</div>
+						#foreach($appro in ${approMap.get($level)})
+							<div class="float-left b-m-c-c">$!{appro.userName}</div>
+						#end
+					</div>
+				</div>
+				<div class="clear">
+					<div class="chailv-cell clear">
+						<div class="float-left  b-m-c-t">状态：</div>
+						#foreach($appro in ${approMap.get($level)})
+						<div class=" approve-title-ch float-left">
+							#if($!appro.status==0)
+							<div class="Unapproved" >未审批</div>
+							#end
+							#if($!appro.status==1)
+							<div class="Unapproved" >通过</div>
+							#end
+							#if($!appro.status==2)
+							<div class="Unapproved" >否决</div>
+							#end
+						</div>
+						#end
+					</div>
+				</div>
+				#end
+			</div>
+		</div>
+	</div>
+#end

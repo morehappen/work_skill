@@ -1,0 +1,40 @@
+.aside-nav ul li {
+  padding-left: 30px;
+  width: 180px;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #EEEEEE;
+  cursor: pointer;
+}
+.aside-nav ul li:hover {
+  color: #6461E2;
+  background: #FFFFFF;
+}
+.aside-nav ul li.color-6461e2 {
+  border-color: #6461E2;
+}
+.aside-content {
+  padding: 0 20px;
+}
+.orde-table-wraper {
+  width: 980px;
+  margin:0 auto;
+  /*overflow: auto;*/
+}
+.orde-table-wraper table {
+
+}
+
+#btn-des{margin-top: 18px;}
+
+
+
+
+
+
+
+
+
+
+
+

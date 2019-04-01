@@ -1,0 +1,130 @@
+##${flag} 为变量标识
+	## 机票模块airOrder || 火车票模块order
+	#if("$!model.airOrder" =="")
+<input type='hidden' class='project-code-shut' value='1'>
+<div class="clear padding-bottom-14" style="margin-top: 20px">
+	<div class="float-left input-150 travelorder-c input-c position" style="margin-top: -10px">
+		<span class="float-left">出差单号：</span>
+		<input type="text" name="${flag}.shenqingno" unselectable="on" value="$!p.get('traverorderno')" #if("$!p.get('traverorderno')"=="")data-flag-c="y"#else#end class="input travelorder-val volidate-input" datatype="*" nullmsg="请选择出差单号！">
+		<b class="position-ab danger-x red">*</b>
+	</div>
+	<div class="float-left input-c input-r-c chailvR-c position" style="margin-top: -10px">
+		<span class="float-left">出差事由：</span>
+		<input type="text" name=${flag}.chailvitem value="" class="input chailv-reason volidate-input" datatype="s" nullmsg="请输入出差事由">
+		<b class="position-ab danger-x red">*</b>
+
+	</div>
+</div>
+<div class="clear padding-bottom-14 showName-container">
+	<!--<div class="float-left input-150 project-c input-c position">-->
+		<!--<span class="float-left">SHOWNAME：</span>-->
+		<!--<input type="text" name="${flag}.proname" value=""  datatype="*" class="input float-left showname-c volidate-input" nullmsg="请输入SHOWNAME">-->
+		<!--<b class="position-ab danger-p red">*</b>-->
+	<!--</div>-->
+	<!--<div class="float-left  input-150 input-c position">-->
+		<!--<span class="float-left">SHOWCODE：</span>-->
+		<!--<input type="text" name="${flag}.showCode" value="" datatype="*" class="input volidate-input" nullmsg="请填写SHOWCODE">-->
+		<!--<b class="position-ab danger-p red">*</b>-->
+	<!--</div>-->
+</div>
+<div class="clear padding-bottom-14 weibei-container hide">
+	<div class="float-left drop-150 drop-float input-c">
+		<span class="float-left wb-reason">超标原因：</span>
+		<span class="wb-c-select"></span>
+	</div>
+	<div class="float-left hide full-reason-c position">
+		<span class="float-left full-reason" style="margin-left: 10px">填写原因：</span>
+		<input type="text" class="input input-full-reason volidate-input" name="${flag}.wbreason" ignore="ignore" datatype="*" nullmsg="请填写超标原因" placeholder="16个字符以内">
+		<!--<b class="position-ab danger-p hide red">*</b>-->
+	</div>
+</div>
+<div class="clear padding-bottom-20 approve_content drop-float drop-150">
+	<span class="float-left sp-guize-name">审批规则：</span>
+	<span class="approve_rule"></span>
+</div>
+<div class="sp-show clear"></div>	
+#elseif("$!model.airOrder" !="")
+<input type='hidden' class='project-code-shut' value='1'>
+<div class="clear padding-bottom-14">
+	<div class="float-left input-150 travelorder-c input-c position">
+		<span class="float-left">出差单号：</span>
+		<input type="text" name="${flag}.shenqingno" unselectable="on" readonly value="$!model.airOrder.shenqingno" #if("$!p.get('traverorderno')"=="")data-flag-c="y"#else#end class="input travelorder-val volidate-input" datatype="*" nullmsg="请选择出差单号！">
+		<b class="position-ab danger-p red">*</b>
+	</div>
+	<div class="float-left input-c input-r-c chailvR-c position">
+		<span class="float-left">出差事由：</span>
+		<input type="text" name=${flag}.chailvitem value="$!model.airOrder.chailvitem" class="input chailv-reason volidate-input" datatype="s" nullmsg="请输入出差事由">
+		<b class="position-ab danger-p red">*</b>
+	</div>
+</div>
+<div class="clear padding-bottom-14 showName-container">
+	<!--<div class="float-left input-150 project-c input-c position">-->
+		<!--<span class="float-left">SHOWNAME：</span>-->
+		<!--<input type="text" name="${flag}.proname" value="$!model.airOrder.proname"  datatype="*" class="input float-left showname-c volidate-input" nullmsg="请输入SHOWNAME">-->
+		<!--<b class="position-ab danger-p red">*</b>-->
+	<!--</div>-->
+	<!--<div class="float-left  input-150 input-c position">-->
+		<!--<span class="float-left">SHOWCODE：</span>-->
+		<!--<input type="text" name="${flag}.showCode" value="$!model.airOrder.showCode" datatype="*" class="input volidate-input" nullmsg="请填写SHOWCODE">-->
+		<!--<b class="position-ab danger-p red">*</b>-->
+	<!--</div>-->
+</div>
+<div class="clear padding-bottom-14 weibei-container hide">
+	<div class="float-left drop-150 drop-float input-c">
+		<span class="float-left wb-reason">超标原因：</span>
+		<span class="wb-c-select"></span>
+	</div>
+	<div class="float-left hide full-reason-c position">
+		<span class="float-left full-reason " style="margin-left: 10px">填写原因：</span>
+		<input type="text" class="input input-full-reason volidate-input" name="${flag}.wbreason" ignore="ignore" value="$!model.airOrder.wbreason" datatype="*" nullmsg="请填写超标原因" placeholder="16个字符以内">
+		<!--<b class="position-ab danger-p hide red">*</b>-->
+	</div>
+</div>
+<div class="clear padding-bottom-20 approve_content drop-float drop-150">
+	<span class="float-left sp-guize-name">审批规则：</span>
+	<span class="approve_rule"></span>
+</div>
+<div class="sp-show clear"></div>
+#elseif($!model.order != "")
+<input type='hidden' class='project-code-shut' value='1'>
+<div class="clear padding-bottom-14">
+	<div class="float-left input-150 travelorder-c input-c position">
+		<span class="float-left">出差单号：</span>
+		<input type="text" name="${flag}.shenqingno" unselectable="on" readonly value="$!model.order.shenqingno" #if("$!p.get('traverorderno')"=="")data-flag-c="y"#else#end class="input travelorder-val volidate-input" datatype="*" nullmsg="请选择出差单号！">
+		<b class="position-ab danger-p red">*</b>
+	</div>
+	<div class="float-left input-c input-r-c chailvR-c position">
+		<span class="float-left">出差事由：</span>
+		<input type="text" name=${flag}.chailvitem value="$!model.order.chailvitem" class="input chailv-reason volidate-input" datatype="s" nullmsg="请输入出差事由">
+		<b class="position-ab danger-p red">*</b>
+	</div>
+</div>
+<div class="clear padding-bottom-14 showName-container">
+	<!--<div class="float-left input-150 project-c input-c position">-->
+		<!--<span class="float-left">SHOWNAME：</span>-->
+		<!--<input type="text" name="${flag}.proname" value="$!model.order.proname"  datatype="*" class="input float-left showname-c volidate-input" nullmsg="请输入SHOWNAME">-->
+		<!--<b class="position-ab danger-p red">*</b>-->
+	<!--</div>-->
+	<!--<div class="float-left  input-150 input-c position">-->
+		<!--<span class="float-left">SHOWCODE：</span>-->
+		<!--<input type="text" name="${flag}.showCode" value="$!model.order.showCode" datatype="*" class="input volidate-input" nullmsg="请填写SHOWCODE">-->
+		<!--<b class="position-ab danger-p red">*</b>-->
+	<!--</div>-->
+</div>
+<div class="clear padding-bottom-14 weibei-container hide">
+	<div class="float-left drop-150 drop-float input-c">
+		<span class="float-left wb-reason">超标原因：</span>
+		<span class="wb-c-select"></span>
+	</div>
+	<div class="float-left hide full-reason-c position">
+		<span class="float-left full-reason " style="margin-left: 10px">填写原因：</span>
+		<input type="text" class="input input-full-reason volidate-input" name="${flag}.wbreason" ignore="ignore" value="$!model.order.wbreason" datatype="*" nullmsg="请填写超标原因" placeholder="16个字符以内">
+		<!--<b class="position-ab danger-p hide red">*</b>-->
+	</div>
+</div>
+<div class="clear padding-bottom-20 approve_content drop-float drop-150">
+	<span class="float-left sp-guize-name">审批规则：</span>
+	<span class="approve_rule"></span>
+</div>
+<div class="sp-show clear"></div>
+#end

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的差旅-酒店订单列表页</title>
+    <link rel="stylesheet" href="/resources/css/page/pager_blue.css">
+    <link rel="stylesheet" href="/resources/css/common/common.css">
+    <link rel="stylesheet" href="/resources/css/common/plugin.css">
+    <link rel="stylesheet" href="/resources/css/common/data-manage.css">
+    <link rel="stylesheet" href="/resources/css/plugin/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/hotel/hotel-order-list.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/my-chailv/train-order-list.css"/>
+</head>
+<body class="background-6461e2">
+#parse("/common/head.html")
+<div class="main-content main-myChailv-c clear">
+    <div class="float-left">
+        #parse("/common/second-nav.html")
+    </div>
+    <div class="float-left list-content">
+        #if($!tag!="wpay")
+        <ul class="tab-model clear">
+            <li class="float-left"><a href="/hotel/order/my/list?tag=hotel" data-flag="personal"
+                                      class="position float-left">个人订单</a></li>
+            <li class="float-left"><a href="/hotel/order/all/list?tag=hotel" data-flag="all"
+                                      class="position float-left">全部订单</a></li>
+        </ul>
+        #end
+        <form action="$!{url}" method="POST" id="HotelOrderForm" data-query="queryForm" class="query_form">
+            <input type="hidden" name="index" id="pageNo" value="$!{page.index}">
+            <input type="hidden" name="size" id="pageSize" value="$!{page.size}">
+            <input type="hidden" id="totalPage" value="$!{page.totalPage}">
+            <input type="hidden" id="total" value="$!{page.total}">
+
+            <div class="input-select clear">
+                <div class="margin-bottom-10 clear">
+                    <div class="input-model">
+                        <div class="i-m-text">日期类型：</div>
+                        <div class="i-m-input">
+                            <select id="date_select" class="_select_" name="dataType" data-ele="datatype" value=""
+                                    data-value="$!{queryModel.dataType}">
+                                <option value="">日期类型</option>
+                                <option value="book">预订日期</option>
+                                <option value="checkIn">入住日期</option>
+                                <option value="checkOut">离店日期</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="input-model margin-default-r margin-10-b middle-line position-rel">
+                        <div class="i-m-text">开始日期：</div>
+                        <div class="i-m-input">
+                            <input type="text" class="input border-radius" id="GTE_date" data-ele="sdate"
+                                   name="startTime"
+                                   value="$!{queryModel.startTime}"
+                                   placeholder="请选择起始日期" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="input-model margin-default-r margin-10-b middle-line position-rel">
+                        <div class="i-m-text">截止日期：</div>
+                        <div class="i-m-input">
+                            <input type="text" class="input border-radius" id="LTE_date" data-ele="edate" name="endTime"
+                                   value="$!{queryModel.endTime}"
+                                   placeholder="请选择截止日期" readonly="readonly">
+                        </div>
+                    </div>
+
+
+                    <div class="input-model margin-default-r margin-10-b middle-line position-rel">
+                        <div class="i-m-text">订单号：</div>
+                        <div class="i-m-input">
+                            <input type="text" class="input border-radius bookPerson" name="orderNo"
+                                   value="$!{queryModel.orderNo}" placeholder="订单号">
+                        </div>
+                    </div>
+
+
+                    <div class="input-model margin-default-r margin-10-b middle-line position-rel">
+                        <div class="i-m-text">预订人：</div>
+                        <div class="i-m-input">
+                            <input type="text" class="input border-radius bookPerson" name="auxiliary.creater"
+                                   value="$!{queryModel.auxiliary.creater}" placeholder="预订人">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="margin-bottom-10 clear">
+                    <div class="input-model margin-default-r margin-10-b middle-line position-rel">
+                        <div class="i-m-text">入住人：</div>
+                        <div class="i-m-input">
+                            <input type="text" class="input border-radius passPerson" name="guests"
+                                   value="$!{queryModel.guests}" placeholder="入住人">
+                        </div>
+                    </div>
+
+
+                    #if(!$!{prePayCompany})
+                    <!-- 分销不显示 -->
+                    <input type="hidden" name=customers[0].costId value="$!{queryModel.customers[0].costId}"
+                           id="cost_center_id_i">
+
+                    <div class="input-model margin-default-r margin-10-b middle-line position-rel">
+                        <div class="i-m-text">成本中心：</div>
+                        <div class="i-m-input">
+                            <input type="text" class="input border-radius passPerson" name=customers[0].costName
+                                   value="$!{queryModel.customers[0].costName}" id="cost_center_i" placeholder="成本中心">
+                        </div>
+                    </div>
+
+
+                    <div class="input-model margin-default-r margin-10-b middle-line position-rel">
+                        <div class="i-m-text">项目：</div>
+                        <div class="i-m-input">
+                            <input type="text" class="input border-radius passPerson" name=customers[0].itemNumber
+                                   value="$!{queryModel.customers[0].itemNumber}" id="project_i" placeholder="项目">
+                        </div>
+                    </div>
+
+                    #end
+                    #if($!tag!="wpay")
+
+
+                    <div class="input-model">
+                        <div class="i-m-text">订单状态：</div>
+                        <div class="i-m-input">
+                            <select class="_select_" name="orderStatus" data-value="$!{queryModel.orderStatus}">
+                                <option value="">订单状态</option>
+                                <option value="WAIT_PAY">待支付</option>
+                                <option value="WAIT_CONFIRM">待确认</option>
+                                <option value="CONFIRM">已确认</option>
+                                <option value="NO_SHOW">未入住</option>
+                                <option value="CHECK_IN">已入住</option>
+                                <option value="CHECK_OUT">已离店</option>
+                                <option value="CANCELED">已取消</option>
+                                <option value="INVALID">无效</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    #end
+                    <button type="button" class="btn btn-default btn-big query_hotel_btn" onclick="searchOrder()">查询
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="margin-top-30 orde-table-wraper">
+            #if($page && $page.items && $!{page.items.size()}>0)
+            <table class="table table-align">
+                <thead>
+                <tr>
+                    <th style="width:130px;">订单编号</th>
+                    <th style="width:100px; max-height:64px;white-space: normal;">入住人</th>
+                    <th style="width:60px;">城市</th>
+                    <th style="width:70px;">在店日期</th>
+                    <th style="width:70px; text-align: center;">总价</th>
+                    <th style="width:100px;">酒店名称</th>
+                    <th style="width:70px;">订单状态</th>
+                    <th style="width:70px;">房型</th>
+                    <th style="width:50px;">审批状态</th>
+                    <th>支付状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                #foreach($order in $page.items)
+                <tr>
+                    <td>
+                        <a href="/hotel/order/$!{tag}/input/$!{order.orderNo}?tag=hotel"
+                           class="orderToDetail">$!{order.orderNo}</a>
+                    </td>
+                    <td>
+                        <div class="hoverTips" style="max-height:64px;overflow: hidden;text-overflow: ellipsis;">
+                            $!{order.guests}
+                        </div>
+                    </td>
+                    <td>$!{order.geoName}</td>
+                    <td>$!{order.checkIn}<br/> $!{order.checkOut}</td>
+                    <td>
+                        <div style="line-height:24px;">
+                            ￥$!{order.totalPrice}
+                            <span class=" border-color"> #if($order.balanceType=="Enterprise")公司支付#end #if($order.balanceType=="Personage")#if($order.payment=="SelfPay")现付#if($!order.isGuarantee)|担保#end#else预付#end#end </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="hoverTips hover_content">
+                            $!{order.hotelName}
+                        </div>
+                    </td>
+                    <td>
+                        #if($order.orderStatus == "WAIT_CONFIRM")
+                        <span class="">待确认</span>
+                        #elseif($order.orderStatus == "WAIT_PAY")
+                        <span class="">  待支付</span>
+                        #elseif($order.orderStatus == "CONFIRM")
+                        <span class="color-ching">  已确认</span>
+                        #elseif($order.orderStatus == "NO_SHOW")
+                        <span class="color-red">  未入住</span>
+                        #elseif($order.orderStatus == "CHECK_OUT")
+                        <span class="">  已离店</span>
+                        #elseif($order.orderStatus == "CANCELED")
+                        <span class="color-red">  已取消</span>
+                        #elseif($order.orderStatus == "CHECK_IN")
+                        <span class="color-ching">  已入住</span>
+                        #elseif($order.orderStatus == "INVALID")
+                        <span class="color-red">  无效</span>
+                        #else
+                        <span class="">  取消</span>
+                        #end
+                    </td>
+                    <td>$!{order.roomName}</td>
+                    <td>
+                        #if($order.approStatus == 0)
+                        未审批
+                        #elseif($order.approStatus == 1)
+                        审批通过
+                        #elseif($order.approStatus == 2)
+                        审批否决
+                        #elseif($order.approStatus == 3)
+                        无需审批
+                        #elseif($order.approStatus == 4)
+                        审批中
+                        #else
+                        -
+                        #end
+                    </td>
+                    <td>
+                        <div class="hoverTips hover_content">
+                            #if($order.payment=="Prepay" || ($order.payment=="SelfPay" && $order.isGuarantee))
+                            #if($order.balanceType=="Personage")
+                            #if($order.payStatus == 0)未支付#else已支付#end
+                            #else
+                            -
+                            #end
+                            #else
+                            -
+                            #end
+                        </div>
+                    </td>
+                </tr>
+                #end
+                </tbody>
+            </table>
+            #else
+            #parse("/common/no-data.html")
+            #end
+        </div>
+        #if($page && $page.items && $!{page.items.size()}>0)
+        <div id="kkpager"></div>
+        #end
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="/resources/js/common/common.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/page/pager.min.js"></script>
+<script type="text/javascript" src="/resources/js/common/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/resources/js/order/orderCommon.js"></script>
+<script type="text/javascript" src="/resources/js/hotel/order/hotel-order-list.js"></script>
+<script type="text/javascript" src="/resources/js/common/data-auto-page.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-oa.js"></script>
+<script type="text/javascript">
+    $("#GTE_date").focus(function () {
+//	console.log($("#date_select").val());
+        if ($("#date_select").val() == "book") {
+            WdatePicker({
+                doubleCalendar: true,
+                doubleCalendar: true,
+                dateFmt: 'yyyy-MM-dd',
+                minDate: '%y-%M-{%d-365/2}',
+                maxDate: '%y-%M-%d'
+            });
+        } else if ($("#date_select").val() == "checkIn" || $("#date_select").val() == "checkOut") {
+            WdatePicker({
+                doubleCalendar: true,
+                doubleCalendar: true,
+                dateFmt: 'yyyy-MM-dd',
+                minDate: '%y-%M-{%d-90}',
+                maxDate: '%y-%M-{%d+90}'
+            });
+        } else {
+            WdatePicker({doubleCalendar: true, doubleCalendar: true, dateFmt: 'yyyy-MM-dd'});
+        }
+
+    });
+
+    $("#LTE_date").focus(function () {
+        if ($("#date_select").val() == "book") {
+            WdatePicker({
+                isShowClear: false,
+                doubleCalendar: true,
+                dateFmt: 'yyyy-MM-dd',
+                minDate: '#F{$dp.$D(\'GTE_date\')}',
+                maxDate: '%y-%M-{%d+1}'
+            });
+        } else if ($("#date_select").val() == "checkIn" || $("#date_select").val() == "checkOut") {
+            WdatePicker({
+                isShowClear: false,
+                doubleCalendar: true,
+                dateFmt: 'yyyy-MM-dd',
+                minDate: '#F{$dp.$D(\'GTE_date\',{d:1})}',
+                maxDate: '%y-%M-{%d+91}'
+            });
+        } else {
+            WdatePicker({doubleCalendar: true, doubleCalendar: true, dateFmt: 'yyyy-MM-dd'});
+        }
+    });
+</script>
+</html>
+
+

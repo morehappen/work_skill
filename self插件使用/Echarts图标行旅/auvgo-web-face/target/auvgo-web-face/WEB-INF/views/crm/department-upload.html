@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<!-- <link rel="stylesheet" type="text/css" href="/static/plugin/dropzone/dropzone.css" /> -->
+<title>部门导入</title>
+#parse("/common/styleSheetCommon.html")
+</head>
+<body>
+	<form data-action_="/crm/depart/upload/$!cid" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+
+        <label for="file_upload_js" class="fileContent">
+            点击上传
+            <input name="mydepfile" type='file' id="file_upload_js">
+        </label>
+
+	</form>
+	#parse("/common/foot.html")
+    <script type="text/javascript" src="/static/js/common/uploadFile.js"></script>
+</body>
+</html>

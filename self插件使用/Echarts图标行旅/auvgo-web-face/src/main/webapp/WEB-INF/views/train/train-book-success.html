@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>火车票-$!title</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/air/air-book-success.css">
+	</head>
+
+	<body class="background-fff clear">
+		#parse("/common/head.html")
+		<div class="main-content">
+			<div class="success-model background-fff" data-orderstatus=$!order.status data-flag=$!order.status>
+
+				#set($progressFlag = 'train')
+				#parse("/common/progress.html")
+
+				<div class="clear success-m-tips">
+					<div class="float-left">
+						<img src="/static/img/airImg/success-flag.png">
+					</div>
+					<div class="float-left s-t-c">
+						<div class="s-text">$!title</div>
+						<div class="font-size-12">
+							<p style="margin-bottom: 5px;">$!msg</p>
+							#if($!title == '出票中' || $!title == '订座中')
+							<img class="loading-bar" src="/static/project-resource/img/loading-line.gif" style="width: 260px;height: 10px;">
+							#end
+						</div>
+					</div>
+				</div>
+				<div class="order-detail font-size-14">
+					<div class="clear o-r-de">
+						<div class="float-left o-d-l">
+							订单号：<a href="/myChailv/toTrainOrderDetail/$!{orderNO}?flag=personal">$!{ordernos}</a>
+						</div>
+						<div class="float-left">
+							<span class="float-left">$!route.fromStation</span>
+							<span class="float-left qc-point"></span>
+							<span class="float-left">$!route.arriveStation</span>
+							<span class="o-d-date">$!route.travelTime $!route.fromTime</span>
+						</div>
+					</div>
+					<div class="clear o-r-de">
+						<div class="float-left o-d-l">
+							乘车人：<span>$!{names}</span>
+						</div>
+					</div>
+				</div>
+				<div class="btn-group text-align">
+					#if(!(($!company.bianhao == 'CLKJ') && ("$!p.get('traverorderno')" == "")))
+						#if(!$!isoalogin)
+						<a href="/index?flag=train" title="" class="btn btn-default btn-big">继续预订</a>
+						#end
+					#end
+					<a href="/myChailv/toTrainOrderDetail/$!{orderNO}?flag=personal" class="btn btn-default btn-big">查看订单</a>
+				</div>
+			</div>
+		</div>
+		<!-- 主体 end -->
+
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/train/train-book-success.js"></script>
+	</body>
+
+</html>

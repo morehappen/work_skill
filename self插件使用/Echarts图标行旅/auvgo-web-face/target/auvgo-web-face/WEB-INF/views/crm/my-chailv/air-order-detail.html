@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>机票订单-详情-正常单</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-new-order-detail.css" />
+		<style>
+			.margin-bottom-20 .pass-btn{text-align:right; width:100px;}
+			.margin-bottom-20 .pass-btn .btn{width:30px; height:24px; display:inline-block; margin-right:5px; margin-top:-5px;}
+			.margin-bottom-20 .pass-btn em{display:inline-block;}
+		</style>
+	</head>
+	<body class="background-6461e2">
+		## $flag 区分 
+			## 机票模块$!airOrder || 火车票模块$!trainOrder || 酒店模块$!hotelOrder
+		#set($flag = $!airOrder)
+		<input type='hidden' class='project-code-shut' value='1'>
+		<!--BKJT判断标志-->
+		<input type="hidden" class="getShowname">
+		#parse("/common/head.html")
+		<input type="hidden" value="false" class="fanxian">
+		<div class="main-content">
+			<div class="margin-bottom-20"></div>
+			<div class="order-status-wraper background-fff margin-bottom-20 border-r5">
+				<div class="clear">
+					<div class="float-left tarin-bg order-status text-align font-size-14 color-fff">$!airUtil.getairfaceStatus($!airOrder.showStatus)</div>
+					<div class="clear float-left font-size-12">
+						<div class="float-left order-num">
+							<div class="color-gray">订单号</div>
+							<div id="normal-orderno" data-orderno="$!airOrder.orderno">$!airOrder.orderno</div>
+							<input type="hidden" id="orderfrom" value="$!airOrder.orderFrom">
+						</div>
+					</div>
+					<!-- 支付审批状态 begin -->
+					<div class="float-right">
+						#set($progressFlag = 'air')
+						#parse("/common/progress.html")
+					</div>
+					<!-- 支付审批状态 end -->
+
+				</div>
+			</div>
+
+			<div class="clear">
+				<div class="float-left">
+					<!-- 车次信息 begin -->
+					#set($routeList = $!routelist)
+					#parse("/crm/my-chailv/order-detail-air-airline-infor.html")
+					<!-- 车次信息 end -->
+
+					<!-- 乘车人 begin -->
+					<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+						<div class="o-title font-size-18">乘机人</div>
+						<div class="o-content" style="padding-left:0;">
+							#foreach($pass in $!userlist) #foreach($passList in $!routePass)
+							#if($!pass.id ==$!passList.passid)
+							<div class="clear margin-bottom-20">
+								
+								<div class="margin-b-14 font-size-16" style="margin-left:100px;">$!pass.name</div>
+								<div class="o-e-pass pass-btn float-left">
+									<em></em>
+								    #if($!passList.isNoshow==1)
+								    <button class="btn btn-default">未</button>
+                                    #end
+									#if($!passList.tuipiaostatus != 0)
+									<button class="btn btn-default">退</button>
+									#end
+									#if($!passList.gaiqianstatus != 0)
+									<button class="btn btn-danger ">改</button>
+									#end
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">票号</div>
+									<div>
+										#if("" != "$!passList.piaohao")
+										$passList.piaohao
+										#else
+										--
+										#end
+									</div>
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">
+										#if($!pass.certtype == "1")
+										二代身份证
+										#elseif($!pass.certtype == "C")
+										港澳通行证
+										#elseif($!pass.certtype == "G")
+										台湾通行证
+										#elseif($!pass.certtype == "B")
+										护照
+										#else
+										其他
+										#end
+									</div>
+									<div>$!pass.certno</div>
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">保险</div>
+									<div>
+										#if("$!pass.bxName" != "")
+											$!pass.bxName
+										#else
+											--
+										#end
+									</div>
+								</div>
+							</div>
+							<div class="clear margin-bottom-20" style="margin-left:100px;">
+								#if("$!pass.costName" != "")
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">成本中心</div>
+									<div class="hoverTips hover_content" style="width: 130px;">
+										$!pass.costName
+									</div>
+								</div>
+								#end
+								#if("$!pass.itemNumber" != "")
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14 detail-title isHuiChuan_text">项目中心</div>
+									<div class="hoverTips hover_content" style="width: 130px;">
+										$!pass.itemNumber
+									</div>
+								</div>
+								#end
+								#if("$!pass.showCode"!="")
+								<div class="o-e-cert float-left showNameCode" style="margin-top:20px;">
+									<div class="float-left p-w-160 showNameCode">SHOWCODE：</div>
+									<div class="hoverTips hover_content" style="width: 110px;">
+										<div class="float-left p-w-160 input-email"  style="height:16px;">$!pass.showCode</div>
+									</div>
+								</div>
+								#end
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">发送通知</div>
+									<div class="hoverTips hover_content"style="width: 110px;">
+										#if($!pass.isSend == true)
+										短信
+										#else
+										--
+										#end
+										#if($!pass.isSendEmail == true)
+										邮件
+										#else
+										--
+										#end
+									</div>
+								</div>
+							</div>
+							<div class="clear margin-bottom-20" style="margin-left:100px;">
+
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">手机号</div>
+									<div>
+										#if("$!pass.mobile" != "")
+										$!pass.mobile
+										#else
+										--
+										#end
+									</div>
+								</div>
+
+
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">部门</div>
+									<div>
+										#if("$!pass.depname" != "")
+										$!pass.depname
+										#else
+										--
+										#end
+									</div>
+								</div>
+								<div class="o-e-cert float-left">
+									<div class="color-gray margin-b-14">邮箱</div>
+									<div class="hoverTips hover_content" style="width: 110px;">
+										#if("$!pass.email" != "")
+										$!pass.email
+										#else
+										--
+										#end
+									</div>
+								</div>
+
+							</div>
+							#end #end #end
+						</div>
+					</div>
+					<!-- 乘车人 end -->
+
+					<!-- 差旅信息 begin -->
+					#parse("/crm/my-chailv/chailv-common.html")
+					<!-- 差旅信息 end -->
+
+					<!-- 联系人 begin -->
+					#set($model = 'air')
+					#set($linkName = $!airOrder.linkName)
+					#set($linkPhone = $!airOrder.linkPhone)
+					#set($linkEmail = $!airOrder.linkEmail)
+					#set($isSend = $!airOrder.isSend)
+					#set($isSendEmail = $!airOrder.isSendEmail)
+					#parse("/crm/my-chailv/order-detail-link.html")
+					<!-- 联系人 end -->
+
+					<!-- 配送信息 start -->
+					#if("$!airOrder.peisongaddr" != "")
+					<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+						<div class="o-title font-size-18">配送信息</div>
+						<div class="o-content">
+							<div class="clear margin-bottom-20">
+								<div class="o-e-pass float-left">
+									<div class="e-pass hoverTips hover_content">$!userlist[0].name</div>
+								</div>
+								<div class="float-left">
+									<div class="color-gray margin-b-14">$!userlist[0].mobile</div>
+									<div>$!airOrder.peisongaddr</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					#end
+					<!-- 配送信息 end -->
+					<div class="text-align margin-bottom-20">
+						#if($!airOrder.showStatus==3) <!-- 待出票 -->
+							<button type="button" class="btn btn-default btn-middle confirmOrder">确认出票</button>
+							<button type="button" class="btn btn-cancel btn-middle cancleOrder">取消订单</button>
+						#elseif($!airOrder.showStatus==6) <!-- 已出票 -->
+						#if($ishowtg&&!$isover)
+							<button type="button" class="btn btn-default btn-middle js-apply-refund">申请退票</button>
+							<button type="button" class="btn btn-default btn-middle js-apply-change">申请改签</button>
+						#end
+						#elseif($!airOrder.showStatus==1) <!-- 审批中 -->
+							<button type="button" class="btn btn-cancel btn-middle cancleOrder">取消订单</button>
+						#end
+						<button type="button" class="btn btn-cancel btn-middle air-order-cancle">返回</button>
+					</div>
+				</div>
+				<div class="float-right">
+					<div class="order-right background-fff margin-bottom-20 border-r5">
+						<!-- #set($size=$!routePass.size()) 人数
+						#set($ticketPrice = ($!routePass[0].price)*$!size) 总票价
+						#set($airporttax = $!routePass[0].airporttax*$!size) 总机建燃油
+						#set($bxPayMoney = $!routePass[0].bxPayMoney*$!size) 总保险
+						#set($fuwufei = $!routePass[0].fuwufee*$!size) 总服务费 -->
+						<!-- #set($total = $!routePass[0].totalprice*$!size) 总价 --><!-- wqq 2018-03-01 出现精度问题,在controller中计算 -->
+						<div class="clear yingfu">
+							<div class="float-left">应付金额</div>
+							<div class="float-right color-purple">
+								<span class="font-size-12">￥</span><span id="total">$!YinPaytotal</span>
+							</div>
+						</div>
+						<div class="yingfu-detail font-size-12">
+							<div class="clear line-cost-title">
+								<span class="font-size-14 float-left">单程费用</span>
+								<span class="dot-line float-left"></span>
+							</div>
+							<div class="clear margin-b-14">
+								<span class="float-left yf-detail-left">票价</span>
+								<span class="float-left yf-detail-mid">$!routePass[0].price*$!size</span>
+								<input type="hidden" value="$!ticketPrice" name="ticketPrice"/>
+								<span class="float-left yf-detail-right text-align-r" id="ticketPrice">$!priceformat</span>
+							</div>
+							<div class="clear margin-b-14">
+								<span class="float-left yf-detail-left">机建/燃油</span>
+								#set($text1=$!routePass[0].airporttax*$!size+$!routePass[0].fueltax*$!size)
+								#set($text2=$!routePass[0].airporttax+$!routePass[0].fueltax)
+								<span class="float-left yf-detail-mid">$text2*$!size</span>
+								<input type="hidden" value="$!airporttax" name="airporttax"/>
+								<span class="float-left yf-detail-right text-align-r" id="airporttax">$text1</span>
+							</div>
+							<div class="clear margin-b-14 fanxian-hide hide">
+								<span class="float-left yf-detail-left">现返</span>
+								<span class="float-left yf-detail-mid">$!routePass[0].giveProfit*$!size</span>
+								<input type="hidden" value="" name="bxPayMoney"/>
+								#set($giveProfits=$!routePass[0].giveProfit*$!size)
+								<span class="float-left yf-detail-right text-align-r" id="xianfan">$giveProfits</span>
+							</div>
+							<div class="clear margin-b-14">
+								<span class="float-left yf-detail-left">保险</span>
+								<span class="float-left yf-detail-mid">$!routePass[0].bxPayMoney*$!size</span>
+								<input type="hidden" value="$!bxPayMoney" name="bxPayMoney"/>
+								<span class="float-left yf-detail-right text-align-r" id="bxPayMoney">$!bxPayMoneyformat</span>
+							</div>
+							<div class="clear">
+								<span class="float-left yf-detail-left">服务费</span>
+								<span class="float-left yf-detail-mid">$!routePass[0].fuwufee*$!size</span>
+								<input type="hidden" value="$!fuwufei" name="fuwufei"/>
+								<span class="float-left yf-detail-right text-align-r" id="fuwufei">$!fuwufeiformat</span>
+							</div>
+							<!-- <div class="clear line-cost-title l-c-title-back">
+								<span class="font-size-14 float-left">返程费用</span>
+								<span class="dot-line float-left"></span>
+							</div>
+							<div class="clear margin-b-14">
+								<span class="float-left yf-detail-left">票价</span>
+								<span class="float-left yf-detail-mid">1000*2</span>
+								<span class="float-left yf-detail-right text-align-r">2000</span>
+							</div>
+							<div class="clear margin-b-14">
+								<span class="float-left yf-detail-left">机建/燃油</span>
+								<span class="float-left yf-detail-mid">30*2</span>
+								<span class="float-left yf-detail-right text-align-r">60</span>
+							</div>
+							<div class="clear margin-b-14">
+								<span class="float-left yf-detail-left">保险</span>
+								<span class="float-left yf-detail-mid">3*2</span>
+								<span class="float-left yf-detail-right text-align-r">6</span>
+							</div>
+							<div class="clear">
+								<span class="float-left yf-detail-left">服务费</span>
+								<span class="float-left yf-detail-mid">20*2</span>
+								<span class="float-left yf-detail-right text-align-r">40</span>
+							</div> -->
+						</div>
+					</div>
+					#parse("/crm/my-chailv/approve-common.html")
+					<!-- <div class="order-right background-fff margin-bottom-20 border-r5">
+						<div class="o-title font-size-18">本次预订节约统计</div>
+						<div class="approve-wraper font-size-12 save-cost-chart" id="saveCostChart">
+							
+						</div>
+					</div> -->
+				</div>
+			</div>
+
+		</div>
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/common/order-details-common.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/air-order-detail.js"></script>
+		<script type="text/javascript" src="/static/js/common/chailv-controller.js"></script>
+	</body>
+	
+</html>

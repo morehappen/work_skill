@@ -1,0 +1,1314 @@
+.mains-content {
+    padding-top: 14px
+}
+
+.book-model {
+    width: 750px;
+    padding: 20px 30px
+}
+
+.p-m-title {
+    height: 16px;
+    line-height: 16px;
+    margin-bottom: 41px;
+    font-weight: bold
+}
+
+.a-c-p-c span {
+    width: 102px;
+    height: 32px;
+    box-sizing: border-box;
+    line-height: 32px;
+    border: 1px solid #e9e9e9;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 12px
+}
+
+.a-c-p-c span.active {
+    border: none;
+    background: url("../../images/common/train-bg.png") no-repeat -82px -39px
+}
+
+.cy-lxr, .p-m-name, .cl-m-show, .input-c span, .wb-reason, .full-reason, .sp-guize-name {
+    height: 34px;
+    line-height: 34px
+}
+
+.input-c span {
+    line-height: 16px;
+    height: 16px
+}
+
+.cy-lxr {
+    width: 100px;
+    text-align: right
+}
+
+.passanger-model {
+    padding: 16px 0 0px 0px
+}
+
+.p-m-name {
+    font-size: 16px;
+    margin-right: 20px
+}
+
+.drop-centro .drop {
+    width: 120px;
+    margin-right: 20px
+}
+
+.input-150 input[type='text'], .drop-150 .drop {
+    width: 150px
+}
+
+.input-667 input[type='text'], .drop-667 .drop {
+    width: 650px;
+    line-height: 34px;
+    height: 34px;
+    color: #666
+}
+
+.input-180 input[type='text'], .drop-180 .drop {
+    width: 180px
+}
+
+.input-225 input[type='text'] {
+    width: 213px;
+    color: #666;
+    line-height: 34px;
+    height: 32px
+}
+
+.drop-225 .drop {
+    width: 225px;
+    color: #666;
+    line-height: 34px;
+    height: 32px
+}
+
+.p-w-120 {
+    width: 120px;
+    margin-right: 20px
+}
+
+.p-w-60 {
+    width: 60px;
+    line-height: 34px
+}
+
+.p-w-120 .input {
+    width: 110px;
+    margin-right: 20px
+}
+
+.p-w-160 {
+    width: 160px;
+    margin-right: 20px
+}
+
+.p-w-160 .input {
+    width: 150px;
+    margin-right: 20px
+}
+
+.p-w-50 {
+    width: 351px
+}
+
+.p-t-999 {
+    color: #999
+}
+
+.e-p-bx {
+    padding-bottom: 20px
+}
+
+.e-bx-parent {
+    padding-left: 20px
+}
+
+.e-p-bx .e-p-name {
+    margin: 0 0 3px 0
+}
+
+.e-p-bx .label {
+    margin-right: 35px
+}
+
+.e-p-xianClass {
+    margin-right: 14px
+}
+
+.chailv-cs {
+    margin-bottom: 10px
+}
+
+.padding-bottom-14 {
+    padding-bottom: 14px
+}
+
+.padding-bottom-20 {
+    padding-bottom: 20px
+}
+
+.input-c span {
+    width: 60px;
+    text-align: justify
+}
+
+.chailv-reason, .input-full-reason {
+    width: 380px;
+    margin-right: 0
+}
+
+.input-r-c {
+    padding-right: 0
+}
+
+.input-r-c input {
+    margin-right: 0
+}
+
+.drop-float .drop {
+    float: left
+}
+
+.input-addr {
+    width: 420px
+}
+
+.nessary-ps {
+    padding-top: 16px
+}
+
+.btn-submit {
+    padding-top: 30px
+}
+
+.boook-submit {
+    width: 260px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #d10773
+}
+
+.sp-show {
+    padding-bottom: 30px
+}
+
+.sp-jb {
+    text-align: center;
+    width: 60px
+}
+
+.sg-jb-p {
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
+    margin: 0 7px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: #e3eaf7
+}
+
+.sp-jb-person {
+    margin-bottom: 8px
+}
+
+.dote-line {
+    width: 42px;
+    border-bottom: 1px dashed #ccc;
+    margin-top: 23px
+}
+
+.price-model, .book-xingcheng {
+    width: 310px;
+    background: #fff;
+    padding: 30px 0
+}
+
+.book-xingcheng {
+    width: 370px
+}
+
+.book-xingcheng:before {
+    width: 0;
+    height: 0;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 21px solid #614ec2;
+    border-right-color: transparent;
+    border-bottom-color: transparent
+}
+
+.xingcheng-flag {
+    width: 23px;
+    height: 23px;
+    line-height: 23px;
+    top: 0;
+    left: 0;
+    color: #fff
+}
+
+.b-x-cityName {
+    padding-left: 60px
+}
+
+.after-city {
+    padding-right: 40px
+}
+
+.qc-point {
+    width: 24px;
+    height: 5px;
+    margin: 8px 10px 0 10px;
+    background: url(../../img/airImg/air-bg.png) no-repeat 0 -123px
+}
+
+.b-x-cangwei {
+    padding: 22px 30px 30px 30px
+}
+
+.book-time {
+    width: 108px
+}
+
+.book-times {
+    font-size: 20px;
+    font-weight: bold
+}
+
+.book-jiantou {
+    width: 84px;
+    height: 5px;
+    margin: 18px 36px 0 36px;
+    background: url(../../img/airImg/air-bg.png) no-repeat -37px -9px
+}
+
+.b-j-time {
+    top: -22px;
+    left: 13px
+}
+
+.book-jiantou .air-tgq {
+    top: 9px;
+    left: 24px
+}
+
+.price-model {
+    padding: 36px 30px
+}
+
+.p-m-tprice {
+    margin-bottom: 24px
+}
+
+.p-m-mp, .p-m-price {
+    color: #d10773
+}
+
+.p-m-t-p {
+    margin-bottom: 16px
+}
+
+.e-p-count {
+    height: 24px;
+    line-height: 24px
+}
+
+.e-p-last {
+    margin-top: 18px
+}
+
+.e-p-title {
+    width: 140px
+}
+
+.e-p-num {
+    width: 100px
+}
+
+.e-p-total, .e-p-total-s {
+    width: 70px
+}
+
+.cs-dashed {
+    width: 248px;
+    border-bottom: 1px dashed #bac4cf;
+    top: 8px;
+    left: 60px
+}
+
+.background-E7EBFA {
+    background: #E7EBFA
+}
+
+.Screen-full, .Screen-zhezhao, .query-loading, .tuijiao-line {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    z-index: 10
+}
+
+.Screen-zhezhao {
+    background: #000;
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"
+}
+
+.hover-content {
+    min-width: 208px;
+    min-height: 97px;
+    padding: 5px;
+    border: 1px solid #e9e9e9;
+    left: -180px;
+    top: 23px;
+    z-index: 3;
+    display: none
+}
+
+.jt_xinxi {
+    height: 12px;
+    line-height: 12px
+}
+
+.jt_xinxi_t {
+    margin-bottom: 12px
+}
+
+.top-jiantou {
+    top: -8px;
+    left: 190px
+}
+
+.table-content table {
+    width: 369px;
+    border-collapse: collapse
+}
+
+.table-content td {
+    border: 1px solid #b5b5b5
+}
+
+.table-c-title {
+    width: 58px;
+    height: 49px;
+    line-height: 49px;
+    text-align: center;
+    background: #f2f2f2
+}
+
+.tdc {
+    padding-left: 8px
+}
+
+.e-p-model {
+    margin-bottom: 5px;
+    position: relative
+}
+
+.edit_p {
+    margin-right: 10px
+}
+
+.edit_p, .remove_p {
+    float: left;
+    height: 34px;
+    line-height: 34px;
+    cursor: pointer;
+    color: #6BA8F3
+}
+
+.remove_p {
+    color: #d10773
+}
+
+.edit_p_s {
+    position: absolute;
+    right: 40px
+}
+
+.choice-cjr {
+    height: 20px;
+    padding-left: 25px
+}
+
+.choice-cjr .icon-img {
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background-position: -23px -178px
+}
+
+.add-person-icon {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: url("/resources/images/common/train-bg.png") no-repeat -189px 0px
+}
+
+.pass-bg {
+    width: 22px;
+    height: 22px;
+    top: 7px;
+    left: 0px;
+    border-radius: 50%;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 22px;
+    font-size: 14px
+}
+
+.p-every-passes {
+    display: inline-block;
+    max-width: 580px;
+    cursor: pointer;
+    margin-left: 36px
+}
+
+.bx-detail-enter {
+    width: 20px;
+    height: 18px;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    background-position: -56px -276px
+}
+
+.bx-model-show p {
+    margin-bottom: 10px
+}
+
+#save-pass-edit-form .drop {
+    margin-right: 5px
+}
+
+.color-666 {
+    color: #666
+}
+
+.color-999 {
+    color: #999
+}
+
+.color-888 {
+    color: #888
+}
+
+.color-purple {
+    color: #d10773
+}
+
+.font-600 {
+    font-weight: 600
+}
+
+.hotel-bg {
+    background: url(../../../static/img/hotel/hotel-bg.png) no-repeat
+}
+
+.xieyi-flag {
+    display: inline-block;
+    margin-left: 30px;
+    width: 48px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border: 1px solid #d10773;
+    border-radius: 2px;
+    color: #d10773;
+    cursor: default;
+    font-size: 12px
+}
+
+.search-list {
+    position: fixed;
+    width: 308px;
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #eee;
+    box-shadow: #614ec2 1px 1px 5px;
+    z-index: 99
+}
+
+.search-list li {
+    width: 100%;
+    height: 28px;
+    line-height: normal;
+    padding: 5px;
+    font-size: 12px;
+    cursor: default
+}
+
+.search-list li:hover {
+    background: rgba(97, 78, 194, 0.08)
+}
+
+.book-model {
+    width: 840px;
+    padding: 0 0 63px 0
+}
+
+.hotel-infor, .person-model, .last-time-model, .chailv-mation {
+    padding-top: 20px;
+    padding-left: 20px
+}
+
+.person-model, .last-time-model, .chailv-mation {
+    padding-left: 30px;
+    padding-right: 24px
+}
+
+.lianxiren {
+    padding-top: 29px;
+    padding-left: 31px
+}
+
+.hotel-infor {
+    padding-top: 32px;
+    padding-left: 31px
+}
+
+.p-m-title {
+    margin-bottom: 18px
+}
+
+.h-i-time {
+    margin-right: 45px
+}
+
+.h-time {
+    line-height: 12px
+}
+
+.h-i-hnum {
+    margin-right: 16px;
+    line-height: 22px
+}
+
+.margin-bottom-17 {
+    margin-bottom: 17px
+}
+
+.h-infor-con {
+    height: 62px
+}
+
+.count-ctrl {
+    border: 1px solid #eee;
+    position: absolute;
+    top: -2px;
+    width: 70px
+}
+
+.border-bottom-1 {
+    border-bottom: 1px solid #868686
+}
+
+.ctrl-l, .ctrl-m, .ctrl-r {
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center
+}
+
+.w-p-s-185 {
+    width: 185px
+}
+
+.padding-top-44 {
+    padding-top: 44px
+}
+
+.ctrl-l {
+    background-position: -250px -4px
+}
+
+.ctrl-r {
+    background-position: -249px -36px
+}
+
+.ctrl-m {
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee
+}
+
+.warn-mark {
+    position: relative;
+    top: -7px;
+    margin: 7px 10px 0 13px;
+    float: left;
+    width: 18px;
+    height: 18px;
+    background-position: -73px -311px
+}
+
+.last-time-model .drop {
+    float: left
+}
+
+.hotel-infor-model {
+    width: 320px;
+    padding: 20px 10px 0px 20px
+}
+
+.h-infor-title {
+    float: left;
+    width: 60%;
+    height: 24px;
+    line-height: 24px
+}
+
+.h-infor-i {
+    position: relative;
+    width: 350px;
+    height: 220px;
+    background: url("/static/project-resource/img/hotel/hotel-book-replace.png") no-repeat
+}
+
+.h-infor-i img {
+    position: absolute;
+    left: -20px;
+    width: 350px;
+    height: 220px
+}
+
+.h-infor-address {
+    padding-right: 20px;
+    width: 230px
+}
+
+.h-information {
+    width: 35px
+}
+
+.h-infor-f {
+    padding: 20px 10px 10px 20px
+}
+
+.h-infor-f p {
+    margin-bottom: 20px
+}
+
+.e-room-f-wraper {
+    width: 50%;
+    float: left;
+    line-height: 30px
+}
+
+.e-room-f-wraper span{
+    line-height: 30px
+}
+
+.e-room-f-wraper .e-f-bg{
+    background-image: url("../../../resources/images/hotel/server.png");
+    background-repeat: no-repeat;
+    margin:5px 4px 0px 0px;
+    width: 22px;
+    height: 22px
+}
+
+.e-f-01 {
+    background-position: 0px -22px;
+}
+
+.e-f-02 {
+    background-position: 0px -63px;
+}
+
+.e-f-03 {
+    background-position: 0px -87px;
+}
+
+.e-f-04 {
+    background-position: 0px -173px;
+}
+
+.e-f-05 {
+    background-position: 0px -127px;
+}
+
+.e-f-06 {
+    background-position: 0px -43px;
+    height: 21px
+}
+
+.h-infor-f-box {
+    width: 350px !important;
+    box-sizing: border-box
+}
+
+.h-information {
+    background-color: #fff;
+}
+
+.e-room-f-wraper .e-f-text {
+    width: 35%;
+    height: 30px;
+    line-height: 30px
+}
+
+.price-model {
+    width: 330px;
+    padding: 36px 20px
+}
+
+.head-tip {
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid #b6b9f0;
+    background: #e3eaf7;
+    padding: 0 30px;
+    cursor: default
+}
+
+.sp-rule {
+    margin-bottom: 20px
+}
+
+.e-sp {
+    height: 26px;
+    line-height: 26px;
+    margin-bottom: 14px
+}
+
+.sp-person {
+    padding: 0 13px 0 18px;
+    height: 34px;
+    line-height: 34px;
+    color: #666;
+    border-radius: 2px;
+    font-size: 12px
+}
+
+.book-model-c {
+    margin-bottom: 20px
+}
+
+.b-m-c-t {
+    color: #666;
+    width: 94px;
+    float: left;
+    height: 34px;
+    line-height: 34px
+}
+
+.input-all input[type='text'] {
+    width: 100%
+}
+
+.b-m-reason {
+    width: 576px
+}
+
+.latest-arrival-time {
+    font-size: 12px;
+    width: 599px;
+    height: 34px;
+    border: 1px solid #D44A9F;
+    line-height: 34px;
+    color: #D44A9F;
+    background: #fcf1f7;
+    margin-top: 15px;
+    margin-bottom: 31px;
+    border-radius: 3px
+}
+
+.a-c-p-c .contacts {
+    border: 0;
+    color: #333333
+}
+
+.air-common-p-box {
+    padding-top: 20px
+}
+
+.air-common-p {
+    padding-bottom: 3px;
+    min-height: 57px;
+    _height: 57px;
+    padding-top: 9px;
+    box-sizing: border-box
+}
+
+.span-active {
+    border: 1px solid #614dc2 !important;
+    color: #614dc2
+}
+
+.aircraft-gray {
+    box-shadow: 0px 1px 13px -4px #999999
+}
+
+.sell-btn {
+    width: 80px;
+    height: 30px;
+    background: #ffffff;
+    color: #6BA8F3;
+    font-size: 12px
+}
+
+.padding-right {
+    padding-right: 20px
+}
+
+.notice {
+    padding-top: 27px
+}
+
+.book-model-c-10 {
+    margin-bottom: 10px
+}
+
+.border-top-dashed {
+    border-top: 1px dashed #E0E8ED
+}
+
+.line-height-20 {
+    line-height: 20px;
+    height: 20px
+}
+
+.box {
+    width: 770px;
+    height: 30px;
+    position: relative;
+    margin: 0 auto;
+    line-height: 30px
+}
+
+.box a {
+    position: relative;
+    font-size: 12px;
+    display: inline-block;
+    height: 30px;
+    color: #333333;
+    text-decoration: none;
+    text-align: center;
+    box-sizing: border-box
+}
+
+.box a .suspension-time-box {
+    min-width: 50px;
+    _width: 50px;
+    white-space: nowrap;
+    height: 30px;
+    background: #ffffff;
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    display: none;
+    padding: 0 5px;
+    color: #614dc2;
+    border: 1px solid #cccccc
+}
+
+.color-614dc2 {
+    color: #614dc2
+}
+
+.border-color-614dc2 {
+    border: 1px solid #D44A9F
+}
+
+.parameter {
+    display: none;
+    width: 2px;
+    height: 40px;
+    top: -5px;
+    background: #614dc2;
+    position: absolute
+}
+
+.h-name-s {
+    font-size: 14px;
+    text-align: center;
+    line-height: 14px;
+    padding-bottom: 13px;
+    border-bottom: 1px dashed #cbd0e3
+}
+
+.w-p-246 {
+    width: 246px;
+    line-height: 30px
+}
+
+.w-p-62 {
+    width: 69px;
+    display: inline-block;
+    line-height: 30px
+}
+
+.prepaid-notice-box {
+    width: 320px;
+    color: #888
+}
+
+.suspension-frame-box {
+    position: relative
+}
+
+.suspension-frame {
+    position: absolute;
+    left: 66px;
+    top: 33px;
+    width: 500px;
+    min-height: 70px;
+    _height: 70px;
+    z-index: 20
+}
+
+.suspension-frame .suspension-data {
+    text-align: center;
+    padding-top: 10px;
+    width: 476px;
+    margin: 0 auto
+}
+
+.suspension-dl {
+    float: left;
+    width: 101px;
+    height: 89px;
+    background: #ffffff;
+    border-right: 1px solid #E5E5E5
+}
+
+.suspension-dd {
+    background: #f3f4f6;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    color: #999999
+}
+
+.suspension-dd span {
+    line-height: 28px
+}
+
+.suspension-dt {
+    height: 54px;
+    line-height: 20px
+}
+
+.suspension-price {
+    font-size: 12px;
+    text-align: center;
+    line-height: 25px
+}
+
+.suspension-price .price {
+    color: #D44A9F;
+    font-size: 14px
+}
+
+.suspension-early {
+    text-align: center;
+    color: #999999;
+    font-size: 14px;
+    line-height: 20px
+}
+
+.default-height {
+    width: 618px;
+    height: 34px;
+    overflow: hidden
+}
+
+.notice-margin {
+    position: absolute;
+    top: 2px;
+    left: 94px
+}
+
+.e-p-delete {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    display: block;
+    width: 25px;
+    height: 34px;
+    line-height: 34px;
+    font-size: 12px;
+    color: #F77F7F
+}
+
+.together {
+    position: absolute;
+    left: -25px;
+    top: 50px;
+    border: 1px solid #614dc2;
+    color: #614dc2;
+    padding: 5px 10px;
+    font-size: 12px
+}
+
+.together-success {
+    position: absolute;
+    left: -25px;
+    top: 50px;
+    font-size: 12px;
+    color: #ccc;
+    padding: 5px 0px
+}
+
+.margin-right-10 {
+    margin-right: 10px
+}
+
+.occupant {
+    width: 80px
+}
+
+.edit-passenger {
+    width: 760px;
+    height: 340px;
+    padding: 0;
+    margin-top: -129px;
+    margin-left: -380px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px
+}
+
+.search-bg {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    background: url("/static/img/train/train-bg.png") no-repeat -40px -92px
+}
+
+.edit-passenger .passanger-search {
+    width: 760px;
+    max-height: 524px;
+    top: 50%;
+    bottom: 0;
+    left: 50%;
+    right: 0;
+    margin-left: -380px;
+    margin-top: -262px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px
+}
+
+.edit-passenger .p-s-title {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 30px;
+    color: #000
+}
+
+.edit-passenger .close-person {
+    font-size: 22px;
+    top: 0;
+    right: 20px
+}
+
+.edit-passenger .select-content {
+    height: 70px;
+    line-height: 70px;
+    padding: 0 30px;
+    background: #f4f4f4
+}
+
+.edit-passenger .e-select-p, .removeUserSelect {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%
+}
+
+.edit-passenger .e-select-p {
+    margin: 13px 16px 0 0
+}
+
+.edit-passenger .removeUserSelect {
+    color: #fff;
+    background: #000;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    top: 0;
+    left: 0
+}
+
+.edit-passenger .select-true-p {
+    width: 62px;
+    height: 30px;
+    line-height: 28px;
+    margin-top: 20px
+}
+
+.edit-passenger .p-s-tab {
+    height: 50px;
+    background: #e3eaf7;
+    padding-left: 30px
+}
+
+.edit-passenger .tab-e {
+    width: 145px;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    margin-top: 6px
+}
+
+.edit-passenger .edit-passenger .history {
+    margin-bottom: 14px
+}
+
+.edit-passenger .tab-e-select {
+    background: #fff
+}
+
+.edit-passenger .tab-c-1 {
+    padding: 20px 39px 0 39px
+}
+
+.edit-passenger .h-t-p {
+    color: #999
+}
+
+.edit-passenger .search-p-input {
+    width: 642px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 36px;
+    border: 2px solid #d9e4fe;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px
+}
+
+.edit-passenger .tab-c-c {
+    width: 730px;
+    height: 138px;
+    padding: 40px 30px 30px 30px
+}
+
+.edit-passenger .tab-c-c {
+    padding-right: 0
+}
+
+.edit-passenger .tab-c-c input[type='text'] {
+    width: 250px
+}
+
+.edit-passenger .tab-c-c .drop {
+    float: left;
+    width: 260px
+}
+
+.edit-passenger .nessary-b {
+    color: red;
+    position: absolute;
+    top: 11px;
+    left: -9px
+}
+
+.edit-passenger .staff-scroll {
+    width: 682px;
+    height: 217px;
+    overflow: hidden
+}
+
+.edit-passenger .staff-wraper li {
+    height: 36px;
+    line-height: 36px;
+    cursor: pointer;
+    padding-left: 36px;
+    font-size: 12px;
+    color: #999
+}
+
+.edit-passenger .staff-wraper li:hover {
+    background: #e3eaf7
+}
+
+.edit-passenger .staff-wraper li > span {
+    float: left
+}
+
+.edit-passenger .p-name {
+    width: 60px;
+    color: #333
+}
+
+.edit-passenger .p-certno {
+    width: 170px;
+    margin-left: 20px
+}
+
+.edit-passenger .p-tel {
+    width: 130px;
+    margin-left: 20px
+}
+
+.edit-passenger .e-h-pass {
+    cursor: pointer;
+    margin: 0 10px;
+    color: #333
+}
+
+.edit-passenger .p-dept {
+    width: 180px
+}
+
+.btn-big {
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 37px;
+    border: 0
+}
+
+.layui-layer .layui-layer-btn .layui-layer-btn0 {
+    background: #D44A9F;
+    height: 40px;
+    border: 0;
+    padding: 0 40px;
+    line-height: 40px;
+    font-size: 12px;
+    color: #fff
+}
+
+.layui-layer .layui-layer-btn a {
+    border: 1px solid #D44A9F;
+    color: #D44A9F;
+    background: #fff;
+    padding: 0 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px
+}
+
+/*# sourceMappingURL=hotel-book.css.map */
+/*mao*/
+.modal-model .input-c span{
+    line-height: 32px;
+}

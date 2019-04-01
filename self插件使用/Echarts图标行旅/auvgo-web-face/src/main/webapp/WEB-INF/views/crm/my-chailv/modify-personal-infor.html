@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>修改密码</title>
+		#parse("/common/styleSheetCommon.html")
+	</head>
+	<body>
+		<form action="/myChailv/save" method="post" class="alert-form" id="modify-personal-infor">
+			<input type="hidden" name="id" value="$!user.id">
+			<input type="hidden" name="companyid" value="$!{user.companyid}">
+			<div class="form-row">
+				<span class="input-desc">姓名</span>
+				<input type="text" class="input" value="$!{user.name}" readonly="readonly" disabled="disabled"/>
+			</div>
+			
+			<div class="form-row">
+				<span class="input-desc">工号</span>
+				<input type="text" class="input"  value="$!{user.accno}" readonly="readonly" disabled="disabled"/>
+			</div>
+			
+			<div class="form-row">
+				<span class="input-desc">职级</span>
+				<input type="text" class="input" value="$!{zhiwei.name}" readonly="readonly" disabled="disabled"/>
+			</div>
+			
+			<div class="form-row">
+				<span class="input-desc">部门</span>
+				<input type="text" class="input" value="技术部" readonly="readonly" disabled="disabled"/>
+			</div>
+			
+			<div class="form-row">
+				<span class="input-desc">证件类型</span>
+				<select class="_select_" name="certtype" data-value=$!{user.certtype}>
+					<option value="">——请选择证件类型——</option>
+					<option value="1">身份证</option>
+					<option value="C">港澳通行证</option>
+					<option value="G">台湾通行证</option>
+					<option value="B">护照</option>
+					<option value="ID">其他</option>
+				</select>
+			</div>
+			
+			<div class="form-row">
+				<span class="input-desc">证件号</span>
+				<input type="text" placeholder="必填" class="input" name="certno" value="$!{user.certno}"/>
+				<input type="hidden" name="passportno" value="$!{user.passportno}">
+			</div>
+			
+			<div class="form-row">
+				<span class="input-desc">手机号</span>
+				<input type="text" placeholder="必填" class="input" name="mobile" value="$!{user.mobile}" datatype=$!{mobileRegExp} nullmsg=$!{mobileRegExpNull} errormsg=$!{mobileRegExpErr}/>
+			</div>
+			
+			<div class="form-row">
+				<span class="input-desc">邮箱</span>
+				<input type="text" class="input" name="email" value="$!{user.email}" datatype="e" errormsg="请输入正确的邮箱" ignore="ignore"/>
+			</div>
+			
+			<div class="form-row-button">
+				<button type="submit" class="btn btn-default btn-big">确定</button>
+				<button type="button" class="btn btn-cancel btn-big alert_close_">取消</button>
+			</div>
+		</form>	
+		
+		
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/my-chailv/modify-personal-infor.js"></script>
+	</body>
+</html>

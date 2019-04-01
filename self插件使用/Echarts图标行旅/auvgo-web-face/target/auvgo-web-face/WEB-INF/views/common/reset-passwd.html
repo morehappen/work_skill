@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>重置密码</title>
+    #parse("/common/styleSheetCommon.html")
+    <link rel="stylesheet" href="/static/css/common/reset_passwd.css">
+</head>
+<body class="find-pwd">
+<div class="lg_main">
+    <div class="lg_header">
+        <div class="lg_container clear">
+            <div class="lg_logo float-left">
+                <a href="/index.html">
+                    <img class="lg_img" src="../../static/img/lg_logo.png">
+                </a>
+            </div>
+            <div class="lg_mobile float-right">
+                <a class="clear phone_qrentry" href="javacript:void(0);">
+                    <img class="lg_ph_img float-left" src="../../static/img/lg_phone.png" alt="">
+                    <div class="lg_ph_txt float-right">
+                        APP下载
+                    </div>
+                    <img class="lg_erwei_img hide" src="../../static/img/lg_erwei.png" alt="">
+                </a>
+                <a class="clear phone_ajump hide" href="javacript:void(0);">
+                    <img class="lg_ph_img float-left" src="../../static/img/lg_phone.png" alt="">
+                    <div class="lg_ph_txt float-right">
+                        APP下载
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="getPara" data-empid="$!userMsg.empid" data-companyid="$!userMsg.companyid">
+    <div class="lg_container">
+        <div class="form-wraper lg_form">
+            <div class="f-p-title fpw_title">重置密码</div>
+            <div class="f-p-tips hide"></div>
+            <form action="" method="POST" id="retrieve">
+                <div class="find-pwd-main clear">
+                    <div class="f-p-m-little">
+
+                        <!--<div class="clear f-p-input card-p">-->
+                        <!--<span class="show_title float-left">商旅卡号：</span>-->
+                        <!--<input type="text" name="" value="" maxlength="10" class="cardNum font-size-16 float-left border-radius" />-->
+                        <!--&lt;!&ndash;<span class="warn_tips float-left"></span>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div class="clear f-p-input username-p">-->
+                        <!--<span class="show_title float-left">用户名：</span>-->
+                        <!--<input type="text" name="" value="" maxlength="20" class=" font-size-16 float-left border-radius username" />-->
+                        <!--&lt;!&ndash;<span class="warn_tips float-left"></span>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div class="clear f-p-input position">-->
+                        <!--<span class="show_title float-left">验证码：</span>-->
+                        <!--<input type="text" name="" maxlength="4" value="" class=" font-size-16 float-left border-radius" id="yzm_sr" />-->
+                        <!--<span class="f-p-yzm float-left border-radius position-ab"><img id="img_yzm" alt=""></span>-->
+                        <!--</div>-->
+                        <!--<div class="clear find-btn-group">-->
+                        <!--<button class="btn btn-big cursor" type="button">找回密码</button>-->
+                        <!--</div>-->
+
+                        <!--<input type="text" name="kahao" id="kahao_" value="" placeholder="接收方式" class="margin-bottom-20 font-size-16 border-radius card-num cardNum" />-->
+                        <div class="selectbox selectbox_width200" id="selectbox">
+                            <div class="use_receive">
+
+                            </div>
+                            <input name="" value="" type="hidden">
+                            <div class="selectbox_arraw">
+                                <span class="selectbox_down">▲</span>
+                                <span class="selectbox_up">▼</span>
+                            </div>
+                            <div class="selectbox_value">接收方式</div>
+                            <div class="selectbox_list selectbox_width200">
+                                <div class="selectbox_scroll_body">
+                                    <div class="selectbox_scroll">
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <ul class="selectbox_body" data-deep="1">
+                                    #foreach($list in $!userMsg.list)
+                                    <li data-value="$!list.findType">$!list.value</li>
+                                    #end
+                                    <!--<li data-value="00000">手机</li>-->
+                                    <!--<li data-value="1">邮箱</li>-->
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="receive_tip lg_tip"></div>
+                        <div>
+                            <input type="text" name="password" id="yzm_sr" value="" placeholder="验证码"
+                                   class=" font-size-16 border-radius password"/>
+                            <span class="f-p-yzm f-p-yzm-r float-left border-radius position-ab get-yzm">
+							<button class="position-ab border-radius" type="button">获取验证码</button>
+						</span>
+                        </div>
+                        <div class="yzm_tip lg_tip"></div>
+                        <input type="password" name="password" id="pw" value="" placeholder="新密码"
+                               class="pw  font-size-16 border-radius password"/>
+                        <div class="newpsd_tip lg_tip"></div>
+                        <input type="password" name="password" id="rpw" value="" placeholder="确认新密码"
+                               class="rpw  font-size-16 border-radius password"/>
+                        <div class="surepsd_tip lg_tip"></div>
+                        <div class=" reset-g">
+                            <button type="button" class="font-size-16 color-fff border-radius">重置密码</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="lg_footer">
+    <div class="lg_container">
+        <div class="lg_connect clear">
+            <p class="float-left">客服热线：400-606-0011</p>
+            <p class="float-right">合作电话：010-6491-6188</p>
+        </div>
+        <div class="lg_copyright">
+            Copyright © 2018 Auvgo.com All Rights Reserved.
+            <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备14044777号</a>
+        </div>
+    </div>
+</div>
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/js/personal/jquery.selectbox.js"></script>
+<script type="text/javascript" src="/static/js/personal/reset-passwd.js"></script>
+</body>
+</html>

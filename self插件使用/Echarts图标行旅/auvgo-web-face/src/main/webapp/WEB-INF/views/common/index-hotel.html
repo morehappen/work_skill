@@ -1,0 +1,77 @@
+<div class="hotel-query-model">
+	<input type="hidden" name="hoverFlag" value="hotel">
+	<form action="" method="post" accept-charset="utf-8" id="query-form" >
+		<div class="formContent">
+			<div class="clear" style="height:68px;">
+				<div class="float-left position e-input ">
+					<div class="city-name-class color-fff-in font-size-12">目的地</div>
+					<input type="text" name="geoName" id="geoName" value="$!{defaultGeo}" value="北京" class="public-city" autocomplete="off" #if("$!{isCanModify}" == "0")readonly="readonly#end"/>
+					<input type="hidden" id="geoCode" name="geoCode" value="$!{defaultGeoNo}" class="city-code" />
+					<!--<span class="position-ab icon-img icon-position"></span>-->
+				</div>
+				<div class="float-left position e-input  margin-left-36">
+					<div class=" city-name-class color-fff-in font-size-12">酒店名、位置、品牌</div>
+					<input type="text" name="keyValue" id="keyValue" value="" placeholder="酒店名\地址\品牌" class="tg-input width-368 public-city" autocomplete="off" />
+					<input type="hidden" id="propertiesId" name="propertiesId" class="propertiesId"/>
+					<input type="hidden" name="queryType" id="queryType" value=""/>
+					<input type="hidden" name="rangePrice" id="rangePrice" value=""/>
+					<input type="hidden" name="latitude" id="latitude" value=""/>
+					<input type="hidden" name="longitude" id="longitude" value=""/>
+					<!--<span class="position-ab icon-img icon-keyword" ></span>-->
+					<ul class="search-list hide"></ul>
+				</div>
+			</div>
+			<div class="clear margin-top-31">
+				<div class="float-left position e-input">
+					<div  class="position-ab position-left-12">入住日期</div>
+					#if("$!{isCanModify}" == "0")
+						<input type="text" class="input public-date border-right-DFDFDF" name="checkIn" id="checkIn" value="$!{defaultCheckIn}" readonly="readonly"/>
+					#else
+						<input type="text" class="input public-date border-right-DFDFDF " name="checkIn" id="checkIn" value="$!{defaultCheckIn}" onfocus="var checkOut=$dp.$('checkOut');WdatePicker({isShowClear:false,readOnly:true,errDealMode:1,lang:'zh-cn',doubleCalendar:true,dateFmt:'yyyy-MM-dd',onpicked:function(){checkDate('checkIn', 'checkOut', 1, 22); checkOut.focus();},minDate:'$!{minCheckIn}',maxDate:'#F{$dp.$DV(\'$!{minCheckIn}\',{M:0,d:90})}'})" />
+					#end
+					<span class="position-ab icon-img icon-date" ></span>
+				</div>
+				<div class="float-left position e-input">
+					<div  class="position-ab position-left-12">离店日期</div>
+					#if("$!{isCanModify}" == "0")
+						<input type="text" class="input public-date"name="checkOut" id="checkOut" value="$!{defaultCheckOut}" readonly="readonly"></span>
+					#else
+						<input type="text" class="input public-date"name="checkOut" id="checkOut" value="$!{defaultCheckOut}"  onfocus="WdatePicker({isShowClear:false,readOnly:true,errDealMode:1,lang:'zh-cn',doubleCalendar:true,dateFmt:'yyyy-MM-dd',onpicked:function(){checkDate('checkIn', 'checkOut', 1, 22);},maxDate:'#F{$dp.$DV(\'$!{minCheckIn}\',{M:0,d:91})}',minDate:'#F{$dp.$D(\'checkIn\',{M:0,d:1})}'})"></span>
+					#end
+					<span class="position-ab icon-img icon-date"></span>
+				</div>
+			</div>
+			<div class="clear" style="margin-bottom:20px;margin-top:31px;">
+				<div class="float-left" >
+					<!--<span style="position: absolute;border-top: 1px dashed #e2ecff;display: inline-block;width:782px;left:-34px;"></span>-->
+					<span class="hotel-reminder">
+					温馨提示：<br>
+					#if($!company.bianhao == 'CLKJ')
+					#parse("/common/tips.html")
+					2、酒店房态变更较快，为了不耽误您的住宿请至少提前一天预订<br>
+					3、长时间未审批请与审批人联系，避免房价、房间变更无法预订
+					#else
+					1、酒店房态变更较快，为了不耽误您的住宿请至少提前一天预订<br>
+					2、长时间未审批请与审批人联系，避免房价、房间变更无法预订
+					#end
+				</span>
+				</div>
+				<div class="float-right position e-input margin-top-30 margin-right-36" >
+					<button type="button" id="firstQuery" class="btn btn-default-new btn-big float-right hotel-query">查询酒店</button>
+				</div>
+			</div>
+			
+			
+		</div>
+	</form>
+</div>
+<script type="text/javascript" src="/resources/js/geo/geo-data.js" charset="utf-8"></script>
+<script type="text/javascript" src="/resources/js/geo/geo-plug.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/autocomplete/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="/resources/js/hotel/query_prepare.js"></script>
+<script type="text/javascript" src="/resources/js/common/date.js"></script>
+<script type="text/javascript">
+	#if("$!{isCanModify}" != "0")
+		var test=new Vcity.CitySelector({input:'geoName',hidden:'geoCode'});
+	#end
+</script>

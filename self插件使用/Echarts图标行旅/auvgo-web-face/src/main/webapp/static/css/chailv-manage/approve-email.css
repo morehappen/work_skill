@@ -1,0 +1,83 @@
+html,body,div,ul,ol,li,dl,dt,dd,input,button,select,option,textarea,label,h1,h2,h3,h4,h5,h6,table,td,tr,th,p,a{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+html{background: #fff;min-height: 100%;color: #333;font-size:14px;font-family: "微软雅黑","Helvetica Neue",Helvetica,Tahoma,Arial,sans-serif;}
+
+.text-l{text-align:left;}/*水平居左*/
+.text-r{text-align:right;}/*水平居中*/
+.text-c{text-align:center;}/*水平居右*/
+
+.cl:after{content: '';display: block;height: 0;overflow: hidden;zoom:1;clear: both;}
+.cl{zoom:1;}
+.f-l{float:left!important;_display:inline;}
+.f-r{float:right!important;_display:inline;}
+
+.cursor-default{cursor: default;}
+.cursor-pointer{cursor: pointer;}
+
+a{text-decoration: none;}
+
+.f-12{font-size:12px;}
+.f-20{font-size: 20px;}
+
+.pt-20{padding-top: 20px;}
+.pt-30{padding-top: 30px;}
+.pb-5{padding-bottom: 5px;}
+.pb-10{padding-bottom: 10px;}
+
+.mt-30{margin-top: 30px;}
+.mb-5{margin-bottom: 5px;}
+.mb-10{margin-bottom: 10px;}
+.mb-20{margin-bottom: 20px;}
+.mb-40{margin-bottom: 40px;}
+
+.them-c{color: #614ec2;}
+
+.m-b-c{background: #614ec2;}
+.m-f-c{color: #614ec2;}
+.c-b-c{background: #faf5dc;}
+
+.c-fff{color: #fff;}
+.b-c-f5{background: #f5f5f5;}
+
+.main-content{padding-left: 20px;padding-right: 20px;}
+
+.w-110{width: 110px;}
+
+.table{width: 100%;border-collapse: separate;border-spacing: 0;}
+.table tr:hover{background: rgba(97, 78, 197, .02);cursor: pointer;}
+.table th{background: #f5f5f5;text-align: left;padding: 10px 0;font-weight: 400;}
+.table td{border-bottom: 1px solid #f5f5f5;padding: 20px 0 10px;}
+.table th,.table td{padding-left: 20px;}
+
+.email-title{font-size: 20px;font-weight: 600;}
+.email-title-e{font-size: 18px;}
+.ej-t{display: inline-block;margin-top: 20px;margin-bottom: 10px;padding: 0 15px;border-radius: 3px;height: 32px;line-height: 32px;color: #fff;}
+
+#header{padding-top: 40px;padding-bottom: 10px;border-bottom: 2px solid #614ec2;}
+.logo-w{margin-top: 18px;margin-right: 10px;padding-right: 10px;border-right: 1px solid #f5f5f5;}
+.logo-w img{width: 84px;height: 42px;}
+.qrcode-w{margin-top: -15px;}
+.qrcode-w img{width: 109px;height: 109px;}
+
+.b-b-1{border-bottom: 1px solid #f5f5f5;}
+
+.tips-w{padding: 20px;font-weight: 200;}
+.tips-w p{line-height: 20px;}
+
+.w-18-p{width: 18%;}
+
+#footer{margin-top: 40px;margin-bottom: 20px;}
+
+.airline{width: 48%;box-shadow: 1px 1px 5px #614ec2;border-radius: 5px;}
+.airline-title{height: 40px;line-height: 40px;}
+.new-airline,.origin-airline{border-top: 2px solid #614ec2;border-bottom: 1px solid #f5f5f5;}
+.origin-airline{background: #f5f5f5;border-color: #f5f5f5;}
+.airline-title,.airline-body{padding: 0 20px;}
+.airline-body{margin-top: 20px;height: 200px;}
+.arrow-wraper{padding: 0 40px;}
+.arrow{width: 80px;height: 10px;background: url(../img/arrow.png) no-repeat;margin-top: 30px;}

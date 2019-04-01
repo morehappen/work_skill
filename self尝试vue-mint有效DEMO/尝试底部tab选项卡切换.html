@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./commonJS/mint-ui/mint-ui.css">
+    <style>
+        .sky {
+            width: 23rem;
+        }
+        
+        .picker-items .slot1>div {
+            width: 100%;
+        }
+        
+        .picker-toolbar {
+            display: flex;
+            display: -webkit-flex;
+            height: 3.23rem;
+            line-height: 3.13rem;
+            background: #fff;
+            color: #333333;
+            font-size: 0.75rem;
+        }
+        
+        .picker-toolbar .hourglass_cancle {
+            flex: 1;
+            -webkit-flex: 1;
+            text-align: center;
+        }
+        
+        .picker-toolbar .hourglass_tip {
+            flex: 7;
+            -webkit-flex: 7;
+            text-align: center;
+        }
+        
+        body .hourglass_popup_box .picker-toolbar .hourglass_sure {
+            flex: 1;
+            -webkit-flex: 1;
+            text-align: center;
+            color: #D21478;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <mt-tabbar v-model="selected">
+            <mt-tab-item id="外卖">
+                <img slot="icon" src="../assets/100x100.png"> 外卖
+            </mt-tab-item>
+            <mt-tab-item id="订单">
+                <img slot="icon" src="../assets/100x100.png"> 订单
+            </mt-tab-item>
+            <mt-tab-item id="发现">
+                <img slot="icon" src="../assets/100x100.png"> 发现
+            </mt-tab-item>
+            <mt-tab-item id="我的">
+                <img slot="icon" src="../assets/100x100.png"> 我的
+            </mt-tab-item>
+        </mt-tabbar>
+    </div>
+
+</body>
+<script type="text/javascript" src="./commonJS//vue.js"></script>
+<script type="text/javascript" src="./commonJS/mint-ui/mint-ui.js"></script>
+<script type="text/javascript" src="./commonJS/zepto-1.2.0.js"></script>
+<script type="text/javascript" src="./commonJS/date.js"></script>
+<script type="text/javascript" src="./commonJS/moment.js"></script>
+<script type="text/javascript" src="./commonJS/common.js"></script>
+<script type="text/javascript" src="./self-use-js/self_tabbar.js"></script>
+
+</html>

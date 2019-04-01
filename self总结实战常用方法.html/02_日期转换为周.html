@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>日期转换周</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var a = getWeek("2019-03-29");
+    console.log(a);
+    //周几【标记】
+    function getWeek(str) {
+        if (str == undefined || str == "") {
+            return str;
+        }
+        var d = new Date(Date.parse(str.replace(/-/g, "/")));
+        d = d.getDay();
+        switch (d) {
+            case 1:
+                return "周一";
+                break;
+            case 2:
+                return "周二";
+                break;
+            case 3:
+                return "周三";
+                break;
+            case 4:
+                return "周四";
+                break;
+            case 5:
+                return "周五";
+                break;
+            case 6:
+                return "周六";
+                break;
+            case 0:
+                return "周日";
+                break;
+            default:
+                return "无法识别的日期";
+        }
+    }
+</script>
+
+</html>

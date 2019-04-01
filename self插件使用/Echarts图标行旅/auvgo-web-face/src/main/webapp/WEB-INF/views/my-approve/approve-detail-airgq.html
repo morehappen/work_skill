@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>机票订单-审批-改签单</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-new-order-detail.css" />
+</head>
+<body class="background-6461e2">
+#parse("/common/head.html")
+<div class="main-content">
+	<div class="order-status-wraper background-fff margin-bottom-20 margin-top-20 border-r5" id="main-content">
+		<div class="clear">
+			<div class="float-left tarin-bg order-status text-align font-size-14 color-fff">$!baseUtil.getApproveStatus($!gaiqianOrder.approvestatus)</div>
+			<div class="clear float-left font-size-12">
+				<div class="float-left" style="width: 150px;">
+					<div class="color-gray">原订单</div>
+					<div class="font-size-14"><a class="y_order" href="/myChailv/toAirOrderDetail/$!gaiqianOrder.oldorderno?flag=">$!gaiqianOrder.oldorderno</a></div>
+				</div>
+				<div class="float-left" style="width: 150px;">
+					<div class="color-gray">改签单号</div>
+					<div class="font-size-14 get_orderno" data-orderno="$!gaiqianOrder.gqorderno">$!gaiqianOrder.gqorderno</div>
+				</div>
+				<div class="float-left" style="width:150px">
+					<div class="color-gray">申请时间</div>
+					<div class="font-size-14">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!gaiqianOrder.createtime)</div>
+				</div>
+				<div class="float-left">
+					<div class="color-gray">申请人</div>
+					<div class="font-size-14">
+						#if("$!airOrder.bookusername" != "")
+							$!airOrder.bookusername
+						#else
+							--
+						#end
+					</div>
+				</div>
+			</div>
+			<!-- 支付审批状态 begin -->
+			<div class="float-right btn-status-c">
+				#foreach($approveRen in $!gaiqianOrder.approves)
+					#if($!approveRen.employeeid == $!user.id)
+						#set($opstatus_ = $approveRen.opstatus)
+					#end
+				#end
+				#if($!opstatus_ == "5")
+				<button type="button" class="btn btn-default btn-middle approve-success">通过</button>
+				<button type="button" class="btn btn-danger btn-middle approve-fail">否决</button>
+				#end
+				<button type="button" class="btn btn-cancel btn-middle">返回</button>
+			</div>
+			<input type="hidden" value="$!mark" class="mark_">
+			<!-- 支付审批状态 end -->
+		</div>
+	</div>
+
+	<div class="clear">
+		<div class="float-left">
+
+			<!-- 车次信息 begin -->
+			#set($routeList = $!gaiqianOrder.routes)
+			#parse("/crm/my-chailv/order-detail-air-airline-infor.html")
+			<!-- 车次信息 end -->
+
+			<!-- 乘车人 begin -->
+			<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+				<div class="o-title font-size-18">乘机人</div>
+				<div class="o-content">
+					#foreach($pass in $!gaiqianOrder.passengers)
+					#foreach($rPass in $!routePass)
+					#foreach($orderpass in  $!airOrder.passengers)
+					#if($!pass.passid == $!rPass.passid)
+					#if($!orderpass.id == $!pass.passid)
+					<div class="clear margin-bottom-20">
+						<div class="o-e-pass">
+							<div class="e-pass hoverTips hover_content margin-b-14 font-size-16">$!pass.name</div>
+						</div>
+						<div class="o-e-insur float-left">
+							<div class="color-gray margin-b-14">手机号</div>
+							<div>
+								#if("$!orderpass.mobile" != "")
+								$!orderpass.mobile
+								#else
+								--
+								#end
+							</div>
+						</div>
+						<div class="o-e-cert float-left">
+							<div class="color-gray margin-b-14">
+								#if($!pass.certype == "1")
+								二代身份证
+								#elseif($!pass.certype == "C")
+								港澳通行证
+								#elseif($!pass.certype == "G")
+								台湾通行证
+								#elseif($!pass.certype == "B")
+								护照
+								#else
+								其他
+								#end
+							</div>
+							<div>$!pass.certno</div>
+						</div>
+
+						<div class="o-e-insur float-left">
+							<div class="color-gray margin-b-14">保险</div>
+							<div>
+								#if($!bxFlag)
+								$!pass.bxName
+								#else
+								--
+								#end
+							</div>
+						</div>
+						<div class="o-e-dept float-left">
+							<div class="color-gray margin-b-14">部门</div>
+							<div>
+								#if("$!orderpass.depname" != "")
+								$!orderpass.depname
+								#else
+								--
+								#end
+							</div>
+						</div>
+						<div class="o-e-dept float-left o-e-ticketNum">
+							<div class="color-gray margin-b-14">票号</div>
+							<div>
+								#if("$!pass.piaohao" != "")
+								$!pass.piaohao
+								#else
+								--
+								#end
+							</div>
+						</div>
+					</div>
+					<!-- <div class="clear margin-bottom-20">
+						<div class="o-e-cert float-left">
+							<div class="color-gray margin-b-14">邮箱</div>
+							<div>
+								#if("$!orderpass.email" != "")
+								$!orderpass.email
+								#else
+								--
+								#end
+							</div>
+						</div>
+					</div> -->
+					#end
+					#end
+					#end
+					#end
+					#end
+				</div>
+			</div>
+			<!-- 乘车人 end -->
+
+			<!-- 联系人 begin -->
+			#set($model = 'air')
+			#set($linkName = $!gaiqianOrder.linkName)
+			#set($linkPhone = $!gaiqianOrder.linkPhone)
+			#set($linkEmail = $!gaiqianOrder.linkEmail)
+			#parse("/crm/my-chailv/order-detail-link.html")
+			<!-- 联系人 end -->
+		</div>
+		<div class="float-right">
+			<div class="order-right background-fff margin-bottom-20 border-r5 font-size-16">
+				<div class="clear">
+					<div class="float-left">改签手续费</div>
+					<div class="float-right color-purple">
+						#if($!gaiqianOrder.showStatus ==6)
+						<span class="font-size-12">￥</span><span>#set($gqFee = $!gaiqianOrder.passengers[0].khYinshou * $!gaiqianOrder.passengers.size()) $!gqFee</span>
+						#else --
+						#end
+					</div>
+				</div>
+			</div>
+			#parse("/crm/my-chailv/approve-common.html")
+			<div class="order-right background-fff margin-bottom-20 border-r5 font-size-16">
+				<div class="clear margin-b-14">
+					<div class="float-left">改签原因：</div>
+				</div>
+				<div class="clear font-size-12">
+					$!gaiqianOrder.gqreason
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/js/approve/approve-detail.js"></script>
+</body>
+
+</html>

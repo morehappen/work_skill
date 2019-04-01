@@ -1,0 +1,39 @@
+<!-- 审批 -->
+#if($approMap)
+	<div class="order-right background-fff margin-bottom-10 border-r5 #if($!{hotelOrder.approvestatus}==1) approve-allow #elseif($!{hotelOrder.approvestatus}==2) approve-reject#else #end">
+		<div class="o-title font-size-18">审批</div>
+		<div class="approve-wraper font-size-12">
+			<div class="clear">
+				<div class="clear e-approve-line margin-b-14">
+					<div class=" approve-title float-left" >审批级别</div>
+					<div class=" approve-title float-left" >审批人</div>
+					<div class=" approve-title float-left">状态</div>
+					<!--<div class="approve-title">1级审批</div>-->
+				</div>
+				#foreach($level in [1..$!{maxLevel}])
+				<div class="clear">
+					<div class="float-left approve-title">$!{level}级审批</div>
+					<div class=" approve-title-box float-left" >
+						#foreach($appro in ${approMap.get($level)})
+							<div class=" approve-title-ch float-left" >
+								<div class="e-approve-person border-radius approve" style="margin-bottom:0;" >$!{appro.userName}</div>
+							</div>
+							<div class=" approve-title-ch float-left">
+								#if($!appro.status==0)
+								<div class="Unapproved" >未审批</div>
+								#end
+								#if($!appro.status==1)
+								<div class="Unapproved" >通过</div>
+								#end
+								#if($!appro.status==2)
+								<div class="Unapproved" >否决</div>
+								#end
+							</div>
+						#end
+					</div>
+				</div>
+			</div>
+			#end
+		</div>
+	</div>
+#end

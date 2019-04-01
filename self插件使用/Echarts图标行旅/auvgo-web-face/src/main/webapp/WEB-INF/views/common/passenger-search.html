@@ -1,0 +1,246 @@
+##${flag} 为变量标识
+## 机票模块airOrder || 火车票模块order || 酒店模块order 辅助标识 ${_flag} 区分火车票和酒店模块
+<input type="hidden"   class="approveid_s" value="$!approve.id">
+<input type="hidden" value="$!dept.id" class="module" id="defaultDeptId">
+<input type="hidden" value="$!dept.name" class="module" id="defaultDeptName">
+<input type="hidden"   class="approve_id_s" value="#if ($!approve.id=='')0 #else $!approve.id #end">
+<input type="hidden" class="approve_id_name" data-id="" value="#if ($!approve.id=='')无需审批 #else $!approve.name #end" class="input costCenter-input"   nullmsg="审批规则" datatype="*"/>
+<link rel="stylesheet" type="text/css" href="/static/css/common/passenger-search.css" />
+<div class="position-ab Screen-full hide">
+	<div class="Screen-zhezhao" style="position:fixed;"></div>
+	<div class="passanger-search-new position-ab background-fff" style="z-index:22;position:fixed;">
+		<div class="p-s-title position clear">
+			<span class="float-left font-size-14">
+				#if (${flag} == 'airOrder')选择乘机人#elseif(${flag} == 'order' && ${_flag} != 'hotel')选择乘车人#elseif(${flag} == 'order' && ${_flag} == 'hotel')选择入住人#else 关联员工 #end
+			</span>
+			<span class="position-ab close-person cursor">×</span>
+		</div>
+		<div class="select-content clear">
+			<div class="selected-pass float-left selected-box"></div>
+			<button type="button" class="btn btn-3e4eb2 float-right select-true-p">确定</button>
+		</div>
+		<div class="p-s-tab clear">
+			<div data-tabShut='0' class="float-left tab-e tab-e-select cursor">企业员工</div>
+			<div data-tabShut='1' class="float-left tab-e cursor">新增员工</div>
+		</div>
+		<div class="p-s-tContent">
+			<div class="tab-c-1" data-tabContent='0'>
+				<div class="history clear font-size-12">
+					<span class="float-left h-t-p">历史记录：</span>
+					<span class="float-left histoty-pass"></span>
+				</div>
+				<div class="clear position">
+					<span class="search-bg"></span>
+						<input type="text" class="input search-p-input" id="search-staff" placeholder="员工姓名">
+					<div class="staff-scroll mCustomScrollbar">
+						<ul class="staff-wraper"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="tab-c-2 tab-c-c background-fff hide" data-tabContent="1">
+				<form action="/component/save/update/employee" method="post" id="save-staff-form">
+
+				<div class="clear font-size-12 padding-bottom-14 append-list">
+					<div class="float-left input-c position chinese change_one">
+						<span class="float-left">证件姓名：</span>
+						<div class="float-left position">
+							<input id="name_place"   type="text" name="cert.username" class="input"   nullmsg="请填写姓名" errormsg="姓名内容过短（小于2个字符）/过长（大于30个字符）">
+							<span class="chinese"><img  id="chinese" src="/static/img/common/zhong.png" width="40px" height="20px"></span>
+							<input type="hidden" name="cert.isChinese" value="1" id="is_chinese_i_">
+						</div>
+						<b class="nessary-b">*</b>
+					</div>
+					<div class="float-left position input-c change_two remove-fenxiao">
+						<span class="float-left">手机号码：</span>
+						<div class="float-left position">
+							<input type="text" name="phone" class="input" datatype=$!{mobileRegExp} nullmsg=$!{mobileRegExpNull} errormsg=$!{mobileRegExpErr} />
+						</div>
+						<b class="nessary-b">*</b>
+					</div>
+					</div>
+					<div class="clear font-size-12 padding-bottom-14 information form-flag">
+						<div class="float-left position input-c card_type change_one" id="cert_type_d_" >
+							<span class="float-left">证件类型：</span>
+							<select class="_select_ p-select cert_type_i" id="click" name="cert.certtype" id="cert_type_s_" data-value="1" datatype="*1-10" nullmsg="请选择证件类型" style="width: 200px">
+								#foreach($c in $!ceryTypes)
+									<option value="$!{c.key}" data-bil="$!{c.bilingualism}" data-def="$!{c.defaultLanguage}">$!{c.name}</option>
+								#end
+							</select>
+							<b class="nessary-b">*</b>
+						</div>
+						<div class="float-left position input-c change_two">
+							<span class="float-left" >证件号码：</span>
+							<div class="float-left position">
+								<input type="text"id="certno" name="cert.certificate" class="input" >
+							</div>
+							<b  class="nessary-b">*</b>
+						</div>
+					</div>
+					<div class="clear font-size-12 padding-bottom-14">
+						<div class="float-left position input-c change_one remove-fenxiao" >
+							<span class="float-left">员工部门：</span>
+							<div class="float-left position">
+								<input type="text" id="citySel"  name="depName" data-value="临时部门"  value="$!dept.name"   onclick="showMenu();" class="input" readonly="readonly" datatype="*2-50" nullmsg="请选择部门">
+								<input type="hidden" value="$!dept.id" name="depId" id="deptpid">
+							</div>
+							<b class="nessary-b">*</b>
+						</div>
+
+							<div class="float-left position input-c change_two remove-fenxiao">
+								<span class="float-left">员工职级：</span>
+								<select class="_select_ p-select" name="zhiwei" data-value="$!AllStaff.get(0).value" datatype="*1-10" nullmsg="请选择员工职级">
+									#foreach($!staff in $!AllStaff)
+										<option value="$!staff.value">$!staff.name</option>
+									#end
+								</select>
+								<b class="nessary-b">*</b>
+							</div>
+					</div>
+
+				<!--<div class="clear font-size-12 padding-bottom-14 remove-fenxiao">-->
+					<!--<div class="float-left position input-c">-->
+						<!--<span class="float-left">权限级别：</span>-->
+						<!--<select class="_select_ p-select" name="level" data-value="geren" datatype="*1-10" nullmsg="请选择权限级别">-->
+							<!--<option value="geren">个人</option>-->
+							<!--<option value="all">全部</option>-->
+							<!--<option value="dept">本部门及下级</option>-->
+							<!---->
+						<!--</select>-->
+						<!--<b class="nessary-b">*</b>-->
+					<!--</div>-->
+					<div class="clear font-size-12 padding-bottom-14">
+					<!--<div class="float-left position input-c position change_one ">-->
+						<!--<span class="float-left" >员工工号：</span>-->
+						<!--<div class="float-left position">-->
+						<!--<input id="pwd" type="text" name="accno" class="input" datatype="*1-20" nullmsg="请填写员工工号" errormsg="员工工号过长（大于20个字符）">-->
+						<!--</div>-->
+						<!--<b  class="nessary-b">*</b>-->
+					<!--</div>-->
+						<div class="float-left position input-c position change_one remove-fenxiao">
+							<span class="float-left">审批规则：</span>
+							<div class="float-left position">
+								<!--approveid-->
+								<input type="hidden" name="approveId"  class="approve_id" value="#if ($!approve.id=='')0 #else $!approve.id #end">
+								<input type="text" id="shengpiguize" autocomplete="off"  data-id="" value="#if ($!approve.id=='')无需审批 #else $!approve.name #end" class="input"   nullmsg="审批规则" datatype="*"/>
+							</div>
+							<b  class="nessary-b">*</b>
+						</div>
+						<div class="float-left position input-c position change_two show remove-fenxiao">
+							<span class="float-left">出生日期：</span>
+							<div class="float-left position">
+								<input type="text" id="bd" name="cert.birthday"  class="input" ignore="ignore" nullmsg="请选择出生日期"
+									   placeholder="如：19920101"   onfocus="WdatePicker({readOnly:true,dateFmt:'yyyyMMdd ',maxDate:'%y-%M-%d'})"/>
+							</div>
+						</div>
+				</div>
+				<div class="clear font-size-12 padding-bottom-14 show" style="display: none;">
+
+					<div class="float-left position input-c position change_one remove-fenxiao">
+						<span class="float-left" style="width: 70px;margin-left: -10px">证件有效期:</span>
+						<div class="float-left position">
+							<input type="text" name="cert.passportdate"  class="input" placeholder="如：20220101"  nullmsg="请选择日期"onfocus="WdatePicker({readOnly:true,dateFmt:'yyyyMMdd ',minDate:'%y-%M-%d'})"/>
+						</div>
+					</div>
+						<div class="float-left position input-c position change_two remove-fenxiao">
+							<span class="float-left">签发地:</span>
+							<div class="float-left position">
+								<input type="text"  name="cert.placeIssue"  class="input nationality"  nullmsg="请输入" placeholder="如：中国"/>
+							</div>
+						</div>
+					</div>
+					<div class="clear font-size-12 padding-bottom-14 show remove-fenxiao">
+						<div class="float-left position input-c position change_one" >
+							<span class="float-left">性别：</span>
+							<div class="label label-radio  label-select-radio  clear vertical float-left">
+								<span class="show_choice"></span>
+								<input type="radio" name="cert.sex" value="M" checked="checked"/>
+								<span>男</span>
+							</div>
+							<div class="label label-radio  clear vertical float-left">
+								<span class="show_choice"></span>
+								<input type="radio" name="cert.sex" value="F" />
+								<span>女</span>
+							</div>
+						</div>
+						<div class="float-left position input-c position change_two remove-fenxiao">
+							<span class="float-left">&nbsp&nbsp&nbsp&nbsp国籍:</span>
+							<div class="float-left position">
+								<input  type="text"  name="cert.guoji"  class="input nationality"  nullmsg="请输入" placeholder="如：中国"/>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="text-align">
+					<button type="button" class="btn btn-default btn-big" id="save-staff">保存</button>
+				</div>
+
+				</form>
+			</div>
+			<div class="tab-c-3 tab-c-c background-fff hide" data-tabContent='2'>
+				<form action="/add/linshi" method="post" id="save-linshi-form">
+				<div class="clear font-size-12 padding-bottom-14">
+					<div class="float-left position input-c position">
+						<span class="float-left">证件姓名：</span>
+						<div class="float-left position">
+						<input type="text"  name="username" class="input" datatype="*2-30" nullmsg="请填写联系人姓名" errormsg="姓名内容过短（小于2个字符）/过长（大于30个字符）">
+						</div>
+						<b class="nessary-b">*</b>
+					</div>
+					<div class="float-left position input-c remove-fenxiao">
+						<span class="float-left">手机号码：</span>
+						<div class="float-left position">
+						<input type="text" name="mobile" class="input" datatype=$!{mobileRegExp} nullmsg=$!{mobileRegExpNull} errormsg=$!{mobileRegExpErr} />
+						</div>
+						<b class="nessary-b">*</b>
+					</div>
+				</div>
+				<div class="clear font-size-12 padding-bottom-14" >
+					<div class="float-left position input-c">
+						<span class="float-left">证件类型：</span>
+						<select  class="_select_ p-select" id="click"  name="certtype" data-value="" datatype="*1-10" nullmsg="请选择证件类型">
+							<option value="">请选择</option>
+							<option value="1">身份证</option>
+							<option value="C">港澳通行证</option>
+							<option value="G">台湾通行证</option>
+							<option value="B">护照</option>
+							<option value="ID">其他</option>
+						</select>
+						<b class="nessary-b">*</b>
+					</div>
+					<div class="float-left position input-c">
+						<span class="float-left">证件号码：</span>
+						<div class="float-left position">
+						<input type="text" name="certno" class="input">
+						</div>
+						<b class="nessary-b">*</b>
+					</div>
+				</div>
+				<div class="clear font-size-12 padding-bottom-14 remove-fenxiao">
+					<div class="float-left position input-c position">
+						<span class="float-left">出生日期：</span>
+						<div class="float-left position">
+							<input type="text" name="birthday" class="input" ignore="ignore" nullmsg="请选择出生日期"
+								   onclick="WdatePicker({dateFmt: 'yyyyMMdd',maxDate: '%y-%M-%d',readOnly: true})" />
+						</div>
+					</div>
+				</div>
+				<div class="text-align">
+					<button type="button" class="btn btn-default btn-big" id="save-linshi" >保存</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+
+</script>
+
+
+
+
+

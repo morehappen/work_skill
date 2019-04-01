@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>火车时刻</title>
+<link rel="stylesheet" type="text/css" href="/resources/css/common/common.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/common/plugin.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/common/animate.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/page/pager_blue.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css" />
+
+<link rel="stylesheet" type="text/css" href="/resources/js/plugin/daterangepicker/iconfont/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="/resources/js/plugin/daterangepicker/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/resources/js/plugin/daterangepicker/css/daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/tTravel-analysis/analysis.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/tTravel-analysis/travelAnalysis.css" />
+</head>
+<body>
+	#parse("/common/head.html")
+	<div class="main-content clear">
+		#parse("/caiwu/tongji/analysis_common_left.html")
+		<div class="float-left content_show">
+			<form action="/caiwu/tongji/traintime?tag=analysis_traintime" method="POST" id="SaveAnalysisForm" class="query_form">
+				<input type="hidden" name="startDate" value="$!query.startDate" class="startDate">
+				<input type="hidden" name="endDate" value="$!query.endDate" class="endDate">
+				<input type="hidden" name="queryType" value="chupiao" class="">
+				<div class="input_select clear">
+					<div class="input_items margin-default-r margin-10-b">
+						<div class="input_item_text">时间：</div>
+						<div class="i_item_input time_section_box">
+							<button type="button" class="btn btn-default" id="daterange-btn">
+								<span> <i class="icon iconfont icon-calendar1"></i> 日期选择
+								</span> <i class="icon iconfont icon-danxian-youjiantou-copy"></i>
+							</button>
+						</div>
+					</div>
+
+					<div class="i_item_input float-left anlysis_btn_box">
+						<button type="submit" class="btn anlysis_btn">查询</button>
+					</div>
+				</div>
+			</form>
+			<div class="margin-top-30 list_table_box">
+				#if("$!list"==""||$!list.size()==0)
+				<!--没有数据的时候显示-->
+				<div class="no-data-wraper">
+					<div class="no-data animated rotateIn">
+						<div class="auvgo-approve-bg no-data-pic" title="暂无数据"></div>
+						<div class="no-data-text">暂无数据</div>
+					</div>
+				</div>
+				#else
+				<!-- table 表格部分 begin -->
+				<table class="table table-align">
+					<thead>
+						<tr>
+							<th>时刻区间</th>
+							<th>出票张数</th>
+							<th>出票张数占比</th>
+							<th>退票张数</th>
+							<th>退票张数占比</th>
+							<th>改签张数</th>
+							<th>改签张数占比</th>
+						</tr>
+					</thead>
+					<tbody>
+						#foreach($item in $!list)
+						<tr>
+							<td>$!item.timegroup</td>
+							<td>$!item.zcNum</td>
+							<td>$!{item.zcPercent}%</td>
+							<td>$!item.tpNum</td>
+							<td>$!{item.tpPercent}%</td>
+							<td>$!item.gqNum</td>
+							<td>$!{item.gqPercent}%</td>
+						</tr>
+						#end
+					</tbody>
+				</table>
+				#end
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="/resources/js/common/common.js"></script>
+<script type="text/javascript" src="/resources/js/order/orderCommon.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/daterangepicker/js/moment.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/daterangepicker/js/daterangepicker.js"></script>
+<!--<script type="text/javascript" src="/resources/js/tTravel-analysis/analysis.js"></script>-->
+<script type="text/javascript" src="/resources/js/tongji/tongji_common.js"></script>
+</html>

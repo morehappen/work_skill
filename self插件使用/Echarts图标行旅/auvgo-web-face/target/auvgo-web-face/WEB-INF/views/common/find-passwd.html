@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>找回密码</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" href="/static/css/common/find-passwd.css">
+</head>
+<body class="find-pwd">
+<div class="lg_main">
+    <div class="lg_header">
+        <div class="lg_container clear">
+            <div class="lg_logo float-left">
+                <a href="/index.html">
+                    <!--<div class="lg_img">-->
+                    <!--</div>-->
+                    <img class="lg_img" src="../../static/img/lg_logo.png">
+                </a>
+            </div>
+            <div class="lg_mobile float-right">
+                <a class="clear phone_qrentry" href="javacript:void(0);">
+                    <img class="lg_ph_img float-left" src="../../static/img/lg_phone.png" alt="">
+                    <div class="lg_ph_txt float-right">
+                        APP下载
+                    </div>
+                    <img class="lg_erwei_img hide" src="../../static/img/lg_erwei.png" alt="">
+                </a>
+                <a class="clear phone_ajump hide" href="javacript:void(0);">
+                    <img class="lg_ph_img float-left" src="../../static/img/lg_phone.png" alt="">
+                    <div class="lg_ph_txt float-right">
+                        APP下载
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="lg_container clear">
+        <div class="form-wraper lg_form">
+            <div class="f-p-title fpw_title">找回密码</div>
+            <!--<div class="f-p-tips hide"></div>-->
+            <form action="" method="POST" id="retrieve">
+                <div class="find-pwd-main clear">
+                    <div class="f-p-m-little">
+                        <div class="kaohao_img">
+
+                        </div>
+                        <div class="usename_img">
+
+                        </div>
+                        <input type="text" name="kahao" id="kahao_" value="" placeholder="商旅卡号" class=" font-size-16 border-radius card-num cardNum" />
+                        <div class="kahao_tip lg_tip"></div>
+                        <input type="text" name="username"id="userName_" value="" autocomplete="on" placeholder="用户名" class=" font-size-16 border-radius username" />
+                        <div class="userName_tip lg_tip"></div>
+                        <input type="text" name="password" id="yzm_sr" value="" placeholder="图片验证码" class=" font-size-16 border-radius password" />
+                        <span class="f-p-yzm float-left border-radius position-ab"><img id="img_yzm" alt=""></span>
+                        <div class="yzm_tip lg_tip"></div>
+                        <div class="find-btn-group">
+                            <button type="button" class="font-size-16 color-fff border-radius" >下一步</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="lg_footer">
+    <div class="lg_container">
+        <div class="lg_connect clear">
+            <div class="hot_phone">客服热线：400-606-0011</div>
+            <div class="joint_phone">合作电话：010-6491-6188</div>
+        </div>
+        <div class="lg_copyright">
+            Copyright © 2018 Auvgo.com All Rights Reserved.
+            <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备14044777号</a>
+        </div>
+    </div>
+</div>
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/js/personal/find-passwd.js"></script>
+</body>
+</html>

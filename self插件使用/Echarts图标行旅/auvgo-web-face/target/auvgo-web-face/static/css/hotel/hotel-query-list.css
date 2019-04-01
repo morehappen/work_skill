@@ -1,0 +1,223 @@
+.icon-keyword{background-position: -85px -46px;}
+.brands-close{position: absolute;top: 20px;right: 20px;display: inline-block;width: 12px;height: 12px;cursor: pointer;}
+.brands-close:hover{opacity: 0.8;filter:alpha(opacity=80);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";}
+
+.hotel-back{margin-left: 20px;display: none;}
+
+.e-filter-area{padding: 15px 30px 15px 20px;border-bottom: 1px dashed #eee;background: #fff;}
+.e-filter-t{width: 130px;}
+.e-filter-t>span{float: left;margin-right: 33px;line-height: 26px;color: #999;}
+.e-filter-t>button{float: left;width: 50px;padding: 0;height: 26px;line-height: 26px;font-size: 12px;}
+.e-filter-c{width: 1020px;}
+
+.f-p-tab-wraper{position: relative;top: 1px;z-index: 10;}
+
+.t-c-t{
+    width: 86px;height: 26px;line-height: 26px;
+    border: 1px solid transparent;border-bottom: initial;
+    text-align: center;cursor: pointer;
+}
+.t-c-t:after{
+    content: "";
+    position: relative;top: 3px;
+    display: inline-block;
+    margin-left: 5px;
+    width: 0;height: 0;
+    border: 5px solid #333;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+.t-c-t.active{
+    border-color: #eee;
+    border-bottom-color: #fafafa;
+    background: #fafafa;
+}
+.t-c-t.active:after{
+    border-bottom-color: #333;
+    border-top-color: transparent;
+    top: -3px;
+}
+
+.f-p-c{width: 100%;}
+.t-c-c{display: none;padding: 4px 20px;background: #fafafa;border: 1px solid #eee;}
+.e-label{float: left;width: 108px;/*padding-right: 10px;*/margin: 10px 0;}
+.e-label>span{/*margin-left: 10px;*/width: 65px;}
+
+.price-c-wraper{padding-left: 20px;}
+.price-c-wraper .e-label{margin: 0;/*margin: initial;height: 26px;line-height: 26px;*/padding: 5px 0;}
+.price-c-wraper .middle-line{margin: 0 10px;height: 26px;line-height: 26px;font-weight: 600;color: #ccc;}
+.define-price{margin: 0;padding: 0 5px;width: 58px;height: 26px;line-height: 24px;}
+
+.btn-price-confirm{margin-left: 20px;width: 50px;height: 26px;background: #f3f3f3;color: #333;font-size: 12px;border: 1px solid #e9e9e9;}
+
+.facility-wraper{padding: 0 20px;}
+.facility-wraper .e-label{margin: 0 0 10px 0;height: 26px;line-height: 26px;}
+
+.filter-result{padding: 0 20px;}
+.f-r-wraper{padding: 4px 0 14px 0;}
+.e-f-r-c{float: left;padding: 0 8px;margin-right: 10px;margin-bottom: 14px;height: 30px;line-height: 30px;background: #fff;cursor: default;}
+.remove-filter{display: inline-block;margin-left: 8px;width: 12px;height: 12px;}
+.remove-filter:hover{opacity: 0.6;filter:alpha(opacity=60);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";cursor: pointer;}
+
+.all-con-wraper>.btn{font-size: 12px;line-height: normal;}
+
+.filter-c-l{float: left;width: 940px;}
+.filter-c-r{float: right;width: 240px;}
+
+.stg-sort-price{margin-left: 0;}
+
+.stg-sort:before{top: 14px;}
+.stg-sort:after{bottom: 14px;}
+
+.hotel-list-content .filter{margin-bottom: 14px;height: 40px;line-height: 40px;background: #fff;}
+.hotel-list-content .f-t-r{width: 248px;text-align: center;}
+.hotel-list-content .f-t-p{margin-right: 222px;}
+.hotel-list-content .filter label:before{margin-right: 8px;}
+.hotel-list-content .f-t-x{margin-right: 40px;}
+.hotel-list-content .f-t-z{margin-right: 70px;}
+.hotel-list-content .f-t-pay{width: 150px;}
+.hotel-list-content .f-t-pay .drop{float: left;width: 80px;position: relative;top: 4px;}
+
+.every-cell{margin-bottom: 10px;background: #fbfbfb;}
+.every-cell:hover{
+    -moz-box-shadow: 0 0 7px 0 #6461e2;
+    -webkit-box-shadow: 0 0 7px 0 #6461e2;
+    box-shadow: 0 0 7px 0 #6461e2;
+}
+
+.color-purple{color: rgb(209, 7, 115);}
+
+.e-cell-l{float: left;width: 720px;padding: 18px 0 20px 20px;background: #fff;}
+.e-cell-i{float: left;margin-right: 20px;background: url(/static/project-resource/img/hotel/hotel-list-replace.png) no-repeat;}
+.e-cell-des{float: left;width: 190px;}
+.e-cell-des .e-cell-t{margin-bottom: 20px;width: 100%;font-size: 16px;}
+.e-cell-des .e-cell-a{color: #666;margin-bottom: 10px;}
+.e-cell-des .e-cell-rank{color: #666;}
+
+.e-cell-r{float: right;width: 185px;padding: 20px 15px 20px 0;}
+.dianping{margin-bottom: 30px;}
+.jiage{margin-bottom: 15px;}
+.btn-detail{display: inline-block;width: 110px;height: 34px;line-height: 34px;text-align: center;background: #fff;border: 1px solid #6461e2;border-radius: 2px;color: #6461e2;font-size: 14px;}
+.btn-detail:hover{background: #6461e2;color: #fff;cursor: pointer;}
+
+.baidu-map{margin-bottom: 22px;width: 240px;height: 445px;background: #fff;}
+.view-map-flag{
+    position: absolute;top: 0;left: 0;
+    color: #fff;z-index: 5;cursor: pointer;
+}
+.view-map-flag .view-map-flag-wraper{
+    padding: 0 10px;width: 95px;height: 26px;
+    background: rgb(100, 97, 226);
+    opacity: 0.6;filter:alpha(opacity=60);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"
+}
+
+.view-map-flag .view-map-flag-text{position: absolute;top: 4px; left: 15px;}
+
+.view-map-flag .icon-position{font-size: 14px;margin-right: 8px;vertical-align: text-bottom;}
+
+.g-title{margin-bottom: 14px;font-size: 14px;color: #666;}
+.g-history{padding: 0 16px;width: 202px;height: 50px;line-height: 50px;border-bottom: 1px solid #eee;}
+.g-history:last-child{border: none;}
+
+
+/* 筛选模块 */
+.f-filter-c-c .e-filter{border-bottom: 1px solid #eee;}
+.f-filter-c-c .e-filter:last-child{border-bottom: none;}
+.f-fliter-t-w{width: 310px;background: #e3eaf7;}
+.f-fliter-t-w .f-filter-t{float: left;width: 50%;height: 50px;line-height: 50px;text-align: center;font-size: 14px;cursor: pointer;}
+.f-fliter-t-w .f-filter-t.active{background: #6461E2;color: #fff;}
+.map-tabcon{width: 310px;}
+.map-tabcon div[data-con]{display: none;}
+.map-tabcon .active[data-con]{display: block;}
+
+
+.e-f-title{width: 310px;padding-left: 65px;}
+.e-filter .label span{/*width: 260px;left: -260px;*/}
+.e-filter .label .e-filter-text{left: 15px;}
+.e-filter .label .e-filter-ctrl{left: 240px;}
+.b-filter{margin: 0 14px -2px 16px;vertical-align: text-bottom;width: 20px;height: 20px;}
+.b-filter-p{background-position: -55px -209px;}
+.b-filter-s{background-position: -32px -252px;}
+.b-filter-b{background-position: -54px -252px;}
+
+/* 大地图页面品牌 */
+.map-brands{position: absolute;left: 320px;top: 0;padding: 25px 20px;width: 800px;height:350px;overflow:auto;border-radius: 5px;z-index: 5;}
+
+.map-brands li{margin-bottom: 10px;height:auto;line-height: normal;text-align: left;padding: 0;}
+.map-brands li:last-child{margin-bottom: 0;}
+.map-brands .title{font-size: 14px;width:100%;height:20px;line-height:20px;margin-bottom: 10px;}
+.map-brands .label{width: 10%;height:17px;line-height:17px;margin-bottom: 6px;margin-right: 6px;float:left;}
+.map-brands .label span{position: absolute;top: 0px;left: 21px;padding-left: 0;width: 61px;}
+.map-brands .label .show_choice{left:0px;top:0px;}
+.f-filter-list-title{height: 50px;line-height: 50px;background: #fafafa;}
+.f-filter-list-title .drop{position: relative;top: 8px;width: 90px;}
+
+.f-filter-list-content{padding: 0 15px;background: #fff;}
+.e-list-cell{padding: 20px 0;border-bottom: 1px solid #eee;}
+.e-list-cell:last-child{border-bottom: none;}
+
+.e-list-cell-t{width: 90px;height: 90px;background: url(/static/project-resource/img/hotel/hotel-bigmap-list-replace.png) no-repeat;}
+
+
+.e-list-cell-des{padding: 0 0 0 10px;width: 170px;}
+.e-l-c-d-t{font-size: 14px;}
+.e-l-c-d-t,.e-l-c-d-r,.e-l-c-d-rate,.e-l-c-d-price{width: 100%;height: initial;line-height: normal;}
+.e-l-c-d-r{padding-top: 10px;padding-bottom: 6px;}
+
+.f-filter-list-title .f-t-p{width: 70px;text-align: center;}
+.f-filter-list-title .stg-sort:after,.f-filter-list-title .stg-sort:before{right: 10px;}
+/*.f-filter-list-title .stg-sort:before{}*/
+/*.f-filter-list-title .stg-sort:after{}*/
+.f-filter-list-title .label-select-checkbox:after{bottom: 21px;left: 6px;}
+.f-filter-list-title .label{width: 65px;padding-left: 5px;}
+/*.f-filter-list-title .label span{margin-left: 5px;}*/
+
+.model-list .hotel-type-wraper{width: 236px;position: relative;top: 11px;}
+.model-map .hotel-type-wraper{position: relative;top: 16px;}
+.model-list .hotel-type-wraper .label-select-checkbox:after{bottom: 16px;}
+
+.baidu-map-big{width: 890px;background: #fcfcfc;}
+
+.f-filter-list-page{padding-top: 10px;height: 40px;border-top: 1px solid #eee;background: #fff;}
+
+#more-trig{display: inline-block;width: 88px;height: 30px;line-height: 30px;text-align: center;border: 1px solid #eee;border-top: none;background: #fff;cursor: default;}
+.fold .flod-img,.unfold .flod-img {width:14px;height:12px;top:9px;right:14px;}
+.fold .flod-img{background-position: -65px -295px;}
+.unfold .flod-img{background-position: -50px -296px;}
+
+
+#hotel-type{width: 240px;}
+#hotel-type .label-select-checkbox:after{bottom: 16px;}
+
+
+.filter-wraper .label-select-radio:after{bottom: 7px;}
+.filter-wraper .price-c-wraper .label-select-radio:after{bottom: 9px;}
+.filter-wraper .label-select-checkbox:after{bottom: 3px;}
+.filter-wraper .price-c-wraper .label-select-checkbox:after{bottom: 5px;}
+
+
+.map-price-filter .label-select-radio:after{bottom: 4px;}
+
+
+/* 分页样式 */
+.list-page{display: inline-block;margin: 0 5px;padding: 3px 10px;border-radius: 2px;background: #6461E2;color: #fff;cursor: pointer;}
+.no-page{border: 1px solid #DFDFDF;background: #FFF;color: #DFDFDF;cursor: not-allowed;}
+
+/* 大地图页面弹窗样式 */
+.BMapLabel{border-color: #f04b00 !important;padding: 1px 5px 2px 5px !important;z-index: -1 !important;border-radius: 15px;}
+.BMapLabel:before{display: none;}
+/*.BMapLabel:hover{background: #f04b00 !important;color: #fff;z-index: 0 !important;}*/
+.bmap-wraper{padding: 5px;}
+.bmap-wraper .bmap-line{border-bottom: 1px solid #eee;margin-top: 10px;margin-bottom: 10px;}
+.bmap-title{/*padding-bottom: 10px;*/}
+.bmap-content{padding-top: 5px;}
+.hotel-price{margin-left: 5px;margin-bottom: 0;font-weight: 600;font-size: 16px;color: rgb(209, 7, 115);}
+.bmap-img{width: 105px;height: 105px;background: url('/static/project-resource/img/hotel/hote-bmap-replace.png') no-repeat;}
+.bmap-img img{width: 105px;height: 105px;}
+.bmap-desc{width: 210px;margin-left: 20px;line-height: 18px;}
+.low-price{height: 32px;line-height: 32px;}
+.bmap-address{height: 36px;overflow: hidden;}
+
+
+.e-filter .define-price-wraper{text-align: left;padding-left: 35px;}

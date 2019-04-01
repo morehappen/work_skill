@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd    
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd     
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+    <bean id="SpringContextHolder" class="com.auvgo.core.spring.SpringContextHolder" lazy-init="false" />
+    <!-- 自动扫描且只扫描@Controller -->
+ 	<context:component-scan base-package="com.auvgo.business" />
+    <context:component-scan base-package="com.auvgo.web" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+    <context:property-placeholder ignore-resource-not-found="true" location="classpath*:/application.properties"/>
+    <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/common/**" location="/common/"/>
+    <mvc:view-controller path="/" view-name="login"/>
+    <mvc:resources mapping="/resources/**" location="/resources/" cache-period="86400" />
+	<bean class="com.fasterxml.jackson.databind.ObjectMapper" id="objectMapper">
+		<!-- 处理responseBody 里面日期类型 -->
+		<property name="dateFormat">
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg index="0" type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+			</bean>
+		</property>
+	</bean>
+    <bean id="contentNegotiationManager"  class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">  
+        <property name="favorPathExtension" value="true" />  
+        <property name="ignoreAcceptHeader" value="true"/>  
+        <property name="useJaf" value="false"/>  
+        <property name="defaultContentType" value="text/html" />  
+        <property name="mediaTypes">  
+            <map>  
+                <entry key="html" value="text/html"/>  
+                <entry key="json" value="application/json;charset=UTF-8" />  
+                <entry key="xml" value="application/xml;charset=UTF-8" />  
+           </map>  
+        </property>  
+    </bean>  
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+				<property name="objectMapper">
+					<ref bean="objectMapper" />
+				</property>
+			</bean>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8" index="0"></constructor-arg>
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/plain;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/xml;charset=UTF-8</value>
+					</list>
+				</property>
+				<property name="marshaller">
+					<bean class="org.springframework.oxm.xstream.XStreamMarshaller" />
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>	<!-- 根据客户端的不同的请求决定不同的view进行响应, 如 /blog/1.json /blog/1.xml -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />
+        <property name="contentNegotiationManager" ref="contentNegotiationManager"/>  
+		<property name="viewResolvers">
+			<list>
+			    <bean class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+			        <property name="order" value="0"/>
+			        <property name="contentType" value="text/html;charset=UTF-8" />
+			        	<property name="suffix" value=".html" />
+					<property name="dateToolAttribute" value="dateTool" />
+					<property name="numberToolAttribute" value="numberTool" />
+					<property name="exposeRequestAttributes" value="true" />
+					<property name="exposeSessionAttributes" value="true" />
+					<property name="exposeSpringMacroHelpers" value="true" />
+			    </bean>			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<!-- for application/json -->
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+					<property name="objectMapper">
+						<ref bean="objectMapper" />
+					</property>
+				</bean>
+				<!-- for application/xml -->
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+					<property name="marshaller">
+						<bean class="org.springframework.oxm.xstream.XStreamMarshaller" />
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+    <!--velocity模板配置-->
+    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/views/"/>
+        <property name="velocityProperties">
+            <props>
+            	<prop key="directive.foreach.counter.name">vCount</prop>
+				<prop key="directive.foreach.counter.initial.value">1</prop>
+                <prop key="input.encoding">UTF-8</prop>
+                <prop key="output.encoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean> 
+    <!--全局异常拦截-->
+    <bean id="globalExceptionResolver" class="com.auvgo.web.filters.GlobalExceptionResolver" />
+    <!-- 上传文件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+</beans>  

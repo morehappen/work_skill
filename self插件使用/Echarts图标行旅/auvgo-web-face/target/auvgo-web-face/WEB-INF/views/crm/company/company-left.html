@@ -1,0 +1,49 @@
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/chailv-manage.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/common/common.css" />
+#if("$!company.bianhao"!="SCST")
+<div class="second-side-nav  float-left" style="margin-top: 10px; height: 700px;">
+	<dl>
+		<dt class="position">
+			<a href="/crm" class="ss-every-model"> 企业信息</a>
+		</dt>
+	</dl>
+	<dl>
+		<dt class="position">
+			<a href="javascript:void(0);" class="ss-every-model"> 人员管理 <span class="position-ab icon-img s-nav-bg s-jt-bg icon-down-jt-second"></span>
+			</a>
+		</dt>
+		<dd>
+			<a href="/crm/depart" data-tag="train">组织架构</a>
+		</dd>
+		<dd>
+			<a href="/crm/employee" data-tag="trainEndrose">员工管理</a>
+		</dd>
+	</dl>
+
+	<dl>
+		<dt class="position">
+			<a href="javascript:void(0);" class="ss-every-model"> 差旅管理 <span class="position-ab icon-img s-nav-bg s-jt-bg icon-down-jt-second"></span>
+			</a>
+		</dt>
+		<dd>
+			<a href="/crm/chailv/" data-tag="hotel">差旅政策</a>
+		<dd>
+			<a href="/crm/role" data-tag="hotel">角色权限</a>
+		</dd>
+		<dd>
+			<a href="/crm/cost" data-tag="hotel">成本中心</a>
+		</dd>
+		<dd>
+			<a href="/crm/project/" data-tag="hotel">项目中心</a>
+		</dd>
+		<dd>
+			<a href="/crm/psaddress/" data-tag="hotel">配送地址</a>
+		</dd>
+		<dd>
+			<a href="/crm/data/tovaluelist/3" data-tag="hotel">数据管理</a>
+		</dd>
+
+		</dd>
+	</dl>
+</div>
+#end

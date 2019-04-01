@@ -1,0 +1,113 @@
+
+.btn-small-small{width:17px;height:17px;}
+.point-litte-img{width:18px;height:6px;margin:10px 8px 0 8px;background:url(../../img/train/train-bg.png) no-repeat -83px -107px;}
+
+.airlian-flag{top:2px;left:-72px}
+.airline-flag{top:4px;left:-33px}
+.air-f-date{padding:0 60px 0 16px}
+.air-time-show{height:20px;line-height:20px}
+.air-airport{height:14px;line-height:14px}
+.order-arrive{padding-left:27px}
+.air-to-content{margin-bottom:40px}
+.line-cost-title{padding-bottom:16px}
+.l-c-title-back{padding-top:30px}
+.save-cost-chart{width:280px;height:190px}
+.weibeishixiang-c{width:190px}
+
+.o-e-ticketNum{width:85px}
+.o-r-title{margin-right:20px}
+.o-r-etag{margin-right:12px}
+.o-r-content{padding-bottom:24px;}
+.fujian-img{width:144px;height:80px;margin-right:10px;vertical-align:middle;}
+.btn-down-c{height:80px;line-height: 136px;overflow: hidden;}
+.xuqiuDetail{width:100%}
+.top-jiantou{top:-8px;left:190px}
+.clearfix {zoom: 1;}
+.clearfix::after {content: "."; clear: both; display: block; overflow: hidden; font-size: 0; height: 0;}
+
+
+/*酒店订单详情*/
+.o-content{color:#888;}
+.chailv-cell{width:auto; margin-right:30px; margin-bottom:0;}/**/
+.order-left{width:840px; box-sizing:border-box;}
+.o-title{font-weight:bold;}
+.order-right{width:350px; box-sizing:border-box;}
+.Occupant-box-list .o-content .chailv-cell{width:50%; margin-right:0; line-height:30px;}
+.b-m-c-c{margin-right:10px;}
+.approve-title-ch{width:auto; margin-right:10px;}
+.product-name{width:125px; display:inline-block; vertical-align:top;}
+
+/*订单详情*/
+.main-content .status{width:1200px; height:60px; line-height:60px; background:#fff; margin:10px 0; box-shadow:0 1px 2px 0px rgba(0,0,0,0.1); padding:0 10px 0 30px; box-sizing:border-box;}
+.main-content .status em{font-style:normal; color:#888;}
+.main-content .status b{color:#000;}
+.main-content .status .state{margin-right:30px;}
+.main-content .btn-cancel{border:1px solid #d44a9f; color:#d44a9f; height:38px; line-height:38px; font-size:14px; border-radius:3px; margin-left:10px; padding:0 32px; box-sizing:border-box;}
+.main-content .btn-cancel:hover{background:#f9f9f9;}
+.main-content .btn-default{background:#d44a9f;}
+.main-content .btn-middle{height:38px; line-height:38px; padding:0 32px; margin-left:10px;}
+/*乘机人*/
+.plane{width:840px; height:auto; padding:30px; box-sizing:border-box; background:#fff; margin-bottom:10px;}
+.plane .plane-title{height:36px; line-height:36px; font-size:16px; font-weight:bold; margin-bottom:30px;}
+.plane .plane-content{width:100%; height:180px; padding-bottom:30px; box-sizing:border-box; border-bottom:1px dashed #e0e8ed;}
+.plane .plane-content .plane-name{width:100%; height:36px; line-height:36px; font-size:16px;}
+.plane .plane-content .plane-name>span{width:22px; height:22px; line-height:22px; border-radius:50%; background:#333; color:#fff; text-align:center; font-size:14px; font-weight:bold; font-family:"arial"; display:inline-block; vertical-align:middle; margin-right:10px;}
+.plane .plane-content .plane-name>em{display:inline-block; vertical-align:middle;}
+.plane .plane-content .plane-row{width:100%; line-height:30px; font-size:12px; color:#666; overflow:hidden;}
+.plane .plane-content .plane-row .plane-row-left{width:330px; height:auto; float:left; overflow:hidden;}
+.plane .plane-content em{font-style:normal;}
+.plane .plane-content .plane-row span{width:80px; display:inline-block;}
+.plane .insurance{width:100%; height:30px; line-height:30px; font-size:12px; color:#666; overflow:hidden; margin-top:20px;}
+.plane .insurance span{width:80px; display:inline-block;}
+.plane .ins-row{width:100%; height:30px; line-height:30px; font-size:12px; color:#666; overflow:hidden;}
+.plane .ins-row .ins-name{width:330px; float:left;}
+/*差旅信息*/
+.plane .travel{width:100%; height:auto; overflow:hidden;}
+.plane .travel .travel-row{width:100%; line-height:30px; font-size:12px; color:#666;}
+.plane .travel em{font-style:normal; width:695px; display:inline-block; vertical-align:top;}
+.plane .travel .travel-row span{width:80px; display:inline-block; vertical-align:top;}
+/*联系人*/
+.plane .cont-title{font-size:16px; font-weight:bold; margin-bottom:30px;}
+.plane .contacts{width:100%; font-size:12px; padding-bottom:10px;}
+.plane .contacts .plane-left{float:left; margin-right:50px;}
+.plane .contacts .float-left{margin-right:50px;}
+.plane .contacts em{font-style:normal;}
+/*航班信息*/
+.flight{width:350px; height:auto; background:#e7ebfa; color:#040024; margin-bottom:10px; padding-top:20px; box-sizing:border-box;}
+.flight .airline-mation{margin-top:6px; margin-bottom:17px; font-size:12px; position:relative; padding-left:20px;}
+.flight .airline-mation .cheap{width:14px; color:#d10773; border-radius:2px; border: 1px solid #d10773; text-align: center; display:inline-block; margin-left:5px;}
+.flight .airline-mation .go-back{width: 55px; height: 27px; line-height: 21px; position:absolute; top: -20px; left: -9px; font-size: 12px; font-weight: 400; background: url(../../../static/img/common/qf.png) no-repeat; text-align:center; color:#fff; display:inline-block; vertical-align:middle;}
+.flight .airline-mation .aircom-img{width:22px;height:22px; margin-top:6px; display:inline-block; vertical-align:middle;}
+.flight .airline-mation .airline-name{display:inline-block; vertical-align:middle; margin-top:6px; white-space:nowrap; cursor:pointer;}
+.flight .airline-mation .airline-name em,.flight .airline-mation .airline-name i{font-style:normal;}
+.flight .airline-mation .airline-time{margin-top: 6px; vertical-align:middle; display: inline-block; margin-left: 50px;}
+.flight .airline-mation .carrier{color: rgba(209,7,115,1); line-height:16px;margin-left:40px;}
+.flight .airline-mation .carrier em{font-style:normal; color:#040024;}
+.flight .airline-mation .beijing{width: 10px; height:10px; margin-top: 3px; display: inline-block; background-image: url(../../../static/img/common/jt.png);}
+.flight .flight-con{width:100%; height:auto; padding-left:20px;}
+.flight .flight-con .flight-order{float:left; width:100px;}
+.flight .flight-con .flight-order .airport{text-align:center; margin-bottom:14px; font-size:12px;}
+.flight .flight-con .flight-order .air-time{font-size:20px; margin-bottom:14px; text-align:center; height:20px; line-height:20px;}
+.flight .flight-con .flight-order .air-data{font-size:12px; text-align:center; margin-bottom:14px; height:14px; line-height:14px;}
+.flight .flight-con .flight-mid{float:left; width:120px; text-align:center; padding-top:20px; font-size:16px;}
+.flight .flight-con .flight-mid .hover_control_jt{cursor:pointer; color:#614ec2;}
+.flight .flight-con .flight-mid .transit{left:32px;}
+.flight .flight-con .tarin-bg{height:5px; margin: 18px 22px 0 10px; background: url(../../img/airImg/air-bg.png) no-repeat -36px -9px; position:relative;}
+.flight .flight-con .mileage{font-size:12px; margin-top:10px; display:inline-block;}
+.flight .dotte{width:100%; height:42px; line-height:42px; padding-top:10px; background:url(../../../static/img/common/xz-fff.png) no-repeat;}
+.flight .dotte .baggage{position:relative; font-size: 12px; font-weight:400; color:rgba(100,97,266,1);}
+.flight .dotte .remark{font-weight: 400; color: rgba(100,97,226,1); float:right; margin-right:12px;}
+.flight .dotte .bag-amount{margin-left: 15px; padding: 12px;}
+.flight .dotte .tuigai-des > table{position: absolute; top: 30px; left: 0px; border-collapse: collapse; border: 1px solid #e9e9e9; border-radius:5px; box-shadow:6px 0px 14px rgba(200,200,200,0.7); background:#fff; filter:alpha(opacity=30); -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; white-space: nowrap; display:none; z-index:2; }
+/*应付金额*/
+.amount{width:350px; height:auto; background:#e7ebfa; color:#040024; padding:20px; margin-bottom:10px; box-sizing:border-box;}
+.amount .payable-amount{width:100%;font-size:16px; margin-bottom:20px; overflow:hidden;}
+.amount .payable-amount .amount-title{float:left;}
+.amount .payable-amount .money{float:right; color:rgb(209, 7, 115);}
+.amount .payable-amount .money span{font-size:12px;}
+.amount .payable-amount .money span#total{font-size:16px;}
+.amount .yingfu-detail{font-size:12px;}
+.amount .yingfu-detail .cost{font-size:14px; float:left;}
+.amount .yingfu-detail .line-cost-title .dot-line{width:243px;height:0;padding-top:10px;margin-left:10px;border-bottom:1px dashed #fff; display:inline-block; vertical-align:top;}
+/*审批*/
+.approval{width:350px; height:auto; background:#e7ebfa;}

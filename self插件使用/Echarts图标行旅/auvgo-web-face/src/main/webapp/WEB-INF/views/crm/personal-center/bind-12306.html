@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>个人中心-12306账号绑定</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/personal-center/personal-center.css"/>
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<div class="main-content margin-top-10">
+			#parse("/common/personal-center-left.html")
+			<div class="pass-container float-left margin-left-10">
+				<h3 class="certificate">12306绑定</h3>
+				#if("$!trainAccount" =="")
+				<div class="text-align no-data-12306">
+					<img src="/static/img/common/12306.png">
+					<!--<p>暂未绑定</p>-->
+					<p>绑定12306账号，出票成功率更高</p>
+					#if("$!trainAccount" =="")
+						<button type="button"  id="binding">绑定</button>
+					#end
+				</div>
+				#else
+				<div class="account">
+					<span class="name-zh">账号名字<b>$!trainAccount.account</b></span>
+					<span class="name-xm">姓名<b>$!accountuser.name</b></span>
+						<span id="binding" class="edit bind-12306" data-param="">编辑</span>
+						<span class="del bind-12306-del" data-param="">删除</span>
+				#end
+			</div>
+		</div>
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/personal-center/personal-center.js"></script>
+	</body>
+</html>

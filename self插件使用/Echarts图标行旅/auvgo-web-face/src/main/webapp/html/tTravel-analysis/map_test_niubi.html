@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            color: #333333;
+        }
+        
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: normal;
+        }
+        
+        .clear {
+            clear: both;
+        }
+        
+        body {
+            font-family: "微软雅黑";
+        }
+        
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+        
+        #charts {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+        }
+        
+        .market_map_title {
+            font-size: 32px;
+            text-align: left;
+            padding-left: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3 class="market_map_title">全国市场分布图</h3>
+    <div id="charts"></div>
+</body>
+<!--<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>-->
+<script src="./jquery-1.11.2.min.js"></script>
+<script src="./echarts/echarts.common.min.js"></script>
+<script src="./echarts/main.min.js"></script>
+<script src="./china.js"></script>
+<script>
+    var mycharts = echarts.init(document.getElementById('charts'))
+    option = {
+        dataRange: {
+            show: false,
+            x: 'left',
+            y: 'bottom',
+            splitList: [{
+                    start: 5,
+                    end: 5,
+                    color: 'orange'
+                }, //当值为5时，区域背景
+                {
+                    start: 10,
+                    end: 10,
+                    color: '#ff6300'
+                }, //当值为10时，区域背景
+                {
+                    start: 15,
+                    end: 15,
+                    color: '#ccc'
+                }, //当值为15时，区域背景
+            ],
+        },
+        series: [{
+            name: '市场分布',
+            type: 'map',
+            mapType: 'china',
+            //hoverable: false,
+            roam: false,
+            itemStyle: {
+                normal: {
+                    label: {
+                        show: true
+                    }
+                },
+                emphasis: {
+                    label: {
+                        show: false
+                    }
+                }
+            },
+            data: [],
+        }],
+        animation: false
+
+    };
+    var ini_data = []; //初始化省份数组
+    var provArr = ['河北', '河南', '云南', '辽宁', '黑龙江', '湖南', '安徽', '山东']; //获取的省份，有可能是从后台获取
+    //正则省份，将省与市的字眼去掉，框架不识别
+    for (var i = 0; i < provArr.length; i++) {
+        var str = provArr[i];
+        var re = /省|市/g; //全局匹配
+        var str2 = {
+            name: str.replace(re, ''),
+            value: 5
+        }; //拼接对象数组
+        ini_data.push(str2);
+    }
+    option.series[0].data = ini_data; //将拼接好的数组赋给参数集合
+    mycharts.setOption(option); //跟新图表
+    //鼠标滑过事件
+    var testStr = ',' + provArr.join(",") + ",";
+    mycharts.on('hover', function(param) {
+        if (testStr.indexOf("," + param.name + ",") != -1) {
+            return false;
+        } else {
+            param.value = 15;
+            mycharts.setOption(option);
+        }
+    });
+
+    //点击事件
+    mycharts.on('click', function(params) { //点击事件
+        select_province(params.name);
+    });
+    //初始化省颜色
+    function ini_province() {
+        var ini_len = option.series[0].data.length;
+        for (var i = 0; i < ini_len; i++) {
+            //初始化颜色
+            option.series[0].data[i].value = 5;
+            mycharts.setOption(option);
+        }
+
+    }
+    //选中省颜色
+    function select_province(province_name) {
+        var len = option.series[0].data.length;
+        for (var i = 0; i < len; i++) {
+            if (option.series[0].data[i].name == province_name) { //如果匹配正确
+                //先归零
+                ini_province();
+                //改变颜色
+                option.series[0].data[i].value = 10;
+                mycharts.setOption(option);
+            }
+        }
+    }
+</script>
+
+</html>

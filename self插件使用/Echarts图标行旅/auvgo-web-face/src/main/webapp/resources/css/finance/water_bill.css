@@ -1,0 +1,126 @@
+.content_show .menu_box {
+    height: 600px;
+}
+
+.menu_box {
+    background-color: #fff;
+    padding-top: 40px;
+}
+
+.time_switch {
+    padding-left: 20px;
+    background-color: #fff;
+    padding: 16px 0 18px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 4px 0 rgba(227, 227, 227, 0.50);
+}
+
+.time_month, .time_year {
+    display: inline-block;
+    margin-right: 10px;
+    width: 58px;
+    height: 24px;
+    line-height: 24px;
+    color: #3E4EB2;
+    border: 1px solid #3E4EB2;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.time_switch span:hover, .time_switch .target {
+    color: #fff;
+    background: #3E4EB2;
+}
+
+/*表格*/
+table{
+    border-collapse:separate;
+}
+.table_box_month thead{
+    background: #EFEFF7;
+    border-radius: 2px;
+}
+.table_box_month thead th {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+
+.table_box_month tbody td {
+    width: 251.5px !important;
+    text-align: center;
+}
+
+.table_box_month tbody .td1 {
+    background-color: rgba(100, 97, 226, 0.5);
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.table_box_month tbody .td2, .table_box_month tbody .td3,.table_box_month tbody .td4 {
+    color: #000;
+    height: 50px;
+    line-height: 50px;
+}
+
+.table_box_month tbody .td2 > div, .table_box_month tbody .td3 > div,.table_box_month tbody .td4 > div {
+    border-bottom: 1px solid #fff;
+}
+
+.table_box_month tbody .td2 {
+    background-color: rgba(129, 126, 242, 0.4);
+}
+
+.table_box_month tbody .td3 {
+    background-color: rgba(100, 97, 226, 0.2);
+}
+
+.table_box_month tbody .td4 {
+    background-color: rgba(100, 97, 226, 0.1);
+    color: #3E4EB2;
+    font-size: 14px;
+}
+/*年份的表格*/
+.table_box_year thead{
+    background: #EFEFF7;
+    border-radius: 2px;
+}
+.table_box_year thead th {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+
+.table_box_year tbody td {
+    text-align: center;
+}
+
+.table_box_year tbody .td1 {
+    width: 217px !important;
+    background-color: rgba(100, 97, 226, 0.5);
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.table_box_year tbody .td2,.table_box_year tbody .td3 {
+    width: 395px !important;
+    color: #000;
+    height: 50px;
+    line-height: 50px;
+}
+
+.table_box_year tbody .td2 > div,.table_box_year tbody .td3 > div {
+    border-bottom: 1px solid #fff;
+}
+
+
+.table_box_year tbody .td2 {
+    background-color: rgba(100, 97, 226, 0.2);
+}
+
+.table_box_year tbody .td3 {
+    width: 395px !important;
+    background-color: rgba(100, 97, 226, 0.1);
+    color: #3E4EB2;
+    font-size: 14px;
+}

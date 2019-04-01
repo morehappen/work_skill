@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>退改损耗</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/common/plugin.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/common/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/page/pager_blue.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/js/plugin/daterangepicker/iconfont/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/js/plugin/daterangepicker/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/js/plugin/daterangepicker/css/daterangepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/tTravel-analysis/analysis.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/tTravel-analysis/travelAnalysis.css"/>
+</head>
+<body>
+#parse("/common/head.html")
+<div class="main-content clear">
+    #parse("/caiwu/tongji/analysis_common_left.html")
+    <div class="float-left content_show">
+        <div class="analysis">
+            <div class="anal_top margin-bottom-10 font-weight-bold padding-left-30 box-sizing font-size-16 color-333 background-fff clear">
+                <div class="float-left">退改损耗<em class="display-inline-block vertical-middle remind"></em></div>
+                <a class="float-right margin-right-30 color-D44A9F cursor-pointer font-size-14" href="./analysis_retreating_reason.html">查看退票原因</a>
+            </div>
+            <div class="margin-bottom-10">
+                <div class="aggregate background-fff padding-left-30 box-sizing text-align-center">
+                    <div class="text-align-left color-999 display-inline-block vertical-middle">汇总数据</div>
+                    <ul class="display-inline-block vertical-middle">
+                        <li class="border-right-e6e6e6 display-inline-block vertical-middle">
+                            <p class="font-size-14">退改损耗累计（元）</p>
+                            <p class="margin-top-25 font-size-18">20万</p>
+                        </li>
+                        <li class="border-right-e6e6e6 display-inline-block vertical-middle">
+                            <p class="font-size-14">当月退改损耗（元）</p>
+                            <p class="margin-top-25 font-size-18 box-sizing decline"><em class="display-inline-block">20万<i></i><b>20%</b></em></p>
+                        </li>
+                        <li class="display-inline-block vertical-middle">
+                            <p class="font-size-14">上月退改损耗（元）</p>
+                            <p class="margin-top-25 font-size-18">5000</p>
+                        </li>
+                    </ul>
+                    <div class="pink-btn cursor-pointer display-inline-block vertical-middle">
+                        <em class="display-inline-block vertical-middle"></em>
+                    </div>
+                </div>
+                <div class="aggr-table padding-left-30 box-sizing">
+                    <div class="border-bottom-fff">
+                        <div class="display-inline-block vertical-middle text-align-left color-333">机票</div>
+                        <ul class="display-inline-block vertical-middle">
+                            <li class="display-inline-block vertical-middle text-align-center">5000</li>
+                            <li class="display-inline-block vertical-middle text-align-center padding-left-40 box-sizing">1000<i></i><b>20%</b></li>
+                            <li class="display-inline-block vertical-middle text-align-center">1000</li>
+                        </ul>
+                    </div>
+                    <div class="border-bottom-fff">
+                        <div class="display-inline-block vertical-middle text-align-left color-333">火车票</div>
+                        <ul class="display-inline-block vertical-middle">
+                            <li class="display-inline-block vertical-middle text-align-center">5000</li>
+                            <li class="display-inline-block vertical-middle text-align-center padding-left-40 box-sizing">1000<i></i><b>60%</b></li>
+                            <li class="display-inline-block vertical-middle text-align-center">1000</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="sectoral padding-left-30 padding-top-20 box-sizing margin-bottom-10 background-fff">
+                <div class="sect-tit font-size-16 color-333 margin-bottom-50">部门节省TOP 5</div>
+                <div class="year-time">
+                    <div class="display-inline-block vertical-middle color-999 time-tit">时间</div>
+                    <ul class="display-inline-block vertical-middle">
+                        <li class="display-inline-block vertical-middle color-D44A9F">2016年</li>
+                        <li class="display-inline-block vertical-middle">2017年</li>
+                        <li class="display-inline-block vertical-middle">2018年</li>
+                    </ul>
+                </div>
+                <div class="save-type">
+                    <div class="display-inline-block vertical-middle color-999 year-tit">损耗类型</div>
+                    <ul class="display-inline-block vertical-middle">
+                        <li class="display-inline-block vertical-middle">全部</li>
+                        <li class="display-inline-block vertical-middle color-D44A9F">退票</li>
+                        <li class="display-inline-block vertical-middle">改签</li>
+                    </ul>
+                </div>
+                <div id="analy-echarts"></div>
+            </div>
+        </div>
+        <ul class="tab_model clear">
+            <li class="float-left">
+                <a href="javascript:void(0);" data-flag="" class="position float-left tab_target">
+                    总览+部门
+                </a>
+            </li>
+            <li class="float-left">
+                <a href="javascript:void(0);" data-flag="" class="position float-left">
+                    所有员工
+                </a>
+            </li>
+        </ul>
+        <form action="javascript:void(0);" method="POST" id="SaveAnalysisForm" class="query_form">
+            <input id="" type="hidden" name="">
+            <input id="" type="hidden" name="" value="">
+            <div class="input_select clear">
+                <div class="input_items margin-default-r margin-10-b">
+                    <div class="input_item_text">部门：</div>
+                    <div class="i_item_input">
+                        <input type="text" class="department" data-ele="department" name=""
+                               value="" placeholder="输入部门/员工名称">
+                    </div>
+                </div>
+                <div class="input_items margin-default-r margin-10-b">
+                    <div class="input_item_text">损耗项：</div>
+                    <div class="i_item_input">
+                        <div class="drop">
+                            <select class="save_type _select_ _dropDown_" data-ele=""
+                                    name="" data-value="">
+                                <option value="">全部</option>
+                                <option value="" class="text-ellipsis">机票</option>
+                                <option value="" class="text-ellipsis">火车票</option>
+                            </select>
+                            <div class="drop_title">全部</div>
+                            <ul class="drop_option" style="">
+                                <li data-values="">全部</li>
+                                <li data-values="">机票</li>
+                                <li data-values="">火车票</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input_items margin-default-r margin-10-b">
+                    <div class="input_item_text">时间：</div>
+                    <div class="i_item_input time_section_box">
+                        <button type="button" class="btn btn-default" id="daterange-btn">
+                            <span>
+                                <i class="icon iconfont icon-calendar1"></i>
+                                日期选择
+                            </span>
+                            <i class="icon iconfont icon-danxian-youjiantou-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="i_item_input float-left anlysis_btn_box">
+                    <button type="submit" class="btn anlysis_btn">查询</button>
+                </div>
+                <div class="i_item_input float-left anlysis_btn_export_box">
+                    <button type="submit" class="btn anlysis_btn_export">导出</button>
+                </div>
+            </div>
+        </form>
+        <div class="margin-top-30 list_table_box">
+            <!--没有数据的时候显示-->
+            <div class="no-data-wraper">
+                <div class="no-data animated rotateIn">
+                    <div class="auvgo-approve-bg no-data-pic" title="暂无数据"></div>
+                    <div class="no-data-text">暂无数据</div>
+                </div>
+            </div>
+
+            <!-- table 表格部分 begin -->
+            <table class="table table-align table_department">
+                <thead>
+                <tr>
+                    <th>部门</th>
+                    <th>损耗项</th>
+                    <th>退票损耗</th>
+                    <th>改签损耗</th>
+                    <th>总计损耗</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        财务部
+                    </td>
+                    <td>
+                        机票
+                    </td>
+                    <td>
+                        4万
+                    </td>
+                    <td>
+                        2万
+                    </td>
+                    <td>
+                        5万
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        财务部
+                    </td>
+                    <td>
+                        机票
+                    </td>
+                    <td>
+                        4万
+                    </td>
+                    <td>
+                        2万
+                    </td>
+                    <td>
+                        5万
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        财务部
+                    </td>
+                    <td>
+                        机票
+                    </td>
+                    <td>
+                        4万
+                    </td>
+                    <td>
+                        2万
+                    </td>
+                    <td>
+                        5万
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- table 表格部分 begin -->
+            <table class="table table-align table_staff">
+                <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>部门</th>
+                    <th>损耗项</th>
+                    <th>退票损耗</th>
+                    <th>改签损耗</th>
+                    <th>总计损耗</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>江江</td>
+                    <td>
+                        财务部
+                    </td>
+                    <td>
+                        1万
+                    </td>
+                    <td>
+                        100万
+                    </td>
+                    <td>
+                        100%
+                    </td>
+                    <td>
+                        5万
+                    </td>
+                </tr>
+                <tr>
+                    <td>江江</td>
+                    <td>
+                        财务部
+                    </td>
+                    <td>
+                        1万
+                    </td>
+                    <td>
+                        100万
+                    </td>
+                    <td>
+                        100%
+                    </td>
+                    <td>
+                        5万
+                    </td>
+                </tr>
+                <tr>
+                    <td>江江</td>
+                    <td>
+                        财务部
+                    </td>
+                    <td>
+                        1万
+                    </td>
+                    <td>
+                        100万
+                    </td>
+                    <td>
+                        100%
+                    </td>
+                    <td>
+                        5万
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="hidden" data-ele="pagenum" value="1">
+            <input type="hidden" data-ele="pages" value="1">
+            <input type="hidden" data-ele="total" value="22">
+            <input type="hidden" data-ele="pagesize" value="30">
+        </div>
+        <div id="kkpager">
+            <div>
+                <span class="infoTextAndGoPageBtnWrap">
+                    <span class="totalText">
+                        当前第
+                        <span class="currPageNum">1</span>
+                        页
+                        <span class="totalInfoSplitStr">/</span>
+                        共
+                        <span class="totalPageNum">1</span>
+                        页
+                    </span>
+                    <span class="goPageBox">
+                         &nbsp;转到
+                        <span id="kkpager_gopage_wrap">
+                            <input type="button" id="kkpager_btn_go" onclick="kkpager.gopage()" value="确定">
+                            <input type="text" id="kkpager_btn_go_input" onfocus="kkpager.focus_gopage()"
+                                   onkeypress="return kkpager.keypress_gopage(event);" onblur="kkpager.blur_gopage()"
+                                   value="1">
+                        </span>
+                        页
+                    </span>
+                    <span style="padding-left:8px">
+                        每页显示
+                        <input type="text" value="30" class="kkpager_btn_go_input" id="everyNums">
+                        <button class="btn btn-default btn-small" id="changePages" type="button"
+                                style="vertical-align: baseline;">
+                            确定
+                        </button>
+                    </span>
+                </span>
+                <span class="pageBtnWrap">
+                    <span class="disabled">首页</span>
+                    <span class="disabled">上一页</span>
+                    <span class="curr">1</span>
+                    <span class="disabled">下一页</span>
+                    <span class="disabled">尾页</span>
+                </span>
+
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="/resources/js/common/common.js"></script>
+<script type="text/javascript" src="/resources/js/order/orderCommon.js"></script>
+<script type="text/javascript" src="/resources/js/common/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/daterangepicker/js/moment.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/daterangepicker/js/daterangepicker.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/echarts/echarts.common.min.js"></script>
+<!--<script type="text/javascript" src="/resources/js/tTravel-analysis/analysis.js"></script>-->
+<script type="text/javascript" src="/resources/js/tongji/tongji_common.js"></script>
+<script type="text/javascript">
+    var dom = document.getElementById("analy-echarts");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    var department=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+    var ticket=['机票','火车票'];
+    option = {
+        color: ['#D44A9F', '#3E3A6D', '#6BA8F3'],
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'line'
+            }
+        },
+        legend: {
+            x:'center',
+            y:'bottom',
+            data:ticket
+        },
+        calculable: true,
+        xAxis : [
+            {
+                type : 'category',
+                data : department
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel: {
+                    show: true,
+                    interval: 'auto',
+                    formatter: '{value}万'
+                },
+                show: true
+            }
+        ],
+        series : [
+            {
+                name:'机票',
+                type:'line',
+                data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+            },
+            {
+                name:'火车票',
+                type:'line',
+                data:[1.6, 3.9, 12.0, 46.4, 38.7, 90.7, 275.6, 82.2, 148.7, 118.8, 16.0, 32.3]
+            }
+        ]
+    };
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+</html>

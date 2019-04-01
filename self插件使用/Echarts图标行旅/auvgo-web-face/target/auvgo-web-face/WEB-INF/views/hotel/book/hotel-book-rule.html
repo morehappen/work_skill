@@ -1,0 +1,68 @@
+<div class="h-infor-f background-E7EBFA margin-10-b prepaid-notice-box">
+    <input type="hidden" name="refundType" value="$!{bookModel.refundType}"/><!-- 取消类型 -->
+	<input type="hidden" name="refundRule" value="$!{bookModel.refundRule}"/><!-- 取消规则 -->
+	<input type="hidden" value="$!{bookModel.refundType}" id="refund_type_i">
+	<input type="hidden" value="$!{bookModel.refundRule}" id="refund_rule_i">
+	<div class="hide" id="guaranteRule"  data-guaranteeType="$!{guranteeRule.guaranteeType}" data-guaranteeFee="$!{guranteeRule.guaranteeFee}" data-amount="$!{guranteeRule.amount}" data-changeRule="$!{guranteeRule.changeRule}" data-cancelTime="$!{guranteeRule.cancelTime}" data-cancelRule="$!{guranteeRule.cancelRule}"></div>
+	<div class="font-size-16 margin-bottom-20 clear color-000 font-weight-600">预订须知</div>
+		<div class="font-size-12 clear" id="cancelRule" data-refundType="$!{bookModel.refundType}" data-refundRule="$!{bookModel.refundRule}">
+			<span class="w-p-62 float-left">#if($!bookModel.refundType=="NeedSomeDay")限时取消#elseif($!bookModel.refundType=="NoChange" || $!bookModel.refundType=="PrepayNoChange")不可取消#else 免费取消#end ：</span>
+			<div class="float-left font-size-12 w-p-246">
+			$!{bookModel.refundRule}
+			</div>
+		</div>
+		<div id="p_guarante" class="font-size-12 clear #if(!$!bookModel.isGuarantee)hide#end">
+			<span class="float-left w-p-62">担保信息：</span>
+			<div class="float-left w-p-246 font-size-12">
+				<input type="hidden" name="guaRoomUnit" value="$!{bookModel.guaranteeRate}"/>
+				房量紧张，订单提交后需在线支付 ¥<span id="guaranteeRoomUnit">$!{bookModel.guaranteeRate}</span>担保金，如未预订成功，担保金全部原路退还;<br/>
+				入住结账，艺龙向酒店确认后，担保金全额原路退还;<br/>
+				退还金额境内卡5个工作日内到账，境外卡20个工作日内到账;<br/>
+			</div>
+		</div>
+		#if($!bookModel.bookRule!="" || $!bookModel.customerType !="All")
+			<div class="font-size-12 clear">
+				<span class="float-left w-p-62">入住提示：</span>
+				<div  class="float-left w-p-246 font-size-12">
+					#if($!{bookModel.bookRule}!="")
+					$!{bookModel.bookRule};
+					#end
+					<input type="hidden" name="bruleType" value="$!{bookModel.bruleType}"/>
+					<input type="hidden" name="bookRule" value="$!{bookModel.bookRule}"/>
+					#if("OtherForeign"==$!bookModel.customerType || "FOREIGNER"==$!bookModel.customerType)
+					酒店要求入住人须持国外护照办理入住！
+					#elseif("HongKong"==$!bookModel.customerType)
+					酒店要求入住人须持港澳台身份证办理入住！
+					#elseif("Japanese"==$!bookModel.customerType)
+					酒店要求入住人须持日本护照入住办理入住！
+					#elseif("DOMESTIC"==$!bookModel.customerType || "Chinese"==$!bookModel.customerType)酒店要求入住人须持有效大陆身份证办理入住。 #end
+				</div>
+			</div>
+		#end
+		#if($!bookModel.paymentType=="SelfPay")
+			<div class="font-size-12 clear">
+				<span class="float-left w-p-62">发票提示：</span>
+				<div class="float-left w-p-246 font-size-12">
+					退房时酒店前台开取发票
+				</div>
+			</div>
+		#else
+			<div class="font-size-12 clear">
+				<span class="float-left w-p-62">发票提示：</span>
+				<div class="float-left w-p-246 font-size-12">
+					#if($!{company.serverNo}=="FLT_ADMIN")
+					由福旅通代开增值税普通发票
+					#else
+					由行旅国际代开增值税普通发票
+					#end
+				</div>
+			</div>
+		#end
+		<div class="font-size-12 clear">
+			<span class="float-left w-p-62">入住离店：</span>
+			<div class="float-left w-p-246 font-size-12">
+				$!{detail.arrivalTime}点之后允许客人入住；
+				酒店离店的最晚$!{detail.departureTime}点;
+			</div>
+		</div>
+</div>

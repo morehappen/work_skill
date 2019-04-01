@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>酒店-列表</title>
+	<link rel="icon" sizes="any" href="../../resources/images/common/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="../../resources/css/common/animate/animate.css"/>
+	<link rel="stylesheet" type="text/css" href="../../resources/css/common/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../resources/css/common/scrollbar.css"/>
+	<link rel="stylesheet" type="text/css" href="../../resources/css/hotel/hotel-query-roomtype.css">
+</head>
+
+<body class="background-6461e2 clear">
+<!--#parse("/common/head.html")-->
+<div class="main-content clear">
+	<div class="clear" style="padding-top:20px;">
+		<input type="hidden" value="All" id="pay-type">
+		<div class="r-head margin-bottom-20 background-fff font-size-12 clear">
+			<div class="r-head-l float-left">
+				<div class="font-size-16 r-head-l-t margin-bottom-20" id="hotel-id" data-hotelid="00301088">
+					飘HOME连锁酒店(北京前门大栅栏店)
+				</div>
+				<div class="color-666 r-head-l-a margin-bottom-30" id="city-id" data-cityid="0101">北京市西城区珠市口西大街韩家胡同17号 地铁7号线虎坊桥下车B口出向东200米</div>
+				<div class="clear r-head-l-f">
+
+					<div class="float-left clear" >
+						<div class="float-left faciligy-box clear">
+							<span class="facility-bg icon-img f-b-01 visa-icon" ></span>
+							<span class="facility-bg icon-img f-b-01 unionpay-icon" ></span>
+							<span class="facility-bg icon-img f-b-01 cmd-icon" ></span>
+							<span class="facility-bg icon-img f-b-01 jcb-icon" ></span>
+						</div>
+						<div class="e-faciligy">
+							<span class="facility-bg icon-img f-b-01"></span><span class="facility-text">无线网</span>
+						</div>
+						<div class="e-faciligy">
+							<span class="facility-bg icon-img f-b-02"></span><span class="facility-text">包含停车</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="r-head-r float-right text-align-r">
+				<div class="r-head-r-btn">
+					<form action="/hotel/query" method="post" accept-charset="utf-8">
+						<input type="hidden" name="cityName" value="北京">
+						<input type="hidden" name="cityId" value="0101">
+						<input type="hidden" name="queryText" value="">
+						<input type="hidden" name="arrivalDate" value="2018-03-27">
+						<input type="hidden" name="departureDate" value="2018-03-28">
+						<button type="submit" class="btn btn-default btn-big">返回</button>
+					</form>
+				</div>
+				<div class="r-head-r-phone clear">
+					<span class="r-head-r-text float-right">010-57305588</span>
+					<span class="r-head-r-bg icon-img r-h-r-01 float-right"></span>
+				</div>
+				<div class="r-head-r-tips clear">
+					<span class="r-head-r-text float-right">服务设施信息仅供参考，请以实际住店为准</span>
+					<span class="r-head-r-bg icon-img r-h-r-02 float-right"></span>
+				</div>
+			</div>
+		</div>
+		<div class="float-left clear">
+			<div class="slider-big" style="background-image: url('http://pavo.elongstatic.com/i/API350_350/9717f91ae85b19db667862f3a2b91bc8.jpg');"></div>
+			<div class="slider-small margin-bottom-20">
+				<div class="slider-arrow left-arrow"><span class="hotel-bg l-arrow"></span></div>
+				<div class="slider-arrow right-arrow"><span class="hotel-bg r-arrow"></span></div>
+				<div class="slider-small-wraper position">
+					<div class="e-slider-con position-ab active" data-ishavenext="true" data-con="all" style="width: 11000px;height: 80px;">
+						<div class="e-img active" data-index="1">
+							<div class="small-mask"></div>
+							<img src="http://pavo.elongstatic.com/i/API350_350/9717f91ae85b19db667862f3a2b91bc8.jpg">
+						</div>
+						<div class="e-img active" data-index="1">
+							<div class="small-mask"></div>
+							<img src="http://pavo.elongstatic.com/i/API350_350/9717f91ae85b19db667862f3a2b91bc8.jpg">
+						</div>
+						<div class="e-img active" data-index="1">
+							<div class="small-mask"></div>
+							<img src="http://pavo.elongstatic.com/i/API350_350/9717f91ae85b19db667862f3a2b91bc8.jpg">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="map-c float-right">
+			<div class="baidu-map margin-bottom-20" id="map-container" data-longtitude="116.395451" data-latitude="39.897709" style="overflow: hidden; position: relative;">
+			</div>
+		</div>
+	</div>
+
+	<div class="clear hotelIntroduction">
+		<div class="introduction-box margin-bottom-20">
+			<div class="font-size-16 margin-bottom-10">酒店简介</div>
+			<div class="introduction-wraper background-fff position">
+				<p class="intro-con font-size-12 color-666">酒店地处中央繁华商区，北邻前门，南靠天桥，步行可至地铁2号线和平门站，交通十分便利。
+					- 距离地铁2号线和平门站约1.4公里；
+					- 距离北京站约4.7公里；
+					- 距离首都国际机场33公里；
+					- 距离南苑机场约13.5公里；
+					- 距离北京南站约4.9公里；
+					- 距离北京西站约7.1公里。
+					酒店地处中央繁华商区，北邻前门，南靠天桥，步行可至地铁2号线和平门站，交通十分便利。
+					- 距离地铁2号线和平门站约1.4公里；
+					- 距离北京站约4.7公里；
+					- 距离首都国际机场33公里；
+					- 距离南苑机场约13.5公里；
+					- 距离北京南站约4.9公里；
+					- 距离北京西站约7.1公里。
+				</p>
+				<div class="slide_shut position-ab cursor"></div>
+			</div>
+			<div class="font-size-16 margin-bottom-10 facilities">酒店设施</div>
+			<div class="introduction-wraper background-fff position">
+				<p class="intro-con font-size-12 color-666">
+					酒店地处中央繁华商区，北邻前门，南靠天桥，步行可至地铁2号线和平门站，交通十分便利。
+					- 距离地铁2号线和平门站约1.4公里；
+					- 距离北京站约4.7公里；
+					- 距离首都国际机场33公里；
+					- 距离南苑机场约13.5公里；
+					- 距离北京南站约4.9公里；
+					- 距离北京西站约7.1公里。
+					酒店地处中央繁华商区，北邻前门，南靠天桥，步行可至地铁2号线和平门站，交通十分便利。
+					- 距离地铁2号线和平门站约1.4公里；
+					- 距离北京站约4.7公里；
+					- 距离首都国际机场33公里；
+					- 距离南苑机场约13.5公里；
+					- 距离北京南站约4.9公里；
+					- 距离北京西站约7.1公里。
+				</p>
+				<div class="slide_shut position-ab cursor"></div>
+			</div>
+		</div>
+
+		<div class="date-wraper background-fff clear font-size-12 margin-bottom-20">
+			<div class="float-left position date-ctrl">
+				<span class="position-ab icon-date icon-p"></span>
+				<input type="text" value="2018-03-27" readonly="" id="beginDate" class="input border-radius float-left" onfocus="var endDate=$dp.$('endDate');WdatePicker({doubleCalendar:true,minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+179}',onpicked:function(){endDate.focus();countNight()},isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})">
+			</div>
+			<div class="float-left position date-ctrl">
+				<span class="position-ab icon-date icon-p"></span>
+				<input type="text" value="2018-03-28" readonly="" id="endDate" class="input border-radius float-left" onfocus="WdatePicker({doubleCalendar:true,minDate:'#F{$dp.$D(\'beginDate\', {d:1})}',maxDate:'%y-%M-{%d+179}',onpicked:function(){countNight()},isShowClear:false,isShowToday:false,readOnly:true})">
+			</div>
+			<div class="float-left date-count color-999">
+				入住 <span class="color-333" id="interval">1</span> 晚
+			</div>
+			<div class="float-left">
+				<button type="button" class="btn btn-default btn-big" id="query-room">确定</button>
+			</div>
+		</div>
+		<!-- 房型列表 begin -->
+		<ul class="room-type-list margin-bottom-30">
+			<li class="e-room-t clear">
+				<div class="e-room-t-head clear">
+					<img src="../" alt="" class="float-left">
+					<div class="float-left">
+						<div class="font-size-16 e-room-text">
+							<span>CBD商务间</span>
+							<span class="exceed-flag">协议</span>
+						</div>
+						<div class="e-room-f clear font-size-12 clear">
+							<div class="e-room-f-wraper">
+								<span class="e-f-bg icon-img e-f-01"></span>
+								<span class="e-f-text">有窗</span>
+							</div>
+							<div class="e-room-f-wraper">
+								<span class="e-f-bg icon-img e-f-02"></span>
+								<span class="e-f-text">13-15层</span>
+							</div>
+							<div class="e-room-f-wraper">
+								<span class="e-f-bg icon-img e-f-03"></span>
+								<span class="e-f-text">15-17平米</span>
+							</div>
+							<div class="e-room-f-wraper">
+								<span class="e-f-bg icon-img e-f-04"></span>
+								<span class="e-f-text">大床</span>
+							</div>
+							<div class="e-room-f-wraper">
+								<span class="e-f-bg icon-img e-f-05"></span>
+								<span class="e-f-text">可住2人</span>
+							</div>
+						</div>
+					</div>
+					<div class="low-price-wraper clear">
+						<span class="exceed-flag float-left">超标</span>
+						<div class="color-purple float-right color-d10773">
+							￥<span class="font-600 font-size-16">298</span>
+							<span class="color-999 font-size-12 color-cccccc">起</span>
+						</div>
+					</div>
+				</div>
+				<ul class="e-room-t-b clear font-size-12" style="display: none;">
+			<li>
+				<div class="e-r-title-wraper h-53 clear color-999">
+					<div class="float-left w-d">产品名称</div>
+					<div class="float-left w-d">早餐</div>
+					<div class="float-left w-d">取消政策</div>
+					<div class="float-left w-d">付款方式</div>
+					<div class="float-left w-d">日均价</div>
+					<div class="float-left w-d"></div>
+				</div>
+				<div class="e-r-con-wraper">
+					<div class="e-con-w h-53">
+						<div class="float-left hoverTips hover_content w-d">(预付)-无早</div>
+						<div class="float-left w-d">有</div>
+						<div class="float-left w-d cancel-rules"><span class="cancel-title">限时取消!</span>
+							<div class="cancel-desc">2015-07-02 11:59前变更/取消扣除首晚房费作为罚金；之后至2018-03-27
+								23:59变更/取消扣除首晚房费作为罚金；之后无法变更/取消，如未入住将扣除全额房费。
+							</div>
+						</div>
+						<div class="float-left w-d"><div class="advance-store">到店付</div></div>
+						<div class="float-left w-d color-purple suspension-frame-box color-d10773">
+							￥<span class="font-size-14 font-600 ">298</span>
+							<!--悬浮框begin-->
+							<div class="suspension-frame">
+								<div class="suspension-data clear">
+									<dl class="float-left suspension-dl">
+										<dd class="suspension-dd"><span>4-12</span> <span>四</span></dd>
+										<dt class="suspension-dt">
+										<div class="suspension-price"><span>￥</span> <span class="price">11249.44</span></div>
+										<!--<div class="suspension-early">无早</div>-->
+										</dt>
+									</dl>
+								</div>
+							</div>
+							<!--悬浮框end-->
+						</div>
+						<div class="float-left w-d cancel-rules"><span class="cancel-title">担保</span>
+							<div class="cancel-desc">2015-07-02 11:59前变更/取消扣除首晚房费作为罚金；之后至2018-03-27
+								23:59变更/取消扣除首晚房费作为罚金；之后无法变更/取消，如未入住将扣除全额房费。
+							</div>
+						</div>
+						<div class="float-right w-d position">
+							<button type="button" class="btn btn-default btn-big now-book" data-hotelid="00301088"
+									data-roomid="0005" data-arrivaldate="2018-03-27" data-departuredate="2018-03-28"
+									data-conpolicy="true" data-ctrl="1" data-cityname="一线城市" data-price="100"
+									data-totalprice="298" data-rateplanid="6890255" data-roomtypeid="0026">预订
+							</button>
+							<span class="border-radius position-ab room-count">余1</span>
+						</div>
+						<div class="float-right w-58 t-con-s-flag-w">
+							<span class="exceed-flag animated rotateIn">超标</span>
+						</div>
+					</div>
+				</div>
+				<div class="room-img-detail clear hide">
+					<img src="" alt="" class="float-left r-i-d-e">
+				</div>
+			</li>
+		</ul>
+		</li>
+		</ul>
+		<!-- 房型列表 end -->
+	</div>
+</div>
+<!-- 遮罩层 begin -->
+<div class="position-ab Screen-full hide">
+	<div class="Screen-zhezhao"></div>
+	<div class="position-ab query-loading">
+		<div class="text-align">请稍等...</div>
+		<div class="loadingImg text-align">
+			<img src="../../static/project-resource/img/loading-line.gif" style="width: 555px;height: 22px;">
+		</div>
+		<div class="font-size-14 text-align query-status">正在努力为您查询实时的酒店信息</div>
+		<div class="font-size-14 text-align query-tips"></div>
+		<div class="query-hc">
+			<span class="float-left wait-icon icon-hotel"></span>
+			<span class="float-left wait-city mask-arrive-date"></span>
+			<span class="float-left a-l-point wait-jiantou position">
+						<span class="wait-hb-date position-ab text-align mask-location"></span>
+					</span>
+			<span class="float-left wait-city mask-depart-date text-align-r"></span>
+		</div>
+	</div>
+</div>
+<!-- 遮罩层 end -->
+<script	type="text/javascript" src="../../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../../resources/js/common/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../../resources/js/hotel/hotel-query-detail.js"></script>
+<!--<script type="text/javascript" src="../../resources/js/hotel/hotel-query-suspension-frame.js"></script>-->
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

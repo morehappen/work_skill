@@ -1,0 +1,45 @@
+## 详情-机票||火车票||酒店-差旅信息模块
+
+#if(!("$!flag.shenqingno" == "" && "$!flag.costname" == "" && "$!flag.proname" == "" && "$!flag.chailvitem" == "" && "$!flag.bookpolicy" == "" && "$!flag.wbreason" == ""))
+<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+	<div class="o-title font-size-18">差旅信息</div>
+	<div class="o-content clear">
+		#if("$!flag.shenqingno" != "")
+		<div class="clear margin-bottom-10">
+			<div class="color-gray margin-b-14 float-left o-c-model-title">出差单号：</div>
+			<div class="float-left o-c-model-des">$!flag.shenqingno</div>
+		</div>
+		#end
+		#if($!fenxiaoFlag=="")
+		#if("$!flag.costname" != "")
+		<div class="clear margin-bottom-10">
+			<div class="color-gray margin-b-14 float-left o-c-model-title">成本中心：</div>
+			<div class="float-left o-c-model-des">$!flag.costname</div>
+		</div>
+		#end
+		#if("$!flag.proname" == "1")
+		<div class="clear margin-bottom-10">
+			<div class="color-gray margin-b-14 float-left o-c-model-title"> <span class="letter-spacing">项</span>目：</div>
+			<div class="float-left o-c-model-des">$!flag.proname</div>
+		</div>
+		#end
+		#end
+		#if("$!flag.bookpolicy" != "")
+		<div class="clear margin-bottom-10">
+			<div class="color-gray margin-b-14 float-left o-c-model-title">超标事项：</div>
+			<div class="float-left o-c-model-des">$!flag.bookpolicy</div>
+		</div>
+		#end #if("$!flag.wbreason" != "")
+		<div class="clear margin-bottom-10">
+			<div class="color-gray margin-b-14 float-left o-c-model-title">超标原因：</div>
+			<div class="float-left o-c-model-des">$!flag.wbreason</div>
+		</div>
+		#end #if("$!flag.chailvitem" != "")
+		<div class="clear">
+			<div class="color-gray margin-b-14 float-left o-c-model-title">出差事由：</div>
+			<div class="float-left o-c-model-des">$!flag.chailvitem</div>
+		</div>
+		#end
+	</div>
+</div>
+#end

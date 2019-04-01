@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>数据管理</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		
+		<div class="bread-crums main-content margin-top-10">
+			#parse("/common/data-manage.html")
+		</div>
+		
+		<!-- 主体 begin -->
+		<div class="main-content margin-top-10 clear">
+			
+			#parse("/common/data-manage-left.html")
+			
+			<div class="aside-content float-left background-fff auto_bottom">
+				<a class="btn btn-default btn-big" id="btn-des" data-treeid="3">
+					添加机票超标原因
+				</a>
+				
+				<div class="margin-top-10">
+					<!-- table 表格部分 begin -->
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>超标原因</th>
+								<th>代码</th>
+								<th>排序</th>
+								<th class="table_caozuo">操作</th>
+							</tr>
+						</thead>
+						<tbody id="ajax-table">
+						#foreach($!list in $!valuelist)
+							<tr>
+								<td>$!vCount</td>
+								<td>$!list.name</td>
+								<td>$!{list.value}</td>
+								<td>$!list.sort</td>
+								<td class="table_caozuo">
+									<div class="clear table-btn-div">
+										<button type="button" class="btn btn-default btn-small edit" data-zid=$!zid data-vid=$!list.id>编辑</button>
+										<button type="button" class="btn btn-danger btn-small" data-vid='$!list.id'>删除</button>
+									</div>	
+								</td>
+							</tr>
+						#end
+						</tbody>
+					</table>
+					<!-- table 表格部分 end -->
+				</div>
+			</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/data-manage/data-manage.js"></script>
+	</body>
+</html>

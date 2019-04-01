@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>审批</title>
+	<style type="text/css">
+		body {font-size: 14px;}
+		table {border-collapse: collapse;width: 100%;border: 1px solid #ccc;}
+		table td {border-color: #ccc;cellpadding: 0 20px;}
+		th {background: #eee;}
+	</style>
+</head>
+<body>
+	<table border="1" cellpadding="20">
+		<thead></thead>
+		<tbody>
+		#if("$!type" =="air")
+			<tr>
+				<th>申请标题</th>
+				<td>关于$!username $!orderRoute.deptdate $!orderRoute.orgname —— $!orderRoute.arriname机票审批申请</td>
+			</tr>
+			<tr>
+				<th>申请描述</th>
+				<td>#if($!airOrder.proname !='')项目：$!airOrder.proname；<br />#end #if($!airOrder.costname !='')成本中心：$!airOrder.costname；<br />#end #if($!airOrder.chailvitem
+					!='')差旅事项：$!airOrder.chailvitem；<br />#end $!username，预订$!{orderRoute.orgname}-$!{orderRoute.arriname}，航班号$!orderRoute.airline,$!orderRoute.deptdate
+					$!orderRoute.depttime起飞的航程，价格为$!airOrder.totalprice元， #if($!airOrder.bookpolicy !='')$!airOrder.bookpolicy
+					#end,单张票价（票价$!routePass.salePrice+税$!routePass.airporttax元）/人，（$!routePass.salePrice+$!routePass.airporttax元）/人
+				</td>
+			</tr>
+			#elseif($!type =="airgq")
+			<tr>
+				<th>申请标题</th>
+				<td>关于$!username $!orderRoute.deptdate $!orderRoute.orgname —— $!orderRoute.arriname机票审批申请</td>
+			</tr>
+			<tr>
+				<th>申请描述</th>
+				<td>
+				#if($!airOrder.proname !='')项目：$!airOrder.proname；<br />#end 
+				#if($!airOrder.costname !='')成本中心：$!airOrder.costname；<br />#end 
+				#if($!airOrder.chailvitem !='')差旅事项：$!airOrder.chailvitem；<br />#end  
+				$!username，预订$!{orderRoute.orgname}-$!{orderRoute.arriname}，航班号$!orderRoute.airline,$!orderRoute.deptdate
+					$!orderRoute.depttime起飞的航程，改签费为$!KhYinshou元
+				</td>
+				
+			</tr>
+		#elseif("$!type" == "hotel")
+			<tr>
+				<th>申请标题</th>
+				<td>关于  $!username $!start   预订酒店审批申请</td>
+			</tr>
+			<tr>
+				<th>申请描述</th>
+				<td>#if($!hotelOrder.proname !='')项目：$!hotelOrder.proname；<br />#end #if($!hotelOrder.costname !='')成本中心：$!hotelOrder.costname；<br />#end #if($!hotelOrder.chailvitem
+					!='')差旅事项：$!hotelOrder.chailvitem；<br />#end $!username，预订了$!hotelOrder.cityName的$!hotelOrder.hotelName，房型：$!hotelOrder.roomName，间夜数：$!hotelOrder.numberOfRooms间/$!hotelOrder.intervalDay夜，$!start入住，总价为￥$!{hotelOrder.totalPrice}元。
+				#if("$!hotelOrder.weibeiflag"=="1")因$!hotelOrder.wbreason超出差旅标准#else未超出差旅标准#end。请您审批。
+			</td>
+			</tr>
+		#elseif("$!type" == "train")	
+			<tr>
+				<th>申请标题</th>
+				<td>关于  $!username $!fromDate  $!trainRoute.fromStation - $!trainRoute.arriveStation 的火车票审批申请</td>
+			</tr>
+			<tr>
+				<th>申请描述</th>				
+				<td>#if($!trainOrder.proname !='')项目：$!trainOrder.proname；<br />#end #if($!trainOrder.costname !='')成本中心：$!trainOrder.costname；<br />#end #if($!trainOrder.chailvitem
+					!='')差旅事项：$!trainOrder.chailvitem；<br />#end $!username，预订了$!{trainRoute.fromStation} - $!{trainRoute.arriveStation}，车次$!trainRoute.trainCode，席别$!seatType，座位$!trainbox，$!fromDate出发，$!arriveDate到达，总价为$!{trainOrder.totalprice}元。					
+				#if("$!trainOrder.weibeiflag"=="1")因$!trainOrder.wbreason超出差旅标准#else未超出差旅标准#end。请您审批。
+			</td>
+			</tr>
+			<!-- 出差申请单 -->
+		#elseif($!type == 'appform')
+			<tr>
+				<th>申请标题</th>
+				<td>关于$!username出差申请单审批申请</td>
+			</tr>
+			<tr>
+				<th>申请描述</th>$!dateTool.format("yyyy-MM-dd hh:mm:ss",$!gaiqian.createtime)
+				<td>
+				$!appformOrder.empname提交了出差单申请，开始日期：$!dateTool.format("yyyy-MM-dd",$!appformOrder.travelstart)，结束日期：$!dateTool.format("yyyy-MM-dd",$!appformOrder.travelend)，共计天数：$!appformOrder.traveldays。
+				#if($!travelflag == 1)
+					行程计划：
+					#foreach($travel in $!appformOrder.appformTravels)
+						#if($!travel.travelby == "air")
+							$!dateTool.format("yyyy-MM-dd",$!travel.begintime)$!{travel.begincityname}-$!{travel.stopcityname}的机票；
+						#elseif($!travel.travelby == "train")
+							$!dateTool.format("yyyy-MM-dd",$!travel.begintime) $!{travel.begincityname}-$!{travel.stopcityname}的火车票；
+						#end
+					#end
+					#foreach($travel in $!appformOrder.appformHotels)
+						$!dateTool.format("yyyy-MM-dd",$!travel.starttime) $!{travel.cityname}的酒店；
+					#end
+				#end
+				#if("$!appformOrder.budgetfee" != "")
+					预算费用：$!appformOrder.budgetfee元，
+				#end
+				#if("$!appformOrder.travelreason" != "")
+					出差事由：$!appformOrder.travelreason，
+				#end
+				#if("$!appformOrder.remark" != "")
+					备注：$!appformOrder.remark，
+				#end 请您审批。
+				</td>
+			</tr>
+		#elseif($!type == 'taxi')
+		<tr>
+			<th>申请标题</th>
+			<td>关于$!{tjusername}的用车审批申请</td>
+		</tr>
+		<tr>
+			<th>申请描述</th>
+			<td>
+			$!{tjusername}申请了$!{setTime}$!{setPlace}-$!{arrivePlace}的$!{carType}车，预估价$!{ePrice}元；请在$!{lastApproveTime}前完成审批，逾期订单将自动取消~
+			</td>
+		</tr>
+		#end		
+		</tbody>
+	</table>
+	<form action="" id="MailApprove" style="padding: 20px 30px;">
+		审批意见：
+        <label>
+		    <input type="radio" name="opstatus" value="1" checked="" /> 通过(Agree)</label>
+        <label style="margin-left: 20px;">
+		    <input type="radio" name="opstatus" value="2" /> 不通过(Disagree)
+		</label>
+        <input type="hidden" name="empid" value="$!empid">
+        <input type="hidden" name="type" value="$!type">
+        <input type="hidden" name="cid" value="$!cid">
+        <input type="hidden" name="orderno" value="$!orderno">
+        <input type="hidden" name="token" value="$!tokenkey">
+        <input type="text" name="refuse" placeholder="不通过时请填写原因" style="margin-right: 35px;" />
+		<button type="button" class="btn btn-default btn-big  submitForm">提交(Submit)</button>
+	</form>
+
+	<!-- <div style="width: 500px;padding: 50px 0;text-align: center;border: 2px dotted #ddd;">
+		<p>该事项已经处理完成，无需再次处理。</p>
+		<p><a href="http://192.168.1.203:8085">去登录</a></p>
+	</div> -->
+
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.serialize-object.min.js"></script>
+
+    <script type="text/javascript">
+        $("body").on("click", ".submitForm", function() {
+            if(($('input[name="opstatus"]:checked').val() == 0) && ($('input[name="refuse"]').val() == "")){
+                alert("请填写原因!");
+                return;
+            }
+            var data = $("#MailApprove").serializeObject();
+            var Jsondata = JSON.stringify(data);
+            $.ajax({
+                url: '/common/confirmApprove',
+                type: 'POST',
+                data: { 'data' : Jsondata },
+                success : function(data) {
+/* 
+                    if (data.status != 200) return ;
+
+                    setTimeout(function () { location.reload(); }, 1000); */
+                    if(data.status==200){
+                        alert(data.msg);
+                        setTimeout('location.reload()', 1000)
+                    }else{
+                        alert(data.msg);
+                    }
+
+                }
+            });
+        });
+    </script>
+</body>
+</html>

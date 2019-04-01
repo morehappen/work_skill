@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>酒店-$!title</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/air/air-book-success.css">
+	</head>
+
+	<body class="background-fff clear">
+		#parse("/common/head.html")
+		<div class="main-content">
+			<div class="success-model background-fff" data-orderstatus=$!order.status data-flag=$!flag>
+
+				#set($progressFlag = 'hotel')
+				#parse("/common/progress.html")
+
+				<div class="clear success-m-tips">
+					<div class="float-left">
+						<img src="/static/img/airImg/success-flag.png">
+					</div>
+					<div class="float-left s-t-c">
+						<div class="s-text">预订成功</div>
+						<div class="font-size-12">
+							<p style="margin-bottom: 5px;">您选择的酒店预订成功，#if($!order.approvestatus==3)系统已为您自动送审，#end请耐心等待</p>
+						</div>
+					</div>
+				</div>
+				<div class="order-detail clear font-size-14">
+					<div class="clear float-left">
+						<div class="o-d-l">
+							订单号：<a href="/myChailv/toHotelOrderDetail/$!{hotelOrder.orderno}?flag=personal">$!{hotelOrder.orderno}</a>
+						</div>
+						<div class="o-d-l">
+							入住人：<span>$!{names}</span>
+						</div>
+					</div>
+					<div class="clear float-left">
+						<div>$!{hotelOrder.hotelName}</div>
+						<div>$!{hotelOrder.roomName} | $!{hotelOrder.numberOfRooms}间/$!{hotelOrder.intervalDay}夜</div>
+					</div>
+				</div>
+				<div class="btn-group text-align">
+					#if(!(($!company.bianhao == 'CLKJ') && ("$!p.get('traverorderno')" == "")))
+					<a href="/index?flag=hotel" title="" class="btn btn-default btn-big">继续预订</a>
+					#end
+					<a href="/myChailv/toHotelOrderDetail/$!{hotelOrder.orderno}?flag=personal" class="btn btn-default btn-big">查看订单</a>
+				</div>
+			</div>
+		</div>
+		<!-- 主体 end -->
+
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/train/train-book-success.js"></script>
+	</body>
+
+</html>

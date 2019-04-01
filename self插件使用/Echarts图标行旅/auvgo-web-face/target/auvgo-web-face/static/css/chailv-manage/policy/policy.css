@@ -1,0 +1,26 @@
+.main-content {
+  /* padding-bottom: 30px; */
+}
+.height-60 {
+  height: 60px;
+  line-height: 60px;
+}
+.height-60 .policy-main-title {
+  display: inline-block;
+  vertical-align: middle;
+  *display:inline;zoom:1;
+}
+.policy-title button {
+  height: 30px;
+  line-height: normal;
+}
+.policy-title .policy-title-sub {
+  float: left;
+  margin-right: 50px;
+}
+.table-wraper {
+  padding: 20px 30px 0;
+}
+.table-wraper .color-666 {
+  color: #666666;
+}

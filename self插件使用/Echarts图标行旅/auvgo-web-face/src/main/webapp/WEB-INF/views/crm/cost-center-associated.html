@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>角色用户</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/role-permissions-user.css"/>
+	</head>
+	<body class="background-6461e2">
+	#parse("/common/head.html")
+		<!-- breadcrumbs -->
+		<!--<div class="bread-crums main-content margin-top-10">-->
+			<!--#parse("/common/bread-crumbs.html") > <a href="/crm/cost" class="normal_a">成本中心 </a> > 关联个人-->
+		<!--</div>-->
+		<!-- 主体 begin -->
+	<div class="main-content margin-top-10 ">
+		#parse("/crm/company/company-left.html")
+		<div class="main-content-new margin-top-10 background-fff auto_bottom">
+			<div class="content-only clear">
+				<form action="/crm/cost/toRelateEmpPage/$!costid" method="POST">
+					<div class="clear">
+						<div class="float-left">
+							<input type="text" name="q_EQ_accno" placeholder="员工编号"  value="$!q_EQ_accno" class="input">
+						</div>
+						<div class="float-left">
+							<input type="text" name="q_LIKE_name" value="$!q_LIKE_name" class="input" placeholder="员工姓名" >
+						</div>
+						<div class="float-left">
+							<input type="text" id="citySel" placeholder="部门" class="input" readonly="readonly" title="" onclick="showMenu();">
+							<input type="hidden" id="deptpid" name="deptid" value="$!deptid" >
+						</div>
+						<button type="submit" class="btn btn-default btn-big">查询</button>
+					</div>
+				</form>
+				
+				<form action="/crm/cost/saveRelateEmployee" method="POST" id="RelateEmploy">
+					<input type="hidden" name="costId" value="$!costid">
+					<input type="hidden" name="cid" value="$!companyid">
+					<div class="clear margin-top-30">
+						<div class="associated">
+							<p class="background-f2  associated-title">未关联</p>
+							<select size="15"  multiple class="noSet">
+								#foreach($page in $!page)
+								<option value="$page.id" data-empid="$page.deptid">$page.name</option>
+								#end
+							</select>
+						</div>
+						<div class="left-right-move">
+							<button type="button" class="float-left auvgo-approve-bg left-move leftMove"></button>
+							<button type="button" class="float-left auvgo-approve-bg right-move rightMove"></button>
+						</div>
+						<div class="associated">
+							<p class="background-f2  associated-title">已关联</p>
+							<select size="15"  multiple class="alwaysSet">
+								#foreach($page in $!existEmployee)
+								<option value="$page.id" data-empid="$page.deptid">$page.name</option>
+								#end
+							</select>
+						</div>
+					</div>
+					<input type="hidden" name="employeeids" class="alwaysRole">
+					<input type="hidden" name="deptid" id="deptid_id" value="#foreach($!id in $choosedeptids)/$!id#end">
+					<div class="clear margin-top-30 text-align">
+						<button type="submit" class="btn btn-default btn-big">确定</button>
+						<a  href="/crm/cost" class="btn btn-cancel btn-big">取消</a>
+					</div>
+					<input type="hidden" name="flag" value="">
+				</form>
+				
+			</div>
+		</div>
+		<div id="menuContent" class="menuContent" style="display: none; position: absolute; background: #e9e9e9;">
+			<ul id="treeDemo" class="ztree" style="margin-top: 0; width: 200px; height: 240px; overflow: auto;"></ul>
+		</div>
+	</div>
+		#parse("/common/foot.html")
+		<!-- 主体 end -->
+		<script type="text/javascript">
+			alertZtreeMain({'zNodes':$!{depttree}});
+			 
+			/*关联/解除角色用户 start*/
+			function cityMove(element_start,element_end){ //参数：原位置，目标位置
+				element_end.append(element_start);
+			}
+			/*保存已关联人的id*/
+			function alwaysRoleids(){
+				var ids="",deptid = '';
+				$(".alwaysSet option").each(function(){
+					ids+=$(this).val()+"/";
+					deptid+=$(this).attr("data-empid")+'/';
+				});
+				$(".alwaysRole").val(ids);
+				$("#deptid_id").val(deptid);
+			}
+			alwaysRoleids();
+			$("body").on("click",".rightMove",function(){ //右移
+				cityMove($(".noSet option:selected"),$(".alwaysSet"));
+				alwaysRoleids();
+			});
+			$("body").on("click",".leftMove",function(){ //左移
+				cityMove($(".alwaysSet option:selected"),$(".noSet"));
+				alwaysRoleids();
+			});
+
+			/*关联/解除角色用户 end*/
+			$("#RelateEmploy").Validform({
+				ajaxPost : true,
+				callback : function(data) {
+//					console.log(data);
+					$("#Validform_msg").hide();
+					if (data.status == 200) {
+						zh.alerts({ title:"提示", text:"关联成功" });
+					} else if(data.status==300) {
+						if(data.data!="" && data.data!=null){
+							var list = JSON.parse(data.data);
+							var html = '<ul>';
+							$.each(list,function(index,item){
+								html+='<li><span>'+item.ame+'</span><span>已经关联在</span><span>'+item.name+'</span></li><br>'
+							});
+							html+="</ul>";
+							zh.confirms({title:"提示",text:html});
+							$("body").on("click",".confirm_sure",function(){
+									$('input[name="flag"]').val("1");
+									$("#RelateEmploy").submit();
+									setTimeout(function(){
+										parent.location.reload();
+									},2000);
+							});
+						}else{
+							zh.alerts(data.msg);
+						}
+//						zh.alerts({ title:"提示", text:"关联失败" });
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

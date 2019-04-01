@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./commonJS/mint-ui/mint-ui.css">
+</head>
+
+<body>
+    <div id="app">
+        <mt-header title="标题过长会隐藏后面的内容啊哈哈哈哈">
+            <router-link to="/" slot="left">
+                <mt-button icon="back">返回</mt-button>
+            </router-link>
+            <mt-button icon="more" slot="right"></mt-button>
+        </mt-header>
+    </div>
+</body>
+<script type="text/javascript" src="./commonJS//vue.js"></script>
+<script type="text/javascript" src="./commonJS/mint-ui/mint-ui.js"></script>
+<script type="text/javascript" src="./commonJS/zepto-1.2.0.js"></script>
+<script type="text/javascript" src="./commonJS/date.js"></script>
+<script type="text/javascript" src="./commonJS/moment.js"></script>
+<script type="text/javascript" src="./commonJS/common.js"></script>
+<!-- <script type="text/javascript" src="./self-use-js/picker_actual.js"></script> -->
+<script>
+    'use strict';
+
+    Vue.prototype.$ = $;
+    Vue.prototype.getUrlParam = function(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURI(r[2]);
+        return null;
+    };
+    var app = new Vue({
+        el: '#app',
+        data: function data() {
+            return {
+
+            };
+        },
+
+        watch: {},
+        filters: {
+
+        },
+        methods: {
+            handleClose: function() {
+                console.log(22);
+            }
+        },
+        mounted: function mounted() {
+
+        }
+    });
+</script>
+
+</html>

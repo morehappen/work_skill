@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>酒店订单-详情-正常单</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/order-detail.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		
+		<div class="bread-crums main-content margin-top-10">
+			#parse("/common/hotel-order.html") > 订单详情
+		</div>
+		
+		<!-- 主体 begin -->
+		<div class="main-content margin-top-10">
+			<div class="order-wraper clear">
+				<div class="order-left background-fff auto_bottom">
+					<!-- 001 begin -->
+					<div class="order-title">
+						<div class="auvgo-approve-bg arrow-button">酒店详情</div>
+						<div class="title-right font-size-12">
+							<span>订单单号：$!hotelOrder.orderno</span>
+							<span>申请时间：$!dateTool.format($!hotelOrder.createtime)</span>
+						</div>
+					</div>
+					<div class="order-content margin-bottom-20">
+						<div class="order-content-content margin-top-20 font-size-14">
+							<div class="t-text">
+								<span class="t-text-title">酒店</span>
+								$!hotelOrder.hotelNo$!hotelOrder.hotelName&nbsp;&nbsp;&nbsp;&nbsp; 
+								<span class="color-6461e2">
+									#if($!hotelOrder.paymentType == "SelfPay")担保#else预付#end
+								</span>
+							</div>
+							<div class="t-text">
+								<span class="t-text-title">地址</span>
+								$!hotelOrder.hotelAddress&nbsp;&nbsp;&nbsp;&nbsp;
+								<span class="color-6461e2 map-location" 
+									data-longtitude="$!hotelOrder.longitude" 
+									data-latitude="$!hotelOrder.latitude" 
+									data-name="$!hotelOrder.hotelNo$!hotelOrder.hotelName"
+									data-location="$!hotelOrder.hotelAddress">
+									<b class="auvgo-approve-bg location-pic"></b>查看地图
+								</span>
+							</div>
+							<div class="t-text"><span class="t-text-title">房型</span>$!hotelOrder.ratePlanName</div>
+							<div class="t-text"><span class="t-text-title">入住时间</span>$!dateTool.format("yyyy-MM-dd",$!hotelOrder.arrivalDate)入住，$!hotelOrder.intervalDay晚</div>
+							<div class="t-text"><span class="t-text-title">到店时间</span>$dateTool.format("yyyy-MM-dd HH:mm:ss",$!hotelOrder.latestArrivalTime)</div>
+							<div class="t-text">
+								<span class="t-text-title color-6461e2 hotel-infor-more">
+									酒店信息
+									<b class="auvgo-approve-bg infor-pic"></b>
+								</span>
+							</div>
+							
+							<div class="hotel-des">
+								<div class="des-title margin-bottom-16">
+									$!hotelInfo.hotelInfo   $!hotelInfo.establishmentDate开业 $!hotelInfo.renovationDate装修
+								</div>
+								<div class="des-content margin-bottom-16">
+									$!hotelInfo.introEditor
+								</div>
+								<div class="des-card margin-bottom-16">可接受的信用卡：$!hotelInfo.creditCards</div>
+								<div class="des-traffic">
+									<div class="">$!hotelInfo.traffic</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<!-- 001 end -->
+					
+					<!-- 002 begin -->
+					<div class="order-title margin-bottom-20">
+						<div class="auvgo-approve-bg arrow-button">房间信息</div>
+					</div>
+					<div class="order-content margin-bottom-20 font-size-14">
+					#foreach($user in $!userlist)
+						<div class="t-text"><span class="t-text-title">房间$!vCount</span>$!user.name</div>
+					#end
+					</div>
+					<!-- 002 end -->
+					
+					<!-- 003 begin -->
+					<div class="order-title margin-bottom-20">
+						<div class="auvgo-approve-bg arrow-button">差旅信息</div>
+					</div>
+					<input type='hidden' class='project-code-shut' value='1'>
+					<div class="order-content margin-bottom-20 font-size-14">
+					#if("$!hotelOrder.shenqingno" == "" && "$!hotelOrder.costname" == "" && "$!hotelOrder.proname" == "")
+						无
+					#else
+						#if("$!hotelOrder.shenqingno" != "")<div class="t-text"><span class="t-text-title">出差单号</span>$!hotelOrder.shenqingno</div>#end
+						#if("$!hotelOrder.costname" != "")<div class="t-text"><span class="t-text-title">成本中心</span>$!hotelOrder.costname</div>#end
+						#if("$!hotelOrder.proname" != "")<div class="t-text project-show-c"><span class="t-text-title">项目</span>$!hotelOrder.proname</div>#end
+						#if("$!hotelOrder.chailvitem" != "")<div class="t-text"><span class="t-text-title">出差事由</span>$!hotelOrder.chailvitem</div>#end
+						#if("$!hotelOrder.bookpolicy" != "")<div class="t-text"><span class="t-text-title">超标事项</span>$!hotelOrder.bookpolicy</div>#end
+						#if("$!hotelOrder.wbreason" != "")<div class="t-text"><span class="t-text-title">超标原因</span>$!hotelOrder.wbreason</div>#end
+					#end
+					<div class="t-text showNameCode">
+						<span class="t-text-title">SHOWNAME</span>$!hotelOrder.proname
+					</div>
+					<div class="t-text showNameCode">
+						<span class="t-text-title">SHOWCODE</span>$!hotelOrder.showCode
+					</div>
+					</div>
+					<!-- 003 end -->
+					
+					<!-- 004 begin -->
+					<div class="order-title margin-bottom-20">
+						<div class="auvgo-approve-bg arrow-button">审批信息</div>
+					</div>
+					<div class="order-content margin-bottom-20">
+					#if($!approveList.size() == 0)
+						无
+					#else
+						<table class="table table-align">
+							<thead>
+								<tr>
+									<th>审批顺序</th>
+									<th>审批人</th>
+									<th>审批状态</th>
+								</tr>
+							</thead>
+							<tbody>
+							#foreach($approve in $!approveList)
+								<tr>
+									<td>$!vCount</td>
+									<td>$!approve.name</td>
+									<td>$!baseStatus.getApproveStatus($!approve.status)</td>
+								</tr>
+							#end
+							</tbody>
+						</table>
+					#end
+					</div>
+					<!-- 004 end -->
+					
+					
+					<!-- 007 begin -->
+					<div class="order-title margin-bottom-20">
+						<div class="auvgo-approve-bg arrow-button">联系人信息</div>
+					</div>
+					<div class="order-content margin-bottom-20 font-size-14">
+						<div class="t-text"><span class="t-text-title">联系人</span>$!hotelOrder.linkName</div>
+						<div class="t-text"><span class="t-text-title">联系方式</span>$!hotelOrder.linkPhone</div>
+					</div>
+					<!-- 007 end -->
+					
+					<!-- 008 begin -->
+					<div class="order-title margin-bottom-20">
+						<div class="auvgo-approve-bg arrow-button">价格信息</div>
+					</div>
+					<div class="order-content margin-bottom-20">
+						<table class="table table-align">
+							<thead>
+								<tr>
+									<th>房费</th>
+									<th>在线担保</th>
+									<th>到店付款</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>$!hotelOrder.totalPrice（$!hotelOrder.dayprice/间x$!hotelOrder.intervalDay晚）</td>
+									<td>$!hotelOrder.guaranteeAmount</td>
+									<td>$!hotelOrder.totalPrice</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- 008 end -->
+				</div>
+				
+				<div class="order-right background-fff">
+				<!-- #if($!hotelOrder.payType == 1)	企业月结
+					#if($!hotelOrder.status == 7)
+					<div class="order-ctrl">
+						<div class="auvgo-approve-bg order-status">处理中</div>
+					</div>
+					#else #if($!hotelOrder.approvestatus == 3 || $!hotelOrder.approvestatus == 1)
+						#if($!hotelOrder.paystatus == 1)
+						已确认
+						<div class="order-ctrl">
+							<div class="auvgo-approve-bg order-status">已确认 </div>
+							#if($!hotelOrder.isCancel == 1)
+							可以取消
+							<button type="button" class="btn btn-cancel btn-100">取消订单</button>
+							#end
+						</div>
+						#else
+						待支付
+						<div class="order-ctrl">
+							<div class="auvgo-approve-bg order-status">待支付 </div>
+								<button type="button" class="btn btn-danger btn-100 margin-bottom-20 margin-top-70">去支付</button>
+							#if($!hotelOrder.isCancel == 1)
+								可以取消
+								<button type="button" class="btn btn-cancel btn-100">取消订单</button>
+							#end
+						</div>
+						#end
+					#else
+					待确认
+					<div class="order-ctrl">
+						<div class="auvgo-approve-bg order-status">待确认 </div>
+					</div>
+					#end#end
+				#else
+				#if($!hotelOrder.payType == 2)	现金
+					待支付
+					<div class="order-ctrl">
+						<div class="auvgo-approve-bg order-status">待支付 </div>
+						<button type="button" class="btn btn-danger btn-100 margin-bottom-20 margin-top-70">去支付</button>
+					#if($!hotelOrder.isCancel == 1)
+						可以取消
+						<button type="button" class="btn btn-cancel btn-100">取消订单</button>
+					#end
+					</div>
+				#end#end -->
+				</div>
+			</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/my-chailv/order-details.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/hotel-order-detail.js"></script>
+		<script type="text/javascript">
+			//kkpagerMain({'pno':$!page.pageNum,'total':$!page.pages,'totalRecords':$!page.total,'pageSize':$!page.pageSize,'pageNo':$("#pageNo"),'submit_element':$("#AirOrderForm")}); //初始化分页
+		</script>
+	</body>
+</html>

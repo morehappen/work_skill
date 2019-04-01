@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>酒店政策</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/policy/add-policy.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("common/head.html")
+		<!-- breadcrumbs -->
+		<div class="bread-crums main-content margin-top-10">
+			#parse("/common/policy.html") > 添加酒店差旅政策
+		</div>
+		<!-- 主体 begin -->
+		<div class="main-content background-fff margin-top-10 auto_bottom">
+			<form action="/crm/chailv/saveHotel" id="chailvHotelForm" >
+				<input type="hidden" name="companyid" value="$!company.id">
+				<input type="hidden" name="id" value="" >
+				#if("$!company.chailvbiaozhun"== "level")
+					<div class="every-model border-bottom-1">
+						<div class="">
+							<span class="title">员工职级</span>
+							<select class="_select_"  name="startlevel" datatype="n" data-value="$!staff.id">
+								<option value="">-请选择职级-</option>
+								 #foreach($!staff in $!AllStaff)
+									<option value="$!staff.value">$!staff.name</option>
+								 #end
+							</select>
+							至
+							<select class="_select_" name="endlevel" datatype="n" data-value="$!staff.id">
+								<option value="">-请选择职级-</option>
+								 #foreach($!staff in $!AllStaff)
+									<option value="$!staff.value">$!staff.name</option>
+								 #end
+							</select>
+						</div>
+					</div>
+				#end
+				<div class="every-model clear">
+					<span class="title float-left">价格限制</span>
+					<div class="float-left">
+						#if($!{cityLevelConfig} == "2")
+							<input  type="hidden" name="citySize" value="$!{geoTierAuto.size()}" />
+							#foreach($gta in $!geoTierAuto)
+								<div class="hotel-city-rank #if($!vCount != 1)margin-top-20#end">
+									<span class="hotel-title-sub">
+										$!{gta.alias}
+									</span>
+									<input type="hidden" name ="cityName$!{vCount}" value="$!{gta.alias}">
+									<input type="hidden" name ="cityId$!{vCount}" value="0">
+									
+									<div class="price-limit">
+										<input type="text" class="input" name="price$!{vCount}"/>元/间夜
+									</div>
+									
+									<div class="ctrl-type">
+										<div class="label label-radio label-select-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="oneLine_city$!{vCount}" value="1">
+											<span>超标审批</span>
+										</div>
+										<div class="label label-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="oneLine_city$!{vCount}" value="0">
+											<span>不允许预订</span>
+										</div>
+										<div class="label label-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="oneLine_city$!{vCount}" value="2">
+											<span>只提醒,无需审批</span>
+										</div>
+									</div>
+								</div>
+							#end
+						#else
+							<input type="hidden" name="citySize" value="6" />
+							#foreach($index in [1..6])
+								<div class="hotel-city-rank #if($!index != 1)margin-top-20#end">
+									<span class="hotel-title-sub">
+										$!{tierName.get($!index)}
+									</span>
+									<input type="hidden" name ="cityName$!{index}" value="$!{tierName.get($!index)}">
+									<input type="hidden" name ="cityId$!{index}" value="0">
+									
+									<div class="price-limit">
+										<input type="text" class="input" name="price$!{index}"/>元/间夜
+									</div>
+									
+									<div class="ctrl-type">
+										<div class="label label-radio label-select-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="oneLine_city$!{index}" value="1">
+											<span>超标审批</span>
+										</div>
+										<div class="label label-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="oneLine_city$!{index}" value="0">
+											<span>不允许预订</span>
+										</div>
+										<div class="label label-radio clear">
+											<span class="show_choice"></span>
+											<input type="radio" name="oneLine_city$!{index}" value="2">
+											<span>只提醒,无需审批</span>
+										</div>
+									</div>
+								</div>
+							#end
+						#end
+					</div>
+				</div>
+				<div class="clear margin-top-20 margin-bottom-30 text-align">
+					<button class="btn btn-default btn-big">确定</button>
+					<a href="/crm/chailv/" class="btn btn-cancel btn-big">取消</a>
+				</div>
+			</form>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/policy/policy-add-common.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#chailvHotelForm").Validform({
+					ajaxPost : true,
+					callback : function(data) {
+						$("#Validform_msg").hide();
+						if (data.status == 200) {
+							zh.alerts({'title':"提示",'text':"操作成功！"});
+							$("body").on("click",".alert_event",function(){
+								location.href="/crm/chailv/";
+							});
+						} else {
+							zh.alerts({'title':"提示",'text':data.msg});
+						}
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

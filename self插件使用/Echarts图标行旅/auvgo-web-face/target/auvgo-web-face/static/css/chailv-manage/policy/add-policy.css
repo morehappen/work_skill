@@ -1,0 +1,59 @@
+.every-model {
+  padding: 30px;
+}
+.every-model .input {
+  width: 88px;
+}
+.every-model .title {
+  display: inline-block;
+  vertical-align: middle;
+  width: 90px;
+}
+.every-model .margin-right-20 {
+  margin-right: 20px;
+}
+.every-model .margin-right-30 {
+  margin-right: 30px;
+}
+.every-model .margin-left-246 {
+  margin-left: 246px;
+}
+.every-model .hotel-city-rank .hotel-title-sub,
+.every-model .hotel-city-rank .price-limit,
+.every-model .hotel-city-rank .ctrl-type {
+  display: inline-block;
+  vertical-align: middle;
+  *display:inline;zoom:1;
+}
+.every-model .hotel-city-rank .hotel-title-sub {
+  width: 100px;
+}
+.every-model .hotel-city-rank .price-limit {
+  width: 220px;
+}
+.every-model .hotel-city-rank .ctrl-type .label-radio {
+  margin-right: 30px;
+}
+.every-model .train-gdp-rank .train-title-sub {
+  float:left;
+  vertical-align: middle;
+  width: 130px;
+}
+.every-model .train-gdp-rank .train-seats {
+  display: inline-block;
+  vertical-align: middle;
+  width: 640px;
+}
+.every-model .train-gdp-rank .every-seat {
+  float:left;
+  vertical-align: middle;
+  width: 90px;
+}
+
+/* TODO:wxj-20170815-修改 */
+.air-rank{width: 688px;}
+.licheng{margin-left: 100px;margin-top: 20px;border-bottom: 1px dotted #ccc;}
+.licheng:last-child{border-bottom: none;}
+.licheng>div,.can-fly>div{margin-bottom: 20px;}
+.allowfly-ctr{display: none;}
+

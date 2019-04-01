@@ -1,0 +1,34 @@
+.allmap{
+	position:absolute;
+	width:1200px;
+	/*background: red;*/
+	height:390px;
+	bottom:0;
+	z-index:4;
+	
+	/*background: yellow;*/
+}
+.allmap-box{
+	position:relative;
+	height:390px;
+	display: none;
+}
+.addInfoW-box{
+	width:330px;
+	margin:0 auto;
+	background: red;
+	height:170px;
+}
+/*地图弹框样式*/
+.BMapLabel{border-color: #f04b00 !important;padding: 1px 5px 2px 5px !important;z-index: -1 !important;border-radius: 15px;}
+.BMapLabel:before{display: none;}
+/*.BMapLabel:hover{background: #f04b00 !important;color: #fff;z-index: 0 !important;}*/
+.bmap-wraper{padding: 5px;}
+.bmap-wraper .bmap-line{border-bottom: 1px solid #eee;margin-top: 10px;margin-bottom: 10px;}
+.bmap-title{/*padding-bottom: 10px;*/}
+.bmap-content{padding-top: 5px;}
+.hotel-price{margin-left: 5px;margin-bottom: 0;font-weight: 600;font-size: 16px;color: rgb(209, 7, 115);}
+.bmap-img{width: 105px;height: 105px;background: url('/static/project-resource/img/hotel/hote-bmap-replace.png') no-repeat;}
+.bmap-img img{width: 105px;height: 105px;}
+.bmap-desc{width: 210px;margin-left: 20px;line-height: 18px;}
+.low-price{height: 32px;line-height: 32px;}

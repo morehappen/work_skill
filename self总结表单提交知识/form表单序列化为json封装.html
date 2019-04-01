@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" id="sky">
+        <input class="user_name" data-regexok="0" type="text" name="apply.contact1" id="user_name" value="" placeholder="联系人中文/英文名字(必填)" />
+        <input class="user_name" data-regexok="0" type="text" name="apply.contact2" id="user_name" value="" placeholder="wqw(必填)" />
+        <textarea name="sky" id="" cols="30" rows="10">
+            
+        </textarea>
+        <div class="btn">
+            按钮测试
+        </div>
+    </form>
+</body>
+<script src="../../jquery-1.12.4.min.js"></script>
+<script>
+    $.fn.extend({
+        formJson: function() {
+            console.log(333)
+            var serializeObj = {};
+            var array = this.serializeArray();
+            // var str=this.serialize(); 
+            $(array).each(function() { // 遍历数组的每个元素 
+                if (serializeObj[this.name]) { // 判断对象中是否已经存在 name，如果存在name 
+                    if ($.isArray(serializeObj[this.name])) {
+                        serializeObj[this.name].push(this.value); // 追加一个值 hobby : ['音乐','体育'] 
+                    } else {
+                        // 将元素变为 数组 ，hobby : ['音乐','体育'] 
+                        serializeObj[this.name] = [serializeObj[this.name], this.value];
+                    }
+                } else {
+                    serializeObj[this.name] = this.value; // 如果元素name不存在，添加一个属性 name:value 
+                }
+            });
+            return serializeObj;
+        }
+    });
+
+    $.fn.formJson = function() {
+        console.log(2);
+        var serializeObj = {};
+        var array = this.serializeArray();
+        // var str=this.serialize(); 
+        $(array).each(function() { // 遍历数组的每个元素 
+            if (serializeObj[this.name]) { // 判断对象中是否已经存在 name，如果存在name 
+                if ($.isArray(serializeObj[this.name])) {
+                    serializeObj[this.name].push(this.value); // 追加一个值 hobby : ['音乐','体育'] 
+                } else {
+                    // 将元素变为 数组 ，hobby : ['音乐','体育'] 
+                    serializeObj[this.name] = [serializeObj[this.name], this.value];
+                }
+            } else {
+                serializeObj[this.name] = this.value; // 如果元素name不存在，添加一个属性 name:value 
+            }
+        });
+        return serializeObj;
+    };
+
+    $(".btn").on("click", function() {
+            var a = $("#sky").formJson();
+            debugger
+            console.log(a);
+        })
+        // $(function() {
+
+
+    // })
+</script>
+
+</html>

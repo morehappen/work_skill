@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>火车票政策</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/policy/add-policy.css" />
+	</head>
+	<body class="background-6461e2">
+		#parse("common/head.html")
+		<!-- breadcrumbs -->
+		<div class="bread-crums main-content margin-top-10">
+			#parse("/common/policy.html") > 添加火车票差旅政策
+		</div>
+		<!-- 主体 begin -->
+		<div class="main-content background-fff margin-top-10 auto_bottom">
+			<form action="/crm/chailv/saveTrain" id="chailvTrainForm">
+			<input type="hidden" name="id" value="$!policyTrain.id">
+			<input type="hidden" name="companyid" value="$!company.id" >
+			#if("$!company.chailvbiaozhun"== "level")
+				<div class="every-model border-bottom-1">
+					<div class="">
+						<span class="title">员工职级</span>
+						<select class="_select_"  name="startlevel" datatype="n" data-value="$!policyTrain.startlevel">
+							<option value="">-请选择职级-</option>
+							 #foreach($!staff in $!AllStaff)
+								<option value="$!staff.value">$!staff.name</option>
+							 #end
+						</select>
+						至
+						<select class="_select_"  name="endlevel" datatype="n" data-value="$!policyTrain.endlevel">
+							<option value="">-请选择职级-</option>
+							 #foreach($!staff in $!{AllStaff})
+									<option value="$!staff.value">$!staff.name</option>
+							 #end
+						</select>
+					</div>
+				</div>
+			#end
+				<div class="every-model clear">
+					<div class="float-left">
+						<span class="title">席别限制</span>
+					</div>
+					<div class="float-left">
+						<div class="train-gdp-rank clear" id="gaotie">
+							<span class="train-title-sub">G/C-高铁/城际</span>
+							<div class="train-seats">
+								<div class="every-seat">
+									<div class="label label-checkbox clear">
+										<span class="show_choice"></span>
+										<input type="checkbox" name="g_1" value="9" >
+										<span>商务座</span>
+									</div>
+								</div>
+								<div class="every-seat">
+									<div class="label label-checkbox clear">
+										<span class="show_choice"></span>
+										<input type="checkbox" name="g_2" value="P">
+										<span>特等座</span>
+									</div>
+								</div>
+								<div class="every-seat">
+									<div class="label label-checkbox clear">
+										<span class="show_choice"></span>
+										<input type="checkbox" name="g_3" value="M">
+										<span>一等座</span>
+									</div>
+								</div>
+								<div class="every-seat">
+									<div class="label label-checkbox clear">
+										<span class="show_choice"></span>
+										<input type="checkbox" name="g_4" value="O">
+										<span>二等座</span>
+									</div>
+								</div>
+							</div>
+							<div class="label label-radio label-select-radio clear">
+								<span class="show_choice"></span>
+								<input type="radio" name="g_gkfs" class="gkfs"  value="1" >
+								<span>超标审批</span>
+							</div>
+							<div class="label label-radio clear">
+								<span class="show_choice"></span>
+								<input type="radio" name="g_gkfs" class="gkfs"   value="0">
+								<span>不允许预订</span>
+							</div>
+						</div>
+						<div class="train-gdp-rank clear"  id="dongche">
+							<div class="margin-left-90 margin-top-20">
+								<span class="train-title-sub">D-动车</span>
+								<div class="train-seats">
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="d_1" value="9" >
+											<span>商务座</span>
+										</div>
+									</div>
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="d_2" value="P">
+											<span>特等座</span>
+										</div>
+									</div>
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="d_3" value="M">
+											<span>一等座</span>
+										</div>
+									</div>
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="d_4" value="O">
+											<span>二等座</span>
+										</div>
+									</div>
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="d_5" value="4">
+											<span>软卧</span>
+										</div>
+									</div>
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="d_6" value="F">
+											<span>动卧</span>
+										</div>
+									</div>
+								</div>
+								<div class="label label-radio label-select-radio clear">
+									<span class="show_choice"></span>
+									<input type="radio" name="d_gkfs" class="gkfs" value="1" >
+									<span>超标审批</span>
+								</div>
+								<div class="label label-radio clear">
+									<span class="show_choice"></span>
+									<input type="radio" name="d_gkfs" class="gkfs"  value="0">
+									<span>不允许预订</span>
+								</div>
+							</div>
+						</div>
+						<div class="train-gdp-rank clear"  id="pukuai">
+							<div class="margin-left-90 margin-top-20 margin-right-30">
+								<span class="train-title-sub">普通车</span>
+								<div class="train-seats">
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="p_1" value="4" >
+											<span>软卧</span>
+										</div>
+									</div>
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="p_2" value="3">
+											<span>硬卧</span>
+										</div>
+									</div>
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="p_3" value="6">
+											<span>高级软卧</span>
+										</div>
+									</div>
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="p_4" value="2">
+											<span>软座</span>
+										</div>
+									</div>
+									<div class="every-seat">
+										<div class="label label-checkbox clear">
+											<span class="show_choice"></span>
+											<input type="checkbox" name="p_5" value="1" >
+											<span>硬座</span>
+										</div>
+									</div>
+								</div>
+								<div class="label label-radio label-select-radio clear">
+									<span class="show_choice"></span>
+									<input type="radio" name="p_gkfs" value="1"  class="gkfs" >
+									<span>超标审批</span>
+								</div>
+								<div class="label label-radio clear">
+									<span class="show_choice"></span>
+									<input type="radio" name="p_gkfs" value="0"  class="gkfs" >
+									<span>不允许预订</span>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+				<div class="clear margin-top-20 margin-bottom-30 text-align">
+					<button class="btn btn-default btn-big">确定</button>
+					<a href="/crm/chailv/" class="btn btn-cancel btn-big">取消</a>
+				</div>
+			</form>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/policy/policy-add-common.js"></script>
+		<script type="text/javascript" src="/static/js/crm/policy/train-policy.js"></script>
+		<script type="text/javascript">
+			#if($!policyTrain.id){
+				javaData({
+					trainStatus: {
+						'gaotie':'$!policyTrain.gaotie',
+						'dongche':'$!policyTrain.donche',
+						'pukuai':'$!policyTrain.pukuai',
+						'contr':'$!policyTrain.controltype'
+					}
+				});
+			}
+			#end
+		</script>
+	</body>
+</html>

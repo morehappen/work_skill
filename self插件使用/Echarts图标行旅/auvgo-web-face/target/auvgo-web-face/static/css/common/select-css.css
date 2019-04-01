@@ -1,0 +1,12 @@
+.drop {
+  display: inline-block;
+  vertical-align: middle;
+  width: 200px;
+  *display:inline;zoom:1;
+}
+.drop .drop_option {
+  width: 200px;
+}
+.hide{
+  display: none;
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>首页</title>
+	<link rel="icon" sizes="any" href="/resources/images/common/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/common.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/common/home.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/hotel/citySelector.css">
+    <link rel="stylesheet" type="text/css" href="/resources/js/plugin/autocomplete/jquery.autocomplete.css" />
+</head>
+<body>
+	<div class="home-box">
+		#parse("/common/head.html")
+		<div class="home clearfloat">
+			<div class="home-left">
+				<div class="home-left-aircraft aircraft clearfloat ">
+						<span class="f-con icon"></span>
+						<span class="aircraft-f">国内机票</span>
+				</div>
+				<div class="home-left-aircraft bed clearfloat  aircraft-flie">
+						<span class="bed-icon icon"></span>
+						<span class="bed-s">酒店</span>
+				</div>
+				<div class="home-left-aircraft train clearfloat">
+						<span class="train-icon icon"></span>
+						<span class="h-train">火车票</span>
+				</div>
+			</div>
+			<form action="" id="query-form" method="post">
+			<div class="home-right clearfloat">
+				<div class="home-date right-target">
+					<div class="target ">
+						<p>目的地</p>
+						<div class="h-select">
+							<span class="location-icon"></span>
+						    <input type="text" name="geoName" id="geoName" value="$!{defaultGeo}" class="show-city city-name tg-input" autocomplete="off" #if("$!{isCanModify}" == "0")readonly="readonly"#end/>
+				            <input type="hidden" id="geoCode" name="geoCode" value="$!{defaultGeoNo}" class="city-code" />
+						</div>
+					</div>
+				</div>
+				<div class="home-date ">
+					<div class="check">
+						<p>入住日期</p>
+						<div class="h-select">
+							<span class="check-icon"></span>
+							<span class="data check-data">
+								<!-- 预订最大天数为90天 -->
+								#if("$!{isCanModify}" == "0")
+									<input type="text" class='tg-input' name="checkIn" id="checkIn" value="$!{defaultCheckIn}" #if("$!{isCanModify}" == "0")readonly="readonly"#end/>
+								#else
+									<input type="text" class='tg-input' name="checkIn" id="checkIn" value="$!{defaultCheckIn}" onfocus="var checkOut=$dp.$('checkOut');WdatePicker({isShowClear:false,readOnly:true,errDealMode:1,lang:'zh-cn',doubleCalendar:true,dateFmt:'yyyy-MM-dd',onpicked:function(){checkDate('checkIn', 'checkOut', 1, 22); checkOut.focus();},minDate:'$!{minCheckIn}',maxDate:'#F{$dp.$DV(\'$!{minCheckIn}\',{M:0,d:90})}'})"/>					
+								#end
+							</span>
+							<!--<span class="week check-week">星期二</span>-->
+						</div>
+					</div>
+				</div>
+				<div class="home-date ">
+					<div class="leave">
+						<p>离店日期</p>
+						<div class="h-select">
+							<span class="check-icon"></span>
+							<span class="data leave-data ">
+								#if("$!{isCanModify}" == "0")
+									<input type="text" class='tg-input' name="checkOut" id="checkOut" value="$!{defaultCheckOut}" #if("$!{isCanModify}" == "0")readonly="readonly"#end/>
+								#else
+									<input type="text" class='tg-input' name="checkOut" id="checkOut" value="$!{defaultCheckOut}"  onfocus="WdatePicker({isShowClear:false,readOnly:true,errDealMode:1,lang:'zh-cn',doubleCalendar:true,dateFmt:'yyyy-MM-dd',onpicked:function(){checkDate('checkIn', 'checkOut', 1, 22);},maxDate:'#F{$dp.$DV(\'$!{minCheckIn}\',{M:0,d:91})}',minDate:'#F{$dp.$D(\'checkIn\',{M:0,d:1})}'})"/>
+								#end
+							</span>
+							<!--<span class=" week leave-week">星期二</span>-->
+						</div>
+					</div>
+				</div>
+				<div class="home-date right-target">
+					<div class="band">
+						<p class="band-name">酒店名、位置、品牌</p>
+						<div class="h-select">
+							<span class="band-icon"></span>
+							<input type="text" name="keyValue" id="keyValue" value="" placeholder="酒店名\地址\品牌" class="tg-input"/>
+							<input type="hidden" name="queryType" id="queryType" value=""/>
+							<input type="hidden" name="rangePrice" id="rangePrice" value=""/>
+							<input type="hidden" name="latitude" id="latitude" value=""/>
+							<input type="hidden" name="longitude" id="longitude" value=""/>
+						</div>
+					</div>
+				</div>
+				<div class="h-btn">
+					<input type="button" id="firstQuery" class="btn" value="查询酒店" />
+				</div>
+			</div>
+			</form>
+		</div>
+		<div class="h-standard clearfloat">
+			<div class="sd-left">
+				<div>
+					差旅标准
+				</div>
+			</div>
+			<div class="sd-rigth">
+				<p class="sd-name">暂时未设置差旅标准</p>
+				<div class="sd-btn">
+					设置差旅标准
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="h-bottom">
+		<div class="b-logo" style="width：1200px;box-sizing: border-box;padding-top:32px;color:#60696e;">
+			<div class="logo-box clearfloat" >
+				<div class="logo"> </div>
+				<p class="bottom-color">7x24小时服务热线：400-606-0011</p>
+			</div>
+			<p class='information'>
+				Copyright©<span>行旅国际</span>
+			</p>
+		</div>
+	</div>
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/geo/geo-data.js" charset="utf-8"></script>
+<script type="text/javascript" src="/resources/js/geo/geo-plug.js"></script>
+	<script type="text/javascript" src="/resources/js/common/common-oa.js"></script>
+	<script type="text/javascript" src="/resources/js/plugin/autocomplete/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="/resources/js/hotel/query_prepare.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/layer/layer.js"></script>
+<script type="text/javascript" src="/resources/js/common/My97DatePicker/WdatePicker.js" defer="defer" charset="utf-8"></script>
+<script type="text/javascript" src="/resources/js/common/date.js"></script>
+<script type="text/javascript">
+	#if("$!{isCanModify}" != "0")
+		var test=new Vcity.CitySelector({input:'geoName',hidden:'geoCode'});
+	#end
+   
+</script>
+</body>
+</html>

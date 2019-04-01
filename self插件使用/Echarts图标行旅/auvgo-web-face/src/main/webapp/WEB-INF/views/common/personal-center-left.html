@@ -1,0 +1,12 @@
+#if("$!company.bianhao"!="SCST")
+<div class="person-aside float-left">
+	<!--<h3>个人中心</h3>-->
+	<ul>
+		<li data-href="/personal/toInformation" data-tag="toInformation">个人信息</li>
+		<li data-href="/personal/toEditPwd" data-tag="toEditPwd">修改密码</li>
+		<li data-href="/employess/cert/list" data-tag="toCredentials">证件信息</li>
+		<li data-href="/personal/toCommonPersons" data-tag="toCommonPersons">常用出行人</li> #if($!companybusiness.get(0)==1)
+		<li data-href="/personal/toBind" data-tag="toBind">12306账号绑定</li> #end
+	</ul>
+</div>
+#end

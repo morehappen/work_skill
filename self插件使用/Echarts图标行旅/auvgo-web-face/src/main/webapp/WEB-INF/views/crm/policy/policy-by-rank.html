@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>差旅政策</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/policy/policy.css"/>
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<!-- breadcrumbs -->
+		<div class="main-content margin-top-10 ">
+			#parse("/crm/company/company-left.html")
+		<!--<div class="bread-crums-new main-content-new margin-top-10">-->
+			<!--#parse("/common/policy.html")-->
+		<!--</div>-->
+		<!-- 主体 begin -->
+		<div class="main-content-new background-fff auto_bottom">
+			<div class="height-60 background-f2 text-align">
+				<form action="/crm/chailv/policyset" method="post" id="policysetForm">
+					<div class="policy-main-title">
+						<span>差旅政策是否开启</span>&nbsp;&nbsp;
+						<div class='label label-radio #if("$!company.qiyongchailv"== "Y")label-select-radio#end chailv_ clear'>
+							<span class="show_choice"></span>
+							<input type="radio" name="qiyongchailv" class="qiyong_" value="Y" />
+							<span>启用</span>
+						</div>
+						<div class='label label-radio #if("$!company.qiyongchailv"== "N")label-select-radio#end chailv_'>
+							<span class="show_choice"></span>
+							<input type="radio" name="qiyongchailv"  class="qiyong_"  value="N"  />
+							<span>不启用</span>
+						</div>
+					</div>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="policy-main-title">
+						<span>设置差旅标准的方式</span>&nbsp;&nbsp;
+						<div class='label label-radio #if("$!company.chailvbiaozhun"=="company")label-select-radio#end clear chailv_'>
+							<span class="show_choice"></span>
+							<input type="radio" name="chailvbiaozhun" class="FormSet" value="company"  />
+							<span>按公司统一设置</span>
+						</div>
+						<div class='label label-radio #if("$!company.chailvbiaozhun"== "level")label-select-radio#end clear chailv_'>
+							<span class="show_choice"></span>
+							<input type="radio" name="chailvbiaozhun" class="FormSet" value="level"  />
+							<span>按员工职级设置</span>
+						</div>
+					</div>
+				</form>
+			</div>
+			#if("$!company.qiyongchailv"== "Y")
+			<!-- 国内机票 begin -->
+			#if($!companybusiness.get(1)==1)
+			<div class="margin-top-20 model">
+				<div class="policy-title clear">
+					<div class="auvgo-approve-bg arrow-button policy-title-sub">
+						国内机票
+					</div>
+					<a href="/crm/chailv/guonei" class="btn btn-default btn-big">添加政策</a>
+				</div>
+				<!-- table begin -->
+				<div class="table-wraper">
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>级别</th>
+								<th>里程范围</th> 
+								<th>飞行限制</th>
+								<th>管控方式</th>
+								<th class="table_caozuo">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						#foreach($newAir in $!crmPolicyairlist)
+							 #if("$!company.chailvbiaozhun"== "level" && "$!newAir.startlevel"!= "") 
+								<tr>
+									<td rowspan="$!newAir.policyAir.size()">
+										#if("$!newAir.startlevel" !="")
+											<span>$!param.get("$!newAir.startlevel")</span>
+											至
+											<span>$!param.get("$!newAir.endlevel")</span>
+										#else 
+											<span>公司统一设置</span>
+										#end
+									</td>
+									#foreach($!newContent in $!newAir.policyAir)
+									#set($index = ${vCount} - 1)
+									<td>$!newContent.startmile 公里 -$!newContent.endmile 公里</td>
+									<td>
+										#if($!newContent.allowfly==0)
+											不允许乘坐飞机
+										#else 
+											允许乘坐飞机,
+										#end 
+										#if($!newContent.cabinlimit==1)
+											舱位不得高于$!newContent.cabinzhekou折,
+										#else
+											舱位没有限制,
+										#end
+										#if($!newContent.flightlimit==1)
+											#if($!newContent.flightlowtype==0)
+												预订当前航班的最低价
+											#elseif($!newContent.flightlowtype==1)
+												预订当天航班的最低价
+											#elseif($!newContent.flightlowtype==2)
+												预订前后$!newContent.flighthour小时的航班,
+											#end
+										#end
+										#if($!newContent.allowbefore==1)
+											提前$!newContent.beforeday天预订
+										#end
+									</td>
+								    <td>
+								    	#if($!newContent.allowc !=1)
+								    		不允许预订
+								    	#else
+								    		超标审批
+								    	#end
+								    </td>
+									#if($!{vCount}==1)
+									<td class="table_caozuo" rowspan="$!newAir.policyAir.size()">
+										<div class="clear table-btn-div">
+											<a href="/crm/chailv/guonei/$!{newAir.companyid}/$!{newAir.id}" class="btn btn-default btn-small">编辑</a>
+											<button type="button" class="btn btn-danger btn-small" onclick="deleteAir($!cid,$!{newAir.id})">删除</button>
+										</div>	
+									</td>
+							        #end 
+								</tr>
+							#end 
+							#elseif("$!company.chailvbiaozhun"== "company" && "$!newAir.startlevel"==  "")
+							<tr>
+									<td rowspan="$!newAir.policyAir.size()">
+										#if("$!newAir.startlevel" !="")
+											<span>$!param.get("$!newAir.startlevel")</span>
+											至
+											<span>$!param.get("$!newAir.endlevel")</span>
+										#else 
+											<span>公司统一设置</span>
+										#end
+									</td>
+									#foreach($!newContent in $!newAir.policyAir)
+									#set($index = ${vCount} - 1)
+									<td>$!newContent.startmile 公里 -$!newContent.endmile 公里</td>
+									<td>
+										#if($!newContent.allowfly==0)
+											不允许乘坐飞机
+										#else 
+											允许乘坐飞机,
+										#end 
+										#if($!newContent.cabinlimit==1)
+											舱位不得高于$!newContent.cabinzhekou折,
+										#else
+											舱位没有限制,
+										#end
+										#if($!newContent.flightlimit==1)
+											#if($!newContent.flightlowtype==0)
+												预订当前航班的最低价
+											#elseif($!newContent.flightlowtype==1)
+												预订当天航班的最低价
+											#elseif($!newContent.flightlowtype==2)
+												预订前后$!newContent.flighthour小时的航班,
+											#end
+										#end
+										#if($!newContent.allowbefore==1)
+											提前$!newContent.beforeday天预订
+										#end
+									</td>
+								    <td>
+								    	#if($!newContent.allowc !=1)
+								    		不允许预订
+								    	#else
+								    		超标审批
+								    	#end
+								    </td>
+									#if($!{vCount}==1)
+									<td class="table_caozuo" rowspan="$!newAir.policyAir.size()">
+										<div class="clear table-btn-div">
+											<a href="/crm/chailv/guonei/$!{newAir.companyid}/$!{newAir.id}" class="btn btn-default btn-small">编辑</a>
+											<button type="button" class="btn btn-danger btn-small" onclick="deleteAir($!cid,$!{newAir.id})">删除</button>
+										</div>	
+									</td>
+							        #end 
+								</tr>
+							#end 
+							#end 
+							#end
+							
+						</tbody>
+					</table>
+				</div>
+				<!-- table end -->
+			</div>
+			#end
+			<!-- 国内机票 end -->
+			<!-- 国内酒店 begin -->
+			 #if($!companybusiness.get(2)==1)
+			<div class="margin-top-20 model">
+				<div class="policy-title clear">
+					<div class="auvgo-approve-bg arrow-button policy-title-sub">
+						国内酒店
+					</div>
+					<a href="/crm/chailv/hotel" class="btn btn-default btn-big">添加政策</a>
+					<a href="/chailv/hotel/geo/list" class="btn btn-default1 btn-big">城市级别</a>
+					<span style="color: #d10773;margin-left: 20px;">重要提示：添加酒店政策之前，请先维护城市级别</span>
+				</div>
+				<div class="table-wraper">
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>级别</th>
+								<th>城市级别</th>
+								<th>价格限制</th>
+								<th>管控方式</th>
+								<th class="table_caozuo">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+					#foreach($!cps in $!policyHotelList)
+						#if("$!company.chailvbiaozhun"== "level" && "$!cps.startlevel"!= "")
+							<tr>
+								#set($t_list=$cps.citylevelname.split("/")) 
+								#set($t_price=$cps.price.split("/"))
+								#set($t_contr=$cps.controllertype.split("/"))
+								<td rowspan="$!t_list.size()" class="big-drop drop-45-width">
+									#if("$!cps.startlevel"!= "")
+										$!param.get("$!cps.startlevel")<span class="color-666"> 至 </span>$!param.get("$!cps.endlevel")
+									#else
+										<span>公司统一设置</span>
+									#end
+								</td>
+								#foreach($!cpl in $!t_list)
+									#set($index=$!{vCount} - 1)
+									<td>$!cpl</td>
+									<td>价格限制<span>$t_price[$index]</span>元/间夜。</td>
+									<td>#if($t_contr[$index] == 0)不允许预订 #elseif($t_contr[$index] == 1)超标审批 #else只提醒,无需审批#end</td>
+									#if($!{vCount}==1)
+									<td  class="table_caozuo" rowspan="$!t_list.size()" >
+										<div class="clear table-btn-div">
+											<a href="/crm/chailv/editHotelCity/$!cps.id" class="btn btn-default btn-small">编辑</a>
+											<button type="button" class="btn btn-danger btn-small" onclick="deleteHotel($!{cps.id})">删除</button>
+										</div>
+									</td>
+								#end
+							</tr>
+							#end
+						#elseif("$!company.chailvbiaozhun"== "company" && !($!cps.startlevel))
+							<tr>
+								#set($t_list=$cps.citylevelname.split("/")) 
+								#set($t_price=$cps.price.split("/"))
+								#set($t_contr=$cps.controllertype.split("/"))
+								<td rowspan="$!t_list.size()" class="big-drop drop-45-width">
+									#if("$!cps.startlevel"!= "")
+										$!param.get("$!cps.startlevel")<span class="color-666"> 至 </span>$!param.get("$!cps.endlevel")
+									#else
+										<span>公司统一设置</span>
+									#end
+								</td>
+								#foreach($!cpl in $!t_list)
+									#set($index=$!{vCount} - 1)
+									<td>$!cpl</td>
+									<td>价格限制<span>$t_price[$index]</span>元/间夜。</td>
+									<td>#if($t_contr[$index] == 0)不允许预订 #elseif($t_contr[$index] == 1)超标审批 #else只提醒,无需审批#end</td>
+									#if($!{vCount}==1)
+									<td  class="table_caozuo" rowspan="$!t_list.size()" >
+										<div class="clear table-btn-div">
+											<a href="/crm/chailv/editHotelCity/$!cps.id" class="btn btn-default btn-small">编辑</a>
+											<button type="button" class="btn btn-danger btn-small" onclick="deleteHotel($!{cps.id})">删除</button>
+										</div>
+									</td>
+								#end
+							</tr>
+							#end
+						#end
+					#end
+				</tbody>
+					</table>
+				</div>
+			</div>
+			#end
+			<!-- 国内酒店 end -->
+			<!-- 火车票 begin -->
+			#if($!companybusiness.get(0)==1)
+			<div class="margin-top-20 model">
+				<div class="policy-title clear">
+					<div class="auvgo-approve-bg arrow-button policy-title-sub">
+						火车票
+					</div>
+					<a href="/crm/chailv/train" class="btn btn-default btn-big">添加政策</a>
+				</div>
+				<!-- table begin -->
+				<div class="table-wraper">
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>级别</th>
+								<th>可预订席别</th>
+								<th>管控方式</th>
+								<th class="table_caozuo">操作</th>
+							</tr>
+						</thead>
+				#foreach($hcp in $!policyTrain)
+			    #set($t_gaotie=$hcp.gaotie.split("/"))
+				#set($t_donche=$hcp.donche.split("/"))
+				#set($t_pukuai=$hcp.pukuai.split("/"))
+				#set($t_contro=$hcp.controltype.split("/"))
+				#set($index=$!{vCount} - 1)
+					#if("$!company.chailvbiaozhun"== "level" && "$!hcp.startlevel"!= "")
+						<tbody>
+							<tr>
+								<td class="clear big-drop drop-45-width" rowspan="3">
+									$!param.get("$!hcp.startlevel")<span class="color-666"> 至 </span>$!param.get("$!hcp.endlevel")
+								</td>
+								<td style="text-align:left">G/C 高铁/城际:&nbsp;<span>#foreach($!gt in $t_gaotie)$!seatmap.get("$!gt")&nbsp;&nbsp;#end</span></td>
+								<td>#if("$!t_contro[0]"!=1 )不允许预订 #else超标审批  #end</td>
+								<td class="table_caozuo" rowspan="3">
+									<div class="clear table-btn-div">
+										<a href="/crm/chailv/editTrain/$!hcp.id" class="btn btn-default btn-small">编辑</a>
+										<button type="button" class="btn btn-danger btn-small" onclick="deleteTrain($!{hcp.id},$user.companyid)">删除</button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align:left">动车:&nbsp;<span>#foreach($!dc in $t_donche)$!seatmap.get("$!dc")&nbsp;&nbsp;#end</span></td>
+								<td>#if("$!t_contro[1]"!=1 )不允许预订 #else超标审批  #end  </td>
+							</tr>
+							<tr>
+								<td style="text-align:left">普快:&nbsp;<span>#foreach($!pk in $t_pukuai)$!seatmap.get("$!pk")&nbsp;&nbsp;#end</span></td>
+								<td>#if("$!t_contro[2]"!=1 )不允许预订 #else超标审批  #end  </td>
+							</tr>
+					#elseif("$!company.chailvbiaozhun"== "company" && !($!hcp.startlevel))
+							<tbody>
+								<tr>
+									<td class="clear big-drop drop-45-width" rowspan="3">
+										<span>公司统一设置</span>
+									</td>
+									<td style="text-align:left">G/C 高铁/城际:&nbsp;<span>#foreach($!gt in $t_gaotie)$!seatmap.get("$!gt")&nbsp;&nbsp;#end</span></td>
+									<td>#if("$!t_contro[0]"!=1 )不允许预订 #else超标审批  #end</td>
+									<td class="table_caozuo" rowspan="3">
+										<div class="clear table-btn-div">
+											<a href="/crm/chailv/editTrain/$!hcp.id" class="btn btn-default btn-small">编辑</a>
+											<button type="button" class="btn btn-danger btn-small" onclick="deleteTrain($!{hcp.id},$user.companyid)">删除</button>
+										</div>	
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align:left">动车:&nbsp;<span>#foreach($!dc in $t_donche)$!seatmap.get("$!dc")&nbsp;&nbsp;#end</span></td>
+									<td>#if("$!t_contro[1]"!=1 )不允许预订 #else超标审批  #end  </td>
+								</tr>
+								<tr>
+									<td style="text-align:left">普快:&nbsp;<span>#foreach($!pk in $t_pukuai)$!seatmap.get("$!pk")&nbsp;&nbsp;#end</span></td>
+									<td>#if("$!t_contro[2]"!=1 )不允许预订 #else超标审批  #end  </td>
+								</tr>
+						#end
+					#end
+						</tbody>
+					</table>
+					<!-- table end -->
+				</div>
+			</div>
+			</div>
+			#end
+			#end
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript">
+		var qiyong,formSet;
+		 /*差旅标准自加载*/
+		function chailv_set(){
+			if($(".FormSet:checked").val()=="company"){
+				$(".set_style").html("按公司统一设置");
+			}else{
+				$(".set_style").html("按员工职级设置");
+			}
+		}
+		chailv_set();
+		$("body").on("click",".chailv_",function(){
+			qiyong=$(".qiyong_:checked").val();
+			formSet=$(".FormSet:checked").val();
+			chailv_set();
+			$.ajax({
+	             type: "POST",
+	             url:"/crm/chailv/policyset/"+qiyong+"/"+formSet,
+	             success: function(data) {
+	            	 if (data.status == 200) {
+	            		 zh.alerts({
+								title:"提示",
+								text:"设置成功!"
+							});
+	            		 $("body").on("click",".alert_event",function(){
+	            			 location.reload();
+		            		 /* var isQiyong = $(".label-select-radio").find("input[name='qiyongchailv']").val();
+		            		 isQiyong=='Y'?$(".model").show():$(".model").hide(); */
+	            		 });
+	 				}if (data.status == 300){
+	 					zh.alerts({
+							title:"提示",
+							text:"设置失败!"
+						});
+	 				}
+	             }
+	         });
+		});
+		function deleteAir(id,cid){
+			zh.confirms({title:"提示",text:"您确定删除该条差旅政策吗？"});
+			$("body").on("click",".confirm_sure",function(){
+				$.ajax({
+					   type: "POST",
+					   url:"/crm/chailv/gnremove/"+id+"/"+cid,
+					   success: function(data){
+						   if (data.status == 200) {
+								zh.alerts({
+									title:"提示",
+									text:"删除成功!"
+								});
+								$("body").on("click",".alert_event",function(){
+									top.location.reload();
+								});
+							} else {
+								zh.alerts({
+									title:"提示",
+									text:"删除失败!"
+								});
+							}
+					   }
+				});
+			});
+		}
+		function deleteHotel(id){
+			zh.confirms({title:"提示",text:"您确定删除该条差旅政策吗？"});
+			 $("body").on("click",".confirm_sure",function(){
+					$.ajax({
+						   type: "POST",
+						   url:"/crm/chailv/deleteHotelCity/"+id,
+						   success: function(data){
+							   if (data.status == 200) {
+									zh.alerts({
+										title:"提示",
+										text:"删除成功!"
+									});
+									$("body").on("click",".alert_event",function(){
+										location.replace("/crm/chailv/");
+									});
+								} else {
+									zh.alerts({
+										title:"提示",
+										text:"删除失败!"
+									});
+								}
+						   }
+					});
+				});
+		}
+		function deleteTrain(ids){
+			zh.confirms({title:"提示",text:"您确定删除该条差旅政策吗？"});
+			$("body").on("click",".confirm_sure",function(){
+				$.ajax({
+					   type: "POST",
+					   url:"/crm/chailv/deleteTrainPolicy/"+ids,
+					   success: function(data){
+						   if (data.status == 200) {
+								zh.alerts({
+									title:"提示",
+									text:"删除成功!"
+								});
+								$("body").on("click",".alert_event",function(){
+									location.replace("/crm/chailv/");
+								});
+							} else {
+								zh.alerts({
+									title:"提示",
+									text:"删除失败!"
+								});
+							}
+					   }
+				});
+			});
+		}
+		</script>
+	</body>
+</html>

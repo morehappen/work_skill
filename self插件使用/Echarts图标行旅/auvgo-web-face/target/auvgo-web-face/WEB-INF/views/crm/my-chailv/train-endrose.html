@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>火车票改签单</title>
+    #parse("/common/styleSheetCommon.html")
+    <link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/my-chailv/my-chailv.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/my-chailv/train-order-list.css"/>
+</head>
+<body class="background-6461e2">
+#parse("/common/head.html")
+<!-- 主体 begin -->
+<div class="main-content main-myChailv-c clear">
+    <div class="float-left">
+        #parse("/common/second-nav.html")
+    </div>
+    <div class="float-left list-content">
+        <ul class="tab-model clear">
+            <li class="float-left"><a href="/myChailv/toNewTrainGaiOrder/personal?tag=trainEndrose" data-flag="personal"
+                                      class="position float-left">个人订单</a></li>
+            <li class="float-left"><a href="/myChailv/toNewTrainGaiOrder/all?tag=trainEndrose" data-flag="all"
+                                      class="position float-left">全部订单</a></li>
+        </ul>
+        <form action="/myChailv/toNewTrainGaiOrder/personal?tag=trainEndrose" method="POST" data-query="queryForm"
+              id="TrainEndroseForm" class="query_form">
+            <input id="pageNo" type="hidden" name="pageNum">
+            <input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+            <div class="input-select clear">
+                <div class="clear">
+                    <div class="input-model margin-default-r margin-10-b">
+                        <div class="i-m-text">日期类型：</div>
+                        <div class="i-m-input">
+                            <input type="text" value="申请日期" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="input-model margin-default-r margin-10-b middle-line position-rel">
+                        <div class="i-m-text">起始日期：</div>
+                        <div class="i-m-input">
+                            <input type="text" data-ele="sdate" id="GTE_date" name="q_GTE_gaiqianOrder.createtime"
+                                   value="$!q_GTE_gaiqianOrder_createtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+                                   readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="input-model margin-default-r margin-10-b">
+                        <div class="i-m-text">截止日期：</div>
+                        <div class="i-m-input">
+                            <input type="text" id="LTE_date" name="q_LTE_gaiqianOrder.createtime"
+                                   value="$!q_LTE_gaiqianOrder_createtime" data-ele="edate"
+                                   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="input-model margin-default-r margin-10-b middle-line position-rel">
+                        <div class="i-m-text">出发站：</div>
+                        <div class="i-m-input">
+                            <input type="text" data-ele="sstation" name="q_LIKE_gaiqianRoute.from_station"
+                                   value="$!q_LIKE_gaiqianRoute_from_station">
+                        </div>
+                    </div>
+                    <div class="input-model margin-default-r margin-10-b">
+                        <div class="i-m-text">到达站：</div>
+                        <div class="i-m-input">
+                            <input type="text" data-ele="estation" name="q_LIKE_gaiqianRoute.arrive_station"
+                                   value="$!q_LIKE_gaiqianRoute_arrive_station">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clear">
+                    <div class="input-model margin-default-r margin-10-b">
+                        <div class="i-m-text">车次：</div>
+                        <div class="i-m-input">
+                            <input type="text" data-ele="traincode" name="q_LIKE_gaiqianRoute.train_code"
+                                   value="$!q_LIKE_gaiqianRoute_train_code">
+                        </div>
+                    </div>
+                    <div class="input-model margin-default-r margin-10-b">
+                        <div class="i-m-text">联系人：</div>
+                        <div class="i-m-input">
+                            <input type="text" data-ele="linkpeople" name="q_LIKE_trainOrder.link_name"
+                                   value="$!q_LIKE_trainOrder_link_name">
+                        </div>
+                    </div>
+                    <div class="input-model margin-default-r margin-10-b">
+                        <div class="i-m-text">联系电话：</div>
+                        <div class="i-m-input">
+                            <input type="text" data-ele="linkphone" name="q_LIKE_trainOrder.link_phone"
+                                   value="$!q_LIKE_trainOrder_link_phone">
+                        </div>
+                    </div>
+                    <div class="input-model margin-default-r margin-10-b">
+                        <div class="i-m-text">订单状态：</div>
+                        <div class="i-m-input">
+                            <select class="_select_" name="q_IN_gaiqianOrder.status" data-ele="orderstatus"
+                                    data-value="$!q_IN_gaiqianOrder_status">
+                                <option value="">全部</option>
+                                <option value="0">未改签</option>
+                                <option value="1,3">改签中</option>
+                                <option value="2">已改签</option>
+                                <!-- <option value="3">改签失败</option> -->
+                                <option value="4">待支付</option>
+                                <option value="5">改签已取消</option>
+                                <option value="6">改签已确认</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-model margin-default-r margin-10-b train_query_box">
+                        <!--<div class="i-m-text"></div>-->
+                        <!--<div class="i-m-input">-->
+                        <!--</div>-->
+                        <button type="submit" class="btn btn-default btn-big">查询</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- table 表格部分 begin -->
+        <div class="margin-top-30 orde-table-wraper">
+            ## 全局变量-没有数据
+            #set ($noData = ($!page.list.size() == 0))
+            #if($noData)
+            #parse("/common/no-data.html")
+            #else
+            <table class="table table-align">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>改签单号</th>
+                    <!-- <th class="table_caozuo">操作</th> -->
+                    <th>申请时间</th>
+                    <th>乘客</th>
+                    <th>行程</th>
+                    <th>车次</th>
+                    <th>出发时间</th>
+                    <th>席别</th>
+                    <!-- <th>改签费用</th> -->
+                    <th>支付状态</th>
+                    <th>订单状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                #foreach($gaiqian in $!page.list)
+                <tr>
+                    <td>$vCount</td>
+                    <td>
+                        <a data-href_="/myChailv/toTrainEndroseDetail/$gaiqian.gOrder" href="javascript:void(0);"
+                           class="orderToDetail">$gaiqian.gOrder</a>
+                    </td>
+                    <!-- <td class="table_caozuo">
+                    <td class="table_caozuo">
+                        <div class="clear table-btn-div">
+                            <button type="button" class="btn btn-disabled btn-small">支付</button>
+                            <button type="button" class="btn btn-disabled btn-small">取消</button>
+                        </div>
+                    </td> -->
+                    <td>$dateTool.format("yyyy-MM-dd HH:mm:ss",$!gaiqian.createtime)</td>
+                    <td>
+                        <div class="hoverTips hover_content">$!gaiqian.userName</div>
+                    </td>
+                    <td class="line-height-td">$!gaiqian.newFromStation - $!gaiqian.newArriveStation</td>
+                    <td>$!gaiqian.newTrainCode</td>
+                    <td class="line-height-td">$!gaiqian.newTravelTime<br>$!gaiqian.newFromTime</td>
+                    <td>$!gaiqian.newSeatType</td>
+                    <!-- <td>?????</td> --><!-- 改签费用 -->
+                    <td>
+                        #if($!gaiqian.pay_status == 0)
+                        $!baseStatus.getPaystatus(0)
+                        #else #if($!gaiqian.pay_status == 1)
+                        $!baseStatus.getPaystatus(1)
+                        #else #if($!gaiqian.pay_status == 2)
+                        $!baseStatus.getPaystatus(2)
+                        #else #if($!gaiqian.pay_status == 3)
+                        $!baseStatus.getPaystatus(3)
+                        #end#end#end#end
+                    </td>
+                    <td>
+                        #if($!gaiqian.orderStatus == 2)
+                        <span class="color-ching">$!statusUtil.getGaiQianstatus($!gaiqian.orderStatus)</span>
+                        #elseif($!gaiqian.orderStatus == 3)
+                        <span class="color-red">$!statusUtil.getGaiQianstatus($!gaiqian.orderStatus)</span>
+                        #else
+                        <span>$!statusUtil.getGaiQianstatus($!gaiqian.orderStatus)</span>
+                        #end
+                    </td>
+                </tr>
+                #end
+                </tbody>
+            </table>
+            #end
+        </div>
+        <!-- table 表格部分 end -->
+
+        #if(!$noData)
+        <div id="kkpager"></div>
+        #end
+        <input type="hidden" data-ele="pagenum" value="$!page.pageNum">
+        <input type="hidden" data-ele="pages" value="$!page.pages">
+        <input type="hidden" data-ele="total" value="$!page.total">
+        <input type="hidden" data-ele="pagesize" value="$!pageSize">
+    </div>
+</div>
+
+
+<!-- 主体 end -->
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/js/crm/my-chailv/queryCookie.js"></script>
+<script type="text/javascript" src="/static/js/crm/my-chailv/orderCommon.js"></script>
+<script type="text/javascript" src="/static/js/crm/my-chailv/train-endrose.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

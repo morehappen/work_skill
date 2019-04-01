@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>火车票改签提交</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-apply-common.css" />
+	<style type="text/css">
+		.order-from{width: 95px;}
+	</style>
+</head>
+<body>
+	<div class="apply-line">
+		<div class="clear">
+			<span class="float-left e-l-c-newline">改签后车次</span>
+			<div class="o-content">
+				<div class="clear air-to-content">
+					<div class="clear">
+						<div class="order-from float-left">
+							<div class="font-size-14 margin-b-14">$!{train.fromStation}</div>
+							<div class="font-size-20 margin-b-14 air-time-show">$!{train.fromTime}</div>
+							<div class="font-size-14 air-airport">$!{queryDate}</div>
+						</div>
+						<div class="order-mid float-left text-align">
+							<div class="">$!{train.trainNo}</div>
+							<div class="tarin-bg arrow-big"></div>
+							<div class="tuigai-des position">$!{seatName}</div>
+						</div>
+						<div class="order-arrive float-left">
+							<div class="font-size-14 margin-b-14">$!{train.toStation}</div>
+							<div class="font-size-20 margin-b-14 air-time-show">$!{train.toTime}</div>
+							<div class="font-size-14 air-airport">$!dateTool.format('yyyy-MM-dd',$!arrivateDate)</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear margin-bottom-40">
+			<span class="float-left e-l-c-p">乘车人</span>
+			<span>$!{name}</span>
+		</div>
+		<!--#if($!charges > 0)-->
+		<!--<div class="clear margin-bottom-40">-->
+			<!--<span class="float-left e-l-c-p">改签手续费</span>-->
+			<!--<span>$!{charges}元</span>-->
+		<!--</div>-->
+		<!--#end-->
+		<form action="/train/gaiqian/shenqing/$!{zorderno}"  target="_top" id="train-gaiqian-book-form" method="post">
+			<input type="hidden" name="usersId" value="$!gempIds">
+			<input type="hidden" name="gaiqianTime" value="$!gqueryDate">
+			<input type="hidden" name="seatCode" value="$!gseatCode">
+			<input type="hidden" name="trainCode" value="$!trainCode">
+			<div class="btnGrounp">
+				<button type="button" class="btn btn-default btn-big book-submit" id="train-gaiqian-book">提交改签</button>
+			</div>
+		</form>
+	</div>
+	#parse("/common/foot.html")
+	<script type="text/javascript" src="/static/js/train/train-gaiqian-book.js"></script>
+</body>
+</html>

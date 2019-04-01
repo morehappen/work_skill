@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>机票申请退票</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-apply-common.css" />
+</head>
+<body>
+<div class="tips-content">
+	<p>*退票操作后无法撤销</p>
+	<p>*退票手续费及最终退款金额以航司实退为准</p>
+</div>
+<div class="apply-line">
+	<form target="_top" method="post" id="tp_form_submit">
+	<div class="clear line-container">
+		<input type="hidden" name="orderNo_" data-orderno="$!routes.orderno">
+		<div class="clear e-line-content">
+			<span class="float-left e-l-c-title">选择航班</span>
+			<span class="every-line float-left airline_e">
+				<div class="label label-checkbox label-margin-right label-select-checkbox float-left">
+					<!--<span class="show_choice"></span>-->
+					<span class="e-p-name">
+						去程：
+					</span>
+					<input type="checkbox" name="line" value="" checked>
+				</div>
+				<span class="float-left">$!routes.orgname</span>
+				<span class="float-left line-point"></span>
+				<span class="float-left">$!routes.arriname</span>
+				<span class="float-left air-line-num">$!routes.airline</span>
+				#set($fromDate = $!routes.deptdate.split("-"))
+				<span class="float-left">$fromDate[1]:$fromDate[2] $!routes.depttime</span>
+				<input type="hidden" value="$!routes.id" name="routeid">
+			</span>
+		</div>
+	</div>
+	<div class="clear e-l-c-person">
+		<span class="e-l-person float-left">选择乘机人</span>
+		<div class="float-left person-c">
+			#foreach($eperson in $!userlist)
+			<div class="label label-checkbox label-margin-right float-left">
+				<span class="show_choice"></span>
+				<span class="e-p-name hoverTips hover_content">
+					$eperson.name
+				</span>
+				<input type="checkbox" name="tPerson" data-passid="$eperson.id" value="$eperson.employeeid">
+			</div>
+			#end
+		</div>
+	</div>
+	<div class="tuipiao-reason">
+		<div class="clear margin-bottom-16">
+			<span class="float-left e-l-c-width">退票原因</span>
+			<div class="label label-radio label-margin-right label-select-radio">
+				<span class="show_choice"></span>
+				<input type="radio" name="ziyuantp" checked="checked" value="1">
+				<span>自愿退票</span>
+			</div>
+		</div>
+		<div class="clear margin-bottom-16">
+			<span class="float-left e-l-c-width"></span>
+			<div class="label label-radio label-margin-right float-left no-con">
+				<span class="show_choice"></span>
+				<input type="radio" name="ziyuantp" value="0">
+				<span>非自愿退票</span>
+			</div>
+			<div class="float-left tp-content">
+
+				<select class="_select_ tp_reason_select" name=""  data-value="">
+					<option value="">请选择</option>
+					#foreach($tpr in $!jpReasonList)
+					<option value="$tpr.name">$tpr.name</option>
+					#end
+				</select>
+			</div>
+			<input type="text" class="input border-radius float-left hide" name="tpReason" maxlength="16" placeholder="请输入16个字以内的退票原因" value="">
+		</div>
+		<!--<div class="clear">-->
+			<!--<div class="img-container">-->
+				<!--<input name="myPhoto" type='file' class="file_up" onchange="getPhoto(this)" accept="image/png"-->
+					   <!--style="width: 250px; height: 120px; font-size: 0;background:transparent;position: absolute; left: 0; top: 0; z-index: 5; cursor: pointer">-->
+				<!--<img id="logopic" class="img-preview" style="max-width: 250px;border: none;" src="">-->
+				<!--<div class='size_limit'>-->
+					<!--<img src='/static/img/common/upimg.png' class="size_img" >-->
+					<!--<span class="img_text_up">上传图片</span>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+	</div>
+
+	<!--<div class="clear">-->
+		<!--<span class="float-left e-l-c-cost">退票手续费</span>-->
+		<!--<span>120元/人</span>-->
+	<!--</div>-->
+	<div class="btnGrounp">
+		<button type="button" class="btn btn-default btn-big js-sure-tuipiao">确定退票</button>
+	</div>
+	</form>
+</div>
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/js/crm/my-chailv/air-apply-common.js"></script>
+</body>
+</html>

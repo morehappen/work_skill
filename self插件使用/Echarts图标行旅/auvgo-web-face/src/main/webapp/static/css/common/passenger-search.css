@@ -1,0 +1,73 @@
+/* 选择乘客 begin*/
+.passanger-search{width:760px;max-height:528px;top:50%;bottom: 0;left:50%;right: 0;margin-left:-380px;margin-top:-262px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+.passanger-search-new{width:760px;max-height: 600px;:528px;top:50%;bottom: 0;left:50%;right: 0;margin-left:-380px;margin-top:-262px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+.p-s-title{height:50px;line-height:50px;padding-left:30px;color:#333;font-size: 16px;font-family:"微软雅黑";background-color: #fff;border-radius:10px 10px 0px 0px;}
+.close-person{font-size:22px;top:0;right:20px; color:#666;}
+.select-content{height:70px;line-height:70px;padding:0 30px;background:#f4f4f4;overflow-y: auto;}
+.e-select-p,.removeUserSelect{width:45px;height:45px;line-height: 45px;text-align: center;-moz-border-radius: 50%;-webkit-border-radius: 50%;border-radius: 50%}
+.e-select-p{margin:13px 16px 0 0;}
+.removeUserSelect{color:#fff;background:#000;opacity:0.8;filter:alpha(opacity=80);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";top:0;left:0;}
+.select-true-p{width:62px;height:30px;line-height:28px;margin-top: 20px}
+.p-s-tab{height:50px;background: #e3eaf7;padding-left:30px;}
+.tab-e{width:145px;height:44px;line-height: 44px;text-align: center;margin-top:6px;}
+.history{margin-bottom:14px;}
+.tab-e-select{background: #fff}
+.tab-c-1{padding:20px 39px 0 39px;}
+.h-t-p{color:#999;}
+.input-new .input{ margin-right: 5px;height: 30px;line-height: 30px;padding-left: 0;border:0px
+;border-bottom: 2px solid gainsboro}
+.search-p-input{width:642px;height:40px;line-height: 40px;padding-left:36px;border:2px solid #d9e4fe;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
+.nessary-b{color:red;position: absolute;top:5px;left:-9px;}
+.star_weight{display: block;margin-top: -57px;margin-left: -10px}
+.send_inform {  cursor: pointer; }
+.margin-top-8{margin-top: 8px}
+/*.margin-left_20{margin-left: -20px}*/
+.margin-left-250{margin-left: 250px}
+.show_choice{width: 18px;height: 18px;line-height: 18px;vertical-align: middle;padding-left: 0;background: url(../../img/common/check_groups.png) no-repeat 0px -57px;float: left;background-position: 0 -76px;}
+/* 选择乘客 end*/
+.staff-scroll{width: 682px;height: 217px;overflow: hidden;}
+.staff-wraper li{height: 36px;line-height: 36px;cursor: pointer;padding-left: 36px;font-size: 12px;color: #999;}
+.staff-wraper li:hover{background: #e3eaf7;}
+.staff-wraper li>span{float: left;}
+.p-name{width: 60px;color: #333;}
+.p-certno{width: 170px;margin-left: 20px;display:inline-block;height:36px;}
+.p-tel{width: 130px;margin-left: 20px;display:inline-block;height:36px;}
+.e-h-pass{cursor: pointer;margin: 0 10px;color: #333;}
+.p-dept{width: 180px;display:inline-block;}
+/* 修改乘客 */
+.edit-passenger{width: 750px;height: 400px;padding: 0;margin-top: -129px; margin-left: -380px;-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;}
+.search-bg{width: 20px;height: 20px;position: absolute;top: 12px;left: 10px;background: url('/static/img/train/train-bg.png') no-repeat -40px -92px;}
+.tab-c-c{width: 720px; margin-left: 40px;margin-top: 35px; box-sizing: border-box;}
+.tab-new-message{width: 750px;margin-left: 30px;margin-top: 35px; box-sizing: border-box;}
+.amend {font-size: 14px; color: #a7a7a7;white-space: nowrap}
+.amend input{padding: 0}
+.tab-c-c{padding-right: 0;}
+.tab-c-c input[type='text']{width:190px; }
+.tab-c-c .drop{float:left;width:200px;}
+.tab-new-message input[type='text']{width:160px; }
+.tab-new-message .drop{float:left;width:160px;}
+.margin-left-30{margin-left: 30px}
+#save-pass-edit {margin-right: 30px}
+.switchover{width: 10px;height: 10px; border: 1px solid black;}
+.hite_year{width:170px;height:120px;background:rgba(255,255,255,1);border-radius:5px;margin-top:5px;box-shadow:2px 0px 8px rgba(160,160,160,0.35);display: none}
+/*!*增加常用联系人标识*!*/
+.linkEmpid{
+	position:absolute;right:0;margin-right:10px;width:30px;height:20px;color:#fff;background:#D44A9F;text-align:center;font-size:12px;line-height:20px;top:7px;}
+.color-999{color:#999;}
+.chinese{display: inline;width: 40px;height: 20px;vertical-align: middle; }
+.chinese_switch{width: 40px;height: 20px;background:url("/static/img/common/zhong.png");-webkit-background-size: cover;background-size: cover;}
+.english_switch{width: 40px;height: 20px;background:url("/static/img/common/ying.png");-webkit-background-size: cover;background-size: cover;}
+.change_one{width: 350px}
+.change_two{width: 320px;}
+	/*常用标志样式*/
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

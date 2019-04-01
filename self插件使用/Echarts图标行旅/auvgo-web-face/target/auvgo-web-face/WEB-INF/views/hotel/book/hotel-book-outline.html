@@ -1,0 +1,82 @@
+<div class="hotel-infor-model background-fff  font-size-12 position">
+    <div class="h-infor-h margin-bottom-20">
+        <div class="h-infor-h-t-w margin-bottom-10 clear">
+            <div class=" font-size-16 font-600  ">
+                $!{detail.nameCn}
+                #if($!detail.category==5)
+                <span class="star-level"></span>
+                <span class="star-level"></span>
+                <span class="star-level"></span>
+                <span class="star-level"></span>
+                <span class="star-level"></span>
+                #elseif($!detail.category==4)
+                <span class="star-level"></span>
+                <span class="star-level"></span>
+                <span class="star-level"></span>
+                <span class="star-level"></span>
+                <span class="nothing-star-level"></span>
+                #elseif($!detail.category==3)
+                <span class="star-level"></span>
+                <span class="star-level"></span>
+                <span class="star-level"></span>
+                <span class="nothing-star-level"></span>
+                <span class="nothing-star-level"></span>
+                #elseif($!detail.category==2)
+                <span class="star-level"></span>
+                <span class="star-level"></span>
+                <span class="nothing-star-level"></span>
+                <span class="nothing-star-level"></span>
+                <span class="nothing-star-level"></span>
+                #end
+                
+            </div>
+        </div>
+        <div class="h-infor-h-desc clear">
+            <span class=" float-left   color-888 margin-right-10" data-cityid="0101">$!{detail.addressCn}</span>
+            <span class="float-left">
+				#if($!detail.category==5)
+			      	豪华型
+			    #elseif($!detail.category==4)
+			      	高档型
+			    #elseif($!detail.category==3)
+			      	舒适型
+			    #else
+			      	经济型
+			    #end
+			</span>
+        </div>
+    </div>
+    <div class="h-infor-i">
+        <img src="$!{detail.coverImage.replace('120_120','480_350')}">
+    </div>
+</div>
+<div class="h-infor-f h-information margin-10-b h-infor-f-box background-E7EBFA">
+    <div class="  h-name-s">$!{room.rname}</div>
+    <div class="e-room-f font-size-12 clear">
+        <div class="e-room-f-wraper clear">
+            <span class="e-f-bg  e-f-01 float-left"></span>
+            <span class="e-f-text ">#if($!room.windows=="1")有窗 #elseif($!room.windows=="2")部分有窗#else 无窗#end</span>
+        </div>
+        <div class="e-room-f-wraper clear">
+            <span class="e-f-text float-right">$!{room.floor}层</span>
+            <span class="e-f-bg  e-f-02 float-right"></span>
+        </div>
+        <div class="e-room-f-wraper clear">
+            <span class="e-f-bg  e-f-03 float-left"></span>
+            <span class="e-f-text ">$!{room.area}平米</span>
+        </div>
+        <div class="e-room-f-wraper clear">
+            <span class="e-f-text float-right">$!{room.bedDesc}</span>
+            <span class="e-f-bg  e-f-04 float-right"></span>
+        </div>
+        <div class="e-room-f-wraper clear">
+            <span class="e-f-bg  e-f-05 float-left"></span>
+            <span class="e-f-text ">可住$!{room.capacity}人</span>
+        </div>
+        <div class="e-room-f-wraper clear">
+            <span class="e-f-text float-right">#if($!room.broadNet=="1")免费宽带 #elseif($!room.windows=="2")收费宽带 #elseif($!room.windows=="3")免费WIFI#elseif($!room.windows=="4")收费WIFI#else 无#end</span>
+            <span class="e-f-bg   e-f-06 float-right" style="height:21px;"></span>
+
+        </div>
+    </div>
+</div>

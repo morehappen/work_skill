@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>我的差旅-机票退票单列表</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/my-chailv.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/train-order-list.css"/>
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<!-- 主体 begin -->
+		<div class="main-content main-myChailv-c clear">
+			<div class="float-left">
+				#parse("/common/second-nav.html")
+			</div>
+			<div class="float-left list-content">
+				<ul class="tab-model clear">
+					<li class="float-left"><a href="/myChailv/toNewAirTuiOrder/personal?tag=airRefund" data-flag="personal" class="position float-left">个人订单</a></li>
+					<li class="float-left"><a href="/myChailv/toNewAirTuiOrder/all?tag=airRefund" data-flag="all" class="position float-left">全部订单</a></li>
+				</ul>
+				<form action="/myChailv/toNewAirTuiOrder/personal?tag=airRefund" method="POST" data-query="queryForm" id="AirRefundForm" class="query_form">
+					<input id="pageNo" type="hidden" name="pageNum">
+					<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+					<div class="input-select clear">
+						<div class="clear">
+							<div class="input-model margin-default-r margin-10-b">
+								<div class="i-m-text">日期类型：</div>
+								<div class="i-m-input">
+									<input type="text" readonly value="申请日期">
+								</div>
+							</div>
+							<div class="input-model margin-default-r margin-10-b middle-line position-rel">
+								<div class="i-m-text">起始日期：</div>
+								<div class="i-m-input">
+									<input type="text" data-ele="sdate" id="GTE_date" name="q_GTE_tuipiao.createtime" value="$!q_GTE_tuipiao_createtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+								</div>
+							</div>
+							<div class="input-model margin-default-r margin-10-b">
+								<div class="i-m-text">截止日期：</div>
+								<div class="i-m-input">
+									<input type="text" data-ele="edate" id="LTE_date" name="q_LTE_tuipiao.createtime" value="$!q_LTE_tuipiao_createtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+								</div>
+							</div>
+							<div class="input-model margin-default-r margin-10-b">
+								<div class="i-m-text">申请人：</div>
+								<div class="i-m-input">
+									<input type="text" data-ele="applyperson" name="q_LIKE_tuipiao.tjusername" value="$!q_LIKE_tuipiao_tjusername">
+								</div>
+							</div>
+							<div class="input-model margin-default-r margin-10-b train_query_box">
+								<div class="i-m-text"></div>
+								<div class="i-m-input">
+									<button type="submit" class="btn btn-default btn-big">查询</button>
+								</div>
+							</div>
+						</div>
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">乘机人：</div>
+							<div class="i-m-input">
+								<input type="text" data-ele="passengerp" name="q_LIKE_tuiuser.name" value="$!q_LIKE_tuiuser_name">
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- table 表格部分 begin -->
+				<div class="margin-top-30 orde-table-wraper">
+					## 全局变量-没有数据
+					#set ($noData = ($!page.list.size() == 0))
+					#if($noData)
+					#parse("/common/no-data.html")
+					#else
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>退票单号</th>
+								<!-- <th>申请人</th> -->
+								<th>申请时间</th>
+								<th>乘机人</th>
+								<th>航程</th>
+								<th>航班号</th>
+								<th>起飞时间</th>
+								<th>票价</th>
+								<th>退票费</th>
+								<th>应退金额</th>
+								<th>订单状态</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						#foreach($tuipiao in $!page.list)
+							<tr>
+								<td>$!vCount</td>
+								<td><span class="color-6461e2">
+								<a data-href_="/myChailv/toAirRefundDetail/$!tuipiao.tporderno" href="javascript:void(0);" class="orderToDetail">$!tuipiao.tporderno</a>
+								</span></td>
+								<!-- <td>$!tuipiao.tjusername</td> -->
+								<td class="line-height-td">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!tuipiao.createtime)</td>
+								<td>
+									<div class="hoverTips hover_content">$!tuipiao.username</div>
+								</td>
+								<td>$!{tuipiao.orgname} - $!{tuipiao.arriname}</td>
+								<td>$!tuipiao.airline</td>
+								<td class="line-height-td">$!{tuipiao.deptdate}<br>$!{tuipiao.depttime}</td>
+								<td>$!tuipiao.price</td>
+								#if($!tuipiao.show_status == 1)
+								<td>$!tuipiao.kh_yinkou</td>
+								<td>$!tuipiao.tpprice</td>
+								#else
+								<td>--</td>
+								<td>--</td>
+								#end
+								<td> #if($!{tuipiao.show_status}==1)<span class="color-green">$!airUtils.getFaceTuipiao($!{tuipiao.show_status})</span>
+								#else$!airUtils.getFaceTuipiao($!{tuipiao.show_status})#end </td>
+							</tr>
+						#end
+						</tbody>
+					</table>
+					#end
+				</div>
+				<!-- table 表格部分 end -->
+				
+				#if(!$noData)
+				<div id="kkpager"></div>
+				#end
+				<input type="hidden" data-ele="pagenum" value="$!page.pageNum">
+				<input type="hidden" data-ele="pages" value="$!page.pages">
+				<input type="hidden" data-ele="total" value="$!page.total">
+				<input type="hidden" data-ele="pagesize" value="$!pageSize">
+			</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/my-chailv/queryCookie.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/orderCommon.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/air-refund.js"></script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+

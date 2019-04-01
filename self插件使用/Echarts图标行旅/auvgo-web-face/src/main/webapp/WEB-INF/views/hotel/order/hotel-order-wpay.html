@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>酒店订单-详情</title>
+	<link rel="icon" sizes="any" href="/resources/images/common/favicon.ico">
+	<link rel="stylesheet" href="/resources/css/common/common.css">
+	<link rel="stylesheet" href="/resources/css/common/plugin.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/hotel/hotel-book-sure.css" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/hotel/hotel-new-book-sure.css" />
+	<style>
+		.hotel-bg{background: url(../../static/img/hotel/hotel-bg.png) no-repeat;}
+		.warn-mark{margin-right: 5px;float: left;width: 18px;height: 18px;background-position: -86px -54px;}
+	</style>
+
+</head>
+<body class="background-6461e2">
+#parse("/common/head.html")
+<div class="main-content" style="position:relative;">
+	<div class="status clear" id="status">
+		<!-- 订单头 -->
+		#parse("/hotel/order/hotel-order-detail-top.html")
+		<!-- button -->
+		<div class="float-right">
+			#if(($!orderDetail.orderStatus=="WAIT_CONFIRM" || $!orderDetail.orderStatus=="WAIT_PAY")
+			&& $!orderDetail.balanceType=="Personage" && ($!orderDetail.isGuarantee || $orderDetail.payment=="Prepay")
+			&& $!orderDetail.payStatus!=1)
+			#if($!orderDetail.isGuarantee && $orderDetail.payment=="SelfPay")
+			<a href="/hotel/order/pay/$!{orderDetail.orderNo}" target="_blank" class="btn btn-default btn-middle" id="btn-order-pay" >去担保</a>
+			#end
+			<a href="/hotel/order/pay/$!{orderDetail.orderNo}" target="_blank" class="btn btn-default btn-middle" id="btn-order-pay" style="display: none;">支付订单</a>
+			#end
+			<button type="button" class="btn btn-cancel btn-middle" onclick="wpayCallBack()">返回</button>
+		</div>
+	</div>
+	<div class="clear">
+		<div class="float-left">
+
+			
+			<!-- 酒店 begin -->
+			#parse("/hotel/order/hotel-order-detail-hotel.html")
+
+			<!-- 入住人 begin -->
+			#parse("/hotel/order/hotel-order-detail-customer.html")
+
+			<!-- 差旅信息 begin -->
+			#parse("/hotel/order/hotel-order-detail-travel.html")
+
+			<!-- 联系人 begin -->
+			#parse("/hotel/order/hotel-order-detail-link.html")
+
+
+		</div>
+		
+		<div class="float-right">
+			<!-- 价格 -->
+			#parse("/hotel/order/hotel-order-detail-price.html")
+			
+			<!-- 审批 -->
+			#parse("/hotel/order/hotel-order-detail-approval.html")
+		</div>
+	</div>
+	<form action="" id="cancel_order_form" method="post">
+		<input type="hidden" name="orderNo" value="$!{orderDetail.orderNo}" />
+		<input type="hidden" name="supper" value="$!{orderDetail.serverNo}"/>
+		<input type="hidden" name="reason" value="" id="cancel_reason_i"/>
+	</form>
+	
+</div>
+<div class="loginBox " style="position:fixed;bottom:0;left:0; opacity:0.5;width:100%; height:100%;background: #000000;z-index: 10000000;display:none;"></div>
+<!--底部-->
+#parse("/common/footer-bottom.html")
+</body>
+#parse("/common/foot.html")
+<script type="text/javascript" src="/resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/plugin/layer/layer.js"></script>
+<script type="text/javascript" src="/resources/js/hotel/order/hotel-order-detail.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-ajax.js"></script>
+<script type="text/javascript" src="/resources/js/common/common-oa.js"></script>
+
+<script type="text/javascript" >
+    $(function(){
+        var a = $('#status'), b =a.offset();
+        $(document).on('scroll',function(){
+            var c = $(document).scrollTop();
+            if(b.top<=c){
+                a.css({'position':'fixed','top':'0px'})
+            }else{
+                a.css({'position':'static','top':'0px'})
+            }
+        })
+    });
+</script>
+</html>

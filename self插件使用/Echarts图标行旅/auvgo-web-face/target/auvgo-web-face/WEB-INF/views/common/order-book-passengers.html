@@ -1,0 +1,382 @@
+##${flag} 为变量标识
+## 机票模块airOrder || 火车票模块order || 酒店模块order 辅助标识 ${_flag} 区分火车票和酒店模块
+
+<div class="air-common-p clear margin-left_20" style="background:rgba(250,250,250,1);
+border-radius:5px;">
+	<div class="more" style="font-size: 14px; margin:10px 0px 10px 20px;color:rgba(51,51,51,1)">常用出行人</div>
+	<div class="float-left a-c-p-c font-size-12 text-align" style="margin-left: 20px"></div>
+	<div class="float-right cy-lxr" data-status="1">
+		<span class="font-size-12 color-default changyong-person globalColor cursor"></span>
+	</div>
+</div>
+#if("$!model" !="" && "$!model.airUser" != "")
+<div class="clear passanger-container" >
+	<div class="passanger-model" data-loginlevel="" data-logindept="">
+		<!--<div class="e-p-model font-size-12 hide" data-id="" data-level="" data-certtype="" data-certno="" data-name="" data-deptname="" data-passtype="">-->
+		#foreach($airUser in $!model.airUser) #set($index=$vCount - 1)
+		<div class="e-p-model font-size-12 "
+			 data-id="$!airUser.employeeid"
+			 data-level="$!airUser.zhiwei"
+			 data-certtype="$!airUser.certtype"
+			 data-certno="$!airUser.certno"
+			 data-name="$airUser.name"
+			 data-deptname="$!airUser.depname"
+			 data-passtype="1"
+			 data-mobile="$!airUser.mobile"
+			 data-costId="$!airUser.costId"
+			 data-costName="$!airUser.costName"
+			 data-itemNumberId="$!airUser.itemNumberId"
+			 data-itemNumber="$!airUser.itemNumber"
+			 data-departmentid="$!airUser.deptid"
+			 style="border-bottom: 1px dashed #e5dfff;">
+			<div class="clear margin-bottom-10">
+				<span class="float-left p-m-name clear position">
+					<!--<span class="icon-img pass-bg position-ab"></span>-->
+					<span class="loginName p-every-passes text-ellipsis" title="">$!airUser.name</span>
+				</span>
+				<div class="float-left clear">
+					<span class="edit_p"></span>
+					<span class="remove_p"></span>
+					<div class="float-left margin-top-8 margin-left-250">
+						<div class="label label-checkbox cursor notice-margin  mobile_isSend #if($!airUser.isSend == true) label-select-checkbox #end #if('$!airUser.mobile'=='')show_choice_default #end  send_sms_pass_d">
+							<span class="show_choice"></span>
+							<input type="hidden" name="airUser[$!{index}].isSend" data-is="isSend-isSendEmail" value="$!airUser.isSend">
+							<span>短信</span></div>
+						<div class="label label-checkbox cursor notice-margin email_isSendEmail #if($!airUser.isSendEmail ==true) label-select-checkbox #end #if('$!airUser.email'!=' ')#else show_choice_default #end send_sms_pass_d" >
+							<span class="show_choice"></span>
+							<input type="hidden" name="airUser[$!{index}].isSendEmail" data-is="isSend-isSendEmail" value="$!airUser.isSendEmail">
+							<span>邮件</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="clear margin-bottom-10 p-t-999">
+				<div class="clear margin-bottom-10 p-t-999">
+					<div class="float-left p-w-160">
+						证件类型
+					</div>
+					<div class="float-left p-w-160">
+						证件号码
+					</div>
+					#if($!costcenter==1||$!costcenter==3)
+					<div class="float-left p-w-160">
+						#if($!costcenter==1)<b class="red" style="margin-left: -5px">*</b>#end
+						成本中心
+					</div>
+					#end
+					#if($!projectinfo==1||$!projectinfo==3)
+					<div class="float-left p-w-160 ">
+						#if($!projectinfo==1)<b class="red" style="margin-left: -5px">*</b>#end
+						<span class="isHuiChuan_text">项目中心</span>
+					</div>
+					#end
+				</div>
+				<div class="clear margin-bottom-10">
+					<div class="float-left drop-centro p-w-160">
+						<select class="_select_"  datatype="*" nullmsg="请选择证件类型" data-value="$!airUser.certtype">
+							<option value="">-请选择证件-</option>
+							<option value="1">身份证</option>
+							<option value="C">港澳通行证</option>
+							<option value="G">台湾通行证</option>
+							<option value="B">护照</option>
+							<option value="ID">其他</option>
+						</select>
+					</div>
+					<div class="float-left p-w-160 input-centro">
+						<input style="border: 0" type="text" class="input user_centro" name="airUser[$index].certno" readonly  datatype="*" nullmsg="证件号不能为空" value="$!airUser.certno">
+					</div>
+					#if($!costcenter==1||$!costcenter==3)
+					<div class="float-left p-w-160  input-new">
+						<input   type="hidden" name="airUser[$!{index}].costId" class="input "  value="$!airUser.costId">
+						<input type="text" name="airUser[${index}].costName" placeholder="请选择 #if($!costcenterinput==1)或输入#end" autocomplete="off" class="input costCenter-input "  value="$!airUser.costName">
+
+					</div>
+					#end
+					#if($!projectinfo==1||$!projectinfo==3)
+					<div class="float-left p-w-160  input-new">
+						<input type="hidden" name="airUser[${index}].itemNumberId" class="input "  value="$!airUser.itemNumberId">
+						<input  type="text" name="airUser[${index}].itemNumber" placeholder="请选择 #if($!projectinfoinput==1)或输入#end" autocomplete="off" class="input showname_falge project-input"  value="$!airUser.itemNumber">
+					</div>
+					#end
+				</div>
+				<input type="hidden" name="airUser[$!{index}].certtype" value="$!airUser.certtype" />
+				<input type="hidden" name="airUser[$!{index}].id" value="$!airUser.id" />
+				<input type="hidden" name="airUser[$!{index}].employeeid" class="e-id" value="$!airUser.employeeid"/>
+				<div class="clear margin-bottom-10 p-t-999">
+					<div class="float-left p-w-160 showNameCode">
+						<b class="red" style="margin-left: -5px">*</b>
+						SHOWCODE：</div>
+					<div class="float-left p-w-160">手机号码</div>
+					<div class="float-left p-w-160">邮箱</div>
+					<div class="float-left p-w-160">所属部门</div>
+				</div>
+				<div class="clear  margin-bottom-10">
+					<div class="float-left p-w-160 showNameCode input-new" style="height:30px;">
+						<input  type="text" nullmsg="请选择SHOWNAME"  autocomplete="off" class="input " datatype="*" name="airUser[$!{index}].showCode" value="$!airUser.showCode ">
+						<b class="red  star_weight">*</b>
+					</div>
+					<div class="float-left p-w-160 input-mobile" style="height: 32px">
+						
+						##机票模块
+						#if (${flag} == 'airOrder')
+						<input style="border: 0" type="text" name="airUser[$!{index}].mobile" readonly="true" class="input user_mobile" placeholder="" value="$!airUser.mobile">
+						##火车票模块
+						#elseif (${flag} == 'order' && ${_flag} != 'hotel')
+						<input style="border: 0" type="text" name="users[$!{index}].userPhone" readonly="true" class="input user_mobile" placeholder="" >
+						##酒店模块
+						#elseif (${flag} == 'order' && ${_flag} == 'hotel')
+						<input style="border: 0" type="text" name="users[$!{index}].mobile" readonly="true" class="input user_mobile" placeholder="">
+						#end
+					</div>
+					<div class="float-left p-w-160 input-email" style="height: 32px">
+						
+						<input style="border: 0" type="text" name="airUser[$!{index}].email" readonly="true" class="input user_email" placeholder="" value="$!airUser.email">
+					</div>
+					<div class="float-left p-w-160">
+						<input style="border: 0" type="text" class="input user_dept" readonly placeholder="请输入部门" value="$airUser.depname">
+					</div>
+				</div>
+			</div>
+		</div>
+		#end
+	</div>
+</div>
+#elseif ("$!model" != "" && "$!model.users" != "")
+<div class="clear passanger-container">
+	<div class="passanger-model" data-loginlevel="" data-logindept="">
+		#foreach($trainUsers in $!model.users) #set($index=$vCount - 1)
+		<div class="e-p-model font-size-12 " data-id="$!trainUsers.userId"
+			 data-level="$!trainUsers.zhiwei"
+			 data-certtype="$!trainUsers.idsType"
+			 data-certno="$!trainUsers.userIds"
+			 data-name="$!trainUsers.userName"
+			 data-deptname="$!trainUsers.depname"
+			 data-passtype="1"
+			 data-mobile="$!trainUsers.mobile"
+			 data-costId="$!trainUsers.costId"
+			 data-costName="$!trainUsers.costName"
+			 data-itemNumberId="$!trainUsers.itemNumberId"
+			 data-itemNumber="$!trainUsers.itemNumber"
+			 data-departmentid="$!trainUsers.deptid"
+			 style="border-bottom: 1px dashed #e5dfff;">
+			<div class="clear margin-bottom-10">
+				<span class="float-left p-m-name clear position">
+					<!--<span class="icon-img pass-bg position-ab"></span>-->
+					<span class="loginName p-every-passes text-ellipsis" title="$!trainUsers.userName">$!trainUsers.userName</span>
+				</span>
+				<div class="float-left clear">
+					<span class="edit_p"></span>
+					<span class="remove_p"></span>
+					<div class="float-left margin-top-8 margin-left-250">
+						<div class="label label-checkbox cursor notice-margin mobile_isSend #if($!trainUsers.isSend ==true) label-select-checkbox #end  send_sms_pass_d">
+
+							<span class="show_choice"></span>
+							<input type="hidden" name="users[$!{index}].isSend" data-is="isSend-isSendEmail" value="$!trainUsers.isSend">
+							<span>短信</span></div>
+						<div class="label label-checkbox cursor notice-margin email_isSendEmail #if($!trainUsers.isSendEmail ==true) label-select-checkbox #end send_sms_pass_d">
+							<span class="show_choice"></span>
+							<input type="hidden" name="users[$!{index}].isSendEmail" data-is="isSend-isSendEmail" value="$!trainUsers.isSendEmail">
+							<span>邮件</span>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="clear margin-bottom-10 p-t-999">
+				<div class="float-left p-w-160">证件类型</div>
+				<div class="float-left p-w-160">证件号码</div>
+				#if($!costcenter==1||$!costcenter==3)
+				<div class="float-left p-w-160">
+					#if($!costcenter==1)<b class="red" style="margin-left: -5px">*</b>#end
+					成本中心</div>
+				#end
+				#if($!projectinfo==1||$!projectinfo==3)
+				<div class="float-left p-w-160">
+					#if($!projectinfo==1)<b class="red" style="margin-left: -5px">*</b>#end
+					<span class="isHuiChuan_text">项目中心</span>
+				</div>
+				#end
+			</div>
+			<div class="clear margin-bottom-10">
+				<div class="float-left drop-centro  p-w-160">
+					<select class="_select_"  datatype="*" nullmsg="请选择证件类型" data-value="$!trainUsers.idsType">
+						<option value="">-请选择证件-</option>
+						<option value="1">身份证</option>
+						<option value="C">港澳通行证</option>
+						<option value="G">台湾通行证</option>
+						<option value="B">护照</option>
+						<option value="ID">其他</option>
+					</select>
+				</div>
+				<div class="float-left p-w-160 input-centro " style="height: 32px">
+					<input style="border: 0" type="text" class="input user_centro" name="users[$!{index}].userIds" readonly placeholder="请输入证件号码" datatype="*" nullmsg="证件号不能为空" value="$!trainUsers.userIds">
+				</div>
+				#if($!costcenter==1||$!costcenter==3)
+				<div class="float-left p-w-160 input-email input-new " style="height: 32px">
+					<input  type="text" name="users[$!{index}].costName" placeholder="请选择 #if($!costcenterinput==1)或输入#end"  autocomplete="off" class="input costCenter-input"  value="$!trainUsers.costName">
+					<input  type="hidden"  name="users[$!{index}].costId" class="input " value="$!trainUsers.costId">
+				</div>
+				#end
+				#if($!projectinfo==1||$!projectinfo==3)
+				<div class="float-left p-w-160 input-email input-new" style="height: 32px">
+					<input type="text" name="users[$!{index}].itemNumber" placeholder="请选择 #if($!projectinfoinput==1)或输入#end" autocomplete="off" class="input showname_falge project-input"  value="$!trainUsers.itemNumber">
+					<input type="hidden" name="users[$!{index}].itemNumberId"  value="$!trainUsers.itemNumberId">
+
+				</div>
+				#end
+				<input type="hidden" name="users[$!{index}].userId" value="$!trainUsers.userId" />
+				<input type="hidden" name="users[$!{index}].idsType" value="$!trainUsers.idsType" />
+				<input type="hidden" name="users[$!{index}].id" value="$!trainUsers.id" />
+			</div>
+			<div class="clear margin-bottom-10 p-t-999">
+				<div class="float-left p-w-160 showNameCode input-new">
+					<b class="red" style="margin-left: -5px">*</b>
+					SHOWCODE：</div>
+				<div class="float-left p-w-160">手机号码</div>
+				<div class="float-left p-w-160">邮箱</div>
+				<div class="float-left p-w-160">所属部门</div>
+			</div>
+			<div class="clear margin-bottom-10">
+				<div class="float-left p-w-160 showNameCode" style="height:32px;">
+					<input  type="text" nullmsg="请选择SHOWNAME"  autocomplete="off" datatype="*" class="input"  name="users[$!{index}].showCode" value="$!trainUsers.showCode ">
+					<b class="red  star_weight">*</b>
+				</div>
+				<div class="float-left p-w-160 input-mobile" style="height: 32px">
+					$!trainUsers.userPhone
+				</div>
+				<div class="float-left p-w-160 input-email" style="height: 32px">
+					<input style="border: 0"  type="text" name="users[$!{index}].email" readonly class="input user_email" placeholder="" value="$!trainUsers.email">
+				</div>
+				<div class="float-left p-w-160">
+					$!trainUsers.deptname
+				</div>
+			</div>
+		</div>
+		#end
+	</div>
+</div>
+#else
+<div class="clear passanger-container">
+	<div class="passanger-model" data-loginlevel="" data-logindept="">
+		<!--<div class="e-p-model font-size-12 hide" data-id="" data-level="" data-certtype="" data-certno="" data-name="" data-deptname="" data-passtype="">-->
+		<div class="e-p-model font-size-12 hide"
+			 data-id=""
+			 data-level=""
+			 data-certtype=""
+			 data-certno=""
+			 data-name=""
+			 data-deptname=""
+			 data-passtype=""
+			 data-mobile=""
+			 data-costId=""
+			 data-costName=""
+			 data-itemNumberId=""
+			 data-itemNumber=""
+			 
+		>
+			<div class="clear margin-bottom-10">
+				<span class="float-left p-m-name clear position">
+					<!--<span class="icon-img pass-bg position-ab"></span>-->
+					<span class="loginName p-every-passes text-ellipsis" title=""></span>
+				</span>
+				<div class="float-left clear">
+					<span class="edit_p"></span>
+					<span class="remove_p"></span>
+				</div>
+				<div class="float-left " style="padding-top:3px;margin-left:179px;">
+					发送通知
+					<div class="label label-checkbox cursor notice-margin mobile_isSend send_sms_pass_d">
+						<span class="show_choice"></span>
+						#if(${flag} == 'airOrder')
+						<input type="hidden" name="airUser[0].isSend" data-is="isSend-isSendEmail" value="1">
+						#elseif(${flag} == 'order')
+						<input type="hidden" name="users[0].isSend" data-is="isSend-isSendEmail" value="1">
+						#end
+						<span>短信</span></div>
+					<div class="label label-checkbox cursor notice-margin email_isSendEmail send_sms_pass_d" >
+						<span class="show_choice"></span>
+						#if (${flag} == 'airOrder')
+						<input type="hidden" name="airUser[0].isSendEmail" data-is="isSend-isSendEmail" value="1">
+						#elseif (${flag} == 'order')
+						<input type="hidden" name="users[0].isSendEmail" data-is="isSend-isSendEmail" value="1">
+						#end
+						<span>邮件</span>
+					</div>
+				</div>
+			</div>
+			<div class="clear margin-bottom-10 p-t-999">
+				<div class="float-left p-w-160">证件类型</div>
+				<div class="float-left p-w-160">证件号码</div>
+				<div class="float-left p-w-160">联系电话</div>
+				<div class="float-left p-w-160">所属部门</div>
+			</div>
+			<div class="clear margin-bottom-10">
+				<div class="float-left drop-centro">
+					<select class="_select_" data-value="" datatype="*" nullmsg="请选择证件类型">
+						<option value="">-请选择证件-</option>
+						<option value="1">身份证</option>
+						<option value="C">港澳通行证</option>
+						<option value="G">台湾通行证</option>
+						<option value="B">护照</option>
+						<option value="ID">其他</option>
+					</select>
+				</div>
+				<div class="float-left p-w-160 input-centro">
+					<input type="text" class="input user_centro" readonly placeholder="请输入证件号码" datatype="*" nullmsg="证件号不能为空">
+				</div>
+				<div class="float-left p-w-160 input-mobile">
+					##机票模块
+					#if (${flag} == 'airOrder')
+					<input type="text" name="airUser[0].mobile" class="input user_mobile" placeholder="请填写电话">
+					##火车票模块
+					#elseif (${flag} == 'order' && ${_flag} != 'hotel')
+					<input type="text" name="users[0].userPhone" class="input user_mobile" placeholder="请填写电话">
+					#end
+				</div>
+				<div class="float-left p-w-160">
+					<input type="text" class="input user_dept" readonly placeholder="请输入部门">
+				</div>
+			</div>
+
+			<div class="clear margin-bottom-10 p-t-999">
+				<div class="float-left p-w-160">邮箱</div>
+			</div>
+			<div class="clear">
+				<div class="float-left p-w-160 input-email">
+					##机票模块
+					#if (${flag} == 'airOrder')
+					<input type="text" name="airUser[0].email" class="input user_email" placeholder="请输入邮箱">
+					##火车票模块
+					#elseif (${flag} == 'order' && ${_flag} != 'hotel')
+					<input type="text" name="users[0].email" class="input user_email" placeholder="请输入邮箱">
+					#end
+				</div>
+			</div>
+			##机票模块
+			#if (${flag} == 'airOrder')
+			<input type="hidden" name="airUser[0].employeeid" class="e-id" />
+			<input type="hidden" name="airUser[0].certtype" class="e-certtype" />
+			<input type="hidden" name="airUser[0].id" class="e-passtype" />
+			##火车票模块
+			#elseif (${flag} == 'order' && ${_flag} != 'hotel')
+			<input type="hidden" name="users[0].userId" class="e-id" />
+			<input type="hidden" name="users[0].idsType" class="e-certtype" />
+			<input type="hidden" name="users[0].id" class="e-passtype" />
+			#end
+		</div>
+	</div>
+</div>
+#end
+
+
+
+
+
+
+
+
+
+
+

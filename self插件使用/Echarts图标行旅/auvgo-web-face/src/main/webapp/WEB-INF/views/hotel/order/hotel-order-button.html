@@ -1,0 +1,18 @@
+<div class="text-align margin-bottom-20">
+	#if("$!{tag}" == "appro" && "$!{isApproval}" == "0")
+		<button type="button" class="btn btn-default btn-middle" onclick="approvalOrder(this, '$!{orderDetail.orderNo}', 'Y')">同意</button>
+		<button type="button" class="btn btn-default btn-middle" onclick="approvalOrder(this, '$!{orderDetail.orderNo}', 'N')">否决</button>
+	#end
+	#if($!orderDetail.orderStatus != "CHECK_OUT" && $!orderDetail.orderStatus != "CHECK_IN" && $!orderDetail.orderStatus != "INVALID" && $!orderDetail.orderStatus != "CANCELED")
+		<button type="button" class="btn btn-default btn-middle" onclick="showCancelOrder()">取消订单</button>
+	#end
+	#if(($!orderDetail.orderStatus=="WAIT_CONFIRM" || $!orderDetail.orderStatus=="WAIT_PAY") 
+	&& $!orderDetail.balanceType=="Personage" && ($!orderDetail.isGuarantee || $orderDetail.payment=="Prepay")
+	&& $!orderDetail.payStatus!=1)
+		#if($!orderDetail.isGuarantee && $orderDetail.payment=="SelfPay")
+			<button type="button" class="btn btn-default btn-middle" data-orderno="$!{orderDetail.orderNo}" id="btn-order-pay" >去担保</button>
+		#end
+		<button type="button" class="btn btn-default btn-middle" data-orderno="$!{orderDetail.orderNo}" id="btn-order-pay" style="display: none;" >支付订单</button>
+	#end
+	<button type="button" class="btn btn-cancel btn-middle" onclick="callBack('$!{tag}', '$!{type}')">返回</button>
+</div>

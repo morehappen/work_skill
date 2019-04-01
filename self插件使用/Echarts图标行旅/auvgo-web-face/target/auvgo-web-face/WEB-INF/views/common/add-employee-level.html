@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/staff-manage.css" />
+<button  class="btn  btn-new-big btn-big addEmpLevelPage" id="btn-des" data-zidianid=$!Emplevel.get(0).zidianid data-textdes="添加员工职级"><img src="../../../static/img/common/tianjia.png">添加员工职级</button>
+<div class="margin-top-10">
+	<table class="table table-align" style="border-collapse:separate;   border-spacing:  0px  10px; " >
+		<thead>
+			<tr>
+				<!--<th>序号</th>-->
+				<th>等级</th>
+				<th>职级</th>
+				<!--<th>职级顺序</th>-->
+				<th class="table_caozuo">操作</th>
+			</tr>
+		</thead>
+		<tbody class="new_tbody"  border="0" align="center" cellpadding="0" cellspacing="0">
+		#foreach($!emp  in $!Emplevel)
+			<tr>
+				<!--<td>${vCount}</td>-->
+				<td>$!emp.value</td>
+				<td>$!emp.name</td>
+				<!--<td>$!emp.sort</td>-->
+				<td class="table_caozuo">
+					<div class="clear table-btn-div">
+						<a type="button" onclick="EditLevel($!emp.id)" class="compile">编辑</a>
+						<a onclick="removeLevel('$!emp.id')" type="button" class="delete">删除</a>
+					</div>	
+				</td>
+			</tr>
+			#end
+		</tbody>
+	</table>
+</div>

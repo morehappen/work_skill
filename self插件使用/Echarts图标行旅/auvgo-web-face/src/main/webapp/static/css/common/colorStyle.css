@@ -1,0 +1,239 @@
+@charset "UTF-8";
+/*整体风格,默认颜色*/
+/*线条颜色*/
+/*字体样式*/
+/*字体颜色*/
+/*按钮组颜色配置开始*/
+/* 默认悬浮色*/
+/*默认2色*/
+/*默认2悬浮色*/
+/*警告色*/
+/*警告悬浮色*/
+/*禁用色*/
+/*开启色*/
+/*开启悬浮色*/
+/*绿色*/
+/*绿色悬浮色*/
+/*取消按钮色*/
+/*按钮组颜色配置结束*/
+/*整体颜色*/
+.globalColor {
+    color: #6461e2;
+}
+
+.bg-fff {
+    background: #fff
+}
+
+/*整体背景颜色*/
+.globalBackgroundColor {
+    background: #6461e2;
+}
+
+/*字体颜色*/
+.color-333 {
+    color: #333;
+}
+
+.color-bbb {
+    color: #bbb;
+}
+
+/*按钮组开始*/
+.btn {
+    font-family: "Microsoft YaHei";
+    text-decoration: none;
+    color: #fff;
+    border: none;
+    vertical-align: middle;
+    cursor: pointer;
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+/* 默认色*/
+
+.btn-default {
+    background: #6461e2;
+}
+.btn-default:hover {
+    background: #6c54e6;
+}
+
+.btn-3e4eb2 {
+    background: #3e4eb2;
+}
+
+.btn-3e4eb2:hover {
+    background: #3e4eb2;
+}
+
+/* 改版默认色*/
+.btn-default-new {
+    background: #D44A9F;
+}
+
+/* 改版悬浮色*/
+.btn-default-new:hover {
+    background: #D44A9F;
+}
+
+/*默认2色*/
+.btn-default1 {
+    background: #f6c92c;
+}
+
+/*默认2悬浮色*/
+.btn-default1:hover {
+    background: #edbf1f;
+}
+
+/*警告色*/
+.btn-danger {
+    background: #d10773;
+}
+
+/*警告悬浮色*/
+.btn-danger:hover {
+    background: #b80b68;
+}
+
+/*禁用色*/
+.btn-disabled {
+    background: #ddd;
+    cursor: auto;
+}
+
+/*开启色*/
+.btn-open {
+    background: #fc9c4e;
+}
+
+/*开启悬浮色*/
+.btn-open:hover {
+    background: #f4862c;
+}
+
+/*绿色*/
+.btn-green {
+    background: #13b04b;
+}
+
+/*绿色悬浮色*/
+.btn-green:hover {
+    background: #0ea042;
+}
+
+/*取消按钮色*/
+.btn-cancel {
+    background: #fff;
+    color: #6461e2;
+    border: 1px solid #6461e2;
+}
+
+/*取消按钮悬浮色*/
+.btn-cancel:hover {
+    background: #f2f2f2;
+    color: #6461e2;
+    border: 1px solid #6461e2;
+}
+
+/*空心色*/
+.btn-hollow {
+    background: #f8f7ff;
+    color: #9d92da;
+    border: 1px solid #9d92da;
+}
+
+/*按钮组结束*/
+/*table表格开始*/
+.table th, .table td {
+    border: 1px solid #f2f2f2;
+    color: #333;
+}
+
+.table th {
+    background: #f2f2f2;
+}
+
+.table tr.diabled td {
+    color: #ddd;
+}
+
+.table tr:hover {
+    background: #fafafa;
+    cursor: pointer;
+}
+
+/*table表格开始*/
+/*表单类开始*/
+label:before {
+    border: 1px solid #ddd;
+}
+
+.label-select-radio:after {
+    background: #6461e2;
+}
+
+.label-select-radio:before, .label-select-checkbox:before {
+    border-color: #6461e2;
+}
+
+/*表单类结束*/
+/*下拉组件开始*/
+.drop_option, .drop_title {
+    border: 1px solid #ddd;
+    background: #fff;
+}
+
+.drop_option {
+    border-top-color: transparent;
+    -webkit-box-shadow: 0px 0px 5px 0px #dfdfdf;
+    -ms-box-shadow: 0px 0px 5px 0px #dfdfdf;
+    box-shadow: 0px 0px 5px 0px #dfdfdf;
+}
+
+.drop_option li:hover {
+    background: #f2f2f2;
+    color: #333;
+}
+
+/*下拉组件结束*/
+/*弹出窗口开始*/
+.alert_window {
+    background: #fff;
+}
+
+.alert_title {
+    background: #fff;
+    color: #333;
+}
+
+.new_alert_window .alert_title {
+    background: #fff;
+    color: #333
+}
+
+.alert_content {
+    background: #fff;
+}
+
+.alert_mengceng {
+    background: #000;
+    filter: alpha(opacity=50);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    opacity: 0.5;
+}
+
+.alert_mc_transparent {
+    background: transparent;
+}
+
+/*弹出窗口结束*/
+
+/*# sourceMappingURL=colorStyle.css.map */

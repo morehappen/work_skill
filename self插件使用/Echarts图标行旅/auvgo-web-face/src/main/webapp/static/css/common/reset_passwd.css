@@ -1,0 +1,883 @@
+/* 下拉框样式 */
+
+.selectbox {
+    height: 30px;
+    width: 120px;
+    line-height: 30px;
+    border: #e5e5e5 solid 1px;
+    transition: all ease 200ms;
+    -webkit-transition: all ease 200ms;
+    -ms-transition: all ease 200ms;
+    -moz-transition: all ease 200ms;
+    -o-transition: all ease 200ms;
+    position: relative;
+    font-size: 14px;
+    box-sizing: content-box !important;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+.selectbox_width60 {
+    width: 60px;
+}
+
+.selectbox_width80 {
+    width: 80px;
+}
+
+.selectbox_width100 {
+    width: 100px;
+}
+
+.selectbox_width150 {
+    width: 150px;
+}
+
+.selectbox_width200 {
+    width: 200px;
+}
+
+.selectbox_width250 {
+    width: 250px;
+}
+
+.selectbox_width300 {
+    width: 300px;
+}
+
+.selectbox_width350 {
+    width: 350px;
+}
+
+.selectbox * {
+    outline: none;
+    font-size: 14px;
+}
+
+
+/* 禁止样式 */
+
+.selectbox .selectbox_disable,
+.selectbox .selectbox_disable:hover {
+    color: #6B6B6B;
+    border-color: #6B6B6B;
+}
+
+
+/* 内容区样式 */
+
+.selectbox .selectbox_value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 30px 0 10px;
+    position: relative;
+    cursor: default;
+    z-index: 2;
+}
+
+
+/* 按钮状态样式 */
+
+.selectbox .selectbox_arraw {
+    position: absolute;
+    width: 30px;
+    right: 0;
+    text-align: center;
+    font-size: 10px;
+    color: #AEAEAE;
+    cursor: pointer;
+    z-index: 3;
+    cursor: pointer;
+}
+
+
+/* 下拉框三角状态样式 */
+
+.selectbox .selectbox_arraw .selectbox_up {
+    display: inherit;
+    font-size: 10px;
+    text-align: center;
+}
+
+.selectbox .selectbox_arraw .selectbox_down {
+    display: none;
+    text-align: center;
+    font-size: 10px;
+}
+
+
+/* 列表样式 */
+
+.selectbox .selectbox_list {
+    position: absolute;
+    left: -1px;
+    top: 30px;
+    z-index: 1000;
+    line-height: 30px;
+    display: none;
+    overflow: hidden;
+    border: #e5e5e5 solid 1px;
+    z-index: 4;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+
+/* 列表子项样式 */
+
+.selectbox .selectbox_body li {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: -1px;
+    transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    display: block;
+    cursor: default;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.selectbox .selectbox_selected {
+    /* background: #e2e2e2; */
+    color: #000;
+    background-repeat: no-repeat;
+    background-position: 140px 6px;
+    background-size: 18px 18px;
+    background-image: url(../../jiantou.png);
+}
+
+
+/* 列表窗口样式 */
+
+.selectbox .selectbox_body {
+    padding: 5px 0;
+    margin: 0;
+    list-style: none;
+    position: absolute;
+    z-index: 0;
+    top: 0px;
+    left: 5px;
+    right: 5px;
+    /*color: #727272;*/
+    color: #B7B8B8;
+}
+
+
+/* 滚动条样式 */
+
+.selectbox .selectbox_scroll_body {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    z-index: 10;
+}
+
+
+/* 滚动条内部样式 */
+
+.selectbox .selectbox_scroll {
+    position: absolute;
+    width: 10px;
+    top: 0;
+    right: 3px;
+    height: 20%;
+}
+
+.selectbox .selectbox_scroll div {
+    position: absolute;
+    width: 100%;
+    background-color: #9F9F9F;
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+    top: 3px;
+    bottom: 3px;
+    border-radius: 10px;
+}
+
+
+/* 焦点时样式 */
+
+.selectbox.selectbox_hover {
+    border-color: #bbbbbb !important;
+}
+
+
+/* 焦点时列表样式 */
+
+.selectbox.selectbox_hover .selectbox_list {
+    border-color: #bbbbbb !important;
+    overflow: hidden;
+}
+
+
+/* 焦点时列表子项样式 */
+
+.selectbox .selectbox_nodebover {
+    background: #efefef;
+    color: #000;
+}
+
+
+/* 焦点时滚动条样式 */
+
+.selectbox .selectbox_scroll_hover div {
+    background-color: #9F9F9F;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+
+/* 活动时下拉时列表样式 */
+
+.selectbox.selectbox_active {
+    border-color: #bbbbbb !important;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.selectbox.selectbox_active .selectbox_list {
+    border-color: #bbbbbb !important;
+    overflow: hidden;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+
+/* 活动时下拉框状态样式 */
+
+.selectbox.selectbox_active .selectbox_down {
+    display: block;
+}
+
+.selectbox.selectbox_active .selectbox_up {
+    display: none;
+}
+
+.selectbox.small {
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+}
+
+.selectbox.small .selectbox_value {
+    font-size: 12px;
+}
+
+.selectbox.small .selectbox_list {
+    top: 24px;
+    line-height: 26px;
+    font-size: 12px;
+}
+
+.selectbox.small .selectbox_list li {
+    font-size: 12px;
+}
+/*插件样式结束*/
+
+html{
+    font-size: 10px;
+}
+html,body{
+    width: 100%;
+    height:100%;
+    overflow-x: hidden;
+}
+
+.lg_tip {
+    height: 26px;
+    line-height: 22px;
+    font-size: 12px;
+    color: #F77F7F;
+    text-align: right;
+}
+
+/*头部*/
+.lg_header {
+    height: 6.1rem;
+    background-color: #121726;
+    background-color:rgba(18,23,38,0.6);
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+    color: #FFF;
+}
+
+.lg_header .lg_container {
+    width: 71%;
+    margin: 0 auto;
+    line-height: 6.1rem;
+}
+
+.lg_logo {
+    width: 21rem;
+    height: 6rem;
+}
+
+.lg_img {
+    width: 20.8rem;
+    height: 2.6rem;
+    margin-top: 2.0rem;
+}
+
+.lg_ph_img {
+    max-width: 1.6rem;
+    max-height: 2.6rem;
+    margin-top: 1.8rem;
+}
+
+.lg_erwei_img {
+    width: 13.2rem;
+    height: 14.0rem;
+}
+
+.lg_ph_txt {
+    display: block;
+    padding-left: 0.9rem;
+    color: #fff;
+}
+
+/*main*/
+#selectbox{
+    position: relative;
+
+    height: 42px;
+    border-width: 1px;
+    border-color: rgb(229, 229, 229);
+    line-height: 30px;
+    border-color: rgba(220, 220, 220, 1);
+}
+#selectbox .selectbox_value{
+    color: rgb(117, 117, 117) !important;
+    height: 42px;
+    line-height: 42px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 30px 0 47px;
+    position: relative;
+    cursor: default;
+    z-index: 2;
+}
+.selectbox .selectbox_selected {
+    /* background: #e2e2e2; */
+    color: #000;
+    background-repeat: no-repeat;
+    background-position: 288px 12px;
+    background-size: 14px 10px;
+    background-image: url(../../img/lg_jiantou.png);
+}
+#selectbox .use_receive{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 12px;
+    top: 12px;
+    line-height: 30px;
+    font-size: 14px;
+    background-size: 15px 15px;
+    background-image: url(../../img/re_receive.png);
+}
+#selectbox .selectbox_list{
+    width: 316px;
+    top:42px;
+}
+.lg_main {
+    width: 100%;
+    position: relative;
+    height: 643px;
+    background-size:auto 100%;
+    background-image: url(../../img/lg_bgimg.png);
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-position: left top;
+}
+.lg_main .f-p-tips{
+    padding-bottom: 21px;
+    color: red;
+}
+.lg_slogan {
+    position: absolute;
+    top: 91px;
+    left: 349px
+}
+
+.lg_slogan1 {
+    height: 37px;
+    font-size: 40px;
+    font-weight: 200;
+    color: rgba(255, 255, 255, 1);
+    line-height: 24px;
+}
+
+.lg_slogan2 {
+    width: 312px;
+    height: 18px;
+    font-size: 18px;
+    font-weight: 200;
+    color: rgba(255, 255, 255, 1);
+}
+
+.lg_main .lg_container {
+    width: 71%;
+    padding-bottom: 2rem;
+    height: 550px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+.lg_form {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    width: 316px;
+    height: 428px;
+    padding-bottom: 28px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 2px;
+    color: #000;
+    padding: 0 46px 0 45px;
+}
+
+.lg_form > .color-fff {
+    margin: 22px 0 21px 0;
+    font-size: 16px;
+    color: #000 !important;
+    text-align: left;
+}
+
+.lg_mobile > a {
+    position: relative;
+}
+
+.lg_mobile .lg_erwei_img {
+    position: absolute;
+    top: 6.0rem;
+    z-index: 20;
+    left: -2.7rem;
+    width: 122px;
+    height: 125px;
+}
+
+.lg_form input {
+    width: 269px;
+    height: 42px;
+    padding-left: 47px;
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(220, 220, 220, 1);
+}
+.f-p-yzm {
+    width: 106px;
+    height: 42px;
+    line-height: 36px;
+    text-align: center;
+    overflow: hidden;
+}
+.f-p-yzm button {
+    width: 98px;
+    height: 32px;
+    line-height: 32px;
+    border: none;
+    top: 6px;
+    left: 6px;
+    border: 1px solid #6461e2;
+    color: #6461e2;
+    background: #fff;
+}
+.lg_form .fpw_title {
+    margin: 22px 0 21px 0;
+    font-size: 16px;
+    color: #000 !important;
+    text-align: left;
+}
+
+.input_box {
+    position: relative;
+}
+
+.usename_img {
+    position: absolute;
+    width: 19px;
+    height: 18px;
+    left: 14px;
+    top: 81px;
+    line-height: 30px;
+    font-size: 14px;
+    background-size: 18px 18px;
+    background-image: url(../../img/lg_username.png);
+}
+
+#kahao_ {
+    background: url("../../img/re_receive.png") no-repeat;
+    text-transform: uppercase;
+}
+
+#yzm_sr {
+    width: 153px;
+    margin-right: 12px;
+    background: url("../../img/lg_kahao.png") no-repeat;
+}
+#pw{
+    width: 269px;
+    margin-right: 12px;
+    background-size: 18px 22px;
+    background: url("../../img/lg_yzm.png") no-repeat;
+}
+#rpw{
+    width: 269px;
+    margin-right: 12px;
+    background-size: 18px 22px;
+    background: url("../../img/lg_yzm.png") no-repeat;
+}
+
+#userName_ {
+    background: url("../../img/lg_yzm.png") no-repeat;
+}
+
+#userName_:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    border: 1px solid #CCC !important;
+    color: rgba(183, 184, 184, 1) !important;
+}
+
+#passWord_ {
+    background: url("../../img/lg_pwd.png") no-repeat;
+}
+
+#kahao_, #userName_, #passWord_, #yzm_sr,#pw,#rpw {
+    color: rgba(183, 184, 184, 1) !important;
+    line-height: 30px;
+    font-size: 14px;
+    background-size: 18px 18px;
+    background-position: 11px 12px;
+    background-repeat: no-repeat;
+}
+#rpw,#pw{
+    background-size: 18px 22px;
+}
+
+.lg_form .reset-g button{
+    width: 318px;
+    height: 43px;
+    background:#3E4EB2;
+    border-radius: 3px 3px 3px 3px;
+}
+
+.lg_form .reset-g .normalshow {
+    background: #6461e2
+}
+
+.lg_form .ret-password {
+    width: 303px;
+    text-align: right;
+    height: 13px;
+    font-size: 12px;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(91, 91, 91, 1);
+    line-height: 30px;
+}
+#img_yzm{
+    display: inline-block;
+    width: 94px;
+    height: 42px;
+    padding-left: 8px;
+    border: 1px solid rgba(220, 220, 220, 1);
+}
+
+/*底部*/
+.lg_footer {
+    color: #999;
+}
+
+.lg_footer .lg_container {
+    width: 72%;
+    height: 174px;
+    margin: 0 auto;
+}
+
+.lg_connect {
+    padding-top: 40px;
+    font-size: 14px;
+    text-align: center;
+    width: 362px;
+    margin: 0 auto;
+    font-weight: lighter;
+}
+
+.lg_copyright {
+    padding-top: 20px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: lighter;
+}
+
+.lg_copyright a {
+    display: inline-block;
+    color: #999;
+}
+
+.warn_validate_color {
+    border-color: #F77F7F !important;
+}
+
+@media screen and (min-width: 968px) {
+    #selectbox{
+        width: 316px;
+    }
+    .lg_slogan {
+        float: left;
+        margin-top: 91px;
+    }
+
+    .lg_connect .hot_phone{
+        float: left;
+    }
+    .lg_connect .joint_phone{
+        float: right;
+    }
+
+}
+
+@media screen and (max-width: 968px) {
+    .lg_logo {
+        width: 9.8rem;
+        height: 5rem;
+    }
+
+    .lg_img {
+        width: 9.9rem;
+        height: 2.6rem;
+        margin-top: 2.0rem;
+    }
+
+    .lg_main .lg_header .lg_container {
+        width: 85%;
+        height: 81.7rem;
+        margin: 0 auto;
+        position: relative;
+    }
+    .lg_slogan {
+        margin: 0 auto;
+        width: 310px;
+        text-align: center;
+        padding: 1em 0 1em 1.7em;
+    }
+
+    .lg_mobile .phone_qrentry {
+        display: none;
+    }
+
+    .lg_mobile .phone_ajump {
+        display: block !important;
+    }
+    .lg_header .lg_container {
+        width: 85%;
+    }
+    .lg_main{
+        height: 70rem;
+    }
+    .lg_footer .lg_container {
+        width: 85%;
+        padding-bottom: 1rem;
+    }
+
+    .lg_main .lg_container {
+        width: 100%;
+    }
+
+    .lg_slogan {
+        padding: 1em 0 1em 1.7em;
+    }
+
+    .lg_form {
+        margin: 86px auto;
+        height: 380px;
+        width: 303px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 2px;
+        color: #000;
+        padding: 0 23px 25px 24px;
+
+    }
+
+    .lg_form {
+        width: 260px;
+    }
+
+    .lg_form input {
+        width: 213px;
+    }
+
+    .lg_form .submitForm {
+        width: 260px;
+    }
+
+    .lg_form .ret-password {
+        width: 270px;
+    }
+
+    .usenameDele_img {
+        position: absolute;
+        width: 19px;
+        height: 18px;
+        left: 235px;
+        top: 16px;
+        line-height: 30px;
+        font-size: 14px;
+        background-size: 14px 14px;
+        background-image: url(../../img/lg_dele.png);
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+
+    .lg_connect > div {
+        width: 85%;
+        text-align: center;
+    }
+    #yzm_sr{
+        width: 97px;
+    }
+    .lg_form .find-btn-group button {
+        width: 262px;
+    }
+    #rpw, #pw{
+        width: 214px;
+    }
+    #selectbox{
+        width: 260px!important;
+    }
+    #selectbox .selectbox_list{
+        width: 260px!important;
+        top:42px;
+    }
+    .selectbox .selectbox_selected {
+        /* background: #e2e2e2; */
+        color: #000;
+        background-repeat: no-repeat;
+        background-position: 233px 12px!important;
+        background-size: 14px 10px;
+        background-image: url(../../img/lg_jiantou.png);
+    }
+    .lg_form .reset-g button{
+        width: 265px!important;
+    }
+
+}
+
+@media screen and (max-width: 450px) {
+    .lg_mobile .phone_qrentry {
+        display: none;
+    }
+
+    .lg_mobile .phone_ajump {
+        display: block !important;
+    }
+    .lg_header .lg_container {
+        width: 85%;
+    }
+    .lg_main{
+        height: 70rem;
+    }
+    .lg_footer .lg_container {
+        width: 85%;
+        padding-bottom: 1rem;
+    }
+
+    .lg_main .lg_container {
+        width: 100%;
+    }
+
+    .lg_slogan {
+        padding: 1em 0 1em 1.7em;
+    }
+
+    .lg_form {
+        margin: 86px auto;
+        height: 384px;
+        width: 303px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 2px;
+        color: #000;
+        padding: 0 23px 25px 24px;
+
+    }
+
+    .lg_form {
+        width: 260px;
+    }
+
+    .lg_form input {
+        width: 213px;
+    }
+
+    .lg_form .submitForm {
+        width: 260px;
+    }
+
+    .lg_form .ret-password {
+        width: 270px;
+    }
+
+    .usenameDele_img {
+        position: absolute;
+        width: 19px;
+        height: 18px;
+        left: 235px;
+        top: 16px;
+        line-height: 30px;
+        font-size: 14px;
+        background-size: 14px 14px;
+        background-image: url(../../img/lg_dele.png);
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+
+    .lg_connect > div {
+        width: 85%;
+        text-align: center;
+    }
+    #yzm_sr{
+        width: 97px;
+    }
+    .lg_form .find-btn-group button {
+        width: 262px;
+    }
+    #selectbox{
+        width: 260px!important;
+    }
+    #selectbox .selectbox_list{
+        width: 260px!important;
+        top:42px;
+    }
+    .selectbox .selectbox_selected {
+        color: #000;
+        background-repeat: no-repeat;
+        background-position: 233px 12px!important;
+        background-size: 14px 10px;
+        background-image: url(../../img/lg_jiantou.png);
+    }
+}

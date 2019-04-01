@@ -1,0 +1,28 @@
+body{font-size:14px;height:100%;}
+.line-container{margin-bottom:24px;}
+.tips-content{padding:4px 8px;margin-bottom:40px;border:1px solid #fa9aa5;background: #fdf1f3;}
+.tips-content p{height:21px;line-height:21px;}
+.e-line-content{height:20px;line-height:20px;margin-bottom:16px;}
+.e-l-c-title{width:56px;height:20px; margin-right:46px;}
+.every-line .label{margin-top:1px;margin-right:26px}
+.air-line-num{margin:0 24px 0 40px}
+.line-point{width: 24px;height: 5px;margin: 7px 8px 0 8px;background: url(../../img/airImg/air-bg.png) no-repeat 0 -123px;}
+.e-l-c-date{margin-bottom:40px;}
+.e-l-person,.e-l-c-cost,.e-l-c-newline,.e-l-c-p,.e-l-c-reason,.e-l-c-width{width:70px;height:20px;line-height:20px;margin-right:32px;}
+.e-l-c-person{margin-bottom:24px;}
+.person-c{margin-bottom:16px;}
+.e-l-c-date .e-l-c-title{height:32px;line-height:32px;}
+.person-c .e-p-name{width:70px;overflow: hidden;  text-overflow: ellipsis; white-space: nowrap;position:relative}
+.e-l-c-person .label{margin-right:15px;position:relative}
+.btnGrounp{text-align:center;padding-top:30px;}
+.o-content{padding-left:140px}
+.tuipiao-reason .drop{width:150px;margin-left:16px;}
+.tuipiao-reason .no-con{margin-top:7px}
+.margin-bottom-40{margin-bottom:40px}
+.margin-bottom-16{margin-bottom:16px}
+
+
+/*上传样式*/
+.img-container,.size_limit{width:200px;height:120px;position: absolute;top:0;left:0;}
+.img-container{position:relative;display: table;text-align: center;border:1px solid #b1a6cc;overflow: hidden;}
+.size_limit img{display: block;margin:0 auto;}

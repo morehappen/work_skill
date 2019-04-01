@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>成本中心</title>
+			#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href=""/>
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<div class="main-content margin-top-10 ">
+			#parse("/crm/company/company-left.html")
+		<!--<div class="bread-crums-new main-content-new margin-top-10">-->
+			<!--#parse("/common/bread-crumbs.html") > 成本中心-->
+		<!--</div>-->
+		<!-- 主体 begin -->
+		<div class="main-content-new margin-top-10 background-fff auto_bottom">
+			<div class="content-only">
+			<form action="/crm/cost" method="POST" id="costForm">
+				<div class="clear">
+				<input id="pageNo" type="hidden" name="pageNum">
+				<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+					<div class="float-left">
+						<input type="text"   name="q_EQ_code" value="$!q_EQ_code"  class="input" placeholder="成本中心代号"/>
+					</div>
+					<div class="float-left">
+						<input type="text" name="q_LIKE_name" value="$!q_LIKE_name"    class="input" placeholder="成本中心名称"/>
+					</div>
+					<button type="submit" class="btn btn-default btn-big">查询</button>
+				</div>
+				</form>
+				<div class="margin-top-20 btn-right clear">
+					<button type="button" class="btn btn-default btn-big addCostCenter float-left">添加成本中心</button>
+					<a onclick="daoruMain('/crm/cost/empupload')" class="btn btn-green btn-big bulk-import float-left">批量导入</a>
+					<a href="/crm/cost/download" type="button" class="btn btn-green btn-big float-left">下载模板</a>
+					<b style="color: red">*&nbsp;&nbsp;同一个人不可关联在多个成本中心，只可关联一个成本中心且做为默认项</b>
+				</div>
+				<!-- table 表格部分 begin -->
+				<div class="margin-top-10">
+				
+					## 全局变量-没有数据
+					#set ($noData = ($!page.list.size() == 0))
+					#if($noData)
+					#parse("/common/no-data.html")
+					#else
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>成本中心编号</th>
+								<th>成本中心名称</th>
+								<th>成本中心状态</th>
+								<th>创建时间</th>
+								<th>适用范围</th>
+								<th class="table_caozuo">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						#foreach($cc in $!page.list)
+						<tr class="text-c">
+							<td>$!{vCount}</td>
+							<td>$!cc.code</td>
+							<td>$!cc.name</td>
+							<td class="normal">#if("$!cc.status"==0)正常#else无效#end</td>
+							<td>$!dateTool.format('yyyy-MM-dd HH:mm',$!cc.createtime)</td>
+							<td>
+								<a onclick="costAssoEmp('$!{cc.id}')">关联部门</a> 
+								<a href="/crm/cost/toRelateEmpPage/$!{cc.id}">关联员工</a>
+							</td>
+							<td>
+								#if($!cc.status==0)
+								<a href="/crm/cost/editStatus/$!cc.id/1" class="btn btn-default1 btn-small">关闭</a>
+								<a class="btn btn-default btn-small" onclick="editCost($!cc.id)" >修改</a>
+								<button class="btn btn-danger btn-small" onclick="removeCost($!cc.id)">删除</button>
+								#else
+								<a href="/crm/cost/editStatus/$!cc.id/0" class="btn btn-open btn-small">开启</a>
+								<button type="button" class="btn btn-disabled btn-small">编辑</button>
+								<button type="button" class="btn btn-disabled btn-small">删除</button>
+								#end
+							</td>
+						</tr>
+						#end
+						</tbody>
+					</table>
+					#end
+				</div>
+				<!-- table 表格部分 end -->
+				
+				#if(!$noData)
+				<div id="kkpager"></div>
+				#end
+			
+			</div>
+		</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript">
+		kkpagerMain({'pno':$!page.pageNum,'total':$!page.pages,'totalRecords':$!page.total,'pageSize':$!pageSize,'pageNo':$("#pageNo"),'submit_element':$("#costForm")}); //初始化分页
+		$("body").on("click",".addCostCenter",function(){
+			openIframe({'url':"/crm/cost/add",'title':"添加成本中心",'width':'500px','height':'320px'});
+		});
+		function editCost(costid){
+			openIframe({'url':"/crm/cost/edit/"+costid,'title':"编辑成本中心",'width':'500px','height':'320px'});
+		}
+		//关联部门
+		function costAssoEmp(costid){
+			openIframe({'url':"/crm/cost/toRelatePage/"+costid,'title':"关联部门",'width':'500px','height':'400px'});	
+		}
+		
+		function removeCost(costid){
+				zh.confirms({
+					title:"提示",
+					text:"确定删除该成本中心么？"
+				});
+				$("body").on("click",".confirm_sure",function(){
+					$.ajax({
+						   type: "POST",
+						   url: "/crm/cost/remove/"+costid,
+						   success: function(data){
+							   if (data.status == 200) {
+									zh.alerts({
+										title:"提示",
+										text:"删除成功"
+									});
+									$("body").on("click",".alert_event",function(){
+										top.location.reload();
+									});
+								} else {
+									zh.alerts({
+										title:"提示",
+										text:"删除失败"
+									});
+								}
+						   }
+					});
+				});
+			}
+		//批量导入
+		function daoruMain(url){
+			openIframe({'url':url,'title':'批量导入','height':"425px"});
+		};
+		</script>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!-- 联系人 -->
+<div class="order-left background-fff margin-bottom-50 border-r5 font-size-12">
+	<div class="o-title font-size-16">联系人</div>
+	<div class="o-content">
+		<div class="clear margin-bottom-20">
+			<div class="o-e-pass float-left">
+				<div class="color-gray margin-b-14 float-left">联系人：</div>
+				<div class="e-pass hoverTips hover_content">$!{orderDetail.contact.cname}</div>
+			</div>
+			<div class="o-e-cert float-left clear">
+				<div class="color-gray margin-b-14 float-left">电话：</div>
+				<div class="float-left">$!{orderDetail.contact.mobile}</div>
+			</div>
+			<div class="o-e-cert-email float-left">
+				<div class="color-gray margin-b-14 float-left">邮箱：</div>
+				<div class="float-left">$!{orderDetail.contact.email}</div>
+			</div>
+			<div class=" float-left color-666">
+				<div class="color-gray margin-b-14 float-left">发送通知：</div>
+				<div class="float-left">
+					#if($!orderDetail.contact.isSend || $!orderDetail.contact.isSendEmail)
+						#if($!orderDetail.contact.isSend)短信#end
+						#if($!orderDetail.contact.isSendEmail) 邮件#end
+					#else
+						否
+					#end
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

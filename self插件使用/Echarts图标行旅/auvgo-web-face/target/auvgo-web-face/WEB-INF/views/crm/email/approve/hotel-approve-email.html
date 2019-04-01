@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>酒店审批申请</title>
+	<link rel="stylesheet" href="/static/css/chailv-manage/approve-email.css" />
+</head>
+	<body>
+		<div class="main-content cl" id="header">
+			<div class="f-l logo-w">
+				<img src="http://60.205.188.251/auvgo_pic.png"/>
+			</div>
+			<div class="f-l">
+				<div class="mb-5">行旅网站：<a class="m-f-c" href="http://www.auvgo.com/">www.auvgo.com</a></div>
+				<div class="mb-10">official website：<a class="m-f-c" href="http://www.auvgo.com/">www.auvgo.com</a></div>
+				<div class="mb-5">公司地址：北京市朝阳区安慧里四区五矿大厦610</div>
+				<div>Asian Games Village,Chaoyang District,Beijing Minmetals Building 606</div>
+			</div>
+			<div class="f-r qrcode-w">
+				<img src="http://60.205.188.251/wechat_pic.png"/>
+			</div>
+		</div>
+			
+		<div id="content">
+			<div class="b-b-1">
+				<div class="main-content pt-30 pb-10 text-c">
+					<div class="email-title mb-5">酒店审批申请</div>
+					<div class="email-title-e">Hotel approval application</div>
+					<div class="text-r">订单号/Order NO.：$!hotelOrder.orderno</div>
+				</div>
+			</div>
+			
+			<div class="main-content">
+				
+				<span class="ej-t cursor-default m-b-c">入住信息  | Check-in information</span>
+				<div class="cl mb-10">
+					<div class="w-18-p f-l">
+						<div>入住日期：$!dateTool.format('yyyy-MM-dd',$!hotelOrder.arrivalDate)</div>
+						<div>Check-in date</div>
+					</div>
+					<div class="w-18-p f-l">
+						<div>离店日期：$!dateTool.format('yyyy-MM-dd',$!hotelOrder.departureDate)</div>
+						<div>Leave date</div>
+					</div>
+					<div class="w-18-p f-l">
+						<div>最晚到店：#if($!hotelOrder.latestArrivalTime)$!dateTool.format('yyyy-MM-dd HH:mm',$!hotelOrder.latestArrivalTime)#else $!hotelOrder.latestArrivalTimeString#end</div>
+						<div>The latest time</div>
+					</div>
+				</div>
+				<table class="table mb-20">
+					<thead>
+						<tr>
+							<th class="w-110">姓名<br/>Name</th>
+							<th>手机号<br/>Cellphone NO.</th>
+							<th class="w-110">所在部门<br/>Department</th>
+							<th class="w-110">成本中心名称<br/>Cost center</th>
+							<th class="w-110">项目名称<br/>Project name</th>
+							<th>房费<br/>Room costs</th>
+							<th>保险<br/>Insurance</th>
+							<th>服务费<br/>Service fee</th>
+							<th>小计<br/>Subtotal</th>
+						</tr>
+					</thead>
+					<tbody>
+						#foreach($user in $!hotelOrder.users)
+						<tr>
+							<td>$!user.name</td>
+							<td>$!user.mobile</td>
+							<td>$!user.deptname</td>
+							<td>$!hotelOrder.costname</td>
+							<td>$!hotelOrder.proname</td>
+							#set($saleprice = $!{user.saleprice} * $!{hotelOrder.intervalDay})
+							<td class="salePrice">￥$!saleprice</td>
+							<td>￥0</td>
+							<td>
+							#set($fwfee = 0)
+							#if("$!hotelOrder.companySetFuwufee"=="" || $!hotelOrder.companySetFuwufee == 0)
+								￥0
+							#elseif($!hotelOrder.fuwufeetype=='per')
+								#if($!hotelOrder.fuwufeePerType == 2)
+									￥0	
+								#else
+									$!{hotelOrder.companySetFuwufee}%
+									#set($fwfee = $!saleprice * $!{hotelOrder.companySetFuwufee} / 100.0)
+								#end
+							#else
+								￥$!hotelOrder.companySetFuwufee
+								#set($fwfee = $!hotelOrder.companySetFuwufee)
+							#end
+							</td>
+							<td>
+								#set($total = $!{saleprice}+$!{fwfee})
+								￥$!total
+							</td>
+						</tr>
+						#end
+						<tr>
+							<td class="text-r" colspan="11">费用总计/Total cost：￥$!hotelOrder.totalPrice</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<div class="cl">
+					<span class="f-l ej-t cursor-default m-b-c">酒店信息  | Hotel information</span>
+				</div>
+				<table class="table mb-20">
+					<thead>
+						<tr>
+							<th>入住城市<br/>City</th>
+							<th>酒店电话<br/>Hotel Phone</th>
+							<th>酒店名称<br/>Hotel name</th>
+							<th>酒店地址<br/>Hotel address</th>
+							<th>房型<br/>Room type</th>
+							<th>含早<br/>Breakfast</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>$!hotelOrder.cityName</td>
+							<td>$!hotelOrder.hotelPhone</td>
+							<td>$!hotelOrder.hotelName</td>
+							<td>$!hotelOrder.hotelAddress</td>
+							<td>$!hotelOrder.roomName</td>
+							<td>$!hotelOrder.ratePlanName</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="tips-w c-b-c mb-10">
+					<div>
+						<p>取消规则/Cancel rules</p>
+						<p>$!cancelDesc</p>
+					</div>
+				</div>
+				
+				<span class="ej-t cursor-default m-b-c">出差事由  |  Travel Reason</span>
+				<table class="table mb-20">
+					<tbody>
+						<tr>
+							<td>$!hotelOrder.chailvitem</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<span class="ej-t cursor-default m-b-c">超标原因  |  Beyond Reason</span>
+				<table class="table mb-20">
+					<tbody>
+						<tr>
+							<td>$!hotelOrder.wbreason</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="cl" id="footer">
+			<div class="main-content">
+				<div class="tips-w c-b-c">
+					<p class="mb-5">温馨提示：订单最晚保留至$!{orderLastTime}，逾期将自动取消，请您尽快完成审批。</p>
+					<p>Warm prompt: the order will be kept until $!{orderLastTime}, the overdue will be cancelled automatically, please complete the approval as soon as possible.</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="text-c mb-40">
+			<form action="" id="hotelForm">
+				<input type="hidden" name="token" value="$!token">
+				<input type="hidden" name="cid" value="$!cid">
+				<input type="hidden" name="empid" value="$!empid">
+				<input type="hidden" name="orderno" value="$!orderno">
+				<input type="hidden" name="type" value="$!type">
+				<input type="hidden" name="opstatus" id="doApprove">
+			</form>
+			<span class="btn btn-default approve-btn" data-value="1">同意(Agree)</span>
+			<span class="btn btn-danger approve-btn" data-value="2">否决(veto)</span>
+		</div>
+		
+		<script type="text/javascript" src="/static/js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="/static/js/jquery.serialize-object.min.js"></script>
+		<script type="text/javascript" src="/static/plugin/layer-v3.0.3/layer/layer.js"></script>
+		<script type="text/javascript">
+			$('body').on('click', '.approve-btn', function () {
+				var status = $(this).attr("data-value");
+				$("#doApprove").val(status);
+				var data = $("#hotelForm").serializeObject();
+				var Jsondata = JSON.stringify(data);
+				console.log(Jsondata);
+				$.ajax({
+	                url: '/common/confirmApprove',
+	                type: 'post',
+	                data: { 'data' : Jsondata },
+	                success: function(data) {
+	                	
+	                	if (data.status == 200) {
+	                		layer.msg(data.msg);
+		                	setTimeout(function() {location.reload();}, 2000);
+	                	} else if (data.status == 301) {
+	                		// layer.alert
+	                		layer.alert(data.msg);
+	                	} else {
+	                		// 默认在data.status=302时使用
+	                		// layer.msg
+	                		layer.msg(data.msg);
+	                		console.error(data);
+	                	}
+	                	
+	                },
+	                error: function(xhr, errorType, error){
+						layer.msg('审批失败！');
+						console.error(xhr);
+						console.error(errorType || error);
+			        }
+	            });
+			});
+		</script>
+	</body>
+</html>

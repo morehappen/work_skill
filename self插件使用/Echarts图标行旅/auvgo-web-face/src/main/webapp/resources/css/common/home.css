@@ -1,0 +1,266 @@
+/* 公共样式 */
+/*html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%;font-weight:normal; }*/
+/*清除浮动*/
+.clear{clear: both;}
+.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+.clearfloat{zoom:1}
+/*body, html {  font-family: "Microsoft YaHei"; }*/
+.home a { font-size: 12px; font-family: "Microsoft YaHei"; }
+body,html{
+	height:100%;
+}
+body{
+	/*background: url("../../images/hotel/home-bg.png") no-repeat center;*/
+}
+/*基本样式*/
+.home-box{
+	min-width:1200px;
+	_width:1200px;
+	background: url("../../images/hotel/home-bg.png") no-repeat;
+	/*background-size: 100%;*/
+	height:100%;
+	min-height:689px;
+	margin:0 auto ;
+	box-sizing: border-box;
+	/*padding-top: 20px;*/
+}
+.home{
+	width:1200px;
+	margin:0 auto ;
+	padding-top:20px;
+	/*overflow: hidden;*/
+}
+.home .home-left{
+	width:120px;
+	float:left;
+	height:140px;
+	background: #ffffff;
+}
+.home-left-aircraft{
+	color:#7b3af4;
+	position: relative;
+	height:46px;
+	padding-top:16px;
+	box-sizing: border-box;
+}
+
+ .aircraft-flie{
+	background: #ffffff;
+	height:48px;
+	box-shadow:2px 1px 6px -1px #763af4;
+}
+.home .home-left .bed{
+	height:48px;
+	box-sizing: border-box;
+	/* padding-top:16px; */
+}
+.home .home-left .train{
+	box-sizing: border-box;
+	padding-top:14px;
+	height:46px;
+}
+.home .home-left .home-left-aircraft .icon{
+	display:block;
+	width:22px;
+	height:20px;
+	background-size: contain;
+	margin:0 10px 0 20px;
+	float: left;
+}
+.home .home-left .home-left-aircraft .f-con{
+	height:11px;
+	background: url('../../images/common/f-icon.png') no-repeat;
+}
+.home .home-left .home-left-aircraft .bed-icon{
+	background: url("../../images/common/bed_icon.png") no-repeat;
+}
+.home .home-left .home-left-aircraft .train-icon{
+	background:url("../../images/common/train-icon.png") no-repeat;
+}
+.home .home-left .home-left-aircraft .aircraft-f{
+	display: block;
+	float: left;
+	padding-bottom:17px;
+}
+.home .home-left .home-left-aircraft .h-train{
+	height:46px;
+}
+
+/*右侧日期*/
+.home-right{
+	width:1059px;
+	margin-left:20px;
+	padding-top:20px;
+	float: left;
+	background: #ffffff;
+	height:231px;
+	/* opacity: 0.8; */
+	
+}
+.home-right .home-date{
+	float: left;
+	margin-left:40px;
+	width:300px;
+}
+.home-right .home-date p{
+	font-size: 12px;
+	color:#333333;
+	line-height: 12px;
+	margin-bottom:10px;
+}
+.home-right .h-select{
+	border:1px solid #e0e9fe;
+	height:50px;
+	color: #333333;
+	font-size:16px;
+	box-sizing: border-box;
+	padding-top:14px;
+}
+.home-right .h-select .location-icon{
+	display:inline-block;
+	width:18px;
+	height:22px;
+	background: url('../../images/common/location-icon.png') no-repeat;
+	margin:0 20px 0 14px;
+}
+.home-right .h-select .check-icon{
+	display: inline-block;
+	width:22px;
+	height: 22px;
+	background: url('../../images/common/date-icon.png') no-repeat;
+	background-size: contain;
+	margin:0 20px 0 14px;
+}
+.home-right .h-select .tg-input{
+	/* height:30px; */
+	outline:none;
+	border:0;
+	display:inline-block;
+	font-size:14px;
+	line-height:14px;
+	width:210px;
+}
+.home-right .h-select .check-input{
+	width:37px;
+	text-align: center
+}
+.home-right .h-select .check-d{
+	width:21px;
+}
+.home-right .h-select .data{
+	display: inline-block;
+	margin-right:20px;
+	margin-top:0;
+}
+.home-right .h-select .check-week{
+
+}
+.home-right .band .band-name{
+	margin:28px 0 10px 0;
+	font-size:12px;
+	color: #333333;
+}
+.home-right .band .h-select .band-icon{
+	display: inline-block;
+	width:42px;
+	height: 22px;
+	background: url('../../images/common/suo-icon.png')no-repeat;
+	background-size: contain;
+	margin-left:16px;
+}
+.home-right .right-target{
+	margin-left:20px;
+}
+.home-right .h-btn{
+	margin-right:60px;
+	float: right;
+	width:300px;
+	margin-top: 52px;
+	overflow: hidden;
+}
+.home-right .h-btn .btn{
+	width:300px;
+	border:0;
+	height:50px;
+	color:#fff;
+	border-radius: 2px;
+	background: #614dc2;
+	font-size: 16px;	
+}
+.home-right .location{
+
+}
+
+/* 差旅标准 */
+.h-standard{
+	width:1200px;
+	margin:56px auto ;
+	height:191px;
+}
+.h-standard .sd-left{
+	width:121px;
+	height:40px;
+	background: #ffffff;
+	float: left;
+	color:#7b3af4;
+	font-size:16px;
+	text-align: center;
+	line-height:40px;
+}
+.h-standard .sd-rigth{
+	margin-left:19px;
+	background:#ffffff;
+	width:1060px;
+	box-sizing: border-box;
+	padding-left:20px; 
+	height:191px;
+	float: left;
+	opacity: 0.9;
+	background: rgba(255,255,255,155)
+}
+.h-standard .sd-rigth .sd-name{
+	margin:15px 0 26px 0;
+	font-size: 12px;
+	color: #333333;
+}
+.h-standard .sd-rigth .sd-btn{
+	width:110px;
+	height:30px;
+	border:1px solid #614dc2;
+	border-radius: 2px;
+	color: #763af4;
+	font-size: 12px;
+	text-align: center;
+	line-height:30px;
+}
+
+/* bottom */
+.h-bottom{
+	height:120px;
+	background: #1c2328;
+}
+.h-bottom .b-logo{
+	width:1200px;
+	margin:0 auto;
+	background: #1c2328;
+	height:120px;
+}
+.h-bottom .b-logo .logo-box{
+	margin-left:389px;
+}
+.h-bottom .b-logo .logo-box .logo{
+	width:164px;
+	display:inline-block;
+	background: url("../../images/hotel/logo-bottom.png");
+	height:22px;
+	margin-right:44px;
+	float:left
+}
+.h-bottom .b-logo .logo-box p{
+	display: inline-block;line-height:22px;margin:0;padding:0;float:left;color:#60696e;
+}
+.h-bottom .b-logo .information{
+	text-align: center;color:#60696e;margin-top:24px; font-size:14px;
+}
+
+

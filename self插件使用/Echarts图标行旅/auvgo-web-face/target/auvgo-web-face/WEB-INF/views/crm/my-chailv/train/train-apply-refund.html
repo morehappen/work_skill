@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>火车票订单-申请退票</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-apply-common.css" />
+</head>
+<body>
+		<div class="tips-content">
+			<p>*退票操作后无法撤销</p>
+			<p>*退票手续费及最终退款金额以铁路部门实退为准</p>
+			<p>*如已取纸质车票，请携带有效证件至火车票退票窗口办理</p>
+			<p>*改签至春运期间车票退票收取20%手续费</p>
+		</div>
+		<div class="apply-line">
+			#parse("/crm/my-chailv/train/train-infor.html")
+			#if($!empList.size() > 0)
+			<div class="clear e-l-c-person">
+				<span class="e-l-person float-left">选择乘车人</span>
+				<div class="float-left person-c">
+					#foreach($emp in $!empList)
+					<div class="label label-checkbox label-margin-right float-left">
+						<span class="show_choice"></span>
+						<span class="e-p-name hoverTips hover_content">$!{emp.userName}</span>
+						<input type="checkbox" name="empid" value="$!{emp.userIds}" class="e-id">
+					</div>
+					#end
+				</div>
+			</div>
+			<form action="/train/tuipiao/shenqing"  id="refund-form" target="_top">
+				<input type="hidden" name="orderno" value="$!{order.orderNo}" />
+				<input type="hidden" name="ids" class="ids" />
+				<!--<div class="clear">-->
+					<!--<span class="float-left e-l-c-cost">退票手续费</span>-->
+					<!--<span>$!{tuiFei}元/人</span>-->
+				<!--</div>-->
+				<div class="btnGrounp">
+					<button type="button" class="btn btn-default btn-big refund-btn" id="refund-btn">确定退票</button>
+				</div>
+			</form>
+			#else
+				没有符合退票条件的乘客!
+			#end
+		</div>
+	
+	#parse("/common/foot.html")
+	<script type="text/javascript" src="/static/js/crm/my-chailv/train/train-apply-refund.js"></script>
+</body>
+</html>

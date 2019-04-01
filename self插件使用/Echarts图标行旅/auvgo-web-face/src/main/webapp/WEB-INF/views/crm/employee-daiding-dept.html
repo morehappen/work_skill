@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>关联部门</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/role-permissions-user.css"/>
+	</head>
+	<body>
+		<form action="/crm/cost/save/relateDepart" method="post"  class="alert-form" id="costForm">
+			<input type="hidden" name="cid" value="$!companyid" />
+			<input type="hidden" name="costid" value="$!costid" />
+			<input type="hidden" name="deptids" id="_deptids" />
+			<input type="hidden" name="flag">
+			<div class="pos-a">
+				<ul id="treeDemo" class="ztree"></ul>
+				
+				<div class="form-row-button">
+					<button type="button" class="btn btn-default btn-big alert_close_">保存</button>
+					<button type="button" class="btn btn-cancel btn-big alert_close_">取消</button>
+				</div>
+				<!-- <div class="btnGroups">
+					<button class="btn btn-default btn-big alert_close_" type="button">保存</button>
+					<a class="btn btn-cancel btn-big alert_close_">关闭</a>
+				</div> -->
+			</div>
+		</form>
+		#parse("/common/foot.html")
+		<script type="text/javascript">
+			var setting = {view:{dblClickExpand:false,showLine:false,selectedMulti:false},check:{enable: true},data:{simpleData: {enable: true}}, callback:{onCheck:onCheck}};
+			var zNodes = $!{depttree};
+			$(document).ready(function() {
+				setting.check.chkboxType = { "Y" : "ps", "N" : "ps" };
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			});
+			function onCheck(e,treeId,treeNode){
+				var treeObj=$.fn.zTree.getZTreeObj("treeDemo"),
+		        nodes=treeObj.getCheckedNodes(true);
+				var value="";
+				 for(var i=0;i<nodes.length;i++){
+					 if(null!=nodes[i].id){
+					 	value+="/"+nodes[i].id;
+					 }
+				 }
+				 parent.$("#_deptids").val(value);
+		    }
+			$('#costForm').ajaxForm(function(data) {
+				if (data.status == 200) {
+					layer.msg(data.msg);
+					setTimeout(function(){parent.location.reload();},2000);
+				}else if (data.status == 300) {
+					if(data.data!="" && data.data!=null){
+						var list = JSON.parse(data.data);
+						var html = '<ul>';
+						$.each(list,function(index,item){
+							html+='<li><span>'+(item.fuzeren?item.fuzeren:"选中的员工")+'</span><span>已经关联在</span><span>'+item.name+'</span></li><br>'
+						});
+						html+="</ul>";
+						zh.confirms({title:"提示",text:html});
+						$("body").on("click",".confirm_sure",function(){
+							$('input[name="flag"]').val("1");
+							$("#costForm").submit();
+								parent.location.reload();
+						});
+					}else{
+						zh.alerts({
+							title:"提示",
+							text:data.msg
+						});
+					}
+					
+				}
+			  });
+		</script>
+		
+	</body>
+</html>

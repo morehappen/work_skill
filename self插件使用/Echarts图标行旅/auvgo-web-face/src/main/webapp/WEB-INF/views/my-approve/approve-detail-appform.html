@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>出差申请单-审批-详情</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-new-order-detail.css" />
+</head>
+<body class="background-6461e2">
+#parse("/common/head.html")
+<div class="main-content">
+	<div class="order-status-wraper background-fff margin-bottom-20 margin-top-20 border-r5" id="main-content">
+		<div class="clear">
+			<div class="float-left tarin-bg order-status text-align font-size-14 color-fff">$!baseUtil.getApproveStatus($!appForm.approvestatus)</div>
+			<div class="clear float-left font-size-12">
+				<div class="float-left order-num">
+					<div class="color-gray">出差单号</div>
+					<div class="get_orderno"  data-orderno="$!appForm.approvalno">$!appForm.approvalno</div>
+				</div>
+			</div>
+			<div class="clear float-left font-size-12">
+				<div class="float-left order-num">
+					<div class="color-gray">申请人</div>
+					<div>
+						#if("$!appForm.empname" != "")
+							$!appForm.empname
+						#else
+							--
+						#end
+					</div>
+				</div>
+			</div>
+			<!-- 支付审批状态 start -->
+			<div class="float-right btn-status-c">
+				#foreach($approveRen in $!appForm.approves)
+				#if($!approveRen.employeeid == $!user.id)
+				#set($opstatus_ = $approveRen.opstatus)
+				#end
+				#end
+				#if($!opstatus_ == "5")
+				<button type="button" class="btn btn-default btn-middle approve-success">通过</button>
+				<button type="button" class="btn btn-danger btn-middle approve-fail">否决</button>
+				#end
+				<button type="button" class="btn btn-cancel btn-middle">返回</button>
+			</div>
+			<!-- 支付审批状态 end -->
+		</div>
+
+		<input type="hidden" value="$!mark" class="mark_">
+	</div>
+	<div class="clear">
+		<div class="float-left">
+			<!-- 车次信息 begin -->
+			<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+				<div class="o-title font-size-18">基本信息</div>
+				<div class="o-content clear">
+					<div class="o-e-little float-left">
+						<div class="color-gray margin-b-14">开始日期</div>
+						<div>
+							$!dateTool.format("yyyy-MM-dd",$!appForm.travelstart)
+						</div>
+					</div>
+					<div class="o-e-little float-left">
+						<div class="color-gray margin-b-14">结束日期</div>
+						<div>
+							$!dateTool.format("yyyy-MM-dd",$!appForm.travelend)
+						</div>
+					</div>
+					<div class="o-e-min float-left">
+						<div class="color-gray margin-b-14">天数</div>
+						<div>
+							$!appForm.traveldays天
+						</div>
+					</div>
+					<div class="o-e-little float-left">
+						<div class="color-gray margin-b-14">出差地</div>
+						<div class="hoverTips hover_content travel-land">
+							$!appForm.targetwhere
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 车次信息 end -->
+
+			<!-- 出差人 begin -->
+			<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+				<div class="o-title font-size-18">出差人信息</div>
+				<div class="o-content clear">
+					#foreach($person_ in $!appForm.approvalempname.split("、"))
+					<div class="float-left o-e-min e-wrap hoverTips hover_content">$!person_</div>
+					#end
+				</div>
+			</div>
+			<!-- 出差人 end -->
+			#if("$!appForm.appformTravels" != "[]")
+			<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+				<div class="o-title font-size-18">交通信息</div>
+				<div class="o-content">
+					#foreach($travelTool in $!appForm.appformTravels)
+					<div class="clear e-mation-margin">
+						<div class="float-left g-height-17">
+							<div class="color-gray margin-b-14"></div>
+							<div>
+								#if($!travelTool.travelby == "train")火车#else飞机 #end
+							</div>
+						</div>
+						<div class="float-left g-height-17">
+							<div class="color-gray margin-b-14">出发城市</div>
+							<div>
+								$!travelTool.begincityname
+							</div>
+						</div>
+						<div class="float-left g-height-17">
+							<div class="color-gray margin-b-14">到达城市</div>
+							<div>
+								$!travelTool.stopcityname
+							</div>
+						</div>
+						<div class="float-left g-height-17">
+							<div class="color-gray margin-b-14">出发日期</div>
+							<div>
+								$!dateTool.format("yyyy-MM-dd",$!travelTool.begintime)
+							</div>
+						</div>
+					</div>
+					#end
+				</div>
+			</div>
+			#end
+			#if("$!appForm.appformHotels" != "[]")
+			<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+				<div class="o-title font-size-18">住宿信息</div>
+				<div class="o-content">
+					#foreach($hotelMsg in $!appForm.appformHotels)
+					<div class="clear">
+						<div class="o-e-little float-left">
+							<div class="color-gray margin-b-14">城市</div>
+							<div>
+								$!hotelMsg.cityname
+							</div>
+						</div>
+						<div class="o-e-little float-left">
+							<div class="color-gray margin-b-14">入住日期</div>
+							<div>
+								$!dateTool.format("yyyy-MM-dd",$!hotelMsg.starttime)
+							</div>
+						</div>
+						<div class="o-e-little float-left">
+							<div class="color-gray margin-b-14">离店日期</div>
+							<div>
+								$!dateTool.format("yyyy-MM-dd",$!hotelMsg.endtime)
+							</div>
+						</div>
+					</div>
+					#end
+				</div>
+			</div>
+			#end
+			<!-- 差旅信息 begin -->
+			#if("$!appForm.travelreason" != "")
+			<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+				<div class="o-title font-size-18">差旅信息</div>
+				<div class="o-content clear">
+					<!-- <div class="t-text">
+						<span class="t-text-title">出差日期</span>
+						$!dateTool.format("yyyy-MM-dd",$!appForm.travelstart)——$!dateTool.format("yyyy-MM-dd",$!appForm.travelend), $!appForm.traveldays天
+					</div>
+					#if("$!appForm.targetwhere" !="")
+					<div class="t-text">
+						<span class="t-text-title">出差地点</span>
+						$!appForm.targetwhere
+					</div>
+					#end
+					#if("$!appForm.budgetfee" != "")
+					<div class="t-text">
+						<span class="t-text-title">费用预算</span>
+						$!appForm.budgetfee
+					</div>
+					#end -->
+
+					<div class="chailv-left float-left order-num">
+						<div class="color-gray margin-b-14">出差事由</div>
+						<div>$!appForm.travelreason</div>
+					</div>
+
+				</div>
+			</div>
+			#end
+			<!-- 差旅信息 end -->
+			<div class="order-left background-fff margin-bottom-20 border-r5 font-size-12">
+				<div class="o-title font-size-18">其他信息</div>
+				<div class="o-content">
+					#if("$!appForm.remark" == "")
+					无
+					#else
+					<div class="t-text"><span class="t-text-title">备注</span>$!appForm.remark</div>
+					#end
+				</div>
+			</div>
+		</div>
+		<div class="float-right">
+			#if($!appForm.budgetfee != 'null')
+			<div class="order-right background-fff margin-bottom-20 border-r5">
+				<div class="clear yingfu">
+					<div class="float-left">费用预算</div>
+					<div class="float-right color-purple">
+						<span class="font-size-12">￥</span><span>$!appForm.budgetfee</span>
+					</div>
+				</div>
+			</div>
+			#end
+			#parse("/crm/my-chailv/approve-common.html")
+		</div>
+	</div>
+
+</div>
+
+#parse("/common/foot.html")
+<script type="text/javascript" src="/static/js/approve/approve-detail.js"></script>
+</body>
+
+</html>

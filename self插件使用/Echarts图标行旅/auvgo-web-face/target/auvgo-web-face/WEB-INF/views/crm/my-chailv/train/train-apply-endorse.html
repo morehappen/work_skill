@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>火车票订单-申请改签</title>
+	#parse("/common/styleSheetCommon.html")
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-new-order-detail.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/air-apply-common.css" />
+</head>
+<body>
+	<div class="tips-content">
+		<p>*我们尽量帮您申请改签，改签结果以12306为准</p>
+	</div>
+	<div class="apply-line">
+		#parse("/crm/my-chailv/train/train-infor.html")
+		#if($!empList.size() > 0)
+		<div class="clear e-l-c-person">
+			<span class="e-l-person float-left">选择乘车人</span>
+			<div class="float-left person-c">
+				#foreach($emp in $!empList)
+				<div class="label label-radio label-margin-right float-left">
+					<span class="show_choice"></span>
+					<span class="e-p-name hoverTips hover_content">$!{emp.userName}</span>
+					<input type="radio" name="empid" value="$!{emp.userId}" data-id="$!{emp.id}">
+				</div>
+				#end
+			</div>
+		</div>
+		<form action="/train/gaiqian/query" id="endorse-form" target="_top">
+			<input type="hidden" name="empIds" class="ids" />
+			<input type="hidden" name="id" class="id" />
+			<input type="hidden" name="orderno" value="$!{order.orderNo}" />
+			<div class="clear e-l-c-date">
+				<span class="float-left e-l-c-title">选择日期</span>
+				<input type="text" name="queryDate" value="$!{order.route.travelTime}" class="input border-radius float-left endorse-date" onfocus="WdatePicker({minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+29}',isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})">
+			</div>
+			<div class="btnGrounp">
+				<!--<a class="btn btn-default btn-big" href="/train/query/gaiqian" target="_top">查询车次</a>-->
+				<button type="button" class="btn btn-default btn-big" id="endorse-btn">查询车次</button>
+			</div>
+		</form>
+		#else
+			没有符合改签条件的乘客!
+		#end
+	</div>
+	#parse("/common/foot.html")
+	<script type="text/javascript" src="/static/js/crm/my-chailv/train/train-apply-endorse.js"></script>
+</body>
+</html>

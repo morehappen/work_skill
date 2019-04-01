@@ -1,0 +1,32 @@
+<div class="sub-nav ">
+	<div class="main-content">
+		<div class="sub-nav-ul clear">
+			<input type="hidden" value="$!isoalogin" class="isoalogin_flag">
+			<input type="hidden" value='$!{casModel}' class="casModel_flag">
+			#if(!$!isoalogin)
+			<a href="/index?flag=air" data-flag="air" class="go-home float-left" data-linshi="air">
+				<!--<img src="/static/img/common/nav_home.png" alt="返回首页" title="返回首页">-->
+				首页
+			</a>
+			#end
+			#if($!companybusiness.get(1)==1)
+			#if(!$!isoalogin)
+			<a href="/air/international/xuqiudan?flag=guoji" data-linshi="guoji" data-flag="guoji" class="float-left">国际机票</a>
+			#else
+			<a href="/air/international/xuqiudan?flag=air" data-linshi="true" data-flag="air" class="float-left">国际机票</a>
+			#end
+			<!--<a href="/myChailv/toNewAirOrder/personal?flag=myChailv" data-linshi="true" data-flag="myChailv" class="float-left">订单管理</a>-->
+			#end
+			
+			#foreach($!etabs in $!menus)
+				#if("$!etabs.url"!="")
+					<a href="$!etabs.url" class="float-left">$!etabs.name</a>
+				#end
+			#end
+			<!-- <a href="/rent/car" data-flag="rentCar" class="float-left">租车</a>
+			<a href="/visa/demand" data-flag="visa" class="float-left">签证</a>
+			<a href="/metting/demand" data-flag="metting" class="float-left">会议</a> -->
+			<!-- <a href="#">出差申请</a> -->
+		</div>
+	</div>
+</div>

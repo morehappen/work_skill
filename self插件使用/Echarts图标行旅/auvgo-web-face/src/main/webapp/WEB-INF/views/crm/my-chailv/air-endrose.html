@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>我的差旅-机票改签单列表</title>
+		#parse("/common/styleSheetCommon.html")
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/common/second-nav.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/my-chailv.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/my-chailv/train-order-list.css"/>
+	</head>
+	<body class="background-6461e2">
+		#parse("/common/head.html")
+		<!-- 主体 begin -->
+		<div class="main-content main-myChailv-c clear">
+			<div class="float-left">
+				#parse("/common/second-nav.html")
+			</div>
+			<div class="float-left list-content">
+				<ul class="tab-model clear">
+					<li class="float-left"><a href="/myChailv/toNewAirGaiOrder/personal?tag=airEndrose" data-flag="personal" class="position float-left">个人订单</a></li>
+					<li class="float-left"><a href="/myChailv/toNewAirGaiOrder/all?tag=airEndrose" data-flag="all" class="position float-left">全部订单</a></li>
+				</ul>
+				<form action="/myChailv/toNewAirGaiOrder/personal?tag=airEndrose" method="POST" data-query="queryForm" id="AirEndroseForm" class="query_form">
+					<input id="pageNo" type="hidden" name="pageNum">
+					<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+					<div class="input-select clear">
+						<div class="clear">
+							<div class="input-model margin-default-r margin-10-b">
+								<div class="i-m-text">日期类型：</div>
+								<div class="i-m-input">
+									<input type="text" readonly value="申请日期">
+								</div>
+							</div>
+							<div class="input-model margin-default-r margin-10-b middle-line position-rel">
+								<div class="i-m-text">起始日期：</div>
+								<div class="i-m-input">
+									<input type="text" data-ele="sdate" id="GTE_date" name="q_GTE_gaiqian.createtime" value="$!q_GTE_gaiqian_createtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+								</div>
+							</div>
+							<div class="input-model margin-default-r margin-10-b">
+								<div class="i-m-text">截止日期：</div>
+								<div class="i-m-input">
+									<input type="text" data-ele="edate" id="LTE_date" name="q_LTE_gaiqian.createtime" value="$!q_LTE_gaiqian_createtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+								</div>
+							</div>
+							<div class="input-model margin-default-r margin-10-b">
+								<div class="i-m-text">申请人：</div>
+								<div class="i-m-input">
+									<input type="text" data-ele="applyperson" name="q_LIKE_gaiqian.tjusername" value="$!q_LIKE_gaiqian_tjusername">
+								</div>
+							</div>
+							<div class="input-model margin-default-r margin-10-b train_query_box">
+								<div class="i-m-text"></div>
+								<div class="i-m-input">
+									<button type="submit" class="btn btn-default btn-big">查询</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="input-model margin-default-r margin-10-b">
+							<div class="i-m-text">乘机人：</div>
+							<div class="i-m-input">
+								<input type="text" data-ele="passangerp" name="q_LIKE_gaipass.name" value="$!q_LIKE_gaipass_name">
+							</div>
+						</div>
+
+
+					</div>
+				</form>
+		
+				<!-- table 表格部分 begin -->
+				<div class="margin-top-30 orde-table-wraper">
+					## 全局变量-没有数据
+					#set ($noData = ($!page.list.size() == 0))
+					#if($noData)
+					#parse("/common/no-data.html")
+					#else
+					<table class="table table-align">
+						<thead>
+							<tr>
+								<th rowspan="2">序号</th>
+								<!-- <th rowspan="2" class="table_caozuo">操作</th> -->
+								<th rowspan="2">改签单号</th>
+								<!-- <th rowspan="2">申请人</th> -->
+								<th rowspan="2">申请时间</th>
+								<!--<th rowspan="2">票号</th>-->
+								<th rowspan="2">PNR</th>
+								<th rowspan="2">乘机人</th>
+								<th rowspan="2">航程</th>
+								
+								<!-- <th colspan="3">改签前航段信息</th> -->
+								<th colspan="3" style="text-align:center">改签后航段信息</th>
+								
+								<th rowspan="2">改签费用</th>
+								<th rowspan="2">审批状态</th>
+								<th rowspan="2">支付状态</th>
+								<th rowspan="2">订单状态</th>
+							</tr>
+							<tr>
+								
+								<th>航班号</th>
+								<th>起飞时间</th>
+								<th>舱位</th>
+								<!-- <th>航班号</th>
+								<th>起飞时间</th>
+								<th>舱位</th> -->
+								
+							</tr>
+						</thead>
+						<tbody>
+						#foreach($gaiqian in $!page.list)
+							<tr>
+								<td>$!vCount</td>
+								<!-- <td class="table_caozuo">
+									<div class="clear table-btn-div">
+										<button type="button" class="btn btn-default1 btn-small">支付</button>
+										<button type="button" class="btn btn-default btn-small">取消</button>
+									</div>	
+								</td> -->
+								
+								<td><span class="color-6461e2">
+								<a data-href_="/myChailv/toAirEndroseDetail/$!gaiqian.gqorderno" href="javascript:void(0);" class="orderToDetail">$!gaiqian.gqorderno</a>
+								</span></td>
+								<!-- <td>$!gaiqian.tjusername</td> -->
+								<td class="line-height-td">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!gaiqian.createtime)</td>
+								<!--<td>$!gaiqian.piaohao</td>-->
+								<td class="line-height-td">$!gaiqian.pnr<br/><span class="color-green">$!gaiqian.oldpnr</span></td>
+								<td><div class="hoverTips hover_content">$!gaiqian.username</div></td>
+								<td>$!{gaiqian.orgname} - $!{gaiqian.arriname}</td>
+								
+								<!-- <td>$!gaiqian.airline</td>
+								<td class="line-height-td">$!gaiqian.olddate<br>$!gaiqian.oldtime</td>
+								<td>$!gaiqian.oldcode舱</td> -->
+								
+								<td>$!gaiqian.newairline</td>
+								<td class="line-height-td">$!gaiqian.newdate<br>$!gaiqian.newtime</td>
+								<td>$!gaiqian.newcode舱</td>
+								
+								<td>
+								#if($!gaiqian.status == 2)
+									$!gaiqian.khyinshou
+								#else
+									--
+								#end
+								</td>
+								<td>$!statusUtil.getApproveStatus($!gaiqian.approvestatus)</td>
+								<td>$!baseStatus.getPaystatus($!gaiqian.paystatus)</td>
+								<td>
+								#if($!{gaiqian.status}==2)
+									<span class="color-ching">$!airUtils.getGaiqian($!gaiqian.status)</span>
+								#elseif($!{gaiqian.status}==3) <span class="color-red">$!airUtils.getGaiqian(1)</span>
+								#else
+									$!airUtils.getGaiqian($!gaiqian.status)
+								#end
+								</td>
+							</tr>
+						#end
+						</tbody>
+					</table>
+					#end
+				</div>
+				<!-- table 表格部分 end -->
+				#if(!$noData)
+				<div id="kkpager"></div>
+				#end
+				<input type="hidden" data-ele="pagenum" value="$!page.pageNum">
+				<input type="hidden" data-ele="pages" value="$!page.pages">
+				<input type="hidden" data-ele="total" value="$!page.total">
+				<input type="hidden" data-ele="pagesize" value="$!pageSize">
+			</div>
+		</div>
+		<!-- 主体 end -->
+		#parse("/common/foot.html")
+		<script type="text/javascript" src="/static/js/crm/my-chailv/queryCookie.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/orderCommon.js"></script>
+		<script type="text/javascript" src="/static/js/crm/my-chailv/air-endrose.js"></script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

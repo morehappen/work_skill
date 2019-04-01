@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>角色权限</title> 
+#parse("/common/styleSheetCommon.html")
+</head>
+<body class="background-6461e2">
+	#parse("common/head.html")
+	<div class="main-content margin-top-10 ">
+		#parse("/crm/company/company-left.html")
+	<!--<div class="bread-crums-new main-content-new margin-top-10">-->
+		<!--#parse("/common/bread-crumbs.html") > 角色权限-->
+	<!--</div>-->
+	<!-- 主体 begin -->
+	<div class="main-content-new margin-top-10 background-fff auto_bottom">
+		<div class="content-only">
+			<form action="/crm/role" method="POST" id="RoleForm">
+			<div class="clear">
+				<div class="float-left">
+					<input id="pageSize" type="hidden" name="pageSize" value="$!pageSize">
+					<input id="pageNo" type="hidden" name="pageNum">
+					<input type="text" name="q_LIKE_name" value="$!q_LIKE_name"  class="input" placeholder="角色名称" >
+				</div>
+				<button type="submit" class="btn btn-default btn-big">查询</button>
+			</div>
+		</form>
+			<div class="margin-top-20">
+				<button class="btn btn-default btn-big add_role">添加角色</button>
+			</div>
+
+			<!-- table 表格部分 begin -->
+			<div class="margin-top-10">
+				
+				## 全局变量-没有数据
+				#set ($noData = ($!page.list.size() == 0))
+				#if($noData)
+				#parse("/common/no-data.html")
+				#else
+				<table class="table table-align">
+					<thead>
+						<tr>
+							<th>角色名称</th>
+							<th>角色说明</th>
+							<th>角色用户</th>
+							<th class="table_caozuo">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						#foreach($role in $page.list)
+						<tr class="text-c">
+							<td>$!role.name</td>
+							<td>$!role.des</td>
+							<td><a class="js_cz"  href="/crm/role/relationemployee/$!{role.id}">角色用户</a></td>
+							<td><a class="btn btn-default btn-small"   onclick="editRole($!role.id)">修改</a>
+							 <button class="btn btn-danger btn-small" onclick="removeRole($!{role.id})">删除</button></td>
+						</tr>
+						#end
+					</tbody>
+				</table>
+				#end
+			</div>
+			<!-- table 表格部分 end -->
+			
+			#if(!$noData)
+			<div id="kkpager"></div>
+			#end
+		</div>
+		</div>
+	</div>
+	<!-- 主体 end -->
+	#parse("/common/foot.html")
+	<script type="text/javascript" src="/static/js/crm/role/role-permissions.js"></script>
+	<script type="text/javascript">
+		kkpagerMain({'pno':$!page.pageNum,'total':$!page.pages,'totalRecords':$!page.total,'pageSize':$!pageSize,'pageNo':$("#pageNo"),'submit_element':$("#RoleForm")}); //初始化分页
+		javaData({'role':{url:'/crm/role/add/$!company.id',title:'添加角色'}});
+	</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+## 相关正则校验
+	## 主要针对validform插件datatype=""的行内正则
+	## 修改此处同时处理common.js文件下的参数-FACEGLUTIL
+
+## 手机号验证
+#set($mobileRegExp = "/^(0|86|17951)?(13[0-9]|15[012356789]|16[6]|17[035678]|18[0-9]|14[5678]|19[89])[0-9]{8}$/")
+#set($mobileRegExpNull = "手机号不能为空！")
+#set($mobileRegExpErr = "手机号格式错误！")
+
+## 邮箱验证
+#set($emailRegExp = "/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/")
+#set($emailRegExpNull = "邮箱不能为空！")
+#set($emailRegExpErr = "邮箱格式错误！")
+
+## 身份证验证
+#set($IDRegExp = "/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/")
+#set($IDRegExpNull = "身份证号不能为空！")
+#set($IDRegExpErr = "身份证号格式错误！")
+
+## 除身份证以外证件验证
+#set($otherIDRegExp = "/^[a-zA-Z0-9]{5,15}$/")
+#set($otherIDRegExpNull = "证件号不能为空！")
+#set($otherIDRegExpErr = "证件号格式错误！")

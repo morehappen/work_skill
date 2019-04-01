@@ -1,0 +1,50 @@
+.ac_results {
+	padding: 0px;
+	/*border: 1px solid #7b3af4;*/
+	background-color: white;
+	overflow: hidden;
+	z-index: 99999;
+	width:350px!important;
+}
+
+.ac_results ul {
+	width: 100%;
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ac_results li {
+	height:24px;
+	margin: 0px;
+	padding: 2px 5px;
+	cursor: default;
+	display: block;
+	font: menu;
+	font-size: 12px;
+	color:#333;
+	line-height: 24px;
+	overflow: hidden;
+	float:none!important;
+}
+
+.ac_loading {
+	background: white;
+}
+
+
+.ac_results .ac_over {
+	background-color: #F4F8FB;
+	color: #333;
+}
+.ac_even_w{
+	width:280px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	float: left;
+}
+.float-right{
+	float: right;
+}

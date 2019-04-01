@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>酒店-列表</title>
+	<link rel="icon" sizes="any" href="../../resources/images/common/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="../../resources/js/common/My97DatePicker/skin/WdatePicker.css">
+	<link rel="stylesheet" type="text/css" href="../../resources/css/common/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../resources/css/hotel/hotel-query-list.css">
+	<link rel="stylesheet" href="http://api.map.baidu.com/res/20/bmap_autocomplete.css">
+	<link rel="stylesheet" type ="text/css" href="../../resources/css/hotel/hotel-query-baidu-map.css">
+	
+</head>
+
+<body class="background-6461e2 clear">
+<div class="main-content">
+	<div class="query_form background-fff margin-bottom-10 clear">
+		<div class="float-left position">
+			<span class="icon-img icon-search position-ab icon-position-ccc"></span>
+			<input type="text" name="cityName" value="" class="show-city city-name input float-left"
+				   autocomplete="off"/>
+			<input type="hidden" name="cityId" value="" class="city-code"/>
+		</div>
+		<div class="float-left position">
+			<span class="icon-img icon-search position-ab icon-date-ccc"></span>
+			<input type="text" name="arrivalDate" value="" readonly id="beginDate" class="input float-left"
+				   onfocus="var endDate=$dp.$('endDate');WdatePicker({doubleCalendar:true,minDate:'%y-%M-%d',maxDate:'%y-%M-{%d+179}',onpicked:function(){endDate.focus()},isShowClear:false,isShowToday:false,isShowOk:false,readOnly:true})"/>
+		</div>
+		<div class="float-left position">
+			<span class="icon-img icon-search position-ab icon-date-ccc"></span>
+			<input type="text" name="departureDate" value="" readonly id="endDate" class="input float-left"
+				   onfocus="WdatePicker({doubleCalendar:true,minDate:'#F{$dp.$D(\'beginDate\', {d:1})}',maxDate:'%y-%M-{%d+179}',onpicked:function(){},isShowClear:false,isShowToday:false,readOnly:true})"/>
+		</div>
+		<div class="float-left position">
+			<span class="icon-search icon-img position-ab icon-keyword"></span>
+			<input type="text" name="keyword" value="" placeholder="(选填)酒店名、位置、品牌"
+				   class="input float-left keyword-search-input"/>
+			<input type="hidden" name="queryText" value="" id="query-text"/>
+			<ul class="search-list hide"></ul>
+		</div>
+		<div class="float-left">
+			<button type="button" class="btn btn-default btn-big float-left hotel-query" data-isfirst="1">查询</button>
+			<button type="button" class="btn btn-cancel btn-big float-left hotel-back">返回</button>
+		</div>
+	</div>
+
+	<div class="model-wraper font-size-12">
+
+		<!-- 原页面 begin -->
+		<div class="model-list">
+			<div class="filter-wraper">
+
+				<!-- 位置 begin -->
+				<div class="clear e-filter-area e-filter-area-spec">
+					<div class="float-left e-filter-t clear">
+						<span>位置</span>
+						<button type="button" class="btn btn-default btn-middle btn-no-limit" data-flag="position">不限
+						</button>
+					</div>
+					<div class="float-left e-filter-c" id="position">
+						<div class="f-p-c-w position">
+							<div class="clear all-show default-height" data-con="district">
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="position" value="昌平区">
+									<span class="hoverTips hover_content">昌平区</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="position" value="昌平区">
+									<span class="hoverTips hover_content">昌平区</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="position" value="昌平区">
+									<span class="hoverTips hover_content">昌平区</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="position" value="昌平区">
+									<span class="hoverTips hover_content">昌平区</span>
+								</div>
+							</div>
+							<div class="slide_shut position-ab cursor"></div>
+						</div>
+					</div>
+				</div>
+				<!-- 位置 end -->
+
+				<!-- 房价 begin -->
+				<div class="clear e-filter-area">
+					<div class="float-left e-filter-t clear">
+						<span>房价</span>
+						<button type="button" class="btn btn-default btn-big btn-no-limit" data-flag="price">不限</button>
+					</div>
+					<div class="float-left e-filter-c" id="price">
+						<div class="price-c-wraper clear">
+							<div class="label label-radio e-label clear" id="price-600">
+								<span class="show_choice"></span>
+								<input type="radio" name="price" value="600-"/>
+								<span>600元以上</span>
+							</div>
+							<div class="label label-radio e-label clear" id="price-300-600">
+								<span class="show_choice"></span>
+								<input type="radio" name="price" value="300-600"/>
+								<span>300-600元</span>
+							</div>
+							<div class="label label-radio e-label clear" id="price-150-300">
+								<span class="show_choice"></span>
+								<input type="radio" name="price" value="150-300"/>
+								<span>150-300元</span>
+							</div>
+							<div class="label label-radio e-label clear" id="price-150">
+								<span class="show_choice"></span>
+								<input type="radio" name="price" value="0-150"/>
+								<span>150元以下</span>
+							</div>
+							<div class="float-left clear position">
+								<input type="text" placeholder="￥" class="define-price input float-left" id="lowRate"/>
+								<span class="float-left middle-line">—</span>
+								<input type="text" placeholder="￥" class="define-price input float-left" id="highRate"/>
+								<button type="button" class="btn btn-price-confirm">确定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 房价 end -->
+
+				<!-- 星级 begin -->
+				<div class="clear e-filter-area">
+					<div class="float-left e-filter-t clear">
+						<span>星级</span>
+						<button type="button" class="btn btn-default btn-middle btn-no-limit" data-flag="starRate">不限
+						</button>
+					</div>
+					<div class="float-left e-filter-c" id="starRate">
+						<div class="price-c-wraper clear">
+							<div class="label label-checkbox e-label clear" id="start-5">
+								<span class="show_choice"></span>
+								<input type="checkbox" name="start" value="5"/>
+								<span>豪华/五星</span>
+							</div>
+							<div class="label label-checkbox e-label" id="start-4">
+								<span class="show_choice"></span>
+								<input type="checkbox" name="start" value="4"/>
+								<span>高档/四星</span>
+							</div>
+							<div class="label label-checkbox e-label" id="start-3">
+								<span class="show_choice"></span>
+								<input type="checkbox" name="start" value="3"/>
+								<span>舒适/三星</span>
+							</div>
+							<div class="label label-checkbox e-label" id="start-2">
+								<span class="show_choice"></span>
+								<input type="checkbox" name="start" value="2,1,0"/>
+								<span>经济</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 星级 end -->
+
+				<!-- 品牌 begin -->
+				<div class="clear e-filter-area">
+					<div class="float-left e-filter-t clear">
+						<span>品牌</span>
+						<button type="button" class="btn btn-default btn-middle btn-no-limit" data-flag="brands">不限
+						</button>
+					</div>
+					<div class="float-left e-filter-c" id="brands">
+						<ul class="clear f-p-tab-wraper">
+							<li class="float-left t-c-t" data-tab="gongyu">公寓</li>
+							<li class="float-left t-c-t" data-tab="jingji">经济</li>
+							<li class="float-left t-c-t" data-tab="shushi">舒适</li>
+							<li class="float-left t-c-t" data-tab="gaodang">高档</li>
+							<li class="float-left t-c-t" data-tab="haohua">豪华</li>
+						</ul>
+						<div class="f-p-c-w">
+							<div class="t-c-c clear" data-con="gongyu">
+								<div class="label label-checkbox e-label">
+									<span class="show_choice"></span>
+									<input type="checkbox" name="jingji" value="6">
+									<span class="hoverTips hover_content">首旅建国</span>
+								</div>
+							</div>
+							<div class="t-c-c clear" data-con="jingji">
+								<div class="label label-checkbox e-label">
+									<span class="show_choice"></span>
+									<input type="checkbox" name="jingji" value="6">
+									<span class="hoverTips hover_content">首旅建国</span>
+								</div>
+							</div>
+							<div class="t-c-c clear" data-con="shushi">
+								<div class="label label-checkbox e-label">
+									<span class="show_choice"></span>
+									<input type="checkbox" name="jingji" value="6">
+									<span class="hoverTips hover_content">首旅建国</span>
+								</div>
+							</div>
+							<div class="t-c-c clear" data-con="gaodang">
+								<div class="label label-checkbox e-label">
+									<span class="show_choice"></span>
+									<input type="checkbox" name="jingji" value="6">
+									<span class="hoverTips hover_content">首旅建国</span>
+								</div>
+							</div>
+							<div class="t-c-c clear" data-con="haohua">
+								<div class="label label-checkbox e-label">
+									<span class="show_choice"></span>
+									<input type="checkbox" name="jingji" value="6">
+									<span class="hoverTips hover_content">首旅建国</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 品牌 end -->
+
+				<!-- 偏好 begin -->
+				<div class="clear e-filter-area hide">
+					<div class="float-left e-filter-t clear">
+						<span>偏好</span>
+						<button type="button" class="btn btn-default btn-middle btn-no-limit" data-flag="favourate">不限
+						</button>
+					</div>
+					<div class="float-left e-filter-c" id="favourate"></div>
+				</div>
+				<!-- 偏好 end -->
+
+				<!-- 设施 begin -->
+				<div class="clear e-filter-area f-w-all">
+					<div class="float-left e-filter-t clear">
+						<span>设施</span>
+						<button type="button" class="btn btn-default btn-middle btn-no-limit" data-flag="facility">不限
+						</button>
+					</div>
+					<div class="float-left e-filter-c" id="facility">
+						<div class="f-p-c-w position">
+							<div class="clear all-show default-height" data-con="district">
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="1">
+									<span class="hoverTips hover_content">免费wifi</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="2">
+									<span class="hoverTips hover_content">收费wifi</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="3">
+									<span class="hoverTips hover_content">免费宽带</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="4">
+									<span class="hoverTips hover_content">收费宽带</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="5">
+									<span class="hoverTips hover_content">免费停车场</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="6">
+									<span class="hoverTips hover_content">收费停车场</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="7">
+									<span class="hoverTips hover_content">免费接机服务</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="7">
+									<span class="hoverTips hover_content">收费接机服务</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="9">
+									<span class="hoverTips hover_content">室内游泳池</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="10">
+									<span class="hoverTips hover_content">室外游泳池</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="11">
+									<span class="hoverTips hover_content">健身房</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="12">
+									<span class="hoverTips hover_content">商务中心</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="13">
+									<span class="hoverTips hover_content">会议室</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="14">
+									<span class="hoverTips hover_content">酒店餐厅</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="15">
+									<span class="hoverTips hover_content">叫醒服务</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="16">
+									<span class="hoverTips hover_content">提供发票</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="17">
+									<span class="hoverTips hover_content">租车服务</span>
+								</div>
+								<div class="label label-radio e-label">
+									<span class="show_choice"></span>
+									<input type="radio" name="faci" value="18">
+									<span class="hoverTips hover_content">洗衣服务</span>
+								</div>
+							</div>
+							<div class="slide_shut position-ab cursor"></div>
+						</div>
+					</div>
+				</div>
+				<!-- 设施 end -->
+				<!--<div class="text-align">-->
+					<!--<span id="more-trig" class="fold position cursor">-->
+						<!--更多-->
+						<!--<span class="icon-img position-ab flod-img"></span>-->
+					<!--</span>-->
+				<!--</div>-->
+			</div>
+			<div class="filter-result font-size-12 clear">
+				<div class="float-left m-r-10"><b class="globalColor">184</b> 家酒店满足条件</div>
+				<div class="all-con-wraper clear float-left hide">
+					<div class="float-left" data-show="select"></div>
+					<button type="button" class="btn btn-cancel btn-middle" id="remove-all-filter">清 空</button>
+				</div>
+			</div>
+			<div class="sort-model font-size-14 clear">
+				<div class="float-left">推荐</div>
+				<div class="float-left position">
+					价格
+					<span class="sort-img position-ab"></span>
+				</div>
+				<div class="float-left position">
+					距离
+					<span class="sort-img position-ab"></span>
+				</div>
+				<div class="label label-checkbox e-label float-left">
+					<span class="show_choice"></span>
+					<input type="checkbox" name="start" value="2,1,0" />
+					<span>直销</span>
+				</div>
+				<div class="label label-checkbox e-label float-left">
+					<span class="show_choice"></span>
+					<input type="checkbox" name="start" value="2,1,0" />
+					<span>协议</span>
+				</div>
+				<div class="float-left">预付</div>
+				<div class="float-left">到店付</div>
+				<div class="float-right map font-size-12 cursor" id="baidu-btn"><span class="p-img"></span >查看大地图</div>
+			</div>
+			<div class="hotel-list-wraper">
+				<!--地图容器-->
+				
+				<div class="hotel-list">
+					<div class="every-cell clear">
+						<div class="clear">
+							<div class="e-cell-l clear">
+								<div class="e-cell-i">
+									<img src="http://pavo.elongstatic.com/i/Hotel120_120/0004l51U.jpg" width="166" height="120">
+								</div>
+								<div class="e-cell-des position">
+									<div class="e-cell-t hoverTips hover_content">飘HOME连锁酒店(北京建国门店)</div>
+									<div class="e-cell-a font-size-12">
+										建国门建国门建国门建国门建国门建国门建国门建国门建国门建国门建国门建国门建国门建国门建国门<span>
+										| </span>朝阳区
+										<span class="baidu-btn globalColor cursor">地图</span>
+									</div>
+									<div class="e-cell-rank font-size-12">经济型</div>
+									<div class="show-server">
+										<!--
+										e-s-wifi 	无线
+										e-s-meeting 会议
+										e-s-window 	好拓房带WiFi
+										e-s-stair 	接送机服务
+										e-s-centre 	商务中心
+										e-s-swimming 游泳
+										e-s-gym 	健身房
+										e-s-wake 	叫醒服务
+										e-s-invoice 发票
+										e-s-renting 租车服务
+										e-s-laundry 洗衣
+										e-s-restaurant   餐厅
+										-->
+										<span class="e-server e-s-wifi  float-left"></span>
+										<span class="e-server e-s-meeting  float-left"></span>
+										<span class="e-server e-s-window float-left"></span>
+										<span class="e-server e-s-stair float-left"></span>
+										<span class="e-server e-s-centre float-left"></span>
+										<span class="e-server e-s-swimming float-left"></span>
+										<span class="e-server e-s-gym float-left"></span>
+										<span class="e-server e-s-wake float-left"></span>
+										<span class="e-server e-s-invoice float-left"></span>
+										<span class="e-server e-s-renting float-left"></span>
+										<span class="e-server e-s-laundry float-left"></span>
+										<span class="e-server e-s-restaurant float-left"></span>
+									</div>
+									<span class="position-ab hotel-type">协议</span>
+								</div>
+							</div>
+							<div class="float-right book-model">
+								<div class="book-text globalColor clear">
+									<span class="float-left">￥</span>
+									<span class="float-left">1230</span>
+									<span class="font-size-12 float-left sub-text">起</span>
+								</div>
+								<div class="">
+									<button class="btn btn-cancel btn-see font-size-16">查看详情</button>
+								</div>
+							</div>
+							<div class="float-right pl-model">
+								<div class="pl-c font-size-16 clear">
+									<span class="float-left">好评率</span>
+									<span class="float-left hotel-bg-img pl-img"></span>
+									<span class="float-left">40%</span>
+								</div>
+								<div class="font-size-12 pl-num">
+									来自用户 <span class="font-size-14 globalColor">1123</span> 条点评
+								</div>
+							</div>
+						</div>
+						<!--百度地图容器-->
+						<div class="allmap-box"></div>
+						
+					</div>
+					<!--<div class="baidu-map" id="map-container"></div>-->
+				</div>
+				<div class="page-wraper text-align" data-page="1">
+					<span class="list-page page-up no-page">上一页</span>
+					<span class="list-page page-down no-page">下一页</span>
+				</div>
+			</div>
+		</div>
+		<!-- 原页面 end -->
+	</div>
+</div>
+
+<!-- 遮罩层 begin -->
+<div class="position-ab Screen-full hide">
+	<div class="Screen-zhezhao"></div>
+	<div class="position-ab query-loading">
+		<div class="text-align">请稍等...</div>
+		<div class="loadingImg text-align">
+			<img src="../../resources/images/common/loading-line.gif" style="width: 555px;height: 22px;">
+		</div>
+		<div class="font-size-14 text-align query-status">正在努力为您查询实时的酒店信息</div>
+		<div class="font-size-14 text-align query-tips"></div>
+		<div class="query-hc">
+			<span class="float-left wait-icon icon-hotel"></span>
+			<span class="float-left wait-city mask-arrive-date"></span>
+			<span class="float-left a-l-point wait-jiantou position">
+						<span class="wait-hb-date position-ab text-align mask-location"></span>
+					</span>
+			<span class="float-left wait-city mask-depart-date text-align-r"></span>
+		</div>
+	</div>
+</div>
+<!-- 遮罩层 end -->
+<script type="text/javascript" src="../../resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="../../resources/js/common/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../../resources/js/common/plugin.js"></script>
+<script type="text/javascript" src="../../resources/js/common/common.js"></script>
+<script type="text/javascript" src="../../resources/js/hotel/hotel-query-list.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=BwVes7qgdIXd1OnvMyGvzmK3ZxpMV9Gn&services=&t=20180323171755"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=BwVes7qgdIXd1OnvMyGvzmK3ZxpMV9Gn"></script>
+<script type="text/javascript" src="../../resources/js/hotel/hotel-query-map.js"></script>
+</body>
+</html>

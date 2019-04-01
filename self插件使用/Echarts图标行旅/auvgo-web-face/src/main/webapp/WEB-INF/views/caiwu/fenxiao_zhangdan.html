@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>机票订单-正常</title> #parse("/common/styleSheetCommon.html")
+    <link rel="stylesheet" type="text/css" href="/static/css/common/select-css.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/data-manage.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/chailv-manage/data-manage/my-chailv-order.css"/>
+</head>
+<body class="background-6461e2">
+#parse("/common/head.html")
+<div class="bread-crums main-content margin-top-10">
+    <a href="/caiwu/zhangdan" class="normal_a">企业账单</a>
+</div>
+<!-- 主体 begin -->
+<div class="main-content margin-top-10 clear">
+    <div class="aside-nav float-left background-fff auto_bottom">
+        <ul id="order-left-nav">
+            <li class="aside-nav-tab" onclick="location.href='/caiwu/zhangdan'" data-orderflag="toAirOrder">预存款</li>
+            <li class="aside-nav-tab" onclick="location.href='/myChailv/jiesuan/1'" data-orderflag="toAirGaiOrder">已结算
+            </li>
+        </ul>
+    </div>
+    <div class="aside-content float-left background-fff auto_bottom">
+        <div class="input-select clear">
+       创建日期: <input type="text" class="input border-radius" id="_GTE_date" name="q_GTE_t_chupiaotime" value="$!q_GTE_t_chupiaotime"
+               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly"> - <input type="text" class="input border-radius" id="_LTE_date" name="q_LTE_t_chupiaotime"  value="$!q_LTE_t_chupiaotime"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly">
+            <button type="submit" class="btn btn-default btn-big">查询</button>
+            <button type="button" class="btn btn-default btn-big export_zhangdan">导出账单</button>
+        <div style="color: #d10773">预存款余额:</div>$!prePayBalance
+    </div>
+        <!-- table 表格部分 begin -->
+        <div class="margin-top-20 orde-table-wraper">
+            <table class="table table-align">
+                <thead class="thead-checked">
+                <tr style="white-space: nowrap">
+                    <th>序号</th>
+                    <th>操作类型</th>
+                    <th>金额</th>
+                    <th>预存款余额</th>
+                    <th>备注</th>
+                    <th>创建时间</th>
+                </tr>
+                </thead>
+                <tbody class="tbody-checked">
+                <tr class="text-c" style="white-space: nowrap">
+                    <td>1</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="kkpager"></div>
+</div>
+<!-- 主体 end -->
+#parse("/common/foot.html")
+    <script type="text/javascript">
+        kkpagerMain({'pno':$!page.pageNum,'total':$!page.pages,'totalRecords':$!page.total,'pageSize':$!page.pageSize,'pageNo':$("#pageNo"),'submit_element':$("#caiWuOrderForm")}); //初始化分页
+    </script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

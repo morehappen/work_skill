@@ -1,0 +1,95 @@
+/*条件筛选区*/
+.detail_title {
+    text-align: center;
+    color: #6461E2;
+    font-size: 20px;
+}
+
+.time_switch {
+    background-color: #fff;
+    padding: 20px 30px 20px 30px;
+    /*margin-bottom: 20px;*/
+    box-shadow: 0 4px 4px 0 rgba(227, 227, 227, 0.50);
+}
+
+.time_switch .input_items {
+    float: left;
+    /* width: 194px; */
+    margin: 14px 0 0px 0;
+    padding-right: 15px;
+    height: 32px;
+    line-height: 32px;
+
+    /*float: left;*/
+    /*width: 245px;*/
+    /*margin-right: 69px;*/
+    /*margin-bottom: 20px;*/
+    /*height: 32px;*/
+    /*line-height: 32px;*/
+}
+
+.input_item_text {
+    width: 66px;
+    padding-right: 4px;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 4px;
+    color: #999;
+}
+
+.query_form .input_items .i_item_input {
+    height: 32px;
+    float: left;
+}
+
+.input_items input[type="text"], .input_items input[type="password"] {
+    width: 106px;
+    height: 30px;
+    border-radius: 2px;
+    line-height: 30px;
+    padding-left: 8px;
+    border: 1px solid #ddd;
+}
+
+.input_items input[type="text"].department {
+    width: 116px;
+    height: 32px;
+}
+
+.query_form .input-model .i-m-text {
+    width: 62px;
+    height: 32px;
+    line-height: 32px;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 4px;
+    color: #999;
+}
+
+.query_form .input-model .i-m-input {
+    width: 100px;
+    height: 32px;
+    float: left;
+}
+
+/*列表区域*/
+.detail_list_box{
+    background-color: #fff;
+}
+.export_detail_btn{
+    width: 102px;
+    height: 38px;
+    line-height: 38px;
+    color: #fff;
+    background-color: #D44A9F;
+    margin:30px 10px 30px 0;
+}
+.close_btn{
+    width: 102px;
+    height: 36px;
+    line-height: 36px;
+    color: #D44A9F;
+    border: 1px solid #D44A9F;
+    margin: 30px 0;
+    background-color: #fff;
+}
