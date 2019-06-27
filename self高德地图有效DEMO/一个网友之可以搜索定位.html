@@ -1,0 +1,593 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>输入提示后查询</title>
+    <style type="text/css">
+        /************************* Just Reset Browser Default CSS : BEGIN ***************************/
+        html {
+            background-color: #fff;
+        }
+
+        body, div, h1, h2, h3, h4, ul, li, form, input, dl, dt, dd, p {
+            margin: 0;
+            padding: 0;
+            font-family: "微软雅黑";
+        }
+
+        h3 {
+        + font-size: 14 px;
+            _font-size: 14px;
+        }
+
+        img {
+            border: none;
+        }
+
+        .c {
+            clear: both;
+        }
+
+        ul, ol, li {
+            list-style: none;
+        }
+
+        /*清除浮动*/
+        .clearfix:after {
+            content: ".";
+            visibility: hidden;
+            display: block;
+            height: 0;
+            overflow: hidden;
+            clear: both;
+        }
+
+        /* no ie mac \*/
+        * html .clearfix {
+            height: 1%;
+        }
+
+        /* end */
+        * + html .clearfix {
+            height: 1%;
+        }
+
+        body {
+            font: 12px / 1.5em 微软雅黑, Arial, Verdana, Helvetica, sans-serif;
+            color: #333;
+        }
+
+        button, input, select, textarea {
+            color: #999;
+        }
+
+        input[type="button"] {
+            padding: 0 5px;
+            color: #333;
+        }
+
+        .demo_box {
+            float: left;
+            width: 620px;
+            height: 500px;
+        }
+
+        /* map style */
+        #iCenter {
+            float: left;
+            width: 650px;
+            height: 500px;
+            margin-left: 5px;
+            margin-right: 10px;
+            border: 1px solid #F6F6F6;
+        }
+
+        #r_title {
+            line-height: 28px;
+            padding-left: 5px;
+            background-color: #D1EEEE;
+            font-weight: bold;
+        }
+
+        #result {
+            overflow: auto;
+            margin-bottom: 5px;
+            /*    width:661px;
+            height: 255px;*/
+        }
+
+        /*  结果项 */
+        #result .sub_result {
+            font-size: 12px;
+            cursor: pointer;
+            line-height: 20px;
+            /*padding:0px 0 4px 2px;*/
+            border-bottom: 1px solid #C1FFC1;
+        }
+
+        #result .sub_result .detail {
+        }
+
+        #result .sub_result .detail h3 {
+            color: #00A6AC;
+        }
+
+        a {
+            color: #067EC0;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .note {
+            color: #999;
+        }
+
+        /*** layerout stylesheet ***/
+        /* 修改背景URL */
+        div.change {
+            background-image: url(http://pages.haozu.ajkcdn.com/20110909/img/map/marker-h.png);
+        }
+
+        div.change div {
+            background-image: url(http://pages.haozu.ajkcdn.com/20110909/img/map/marker-h-l.gif);
+        }
+
+        /*** copied from demo #39 添加自定义点覆盖物 ***/
+        /* 定义自定义点样式 */
+        .markerContentStyle {
+            position: relative;
+        }
+
+        .markerContentStyle span {
+            background-color: #FFFFFF;
+            color: #FF1493;
+            width: 120px;
+            heigth: 80px;
+            border: 2px solid #D8BFD8;
+            FONT-FAMILY: 华文行楷;
+            position: absolute;
+            top: -10px;
+            left: 25px;
+            white-space: nowrap
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        /*** copied from demo #43 添加自定义信息窗体 ***/
+        /* 定义自定义信息窗体样式 */
+        div.info {
+            position: relative;
+            z-index: 100;
+            border: 1px solid #BCBCBC;
+            box-shadow: 0 0 10px #B7B6B6;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition-duration: 0.25s;
+        }
+
+        div.info:hover {
+            box-shadow: 0px 0px 15px #0CF;
+        }
+
+        div.info-top {
+            position: relative;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-bottom: 1px solid #CCC;
+            border-radius: 5px 5px 0 0;
+        }
+
+        div.info-top div {
+            display: inline-block;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 31px;
+            padding: 0 10px;
+        }
+
+        div.info-top img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition-duration: 0.25s;
+        }
+
+        div.info-top img:hover {
+            box-shadow: 0px 0px 5px #000;
+        }
+
+        div.info-middle {
+            font-size: 12px;
+            padding: 10px;
+            line-height: 21px;
+        }
+
+        div.info-bottom {
+            height: 0px;
+            width: 100%;
+            clear: both;
+            text-align: center;
+        }
+
+        div.info-bottom img {
+            position: relative;
+            z-index: 104;
+        }
+
+        input.inputTextStyle {
+            width: 400px;
+            height: 24px;
+            font-size: 16px;
+            margin: 5px;
+            padding: 2px;
+            display: inline;
+        }
+
+        input.btn {
+            color: #000000;
+            height: 30px;
+            font-size: 16px;
+            margin: 5px;
+            padding: 2px;
+            display: inline;
+        }
+
+        b.b_text {
+            font-size: 16px;
+            margin: 5px 0px 5px 10px;
+            _padding-bottom: 2px;
+            _margin-left: 20px;
+            _margin-bottom: 10px;
+            *padding-bottom: 2px;
+            *margin-bottom: 10px;
+            display: inline;
+            *width: 1;
+            width: auto;
+            overflow: auto;
+            *overflow: visible;
+            zoom: 1;
+        }
+
+        /*** -------------------------***/
+    </style>
+
+</head>
+<body>
+<div>
+    <b class="b_text">活动地点：</b>
+    <input id="aim" class="inputTextStyle" type="text"/>
+    <input class="btn" type="button" value="在地图上选择" onclick="showMap();"/>
+</div>
+<div id="mapBg" style="position: absolute;display: none;">
+    <div id="iCenter"></div>
+    <div class="demo_box">
+        <div>
+            <b class="b_text">请输入搜索关键字：</b>
+            <input id="keyword" onkeyup="keydown();" class="inputTextStyle" type="text"/>
+            <div id="result1" name="result1"
+                 style="overflow: auto; width: 95%; border: 1px solid gray;display: none;"></div>
+        </div>
+        <div id="r_title">
+            <b>查询结果:</b>
+        </div>
+        <div id="result"></div>
+    </div>
+</div>
+
+<script language="javascript" src="http://webapi.amap.com/maps?v=1.3&key=6e86029f194a9433dc124915d4d605fb"></script>
+<script language="javascript">
+    var mapObj;  //地图对象
+    var lnglatXY;  //当前对象坐标
+    var aimAddress;  //当前对象地址
+    var geocoderMarker = undefined;  //逆编码跟随鼠标移动视图
+    var searchMarker = [];  //搜索结果信息标记
+    var windowsArr = [];  //搜索结果地图信息
+    var addressArr = [];  //搜索结果地址集合
+
+    function showMap() {  //显示地图
+        var self = this;
+        var mapEle = document.getElementById("mapBg");
+        mapEle.style.display = "block";
+        self.mapInit();
+    }
+
+    function makeSure() {  //点击确认
+        var self = this;
+        var aim = document.getElementById("aim");
+        aim.value = aimAddress || "";
+    }
+
+    function mapInit() {  //创建地图并绑定监听事件
+        var self = this;
+
+        mapObj = new AMap.Map("iCenter", {
+            view: new AMap.View2D({
+                //center:new AMap.LngLat(116.397428,39.90923),//地图中心点
+                zoom: 12 //地图显示的缩放级别
+            })
+        });
+
+        var listener = AMap.event.addListener(mapObj, "click", function (e) {
+            mapObj.clearMap();  // 清楚所有覆盖物
+            lnglatXY = e.lnglat;
+            var listenMarker = new AMap.Marker({
+                map: mapObj,
+                position: e.lnglat,
+                icon: "http://webapi.amap.com/images/0.png",
+                offset: new AMap.Pixel(-10, -34)
+            });
+            mapObj.setCenter(lnglatXY);
+            self.geocoder();
+        });
+    }
+
+    function geocoder() {  //通过坐标找到具体地址
+        var MGeocoder;
+        //加载地理编码插件
+        mapObj.plugin(["AMap.Geocoder"], function () {
+            MGeocoder = new AMap.Geocoder({
+                radius: 1000,
+                extensions: "all"
+            });
+            //返回地理编码结果
+            AMap.event.addListener(MGeocoder, "complete", geocoder_CallBack);
+            //逆地理编码
+            MGeocoder.getAddress(lnglatXY);
+        });
+
+        //加点
+        var marker = new AMap.Marker({
+            map: mapObj,
+            icon: new AMap.Icon({
+                image: "http://api.amap.com/Public/images/js/mark.png",
+                size: new AMap.Size(58, 30),
+                imageOffset: new AMap.Pixel(-32, -0)
+            }),
+            position: lnglatXY,
+            offset: new AMap.Pixel(-5, -30)
+        });
+        mapObj.setFitView();
+    }
+
+    //鼠标划过显示相应点
+
+    function onMouseOver(e) {
+        var coor = e.split(',');
+        var lnglat = new AMap.LngLat(coor[0], coor[1]);
+
+        if (!geocoderMarker) {
+            geocoderMarker = new AMap.Marker({
+                map: mapObj,
+                icon: "http://webapi.amap.com/images/0.png",
+                position: lnglat,
+                offset: new AMap.Pixel(-10, -34)
+            });
+        } else {
+            geocoderMarker.setPosition(lnglat);
+        }
+        mapObj.setFitView();
+    }
+
+    //回调函数
+    function geocoder_CallBack(data) {
+        geocoderMarker = undefined;
+        var resultStr = "";
+        var roadinfo = "";
+        var poiinfo = "";
+        var address;
+        //返回地址描述
+        address = data.regeocode.formattedAddress;
+        aimAddress = address;
+        makeSure();  //把当前地址赋值给文本框
+        //返回周边道路信息
+        roadinfo += "<table style='width:600px'>";
+        for (var i = 0; i < data.regeocode.roads.length; i++) {
+            var color = (i % 2 === 0 ? '#fff' : '#eee');
+            roadinfo += "<tr style='background-color:" + color + "; margin:0; padding:0;'><td>道路：" + data.regeocode.roads[i].name + "</td><td>方向：" + data.regeocode.roads[i].direction + "</td><td>距离：" + data.regeocode.roads[i].distance + "米</td></tr>";
+        }
+        roadinfo += "</table>";
+        //返回周边兴趣点信息
+        poiinfo += "<table style='width:600px;cursor:pointer;'>";
+        for (var j = 0; j < data.regeocode.pois.length; j++) {
+            var color = j % 2 === 0 ? '#fff' : '#eee';
+            poiinfo += "<tr onmouseover='onMouseOver(\"" + data.regeocode.pois[j].location.toString() + "\")' style='background-color:" + color + "; margin:0; padding:0;'><td>兴趣点：" + data.regeocode.pois[j].name + "</td><td>类型：" + data.regeocode.pois[j].type + "</td><td>距离：" + data.regeocode.pois[j].distance + "米</td></tr>";
+        }
+        poiinfo += "</table>";
+        //返回结果拼接输出
+        resultStr = "<div style=\"font-size: 12px;padding:0px 0 4px 2px; border-bottom:1px solid #C1FFC1;\">" + "<b>地址</b>：" + address + "<hr/><b>周边道路信息</b>：<br/>" + roadinfo + "<hr/><b>周边兴趣点信息</b>：<br/>" + poiinfo + "</div>";
+        document.getElementById("result").innerHTML = resultStr;
+    }
+
+    //输入提示
+    function autoSearch() {
+        var keywords = document.getElementById("keyword").value;
+        var auto;
+        //加载输入提示插件
+        mapObj.plugin(["AMap.Autocomplete"], function () {
+            var autoOptions = {
+                city: "" //城市，默认全国
+            };
+            auto = new AMap.Autocomplete(autoOptions);
+            //查询成功时返回查询结果
+            if (keywords.length > 0) {
+                AMap.event.addListener(auto, "complete", autocomplete_CallBack);
+                auto.search(keywords);
+            } else {
+                document.getElementById("result1").style.display = "none";
+            }
+        });
+    }
+
+    //输出输入提示结果的回调函数
+    function autocomplete_CallBack(data) {
+        var resultStr = "";
+        var tipArr = data.tips;
+        if (tipArr && tipArr.length > 0) {
+            for (var i = 0; i < tipArr.length; i++) {
+                resultStr += "<div id='divid" + (i + 1) + "' onmouseover='openMarkerTipById(" + (i + 1)
+                    + ",this)' onclick='selectResult(" + i + ")' onmouseout='onmouseout_MarkerStyle(" + (i + 1)
+                    + ",this)' style=\"font-size: 13px;cursor:pointer;padding:5px 5px 5px 5px;\"" + "data=" + tipArr[i].adcode + ">" + tipArr[i].name + "<span style='color:#C1C1C1;'>" + tipArr[i].district + "</span></div>";
+            }
+        } else {
+            resultStr = " π__π 亲,人家找不到结果!<br />要不试试：<br />1.请确保所有字词拼写正确<br />2.尝试不同的关键字<br />3.尝试更宽泛的关键字";
+        }
+        document.getElementById("result1").curSelect = -1;
+        document.getElementById("result1").tipArr = tipArr;
+        document.getElementById("result1").innerHTML = resultStr;
+        document.getElementById("result1").style.display = "block";
+    }
+
+    //输入提示框鼠标滑过时的样式
+    function openMarkerTipById(pointid, thiss) {  //根据id打开搜索结果点tip
+        thiss.style.background = '#CAE1FF';
+    }
+
+    //输入提示框鼠标移出时的样式
+    function onmouseout_MarkerStyle(pointid, thiss) {  //鼠标移开后点样式恢复
+        thiss.style.background = "";
+    }
+
+    //从输入提示框中选择关键字并查询
+    function selectResult(index) {
+        if (index < 0) {
+            return;
+        }
+        if (navigator.userAgent.indexOf("MSIE") > 0) {
+            document.getElementById("keyword").onpropertychange = null;
+            document.getElementById("keyword").onfocus = focus_callback;
+        }
+        //截取输入提示的关键字部分
+        var text = document.getElementById("divid" + (index + 1)).innerHTML.replace(/<[^>].*?>.*<\/[^>].*?>/g, "");
+        var cityCode = document.getElementById("divid" + (index + 1)).getAttribute('data');
+        document.getElementById("keyword").value = text;
+        document.getElementById("result1").style.display = "none";
+        //根据选择的输入提示关键字查询
+        mapObj.plugin(["AMap.PlaceSearch"], function () {
+            var msearch = new AMap.PlaceSearch();  //构造地点查询类
+            AMap.event.addListener(msearch, "complete", placeSearch_CallBack); //查询成功时的回调函数
+            msearch.setCity(cityCode);
+            msearch.search(text);  //关键字查询查询
+        });
+    }
+
+    //定位选择输入提示关键字
+    function focus_callback() {
+        if (navigator.userAgent.indexOf("MSIE") > 0) {
+            document.getElementById("keyword").onpropertychange = autoSearch;
+        }
+    }
+
+    //输出关键字查询结果的回调函数
+    function placeSearch_CallBack(data) {
+        debugger
+        //清空地图上的InfoWindow和Marker
+        windowsArr = [];
+        searchMarker = [];
+        addressArr = [];
+        mapObj.clearMap();
+        var resultStr1 = "";
+        var poiArr = data.poiList.pois;
+        var resultCount = poiArr.length;
+        for (var i = 0; i < resultCount; i++) {
+            addressArr[i] = poiArr[i].location;
+            resultStr1 += "<div id='divid" + (i + 1) + "' onmouseover='openMarkerTipById1(" + i + ",this)' onclick='autoClickMap(" + i + ",this)' onmouseout='onmouseout_MarkerStyle(" + (i + 1) + ",this)' style=\"font-size: 12px;cursor:pointer;padding:0px 0 4px 2px; border-bottom:1px solid #C1FFC1;\"><table><tr><td><img src=\"http://webapi.amap.com/images/" + (i + 1) + ".png\"></td>" + "<td><h3><font color=\"#00a6ac\">名称: " + poiArr[i].name + "</font></h3>";
+            resultStr1 += TipContents(poiArr[i].type, poiArr[i].address, poiArr[i].tel) + "</td></tr></table></div>";
+            addmarker(i, poiArr[i]);
+        }
+        mapObj.setFitView();
+        document.getElementById("result").innerHTML = resultStr1;
+        document.getElementById("result").style.display = "block";
+    }
+
+    function autoClickMap(pointid, thiss) {
+        debugger
+        mapObj.clearMap();
+        lnglatXY = addressArr[pointid];
+        mapObj.setCenter(lnglatXY);
+        geocoder();
+    }
+
+    //鼠标滑过查询结果改变背景样式，根据id打开信息窗体
+    function openMarkerTipById1(pointid, thiss) {
+        thiss.style.background = '#CAE1FF';
+        windowsArr[pointid].open(mapObj, searchMarker[pointid]);
+    }
+
+    //添加查询结果的marker&infowindow
+    function addmarker(i, d) {
+        var lngX = d.location.getLng();
+        var latY = d.location.getLat();
+        var markerOption = {
+            map: mapObj,
+            icon: "http://webapi.amap.com/images/" + (i + 1) + ".png",
+            position: new AMap.LngLat(lngX, latY)
+        };
+        var mar = new AMap.Marker(markerOption);
+        searchMarker.push(new AMap.LngLat(lngX, latY));
+
+        var infoWindow = new AMap.InfoWindow({
+            content: "<h3><font color=\"#00a6ac\">  " + (i + 1) + ". " + d.name + "</font></h3>" + TipContents(d.type, d.address, d.tel),
+            size: new AMap.Size(300, 0),
+            autoMove: true,
+            offset: new AMap.Pixel(0, -30)
+        });
+        windowsArr.push(infoWindow);
+        var aa = function (e) {
+            infoWindow.open(mapObj, mar.getPosition());
+        };
+        AMap.event.addListener(mar, "click", aa);
+    }
+
+    //infowindow显示内容
+    function TipContents(type, address, tel) {  //窗体内容
+        if (type == "" || type == "undefined" || type == null || type == " undefined" || typeof type == "undefined") {
+            type = "暂无";
+        }
+        if (address == "" || address == "undefined" || address == null || address == " undefined" || typeof address == "undefined") {
+            address = "暂无";
+        }
+        if (tel == "" || tel == "undefined" || tel == null || tel == " undefined" || typeof address == "tel") {
+            tel = "暂无";
+        }
+        var str = "  地址：" + address + "<br />  电话：" + tel + " <br />  类型：" + type;
+        return str;
+    }
+
+    function keydown(event) {
+        var key = (event || window.event).keyCode;
+        var result = document.getElementById("result1")
+        var cur = result.curSelect;
+        if (key === 40) {//down
+            if (cur + 1 < result.childNodes.length) {
+                if (result.childNodes[cur]) {
+                    result.childNodes[cur].style.background = '';
+                }
+                result.curSelect = cur + 1;
+                result.childNodes[cur + 1].style.background = '#CAE1FF';
+                document.getElementById("keyword").value = result.tipArr[cur + 1].name;
+            }
+        } else if (key === 38) {//up
+            if (cur - 1 >= 0) {
+                if (result.childNodes[cur]) {
+                    result.childNodes[cur].style.background = '';
+                }
+                result.curSelect = cur - 1;
+                result.childNodes[cur - 1].style.background = '#CAE1FF';
+                document.getElementById("keyword").value = result.tipArr[cur - 1].name;
+            }
+        } else if (key === 13) {
+            var res = document.getElementById("result1");
+            if (res && res['curSelect'] !== -1) {
+                selectResult(document.getElementById("result1").curSelect);
+            }
+        } else {
+            autoSearch();
+        }
+    }
+</script>
+
+</body>
+</html>

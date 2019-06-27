@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/positionPicker.html -->
+    <!--    <base href="//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/"/>-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>网友三项集合</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            width: 100%;
+            padding: 0;
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        .map {
+            height: 310px;
+            width: 100%;
+
+        }
+
+        #right {
+            color: #444;
+            background-color: #f8f8f8;
+            min-width: 30px;
+            line-height: 30px;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+
+        .title {
+            width: 100%;
+            background-color: #dadada
+        }
+
+        button {
+            border: solid 1px;
+            margin-left: 15px;
+            background-color: #dadafa;
+        }
+
+        .c {
+            font-weight: 600;
+            padding-left: 15px;
+            padding-top: 4px;
+        }
+
+        #lnglat,
+        #address,
+        #nearestJunction,
+        #nearestRoad,
+        #nearestPOI,
+        .title {
+            padding-left: 15px;
+        }
+
+        #panel {
+            position: absolute;
+            background-color: white;
+            height: 150px;
+            overflow-y: auto;
+            bottom: 0px;
+            width: 100%;
+            border-bottom: solid 1px silver;
+        }
+
+        .poi-img, .amap-zoomcontrol, .poi-tel, .poi-more {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="container" class="map" tabindex="0"></div>
+<div id='tip'>
+    <input type="text" name="search" id="search" value="" placeholder="输入关键字搜索地址"/>
+    <span>取消</span>
+</div>
+<ul id="addressDels">
+    <li class="poi">
+        <div>
+            <span></span>
+            <p class="nearpoi"></p>
+        </div>
+    </li>
+    <li class="address">
+        <div class="left">
+            <div>
+                <span></span>
+                <p class="info"></p>
+            </div>
+        </div>
+        <a href="#" onclick="sub()">确定</a>
+    </li>
+</ul>
+</body>
+<script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.12&key=6e86029f194a9433dc124915d4d605fb'></script>
+<!-- UI组件库 1.0 -->
+<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    $(function () {
+        var lat, lng
+        AMapUI.loadUI(['misc/PositionPicker', 'misc/PoiPicker'], function (PositionPicker, PoiPicker) {
+            var map = new AMap.Map('container', {
+                zoom: 14,
+                scrollWheel: false
+            });
+            var poiPicker = new PoiPicker({
+                input: 'search',
+                placeSearchOptions: {
+                    map: map,
+                    pageSize: 6 //关联搜索分页
+                }
+
+            });
+
+            // 加载定位插件，实现定位功能
+            AMap.plugin('AMap.Geolocation', function () {
+                geolocation = new AMap.Geolocation({
+                    enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                    timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+                    maximumAge: 0,           //定位结果缓存0毫秒，默认：0
+                    showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
+                    showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
+                    panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
+                    zoomToAccuracy: true      //定位成功后调整地图视野范围使定位位置及精度范围视野s内可见，默认：false
+                });
+                map.addControl(geolocation);
+                geolocation.getCurrentPosition();
+                AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+                AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+            });
+
+            // 搜索选址
+            poiPicker.on('poiPicked', function (poiResult) {
+                poiPicker.hideSearchResults();
+                lat = poiResult.item.location.lat
+                lng = poiResult.item.location.lng
+                $('.poi .nearpoi').text(poiResult.item.name)
+
+                $('.address .info').text(poiResult.item.address)
+
+                $('#address').val(poiResult.item.address)
+                map.panTo([lng, lat]);
+            });
+            function onComplete(data) {
+                $('#address').val(data.formattedAddress)
+                $('.address .info').text(data.formattedAddress)
+            }
+
+            //解析定位错误信息
+            function onError(data) {
+                $('.address .info').text('定位失败！');
+            }
+            var positionPicker = new PositionPicker({
+                mode: 'dragMap',
+                map: map
+            });
+            // 拖拽选址
+            positionPicker.on('success', function (positionResult) {
+                $('.poi .nearpoi').text(positionResult.nearestPOI)
+                $('.address .info').text(positionResult.address)
+                $('#address').val(positionResult.address)
+            });
+            positionPicker.on('fail', function (positionResult) {
+                $('.poi .nearpoi').text('')
+                $('.address .info').text('')
+            });
+            var onModeChange = function (e) {
+                positionPicker.setMode(e.target.value)
+            }
+            positionPicker.start();
+            map.panBy(0, 1);
+            map.addControl(new AMap.ToolBar({
+                liteStyle: true
+            }))
+        });
+        function sub() {
+            // 提交地址相关操作
+        }
+    })
+</script>
+</html>

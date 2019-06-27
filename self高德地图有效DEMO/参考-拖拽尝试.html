@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/positionPicker.html -->
+    <base href="//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>高德地图</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            width: 100%;
+            padding: 0;
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        .map {
+            height: 310px;
+            width: 100%;
+
+        }
+
+        #right {
+            color: #444;
+            background-color: #f8f8f8;
+            min-width: 30px;
+            line-height: 30px;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+
+        .title {
+            width: 100%;
+            background-color: #dadada
+        }
+
+        button {
+            border: solid 1px;
+            margin-left: 15px;
+            background-color: #dadafa;
+        }
+
+        .c {
+            font-weight: 600;
+            padding-left: 15px;
+            padding-top: 4px;
+        }
+
+        #lnglat,
+        #address,
+        #nearestJunction,
+        #nearestRoad,
+        #nearestPOI,
+        .title {
+            padding-left: 15px;
+        }
+
+        #panel {
+            position: absolute;
+            background-color: white;
+            height: 150px;
+            overflow-y: auto;
+            bottom: 0px;
+            width: 100%;
+            border-bottom: solid 1px silver;
+        }
+
+        .poi-img, .amap-zoomcontrol, .poi-tel, .poi-more {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="container" class="map" tabindex="0"></div>
+<div id='right'>
+    <div>
+        <div id='address'></div>
+    </div>
+</div>
+<div id="panel"></div>
+</body>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.12&key=6e86029f194a9433dc124915d4d605fb"></script>
+<!-- UI组件库 1.0 -->
+<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script type="text/javascript">
+    // 分割1
+    AMap.service(["AMap.PlaceSearch"], function() {
+        var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
+            pageSize: 5,
+            pageIndex: 1,
+            panel: "panel"
+        });
+
+        var cpoint = [ positionResult.position]; //中心点坐标
+        placeSearch.searchNearBy('', cpoint, 200, function(status, result) {
+
+        });
+    });
+
+
+
+    // 分割2
+    AMapUI.loadUI(['misc/PositionPicker'], function(PositionPicker) {
+        var map = new AMap.Map('container', {
+            zoom: 16,
+            scrollWheel: false,
+            resizeEnable: true
+        })
+        var positionPicker = new PositionPicker({
+            mode: 'dragMap',
+            map: map,
+        });
+        //精确定位
+        map.plugin('AMap.Geolocation', function() {
+            geolocation = new AMap.Geolocation({
+                enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+                buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                buttonPosition:'RB'
+            });
+            map.addControl(geolocation);
+            geolocation.getCurrentPosition();
+            AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+            AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+        });
+        //精确定位结束
+        //拖拽成功触发
+        positionPicker.on('success', function(positionResult) {
+            document.getElementById('address').innerHTML = positionResult.address;
+            AMap.service(["AMap.PlaceSearch"], function() {
+                var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
+                    pageSize: 5,
+                    pageIndex: 1,
+                    panel: "panel"
+                });
+                var cpoint = [ positionResult.position]; //中心点坐标
+                placeSearch.searchNearBy('', cpoint, 200, function(status, result) {
+                });
+            });
+        });
+        positionPicker.on('fail', function(positionResult) {
+            document.getElementById('address').innerHTML = '获取位置信息失败';
+        });
+        var onModeChange = function(e) {
+            positionPicker.setMode(e.target.value)
+        }
+        positionPicker.start();
+        map.panBy(0, 1);
+        map.addControl(new AMap.ToolBar({
+            liteStyle: true
+        }))
+    });
+    // 分割3
+    //精确定位
+    map.plugin('AMap.Geolocation', function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition:'RB'
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+        AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+    });
+
+</script>
+</html>

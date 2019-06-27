@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PathSimplifier/examples/simple-data.html -->
+    <base href="//webapi.amap.com/ui/1.0/ui/misc/PathSimplifier/examples/"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>简单数据附加</title>
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="container"></div>
+<!--<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>-->
+<script type="text/javascript"
+        src="https://webapi.amap.com/maps?v=1.4.15&key=6e86029f194a9433dc124915d4d605fb&plugin=AMap.Geocoder"></script>
+
+<!-- UI组件库 1.0 -->
+<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script type="text/javascript">
+    //创建地图
+    var map = new AMap.Map('container', {
+        zoom: 4
+    });
+    var emptyLineStyle = {
+        lineWidth: 0,
+        fillStyle: null,
+        strokeStyle: null,
+        borderStyle: null
+    };
+    AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function (PathSimplifier, $) {
+
+        if (!PathSimplifier.supportCanvas) {
+            alert('当前环境不支持 Canvas！');
+            return;
+        }
+
+        var pathSimplifierIns = new PathSimplifier({
+            zIndex: 100,
+            //autoSetFitView:false,
+            map: map, //所属的地图实例
+
+            getPath: function (pathData, pathIndex) {
+
+                return pathData.path;
+            },
+            getHoverTitle: function (pathData, pathIndex, pointIndex) {
+
+                if (pointIndex >= 0) {
+                    //point
+                    return pathData.name + '，点：' + pointIndex + '/' + pathData.path.length;
+                }
+
+                return pathData.name + '，点数量' + pathData.path.length;
+            },
+            renderOptions: {
+                pathLineStyle: emptyLineStyle,
+                pathLineSelectedStyle: emptyLineStyle,
+                pathLineHoverStyle: emptyLineStyle,
+                keyPointStyle: emptyLineStyle,
+                startPointStyle: emptyLineStyle,
+                endPointStyle: emptyLineStyle,
+                keyPointHoverStyle: emptyLineStyle,
+                keyPointOnSelectedPathLineStyle: emptyLineStyle,
+                //轨迹线的样式
+                // pathLineStyle: {
+                //     editable: true,//是否可编辑
+                //     strokeStyle: '#fcf9f3',
+                //     lineWidth: 1,
+                //     dirArrowStyle: false,
+                //     strokeOpacity: 0.0,//线透明度
+                // },
+                // startPointStyle: {
+                //     radius: 4,
+                //     fillStyle: '#fcf9f3',
+                //     lineWidth: 0,
+                //     strokeStyle: '#fcf9f3'
+                // },
+                // endPointStyle: {
+                //     radius: 4,
+                //     fillStyle: '#fcf9f3',
+                //     lineWidth: 0,
+                //     strokeStyle: '#fcf9f3'
+                // },
+                pathNavigatorStyle:{
+                    pathLinePassedStyle:emptyLineStyle
+                }
+                // pathNavigatorStyle:{
+                //     pathLinePassedStyle:{
+                //         lineWidth: 1,
+                //         strokeStyle: '#fcf9f3',
+                //         borderWidth: 1,
+                //         borderStyle: '#fcf9f3',
+                //         dirArrowStyle: false
+                //     }
+                //     // renderAllPointsIfNumberBelow: 100 //绘制路线节点，如不需要可设置为-1
+                // }
+            }
+        });
+
+        window.pathSimplifierIns = pathSimplifierIns;
+        /****************************开始： 用Json数据动态绘制多个路径 ****************************/
+        /*封装：Json字符串 转换为 Json对象*/
+        var tranObj = function (str) {
+            debugger
+            return JSON.parse(str);
+        }
+
+        /*封装：构造setData（）可用数组*/
+        var seltArr = function (obj) {
+            var arr = [];
+            for (var i = 0; i < obj.length; i++) {
+                arr.push({
+                    name: obj[i].name,
+                    path: [[obj[i].flng, obj[i].flat], [obj[i].tlng, obj[i].tlat]]
+                });
+            }
+            return arr;
+        }
+
+        /*str为Json数据：
+            flng（出发地经度）、flat（出发地纬度）
+            tlng（目的地经度）、tlat（目的地纬度）
+            name：路径名称
+            missTimes：为其他数据，忽略*/
+
+        var str = '[' +
+            '{ "name": "A->B",' +
+            '"missTimes": "1", ' +
+            '"flng": 116.856275,' +
+            ' "flat": 39.874345, ' +
+            '"tlng": 116.856245,' +
+            '"tlat": 39.87207' +
+            '},{ ' +
+            '"name": "A->B",' +
+            '"missTimes": "1",' +
+            ' "flng": 116.857275, ' +
+            '"flat": 39.876345, ' +
+            '"tlng": 116.856345,' +
+            '"tlat": 39.87107' +
+            '},{' +
+            '"name": "C->D",' +
+            '"missTimes": "2",' +
+            ' "flng": 116.856575, ' +
+            '"flat": 39.874345, ' +
+            '"tlng": 116.856245,' +
+            '"tlat": 39.87507' +
+            '}]';
+        var str = '[{ ' +
+            '"name": "A->B",' +
+            '"missTimes": "1",' +
+            ' "flng": 116.857275, ' +//此处应该是出发地
+            '"flat": 39.876345, ' +
+            '"tlng": 116.856345,' +//此处应该是目的地
+            '"tlat": 39.87107' +
+            '}]';
+        var sky = [{
+            lat: 39.904791,
+            lng: 116.407002
+        }, {
+            lat: 39.904857,
+            lng: 116.407517
+        }, {
+            lat: 39.904726,
+            lng: 116.408375
+        }, {
+            lat: 39.904726,
+            lng: 116.40889
+        }, {
+            lat: 39.904594,
+            lng: 116.409319
+        }];
+        var str = '[{ ' +
+            '"name": "A->B",' +
+            '"missTimes": "1",' +
+            ' "flng": 116.40889, ' +//此处应该是出发地
+            '"flat": 39.904726, ' +
+            '"tlng": 116.409319,' +//此处应该是目的地
+            '"tlat": 39.904594' +
+            '}]';
+        /*Json字符串 转换为 Json对象*/
+        var obj = tranObj(str);
+        obj = [{
+            flat: 39.904726,
+            flng: 116.40889,
+            missTimes: "1",
+            name: "A->B",
+            tlat: 39.904594,
+            tlng: 116.409319,
+        }];
+        var catch_arr = [];
+        var sky_obj = [];
+        sky_obj.push(sky)
+        /*构造setData()可用数组*/
+        var myArr = seltArr(obj);
+        debugger
+        /*将可用数组传给 setData()绘制路线*/
+        pathSimplifierIns.setData(myArr);
+        /****************************  结束 ****************************/
+        pathSimplifierIns.on('pointClick', function (e, info) {
+            console.log(info.pathData);
+            console.log('Click: ' + info.pathData.points[info.pointIndex].name);
+        });
+        /*开个巡航器*/
+        var navg1 = pathSimplifierIns.createPathNavigator(0, {
+            // loop: true, //循环播放
+            speed: 50 //巡航速度，单位千米/小时
+        });
+        navg1.start();
+    });
+</script>
+</body>
+
+</html>

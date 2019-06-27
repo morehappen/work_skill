@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PathSimplifier/examples/simple-data.html -->
+    <base href="//webapi.amap.com/ui/1.0/ui/misc/PathSimplifier/examples/"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>简单数据附加</title>
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="container"></div>
+<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+<script type="text/javascript"
+        src="https://webapi.amap.com/maps?v=1.4.15&key=6e86029f194a9433dc124915d4d605fb&plugin=AMap.Geocoder"></script>
+
+<!-- UI组件库 1.0 -->
+<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script>
+    AMapUI.load(['ui/misc/PathSimplifier'], function(PathSimplifier, $) {
+        if (!PathSimplifier.supportCanvas) {
+            alert('当前环境不支持 Canvas！');
+            return;
+        }
+
+        var emptyLineStyle = {
+            lineWidth: 0,
+            fillStyle: null,
+            strokeStyle: null,
+            borderStyle: null
+        };
+
+        var pathSimplifierIns = new PathSimplifier({
+            zIndex: 100,
+            autoSetFitView:true,
+            map: GADMap, //所属的地图实例
+
+            getPath: function(pathData, pathIndex) {
+                return pathData.path;
+            },
+            getHoverTitle: function(pathData, pathIndex, pointIndex) {
+                return null;
+            },
+            /*renderOptions: {
+                renderAllPointsIfNumberBelow: 100 //绘制路线节点，如不需要可设置为-1
+            }*/
+            renderOptions: {
+                //将点、线相关的style全部置emptyLineStyle
+                pathLineStyle: emptyLineStyle,
+                pathLineSelectedStyle: emptyLineStyle,
+                pathLineHoverStyle: emptyLineStyle,
+                keyPointStyle: emptyLineStyle,
+                startPointStyle: emptyLineStyle,
+                endPointStyle: emptyLineStyle,
+                keyPointHoverStyle: emptyLineStyle,
+                keyPointOnSelectedPathLineStyle: emptyLineStyle
+            }
+        });
+
+        window.pathSimplifierIns = pathSimplifierIns;
+
+        pathSimplifierIns.setData([{
+            //name: '测试',
+            name: vehicle.regname,
+            path: LLDataArr
+        }]);
+
+        function onload() {
+            pathSimplifierIns.renderLater();
+        }
+
+        function onerror(e) {
+            alert('图片加载失败！');
+        }
+
+        if(pathSimplifierIns.getPathNavigators().length<1){
+            navg1 = pathSimplifierIns.createPathNavigator(0, {
+                loop: false,
+                // speed:600,//KM/H
+                speed:speed,//KM/H
+                pathNavigatorStyle: {
+                    width: 20,
+                    height: 20,
+                    //使用图片
+                    content: PathSimplifier.Render.Canvas.getImageContent('images/loCars/car/alert-0_s.png', onload, onerror),
+                    strokeStyle: null,
+                    fillStyle: null,
+                    pathLinePassedStyle: {
+                        lineWidth: 0,
+                        strokeStyle: '#fcfcfc',
+                        dirArrowStyle: {
+                            stepSpace: 5,
+                            strokeStyle: 'white'
+                        },
+                        startPointStyle: {
+                            radius: 4,
+                            fillStyle: '#109618',
+                            lineWidth: 1,
+                            strokeStyle: '#eeeeee'
+                        },
+                    }
+                }
+            });
+        }
+        navg1.start();
+    });
+    if(window.pathSimplifierIns){
+        pathSimplifierIns.setData([]);
+    }
+
+
+</script>
+</body>
+
+</html>

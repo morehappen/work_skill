@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>地址解析</title>
+    <!--    <link rel="stylesheet" type="text/css" href="zero.css" />-->
+    <style>
+        #iCenter {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body onLoad="mapInit()">
+<div id="iCenter"></div>
+<div id="iControlbox">
+    <ul>
+        <li>
+            <input type="text" id="key_11" value="116.51413"/>
+            <input type="text" id="key_12" value="39.912896"/>
+            <button onclick="javascript:geocoder2();">逆地址解析</button>
+        </li>
+        <li>
+            <input type="text" id="key_2" value="北京市朝阳区大屯路304号"/>
+            <button onclick="javascript:geocoder();">地址解析</button>
+        </li>
+    </ul>
+</div>
+<div id="result"></div>
+</body>
+<script language="javascript" src="http://webapi.amap.com/maps?v=1.3&key=6e86029f194a9433dc124915d4d605fb"></script>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    $(function () {
+        // 当页面dom加载完毕，将地图绘制
+        mapInit();
+    })
+    var mapObj;//地图对象
+    var MGeocoder;//地理编码使用
+    var marker = [];
+    var windowsArr = [];
+
+    // 所有的方法函数
+    function mapInit() {
+        mapObj = new AMap.Map('iCenter');    //默认定位：初始化加载地图时，center及level属性缺省，地图默认显示用户所在城市范围
+    };
+    // 当我们输入汉字的时候，开始进行定位
+    function geocoder() {  //地理编码返回结果展示
+        key_2 = document.getElementById("key_2").value;
+        mapObj.plugin(["AMap.Geocoder"], function() {     //加载地理编码插件
+            MGeocoder = new AMap.Geocoder();
+            //返回地理编码结果
+            AMap.event.addListener(MGeocoder, "complete", geocoder_CallBack);
+            MGeocoder.getLocation(key_2);  //地理编码
+        });
+    }
+    //地理编码返回结果展示
+    function geocoder_CallBack(data){
+        debugger
+        var resultStr="";
+        //地理编码结果数组
+        var geocode = new Array();
+        geocode = data.geocodes;
+        for (var i = 0; i < geocode.length; i++) {
+            //拼接输出html
+            resultStr += "<span style=\"font-size: 12px;padding:0px 0 4px 2px; border-bottom:1px solid #C1FFC1;\">"+"<b>地址</b>："+geocode[i].formattedAddress+""+ "<b>    坐标</b>：" + geocode[i].location.getLng() +", "+ geocode[i].location.getLat() +""+ "<b>    匹配级别</b>：" + geocode[i].level +"</span>";
+            addmarker(i, geocode[i]);
+        }
+        mapObj.setFitView();
+        document.getElementById("result").innerHTML = resultStr;
+    }
+    function addmarker(i, d) {
+        var lngX = d.location.getLng();
+        var latY = d.location.getLat();
+        var markerOption = {
+            map:mapObj,
+            icon:"http://webapi.amap.com/images/"+(i+1)+".png",
+            position:new AMap.LngLat(lngX, latY)
+        };
+        var mar = new AMap.Marker(markerOption);
+        marker.push(new AMap.LngLat(lngX, latY));
+
+        var infoWindow = new AMap.InfoWindow({
+            content:d.formattedAddress,
+            autoMove:true,
+            size:new AMap.Size(150,0),
+            offset:{x:0,y:-30}
+        });
+        windowsArr.push(infoWindow);
+
+        var aa = function(e){infoWindow.open(mapObj,mar.getPosition());};
+        AMap.event.addListener(mar,"click",aa);
+    }
+    // 分割线
+    function geocoder2() {  //POI搜索，关键字查询
+        key_11 = document.getElementById("key_11").value;
+        key_12 = document.getElementById("key_12").value;
+        var lnglatXY = new AMap.LngLat(key_11,key_12);//【标记】这是一个经纬度类
+        //document.getElementById('result').innerHTML = "您输入的是：" + key_1;
+        //加载地理编码插件
+        mapObj.plugin(["AMap.Geocoder"], function() {
+            MGeocoder = new AMap.Geocoder({
+                radius: 1000,
+                extensions: "all"
+            });
+            //返回地理编码结果
+            AMap.event.addListener(MGeocoder, "complete", geocoder_CallBack2);
+            //逆地理编码
+            MGeocoder.getAddress(lnglatXY);
+        });
+        //加点
+        var marker = new AMap.Marker({
+            map:mapObj,
+            icon: new AMap.Icon({
+                image: "http://api.amap.com/Public/images/js/mark.png",
+                size:new AMap.Size(58,30),
+                imageOffset: new AMap.Pixel(-32, -0)
+            }),
+            position: lnglatXY,
+            offset: new AMap.Pixel(-5,-30)
+        });
+        mapObj.setFitView();
+    }
+    function geocoder_CallBack2(data) { //回调函数
+        console.log(2);
+    }
+</script>
+</html>

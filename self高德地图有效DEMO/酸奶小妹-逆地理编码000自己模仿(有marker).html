@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>酸奶小妹的逆地理编码自己模仿</title>
+    <style>
+        #iCenter{
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+<div id="iCenter"></div>
+<div id="iControlbox">
+    <ul>
+        <li>
+            <input type="text" id="key_11" value="116.413134" />
+            <input type="text" id="key_12" value="39.989286" />
+            <button onclick="javascript:regeocoder();">逆地址解析</button>
+        </li>
+        <li>
+            <input type="text" id="key_2" value="北京市朝阳区大屯路304号" />
+        </li>
+    </ul>
+</div>
+<div id="result"></div>
+</body>
+<script language="javascript" src="http://webapi.amap.com/maps?v=1.3&key=6e86029f194a9433dc124915d4d605fb"></script>
+<script>
+    var marker;
+    //逆地理编码
+    var map = new AMap.Map('iCenter');
+    // lnglatXY = [116.413134, 39.84122]; //已知点坐标
+    function regeocoder() {  //逆地理编码
+        key_11 = document.getElementById("key_11").value;//lng
+        key_12 = document.getElementById("key_12").value;//lat
+        var lnglatXY = new AMap.LngLat(key_11,key_12);//【标记】这是一个经纬度类
+        map.plugin(["AMap.Geocoder"],function () {
+            var geocoder = new AMap.Geocoder({
+                radius: 1000,
+                extensions: "all"//返回地址描述以及附近兴趣点和道路信息，默认"base"
+        });
+            geocoder.getAddress(lnglatXY, function(status, result) {
+                console.log(status,result);
+                if (status === 'complete' && result.info === 'OK') {
+                    geocoder_CallBack(result);
+                }
+            });
+            if(!marker){
+                marker = new AMap.Marker({
+                    //加点
+                    map: map,
+                    position: lnglatXY
+                });
+            }else {
+                marker.setPosition(lnglatXY);
+            }
+            map.setFitView();
+            // marker.setPosition(lnglatXY);
+            // map.panTo([key_11, key_12]);
+        })
+
+    }
+    function geocoder_CallBack(data) {
+        var address = data.regeocode.formattedAddress; //返回地址描述
+    }
+</script>
+</html>

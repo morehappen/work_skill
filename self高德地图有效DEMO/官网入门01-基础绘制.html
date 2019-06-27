@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>官网入门1</title>
+    <style>
+        #container {
+            width: 100%;
+            height: 400px;
+        }
+        html, body, #container {
+            height: 100%;
+            width: 100%;
+        }
+
+        .content-window-card {
+            position: relative;
+            box-shadow: none;
+            bottom: 0;
+            left: 0;
+            width: auto;
+            padding: 0;
+        }
+
+        .content-window-card p {
+            height: 2rem;
+        }
+
+        .custom-info {
+            border: solid 1px silver;
+        }
+
+        div.info-top {
+            position: relative;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-bottom: 1px solid #CCC;
+            border-radius: 5px 5px 0 0;
+        }
+
+        div.info-top div {
+            display: inline-block;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 31px;
+            padding: 0 10px;
+        }
+
+        div.info-top img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition-duration: 0.25s;
+        }
+
+        div.info-top img:hover {
+            box-shadow: 0px 0px 5px #000;
+        }
+
+        div.info-middle {
+            font-size: 12px;
+            padding: 10px 6px;
+            line-height: 20px;
+        }
+
+        div.info-bottom {
+            height: 0px;
+            width: 100%;
+            clear: both;
+            text-align: center;
+        }
+
+        div.info-bottom img {
+            position: relative;
+            z-index: 104;
+        }
+
+        span {
+            margin-left: 5px;
+            font-size: 11px;
+        }
+
+        .info-middle img {
+            float: left;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+
+</div>
+</body>
+<script language="javascript" src="http://webapi.amap.com/maps?v=1.3&key=6e86029f194a9433dc124915d4d605fb"></script>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    // 1，绘制。2，图层。3，marker。4，折线等绘制。5，实例的事件支持
+    // 【1】怎么绘制出来地图
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom:11,//级别
+        center: [116.397428, 39.90923],//中心点坐标
+        viewMode:'2D'//使用3D视图
+    });
+    //【2】实时路况图层【此时会有行车路线的图层，叠加进来】
+    var trafficLayer = new AMap.TileLayer.Traffic({
+        zIndex: 10
+    });
+    map.add(trafficLayer);//添加图层到地图
+    // 【3】点标记的绘制【此时地图上会增加一个点标记】【警告】【此处我用的上】
+    var marker = new AMap.Marker({
+        position:[116.39, 39.9]//位置
+    })
+    map.add(marker);//添加到地图
+    // 【3-1】此时地图的点标记会被清除
+    map.remove(marker)
+    // 【4】也提供了绘制圆Circle、折线 Polyline、多边形 Polygon、椭圆 Ellipse、矩形 Rectangle、贝
+    // 瑟尔曲线 BesizerCurve等矢量图形的能力，比如添加折线：
+    var lineArr = [
+        [116.368904, 39.913423],
+        [116.382122, 39.901176],
+        [116.387271, 39.912501],
+        [116.398258, 39.904600]
+    ];
+    // 【标记】此处代码会在地图上绘制出来折线图
+    var polyline = new AMap.Polyline({
+        path: lineArr,          //设置线覆盖物路径
+        strokeColor: "#3366FF", //线颜色
+        strokeWeight: 5,        //线宽
+        strokeStyle: "solid",   //线样式
+    });
+    map.add(polyline);
+    // 【5】Map、点标记、矢量图形的实例均支持事件，鼠标或者触摸操作均会触发相应的事件
+    // 我们通过给点标记绑定click事件来简单了解事件系统和信息窗体的基本使用：
+    var infoWindow = new AMap.InfoWindow({ //创建信息窗体
+        isCustom: true,  //使用自定义窗体
+        content:'<div>信息窗体2</div>', //信息窗体的内容可以是任意html片段
+        offset: new AMap.Pixel(16, -45)
+    });
+    var onMarkerClick  =  function(e) {
+        infoWindow.open(map, e.target.getPosition());//打开信息窗体
+        //e.target就是被点击的Marker
+    }
+    var marker = new AMap.Marker({
+        position: [116.481181, 39.989792]
+    })
+    map.add(marker);//将基本类注入
+    marker.on('click',onMarkerClick);//绑定click事件
+</script>
+</html>
