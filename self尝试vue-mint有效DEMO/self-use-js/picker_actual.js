@@ -42,7 +42,13 @@ var app = new Vue({
                 values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
                 className: 'slot3', //右侧类名
                 textAlign: 'left'
-            }]
+            }],
+            simple: [{
+                flex: 1,
+                values: ['我要退票', '就是要退票', '测试退票'],
+                className: 'slot1', //左侧类名
+                textAlign: 'center' //文本居中控制
+            }],
         };
     },
 

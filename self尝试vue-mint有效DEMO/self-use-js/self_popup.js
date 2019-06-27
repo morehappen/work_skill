@@ -13,6 +13,7 @@ var app = new Vue({
         return {
             hourglass_value_show: "展示区",
             popupVisible: false,
+            popupVisible2: false,
             slots: [{
                 divider: true, //是不是分割符
                 flex: 1,
@@ -29,6 +30,11 @@ var app = new Vue({
                 content: '分钟', //中部类名
                 className: 'slot3', //右侧类名
                 textAlign: 'left'
+            }],
+            slots2: [{
+                values: ['10', '20', '30', '40', '50', '60'],
+                defaultIndex: 2, //【标记】展示默认值。
+                className: 'slot22'
             }]
         };
     },
@@ -47,6 +53,10 @@ var app = new Vue({
         show_pop: function show_pop() {
             var this_ = this;
             this_.popupVisible = true
+        },
+        show_pop2: function show_pop2() {
+            var this_ = this;
+            this_.popupVisible2 = true
         }
     }
 });

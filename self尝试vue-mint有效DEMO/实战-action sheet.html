@@ -5,18 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>弹出可供用户选择的列表</title>
     <link rel="stylesheet" href="./commonJS/mint-ui/mint-ui.css">
 </head>
 
 <body>
     <div id="app">
-        <div>
-            <!-- 注意此处，picker的显示个数，会造成样式错乱，具体什么用，再研究 -->
-            <mt-picker :slots="slots" @change="" :visible-item-count="3"></mt-picker>
-        </div>
-        <div>
-            <mt-picker :slots="slotsAPI_DEMO" @change="onValuesChange"></mt-picker>
+        <div class="hello">
+            <h1 class="page-title">Action Sheet</h1>
+            <div class="page-actionsheet-wrapper">
+                <button class="mint-button mint-button--default mint-button--large" @click="actionSheet">
+                    <label class="mint-button-text">
+                        点击上拉 action sheet
+                    </label>
+                </button>
+            </div>
+            <mt-actionsheet :actions="sheetData" v-model="sheetVisible">
+            </mt-actionsheet>
         </div>
     </div>
 </body>
@@ -26,6 +31,8 @@
 <script type="text/javascript" src="./commonJS/date.js"></script>
 <script type="text/javascript" src="./commonJS/moment.js"></script>
 <script type="text/javascript" src="./commonJS/common.js"></script>
-<script type="text/javascript" src="./self-use-js/picker_actual.js"></script>
+<script type="text/javascript" src="./self-use-js/aciton_sheet.js"></script>
+
+</html>
 
 </html>

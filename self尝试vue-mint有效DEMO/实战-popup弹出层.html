@@ -54,12 +54,20 @@
             <mt-picker :slots="slots" @change=""></mt-picker>
         </div>
         <button @click="show_pop()">按钮</button>
+        <button @click="show_pop2()">按钮2</button>
         <mt-popup class="sky" v-model="popupVisible" popup-transition="popup-fade" position="bottom">
             <div>
                 <mt-picker ref="glass_ref" :slots="slots" :show-toolbar="true" :show-toolbar="true" @change="">
                     <div @click="hourglass_cancle()" class="hourglass_cancle">取消</div>
                     <div class="hourglass_tip">若航班延误，我们也会免费等候</div>
                     <div @click="hourglass_sure()" class="hourglass_sure">确认</div>
+                </mt-picker>
+            </div>
+        </mt-popup>
+        <mt-popup class="sky" v-model="popupVisible2" popup-transition="popup-fade" position="bottom">
+            <div>
+                <mt-picker ref="glass_ref" :slots="slots2" :show-toolbar="true" :show-toolbar="true" @change="">
+
                 </mt-picker>
             </div>
         </mt-popup>

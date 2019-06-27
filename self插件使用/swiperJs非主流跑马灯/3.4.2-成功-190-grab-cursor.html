@@ -219,6 +219,10 @@
                 grabCursor: true,
                 // 如果需要 分页器
                 pagination: '.swiper-pagination',
+                // 下面两个key值在适配移动端时候，非常有必要，注意一点
+                // 参考链接：https://www.cnblogs.com/xiongmaolala/p/4692099.html
+                observer: true, //修改swiper自己或子元素时，自动初始化swiper
+                observeParents: true, //修改swiper的父元素时，自动初始化swiper
                 // pagination: {
                 //     el: '.swiper-pagination',
                 //     clickable: true,

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue中做地图</title>
+    <link rel="stylesheet" href="./commonJS/mint-ui/mint-ui.css">
+    <style>
+        html,
+        body {
+            height: 500px;
+            margin: 0;
+            width: 100%;
+            padding: 0;
+            overflow: hidden;
+            font-size: 13px;
+        }
+        #app {
+            height: 1200px;
+        }
+
+        .circle {
+            margin: 100px 110px;
+            width: 40px;
+            height: 40px;
+            background: pink;
+        }
+        .map {
+            height: 310px;
+            width: 100%;
+
+        }
+
+        #right {
+            color: #444;
+            background-color: #f8f8f8;
+            min-width: 30px;
+            line-height: 30px;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+
+        .title {
+            width: 100%;
+            background-color: #dadada
+        }
+
+        button {
+            border: solid 1px;
+            margin-left: 15px;
+            background-color: #dadafa;
+        }
+
+        .c {
+            font-weight: 600;
+            padding-left: 15px;
+            padding-top: 4px;
+        }
+
+        #lnglat,
+        #address,
+        #nearestJunction,
+        #nearestRoad,
+        #nearestPOI,
+        .title {
+            padding-left: 15px;
+        }
+
+        #panel {
+            position: absolute;
+            background-color: white;
+            height: 150px;
+            overflow-y: auto;
+            bottom: 0px;
+            width: 100%;
+            border-bottom: solid 1px silver;
+        }
+
+        .poi-img, .amap-zoomcontrol, .poi-tel, .poi-more {
+            display: none;
+        }
+        .amap-logo,.amap-copyright{
+            display: none!important;
+        }
+        #container{
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <div id="container" class="map" tabindex="0"></div>
+    <div id='tip'>
+        <input type="text" name="search" id="search" value="" placeholder="输入关键字搜索地址"/>
+        <span>取消</span>
+    </div>
+    <div class="ceshi_shoudong">
+        <input type="text" id="key_11" value="116.453134" />
+        <input type="text" id="key_12" value="39.989286" />
+        <!--        <button onclick="javascript:regeocoder();">逆地址解析</button>-->
+        <button @click="sky_test()">逆地址解析</button>
+        <button @click="getLocation()">重置定位</button>
+    </div>
+    <ul id="addressDels">
+        <li class="poi">
+            <div>
+                <span></span>
+                <p class="nearpoi"></p>
+            </div>
+        </li>
+        <li class="address">
+            <div class="left">
+                <div>
+                    <span></span>
+                    <p class="info"></p>
+                </div>
+            </div>
+            <a href="#" onclick="sub()">确定</a>
+        </li>
+    </ul>
+</div>
+
+</body>
+<script type="text/javascript" src="./commonJS//vue.js"></script>
+<script type="text/javascript" src="./commonJS/mint-ui/mint-ui.js"></script>
+<script type="text/javascript" src="./commonJS/zepto-1.2.0.js"></script>
+<script type="text/javascript" src="./commonJS/date.js"></script>
+<script type="text/javascript" src="./commonJS/moment.js"></script>
+<script type="text/javascript" src="./commonJS/common.js"></script>
+
+<script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.12&key=6e86029f194a9433dc124915d4d605fb'></script>
+<!-- UI组件库 1.0 -->
+<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<!--<script src="../jquery-1.12.4.min.js"></script>-->
+<script type="text/javascript" src="./self-use-js/gaode_car_marker.js"></script>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./commonJS/mint-ui/mint-ui.css">
+</head>
+
+<body>
+    <!-- 在本demo中，试图尝试将日期插件中的值回滚，但是没有做到 -->
+    <div id="app">
+        <li class="from_time_con">
+            <div class="li_item_tip">
+                <div class="from_tip_img"></div>
+            </div>
+            <div @click="togglePickerSky()" class="li_item_input" v-cloak>
+                {{sky_showTime | time_obj_string}}
+            </div>
+        </li>
+        <mt-datetime-picker class="send_air_time" :start-date="sky_startTime" :end-date="sky_endTime" v-model="sky_modelTime" type="datetime" year-format="{value} 年" month-format="{value}月" date-format="{value} 日" hour-Format="{value} 点" minute-Format="{value}分"
+            ref="picker_sky_test" @cancel="sky_modelTimeCancle" @confirm="sky_modelTimeGet">
+        </mt-datetime-picker>
+    </div>
+
+</body>
+<script type="text/javascript" src="./commonJS//vue.js"></script>
+<script type="text/javascript" src="./commonJS/mint-ui/mint-ui.js"></script>
+<script type="text/javascript" src="./commonJS/zepto-1.2.0.js"></script>
+<script type="text/javascript" src="./commonJS/date.js"></script>
+<script type="text/javascript" src="./commonJS/moment.js"></script>
+<script type="text/javascript" src="./commonJS/common.js"></script>
+<script type="text/javascript" src="./self-use-js/self_set.js"></script>
+
+</html>

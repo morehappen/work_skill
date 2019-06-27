@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 正则和replace和$结合使用
+    var str = "19880617";
+    var pattern = /(\d{4})(\d{2})(\d{2})/;
+    var formatedDate = str.replace(pattern, '$1-$2-$3');
+    //此处返回值仍为字符串
+    console.log(formatedDate);
+</script>
+
+</html>
