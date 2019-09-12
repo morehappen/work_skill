@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            border: 0;
+        }
+        
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="padding: 20px;border:1px solid black;position:absolute; background: pink;">
+        <div id="test" style="width:100px; height:100px; margin:10px; background: yellow;"></div>
+    </div>
+
+</body>
+<script>
+    // 【1】页面偏移的概念
+    // 要知道某个元素在页面上的偏移量，将这个元素的offsetLeft和offsetTop与其offsetParent的相同属性相加，
+    // 并加上offsetParent的相应方向的边框，如此循环直到根元素，就可以得到元素到页面的偏移量
+
+    //其他浏览器返回31(10+20+1)，而IE7-浏览器返回21((20和10的较大值)+1)
+    console.log(getElementTop(test));
+    //所有浏览器返回31(10+20+1)
+    console.log(getElementLeft(test));
+
+    function getElementTop(element) {
+        var actualTop = element.offsetTop;
+        var current = element.offsetParent;
+        while (current != null) {
+            actualTop += current.offsetTop + current.clientTop; //就是border-top宽度
+            current = current.offsetParent;
+        }
+        return actualTop + 'px';
+    }
+
+    function getElementLeft(element) {
+        var actualLeft = element.offsetLeft;
+        var current = element.offsetParent;
+        while (current != null) {
+            actualLeft += current.offsetLeft + current.clientLeft; //就是border-left宽度
+            current = current.offsetParent;
+        }
+        return actualLeft + 'px';
+    }
+
+    // 注意事项
+    // 【1】所有偏移量属性都是只读的
+    // 【2】如果给元素设置了display:none，则它的偏移量属性都为0
+    // 【3】每次访问偏移量属性都需要重新计算
+</script>
+
+</html>

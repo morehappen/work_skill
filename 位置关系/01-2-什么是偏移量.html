@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #test {
+            width: 2100px;
+            height: 200px;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid black;
+        }
+        
+        #out {
+            padding: 10px 0 0 15px;
+            position: relative;
+            height: 200px;
+            background-color: pink;
+            margin: 6px;
+            border: 1px solid black
+        }
+        
+        #sky {
+            width: 100px;
+            height: 100px;
+            margin: 22px 0 0 33px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test"></div>
+    <div id="out">
+        <div id="sky"></div>
+    </div>
+</body>
+<script>
+    //【0】偏移量的概念
+    //偏移量共包括offsetHeight、offsetWidth、offsetLeft、offsetTop这四个属性
+
+    //122=1+10+100+10+1
+    //【1】 offsetWidth 【水平偏移占用，左框到右框】（包含垂直滚动条）
+    // offsetWidth =  border-left-width + padding-left + width + padding-right + border-right-width; 
+    // offsetWidth表示元素在水平方向上占用的空间大小，无单位(以像素px计)
+    console.log(sky.offsetWidth);
+    //【2】 offsetHeight 【垂直偏移占用，上框到下框】（包含水平滚动条）
+    // offsetHeight =  border-top-width + padding-top + height + padding-bottom + border-bottom-width
+    // offsetHeight表示元素在垂直方向上占用的空间大小，无单位(以像素px计)
+    console.log(sky.offsetHeight);
+    //【3】 offsetTop 【上偏移量】【内框到外框】
+    //offsetTop表示元素的上外边框至offsetParent元素的上内边框之间的像素距离
+    console.log("offsetTop:" + sky.offsetTop); //15=test.marginTop(22) + out.paddingTop(10)
+    //【4】 offsetLeft  【左偏移量】【内框到外框】
+    console.log("offsetLeft:" + sky.offsetLeft); //15=test.marginLeft(33) + out.paddingLeft(15)
+
+    // IE7的Bug
+    // 　　IE7-浏览器在offsetTop属性的处理上存在bug
+    // 　　【1】若父级设置position: relative，则在IE7-浏览器下，offsetTop值为offsetParent元素的paddingBottom值
+    // 　　【2】若父级设置position: aboslute(或其他触发haslayout的条件)，offsetTop值为offsetParent元素的paddingBottom值和当前元素的marginTop值的较大值
+</script>
+<script>
+</script>
+
+</html>

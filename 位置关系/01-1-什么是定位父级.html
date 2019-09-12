@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test" style="position:fixed"></div>
+    <div id="sky"></div>
+    <div id="div0" style="position:absolute;">
+        <div id="div1" style="position:absolute;">
+            <div id='moon'></div>
+        </div>
+    </div>
+    <script>
+        // 【1】元素自身有fixed定位，offsetParent的结果为null
+        // firefox并没有考虑固定定位的问题，返回<body>，其他浏览器都返回null
+        console.log(test.offsetParent); //null
+        // 【2】元素自身无fixed定位，且父级元素都未经过定位，offsetParent的结果为<body>
+        console.log(sky.offsetParent); //元素body
+        // 　【3】元素自身无fixed定位，且父级元素存在经过定位的元素，offsetParent的结果为离自身元素最近的经过定位的父级元素
+        console.log(moon.offsetParent); //元素div1
+        // 【4】<body>元素的parentNode是null
+        console.log(document.body.offsetParent); //null
+
+        // IE7-浏览器Bug
+        // 【bug1】当元素本身经过绝对定位或相对定位，且父级元素无经过定位的元素时，IE7-浏览器下，offsetParent是<html>
+        // 【bug2】如果父级元素存在触发haslayout的元素或经过定位的元素，
+        // 且offsetParent的结果为离自身元素最近的经过定位或触发haslayout的父级元素
+    </script>
+</body>
+
+</html>

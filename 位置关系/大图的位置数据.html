@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            border: 4px solid blue;
+            padding: 10px 5px 20px 15px;
+            position: relative;
+            height: 600px;
+            background: green;
+        }
+        
+        #sky {
+            position: absolute;
+            left: 30px;
+            top: 17px;
+            margin: 8px 0 0 10px;
+            border: 5px solid blue;
+            width: 420px;
+            height: 220px;
+            background: gray;
+        }
+        
+        #moon {
+            position: absolute;
+            left: 30px;
+            top: 17px;
+            margin: 8px 0 0 10px;
+            border: 5px solid blue;
+            width: 420px;
+            height: 220px;
+            background: pink;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="sky" style="position: absolute;
+        left: 30px;
+        top: 17px;
+        margin: 8px 0 0 10px;
+        border: 5px solid blue;
+        width: 420px;
+        height: 220px;
+        background: pink">
+
+    </div>
+    <div id="moon">
+        测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条 测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条
+        测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条测试滚动条
+    </div>
+</body>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    var sky_box = document.getElementById('sky');
+    var moon_box = document.getElementById('moon');
+    //【1】 offsetParent【定位父级的概念】
+    var offsetParent_jsDOM = moon.offsetParent; //
+    // 对应的jq方法：$("#moon").offsetParent()//方法返回最近的祖先定位元素
+    console.log(offsetParent_jsDOM);
+    //【2】top值的获取（此处所取为position的top值）【补全有top,left,right,bottom】
+    // var sky_top = sky_box.style.left; //【知识点】原生js只能获取到行内样式的值。
+    // top值的获取
+    // var moon_top = moon_box.style.left; //【知识点】原生js只能获取到行内样式的值。
+    var moon_box_jq = $('#moon');
+    var moon_top = moon_box_jq.css('left');; //【知识点】jq能获取到行内和非行内样式
+    //【3】 clientTop 【元素上边框/左边框的厚度】，当没有指定边框厚底时，一般为0。【补全有： clientTop clientleft】
+    var client_top = sky_box.clientTop; //【上边框宽度】
+    // 【4】位于对象最顶端和窗口中可见内容的最顶端之间的距离，简单地说就是滚动后被隐藏的高度。
+    // scrollTop指的是“元素中的内容”超出“元素上边界”的那部分的高度。
+    var scrollTop_jq = $("#moon").scrollTop();
+    $("#moon").scroll(function(event) {
+        var scrollTop_jq = $("#moon").scrollTop();
+        console.log(scrollTop_jq);
+    });
+    // 【5】 offsetTop 【上偏移量/左偏移量，位置为框到框】
+    //offsetTop表示元素的上外边框至offsetParent元素的上内边框之间的像素距离
+    console.log(moon.offsetTop); //15=test.marginTop(10) + out.paddingTop(5)
+    // 【6】 clientHeight 内容【就是container内部可见区域的高度】，也就是说页面浏览器中可以看到内容的这个区域的高度，[client:设备的意思]
+    // 一般是最后一个工具条以下到状态栏以上的这个区域，与页面内容无关。
+    // 【7】 scrollHeight/scrollWidth：【就是container内部实际内容的高度/宽度】[scroll:卷曲的意思]
+    // IE、Opera 认为 scrollHeight 是网页内容实际高度，可以小于 clientHeight。
+    // FF 认为 scrollHeight 是网页内容高度，不过最小值是 clientHeight。
+    // 【8】 offsetHeight 【水平偏移占用，左框到右框】（包含滚动条）
+
+    // 【9】 clientX、clientY：  【浏览器可视区域相对坐标（比如说，浏览器被缩放，只有屏幕一半宽度）】 鼠标相对可视区域的x轴，y轴坐标
+    // 相对于浏览器窗口可视区域的X，Y坐标（窗口坐标），可视区域不包括工具栏和滚动条。IE事件和标准事件都定义了这2个属性。
+
+    // 【10】 offsetX 、 offsetY： 【鼠标在事件触发源DOM内坐标】
+    // 相对于事件源元素（target或srcElement）的X,Y坐标，只有IE事件有这2个属性，标准事件没有对应的属性。
+
+    // 【11】 screenX 、 screenY：【设备屏幕左上角的相对坐标】相对于用户显示器屏幕左上角的X,Y坐标。
+    // 标准事件和IE事件都定义了这2个属性
+
+    debugger
+</script>
+
+</html>
