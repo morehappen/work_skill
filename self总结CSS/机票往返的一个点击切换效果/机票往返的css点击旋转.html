@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点击旋转</title>
+    <link rel="stylesheet" href="../../../commonJS/mint-ui/mint-ui.css">
+    <style>
+        html {
+            font-size: 16px;
+        }
+        
+        .air_PlaneDiagram {
+            width: 2.5rem;
+            height: 2.5rem;
+            background-size: auto 100%;
+            position: relative;
+            display: flex;
+            display: -webkit-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        img {
+            width: 1.4375rem;
+            height: 1.0625rem;
+            position: absolute;
+        }
+        
+        .rotates {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        
+        .air_PlaneDiagram .img {
+            width: 1.4375rem;
+            height: 1.0625rem;
+            position: absolute;
+        }
+        
+        .transforminfor {
+            transform: rotate(360deg);
+            transition: 0.5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <a id="city_tab" @click="city_tab()" class="air_PlaneDiagram _bg_ city_tab border-none">
+            <img src="../../commonJS/resources/air_Arrow.png" :class="['rotates' ,transformText?'transforminfor':'']" alt="">
+            <img src="../../commonJS/resources/air_PlaneDiagram.png" alt="" class="img">
+        </a>
+    </div>
+</body>
+<script type="text/javascript" src="../../../commonJS//vue.js"></script>
+<script type="text/javascript" src="../../../commonJS/mint-ui/mint-ui.js"></script>
+<script type="text/javascript" src="../../../commonJS/zepto-1.2.0.js"></script>
+<script type="text/javascript" src="../../../commonJS/date.js"></script>
+<script type="text/javascript" src="../../../commonJS/moment.js"></script>
+<script type="text/javascript" src="../../../commonJS/common.js"></script>
+<script>
+    'use strict';
+
+    Vue.prototype.$ = $;
+    var app = new Vue({
+        el: '#app',
+        data: function data() {
+            return {
+                transformText: false,
+                rotate: "rotate(180deg)",
+                rotatescope: 0,
+            };
+        },
+
+        watch: {},
+        filters: {
+
+        },
+        methods: {
+            city_tab: function city_tab() {
+                var this_ = this;
+                this_.transformText = true;
+                this_.rotatescope = this_.rotatescope == 180 ? 0 : 180;
+                this_.rotate = "rotate(" + this_.rotatescope + "deg)";
+                setTimeout(function() {
+                    this_.transformText = false;
+                    this_.rotatescope = this_.rotatescope == 180 ? 0 : 180;
+                }, 500);
+            }
+        }
+    });
+</script>
+
+</html>

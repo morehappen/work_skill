@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>如何创建一个百度地图</title>
+    <style>
+        .hotel-detail-box {
+            padding: 20px 30px 0;
+            border-radius: 4px;
+            box-shadow: 0 0 10px #f5f4f4;
+            background: #ffffff;
+            z-index: 2222;
+        }
+        .fl-mp {
+            width: 795px;
+            height: 500px;
+            float: left;
+        }
+    </style>
+    <!--调用百度地图api,jquery,bootstrap-->
+    <!--    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=1ALTaV0tWvwNHFeCa4qsQMyAd9UYalwj"></script>-->
+</head>
+
+<body>
+<input type="hidden" id="city" name="szcsmc" value="北京">
+<input type="hidden" id="jd" name="jd" value="116.36293162272">
+<input type="hidden" id="wd" name="wd" value="39.89198063365">
+<input type="hidden" id="jddz" name="jddz" value="白广路二条甲3号">
+<input type="hidden" id="jdzy" name="jdzy" value="http://dimg04.c-ctrip.com/images//hotel/428000/427303/b45151cb34824f92b3ca22263b0344bf_R_550_412.jpg">
+<input type="hidden" name="markList" value="@{'index':'0','hotelId':'VE1060786','lat':'39.89198063365','lon':'116.36293162272','address':'白广路二条甲3号','img':'http://dimg04.c-ctrip.com/images//hotel/428000/427303/b45151cb34824f92b3ca22263b0344bf_R_550_412.jpg','hotelName':'北京云天酒店','pt':'b2g','hotelType':'','jdpp':''                     ,'szcs':'10119','xj':'0','jdzdj':'788.0'}">
+
+
+
+<input type="hidden" id="jdid" value="VE1060786">
+<input type="hidden" id="rzrq" value="2019-11-01">
+<input type="hidden" id="jsrq" value="2019-11-02">
+<input type="hidden" id="jdzwmc" value="北京云天酒店">
+<input type="hidden" id="zdj" value="788.0">
+<input type="hidden" id="szcs" value="10119">
+<input type="hidden" id="jdpp" value="">
+<input type="hidden" id="xj" value="0">
+<input type="hidden" id="xyid" value="">
+<input type="hidden" id="xyh" value="">
+<input type="hidden" id="hotelType" value="">
+<input type="hidden" id="bdjd" value="116.36293162272">
+<input type="hidden" id="bdwd" value="39.89198063365">
+<input type="hidden" id="cxrids" name="cxrids" value="10822E9F64083001">
+<input type="hidden" id="cxrbmids" name="cxrbmids" value="1000100110061005">
+<input type="hidden" id="ccsqdh" name="ccsqdh" value="">
+<input type="hidden" id="ygys" value="1">
+<input type="hidden" id="sfxy" value="0">
+<input type="hidden" id="payment" value="">
+<input type="hidden" id="jdfp" value="">
+<input type="hidden" id="xzq" name="xzq" value="7803649">
+<input type="hidden" name="uuid" id="uuid" value="hotel-df703183-79c1-4959-b29e-158b0ecd128d">
+<input type="hidden" id="xckzkg" value="">
+<input type="hidden" id="xcsjkz" value="">
+<input type="hidden" id="gkrqs" value="">
+<input type="hidden" id="gkrqz" value="[, ]">
+<input type="hidden" id="yxapssry" value="">
+<input type="hidden" id="xddm" value="">
+<input type="hidden" id="ifsqd" name="ifsqd" value="">
+
+<div class="hotel-text-info hotel-detail-box" id="traffic_div">
+    <p class="title">交通位置</p>
+    <div class="div_map">
+        <div id="baiduMap_traffic" class="fl-mp"></div>
+        <div class="pro-tab">
+            <div style="border:1px solid #eee;width: 294px;height: 165px;">
+                <div class="box-tab">
+                    <span class="current theme_border theme" searchCurrent="1" searchType="1">公交</span>
+                    <span class="theme_border" searchCurrent="0"  searchType="2">驾车</span>
+                    <span class="theme_border" searchCurrent="0"  searchType="3">步行</span>
+                </div>
+                <div class="map_route_box">
+                    <div class="change"><a href="javascript:searchChange();">换</a></div>
+                    <!--起点-->
+                    <input type="text" class="input_txt" id="start-suggestId">
+                    <input type="hidden" id="start-searchResultPanel">
+                    <!--终点-->
+                    <input type="text" class="input_txt" id="end-suggestId">
+                    <input type="hidden" id="end-searchResultPanel">
+                    <input type="button" class="btn" value="查询路线" onclick="beforeSearchTrip()" />
+                </div>
+            </div>
+            <div id="r-result" class="result_box">
+                <div class="tab-list">
+                    <span class="current theme_bg" keyword="1" style="line-height: 40px;">
+                        <p>酒店</p>
+                    </span>
+                    <span keyword="2">
+                        <p>机场</p>
+                        <p>车站</p>
+                    </span>
+                    <span style="line-height: 40px;" keyword="3">
+                        <p>地铁</p>
+                    </span>
+                </div>
+                <div class="pro-box" id="zb_result">
+                    <!--<table width="100%" class="pro-list-table train-table local-search-tab">-->
+                    <!--<tr>-->
+                    <!--<td width="10%">1</td>-->
+                    <!--<td>天河机场</td>-->
+                    <!--<td width="40%" align="right">直线19.5KM</td>-->
+                    <!--</tr>-->
+                    <!--</table>-->
+                </div>
+            </div>
+            <div id="p-result" class="result_box" style="display: none;"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+<!--<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18&services=&t=20180323171755"></script>-->
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18"></script>
+
+<!--<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.2&services=true"></script>-->
+<script src="../../jquery-1.12.4.min.js"></script>
+<script>
+    var BaiduMap = {}, opts = {};
+    var markList = [];//mark信息集合
+    var geoc ;//得到地图上经纬度以及地理坐标
+    var map ;
+
+    var defaults = {
+        baiduMap : "baiduMap",//地图容器divid
+        cityNameId : "city",//城市名称文本框id
+        markListBoxId : "markListBox"//mark信息divid
+    };
+    //marker上添加事件
+    var addEventHandler = function(content,marker,point){
+        marker.addEventListener("click",function(e){
+            openInfo(content,point,marker);
+        });
+        marker.addEventListener("mouseover",function(e){
+            mouseOverToMarker(marker);//鼠标移上跳动的动画
+        });
+        marker.addEventListener("mouseout",function(e){
+            mouseOutToMarker(marker);//鼠标移开移除跳动动画
+        });
+    };
+    //从隐藏div中获取mark信息
+    BaiduMap.createMarkList = function(markListBoxId){
+        var markLists = [];
+        var markListBoxStr = $("#"+markListBoxId).html();
+        var str = $.trim(markListBoxStr);
+        if( str != "" ){
+            var arr = markListBoxStr.substring(1).split("@");
+            for(var i=0; i<arr.length; i++){
+                var mark = _toJSON(arr[i]);
+                markLists.push(mark);
+            }
+        }
+        return markLists;
+    };
+    BaiduMap.initMap = function(divId){
+        // MapOptions,此类表示Map构造函数的可选参数。它没有构造函数，但可通过对象字面量形式表示。
+        // minZoom:地图允许展示的最小级别,enableMapClick:是否开启底图可点功能，默认启用
+        console.log(909);
+        map = new BMap.Map(divId,{minZoom:8,enableMapClick: false});//在百度地图容器中创建一个地图
+        setMapEvent();//创建和初始化地图 设置地图事件
+        setMapTool();
+    };
+    BaiduMap.createMap = function(options){
+        //alert(obj.toJSONString( options));
+        options = options || {};
+        opts = $.extend(defaults, options);
+        markList = BaiduMap.createMarkList(opts.markListBoxId);//mark信息集合清空
+        map.clearOverlays();//清空所有地图上覆盖物
+        if(markList.length > 0){
+            var point = new BMap.Point(markList[0].lon, markList[0].lat);
+            map.centerAndZoom(point,15);
+            var data_info = [];
+            for(var i=0; i<markList.length; i++){
+                data_info[i] = new BMap.Point(markList[i].lon, markList[i].lat);
+                if(i==0){
+                    var markerIcon = new BMap.Icon("/static/fcc/hotel/images/search/marker_blue_sprite1.png", new BMap.Size(19,25));
+                }else{
+                    if(i<20){
+                        var markerIcon = new BMap.Icon("/static/fcc/hotel/images/search/marker_red_sprite"+markList[i].index+".png", new BMap.Size(19,25));
+                    }else{
+                        var markerIcon = new BMap.Icon("/static/fcc/hotel/images/search/marker_red_sprite_more.png", new BMap.Size(19,25));
+                    }
+                }
+                var marker = new BMap.Marker(data_info[i],{icon:markerIcon});
+                var label = new BMap.Label();
+                label.setContent("index="+markList[i].index);//将marker的index放入标注中
+                label.setStyle({display:"none"});
+                label.enableMassClear();//允许label在map.clearOverlays方法中被清除
+                marker.setLabel(label);
+                marker.setTitle(markList[i].hotelName);
+                marker.enableMassClear();//允许marker在map.clearOverlays方法中被清除
+                map.addOverlay(marker);//将标注添加到地图中
+                var content = {"Address":markList[i].address,"Img":markList[i].img,"HotelName":markList[i].hotelName,"HotelId":markList[i].hotelId
+                    ,"szcs":markList[i].szcs,"jdpp":markList[i].jdpp,"xj":markList[i].xj,"lon":markList[i].lon,"lat":markList[i].lat,"hotelType":markList[i].hotelType
+                    ,"pt":markList[i].pt,"xyid":markList[i].xyid,"xyh":markList[i].xyh,"jdzdj":markList[i].jdzdj};
+                addEventHandler(content, marker,point);
+                marker.closeInfoWindow();
+            }
+            map.setViewport(data_info);//将marker聚合到视野内
+        }else{
+            var jd = $("#jd").val();
+            var wd = $("#wd").val();
+            var jdzy = $("#jdzy").val();
+            var jddz = $("#jddz").val();
+            var jdzwmc = $("#jdzwmc").val();
+            var jdid = $("#jdid").val();
+            debugger
+            if(jd&&wd) {
+                var data_info = new BMap.Point(jd, wd);
+                var markerIcon = new BMap.Icon("/static/fcc/hotel/images/search/marker_red_sprite.png", new BMap.Size(19, 25));
+                var marker = new BMap.Marker(data_info, {icon: markerIcon});
+                map.centerAndZoom(data_info, 15);
+                marker.setTitle(jdzwmc);
+                map.addOverlay(marker);//将标注添加到地图中
+                var dz = "";
+                for (var i = 0; i < jddz.length; i++) {
+                    dz = dz + jddz[i];
+                    if (i % 10 == 9) {
+                        dz = dz + "</br>"
+                    }
+                }
+                var content = {"Address": dz, "Img": jdzy, "HotelName": jdzwmc, "HotelId": jdid};
+                addEventHandler(content, marker);
+                map.setViewport(data_info);//将marker聚合到视野内
+            }
+        }
+    };
+
+    // 动态绑定POI控件
+    dynamicPOI();
+
+    // 动态绑定POI控件
+    function dynamicPOI() {
+        // 一个页面只能绑定一个POI控件,这只能搞一个动态绑定,点击的输入框时候绑定POI控件
+        $(".map_route_box .input_txt").click(function () {
+            var _this = $(this);
+            _this.showXzqSqAddress({
+                csbh:"szcs",//城市编号
+                qybh:VEGLOBAL.FCCUSER.qybh,//企业编号
+                compId:VEGLOBAL.FCCUSER.zgs,//总公司
+                ygid:VEGLOBAL.FCCUSER.ygid,
+                bmid:VEGLOBAL.FCCUSER.bmid,
+                type:2,
+                autoChoose: false,
+                cbFn:function(data,$dom){
+                    if (!$.isEmptyObject(data)) {
+                        var bdjd = data.lon;
+                        var bdwd = data.lat;
+                        _this.val(data.poiName);
+                        _this.next().val(bdjd+","+bdwd);
+                    }
+                }
+            });
+        });
+    }
+
+
+    //设置地图事件
+    var setMapEvent = function(){
+        map.enableInertialDragging();//开启惯性拖拽【意思是地图不会立即停止】
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        var optz = {type: BMAP_NAVIGATION_CONTROL_ZOOM}
+        //map.addControl(new BMap.NavigationControl(optz));
+    };
+
+    var setMapTool=function(){
+        var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+        var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+        var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL});
+        map.addControl(top_left_control);      // 测距离的
+        map.addControl(top_left_navigation);   // 左导航默认
+        //map.addControl(top_right_navigation);  // 右导航平移与缩放
+    };
+
+    // 初始化百度地图
+    BaiduMap.initMap("baiduMap_traffic");
+    // 创建地图,定位中心点
+    BaiduMap.createMap();
+
+</script>
+
+</html>

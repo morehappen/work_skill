@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>最初始的单选框点击</title>
+    <style type="text/css">
+        #container{border:1px solid #F00; width:500px; height:400px;}
+    </style>
+    <!--调用百度地图api,jquery,bootstrap-->
+    <!--    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=1ALTaV0tWvwNHFeCa4qsQMyAd9UYalwj"></script>-->
+</head>
+<body>
+<div>
+    <!--垂直按钮组-->
+    <div class="btn-group-vertical" style="float:left">
+        <label class="btn btn-info for="one">
+        <input type="radio" id="one" name="options" value="学校">学校
+        </label>
+        <label class="btn btn-info for="two">
+        <input type="radio" id="two" name="options" value="餐饮">餐饮
+        </label>
+        <label class="btn btn-info for="three">
+        <input type="radio" id="three" name="options" value="商场">商场
+        </label>
+        <label class="btn btn-info for="four">
+        <input type="radio" id="four" name="options" value="医院">医院
+        </label>
+        <label class="btn btn-info for="five">
+        <input type="radio" id="five" name="options" value="公交站">车站
+        </label>
+        <label class="btn btn-info for="six">
+        <input type="radio" id="six" name="options" value="景点">景点
+        </label>
+        <label class="btn btn-info for="seven">
+        <input type="radio" id="seven" name="options" value="交通">交通
+        </label>
+    </div>
+    <!--地图-->
+    <div id="container"></div>
+    <div id="r-result"></div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18&services=&t=20180323171755"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18"></script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.2&services=true"></script>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    //查询完毕添加自定义标注
+    function addMarker(results, point, index) {
+        var cantingIcon = new BMap.Icon("/Images/canting.png", new BMap.Size(17, 16));
+        var ditieIcon = new BMap.Icon("/Images/ditie.png", new BMap.Size(17, 16));
+        var shopIcon = new BMap.Icon("/Images/shop.png", new BMap.Size(17, 16));
+        var yinhangIcon = new BMap.Icon("/Images/yinhang.png", new BMap.Size(17, 16));
+        var yiyuanIcon = new BMap.Icon("/Images/yiyuan.png", new BMap.Size(17, 16));
+        var houseIcon = new BMap.Icon("/Images/house.png", new BMap.Size(17, 16));
+        var gongjiaoIcon = new BMap.Icon("/Images/gongjiao.png", new BMap.Size(17, 16));
+        var myIcons = "";
+        if (results.keyword == "学校") {
+            myIcons = houseIcon;
+        } else if (results.keyword == "餐厅") {
+            myIcons = cantingIcon;
+        } else if (results.keyword == "商场") {
+            myIcons = shopIcon;
+        } else if (results.keyword == "银行") {
+            myIcons = yinhangIcon;
+        }
+        else if (results.keyword == "医院") {
+            myIcons = yiyuanIcon;
+        }
+        else if (results.keyword == "地铁") {
+            myIcons = ditieIcon;
+        }
+        else if (results.keyword == "公交") {
+            myIcons = gongjiaoIcon;
+        }
+        else {
+            myIcons = houseIcon;
+        }
+
+        var marker = new BMap.Marker(point.point, { icon: myIcons });
+
+        var infoWindow = new BMap.InfoWindow(point.title);  // 创建信息窗口对象
+        marker.addEventListener("mouseover",
+            function () {
+                marker.openInfoWindow(infoWindow);
+            });
+        map.addOverlay(marker);
+    }
+    //查询完毕的回调函数
+    var searchComplete = function (results) {
+        if (local.getStatus() != BMAP_STATUS_SUCCESS) {
+            return;
+        }
+        //移除覆盖物
+        //map.clearOverlays();
+        //var lat = $("#htbLat").attr("value");
+        //var lng = $("#htbLng").attr("value");
+        //var point = new BMap.Point(lng, lat);
+        //var mk = new BMap.Marker(point);
+        //map.addOverlay(mk);
+        for (var cnt = 0; cnt < results.getCurrentNumPois(); cnt++) {
+            var point = results.getPoi(cnt);
+            addMarker(results, point, cnt);
+        }
+    }
+
+    // 百度地图API功能
+    var map = new BMap.Map("container");    // 创建Map实例
+    var point = new BMap.Point(116.404, 39.915);
+    map.centerAndZoom(point, 15);  // 初始化地图,设置中心点坐标和地图级别
+    var marker = new BMap.Marker(point);  // 创建标注
+    map.addOverlay(marker);               // 将标注添加到地图中
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+    map.enableScrollWheelZoom();//鼠标滑轮放大缩小控件
+    var circle = new BMap.Circle(point,1000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
+    var local = new BMap.LocalSearch(map, {
+        renderOptions: {
+            map: map,
+            autoViewport: true,
+            selectFirstResult: false
+        },
+        onSearchComplete: function(results){
+            //可以得到搜索结果且搜索结果不为空
+            if(local.getStatus() == BMAP_STATUS_SUCCESS){
+                var html="";
+                //遍历结果第一页的点，自定义结果面板
+                for (var i = 0; i < results.getCurrentNumPois(); i++){
+                    var poi = results.getPoi(i);
+                    //下面根据LocalResultPoi对象的值拼html代码，此处略
+                    title[i] = poi.title;
+                    if(poi.address)
+                        address[i] = poi.address;
+                    if(poi.phoneNumber)
+                        telephone[i] = poi.phoneNumber;
+                }
+
+                //重新遍历第一页所有点，对结果面板中的每一条记录添加click事件
+                for (var i = 0; i < results.getCurrentNumPois(); i++){
+                    $("#poi" + i).click(function(){
+                        //这里用前面title、address、telephone三个数组中存放的值来拼信息窗里的html代码，存在变量content中，然后：
+                        var info = new BMap.InfoWindow(content);
+                        //利用在第一个问题中的markerArr数组设置触发函数，但注意数组的索引值不能用i，因为函数运行时i已不存在，因此在构造结果面板时，每个节点我添加了一个index属性，并用下面的代码获取，设置属性的代码类似于：<div id='poi5' index='5'></div>
+                        markerArr[$(this).attr("index")].openInfoWindow(info);
+                    })
+                }
+            }
+        },
+        pageCapacity: 8
+    });
+    //查询完毕的回调函数
+    var searchComplete = function (results) {
+        debugger
+
+        // if (local.getStatus() != BMAP_STATUS_SUCCESS) {
+        //     return;
+        // }
+
+        //移除覆盖物
+        //map.clearOverlays();
+        //var lat = $("#htbLat").attr("value");
+        //var lng = $("#htbLng").attr("value");
+        //var point = new BMap.Point(lng, lat);
+        //var mk = new BMap.Marker(point);
+        //map.addOverlay(mk);
+        for (var cnt = 0; cnt < results.getCurrentNumPois(); cnt++) {
+            var point = results.getPoi(cnt);
+            addMarker(results, point, cnt);
+        }
+    }
+    $(function(){
+        $('input:radio[name="options"]').change(function(){
+            debugger
+            map.clearOverlays();//清除地图覆盖物
+            map.addOverlay(marker);// 将标注添加到地图中
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+            map.addOverlay(circle);
+            var v=$(this).val();
+            var local = new BMap.LocalSearch(map,{
+                renderOptions: {
+                    map: map,
+                    panel: "r-result",
+                    autoViewport: false
+                },
+                onSearchComplete:searchComplete
+            });
+            local.searchNearby(v, point, 1000);
+        });
+    });
+
+
+</script>
+</html>

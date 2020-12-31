@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .bottom_map_box{
+            box-sizing: border-box;
+            width: 1200px;
+            height: 499px;
+            margin-bottom: 100px;
+            position: relative;
+        }
+        .periphery{
+            /*position: absolute;*/
+            width: 250px;
+            height: 300px;
+            z-index: 333;
+            /*top:0;*/
+            /*left: 0;*/
+        }
+    </style>
+</head>
+<body>
+<div class="bottom_map_box">
+    <div class="baidu-map margin-bottom-20" id="map-bottom-container" data="$!{hotel.hotelNo}"
+         data-longtitude="$!{hotel.longitude}" data-latitude="$!{hotel.latitude}"
+         style="overflow: hidden; position: relative;">
+    </div>
+    <div class="periphery">
+        <div class="peripheryBd">
+            <h4>
+                周边查找：
+            </h4>
+            <ul class="checkTag" id="hulMapCheckTag">
+                <li>
+                    <input name="gongjiao" id="ck_bus" type="checkbox" value="公交"/>
+                    <label for="ck_bus">公交</label>
+                </li>
+                <li>
+                    <input name="ditie" id="ck_subway" type="checkbox" value="地铁"/>
+                    <label for="ck_subway">地铁</label>
+                </li>
+                <li>
+                    <input name="house" id="ck_school" type="checkbox" value="学校"/>
+                    <label for="ck_school">学校</label>
+                </li>
+                <li>
+                    <input name="yiyuan" id="ck_hospital" type="checkbox" value="医院"/>
+                    <label for="ck_hospital">医院</label>
+                </li>
+                <li>
+                    <input name="yinhang" id="ck_bank" type="checkbox" value="银行"/>
+                    <label for="ck_bank">银行</label>
+                </li>
+                <li>
+                    <input name="shop" id="ck_shop" type="checkbox" value="商场"/>
+                    <label for="ck_shop">商场</label>
+                </li>
+            </ul>
+            <div class="peripheryBg">
+            </div>
+            <a class="closePer">
+                <span>关闭</span>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18&services=&t=20180323171755"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18"></script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.2&services=true"></script>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    // 创建地图
+    var map = new BMap.Map("map-bottom-container", {zoomLevelMin: 8, zoomLevelMax: 18});
+    // 筛选区放入地图
+    $("div.periphery").show().appendTo("#map-bottom-container");
+    var local = "";
+    $(function () {
+        // 筛选按钮点击监听函数
+        $("#hulMapCheckTag input[type=checkbox]").change(function () {
+            //       var t = $(this).attr("name");
+//        $(map.getOverlays()).each(function (i, n) {
+//            if (n.iconDom.innerHTML.indexOf(t) > 0) {
+//                map.removeOverlay(n);
+//            }
+//        });
+            if ($(this).attr("checked") == true) {
+                local.searchInBounds($(this).val(), map.getBounds());
+            }
+        });
+
+        ShowMap();
+    })
+
+    //百度地图
+    function ShowMap() {
+        var lat = $("#htbLat").attr("value");
+        var lng = $("#htbLng").attr("value");
+
+        lng = 116.416532;
+        lat = 39.91536;
+        map.centerAndZoom(new BMap.Point(lng, lat), 16);
+        //只需要放大和缩小
+        map.addControl(new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM}));
+        //map.enableScrollWheelZoom();
+        local = new BMap.LocalSearch(map, {onSearchComplete: searchComplete});     //构造一个查询
+        var point = new BMap.Point(lng, lat);
+        var mk = new BMap.Marker(point);
+        map.addOverlay(mk);
+    }
+
+    //查询完毕添加自定义标注
+    function addMarker(results, point, index) {
+        var cantingIcon = new BMap.Icon("/Images/canting.png", new BMap.Size(17, 16));
+        var ditieIcon = new BMap.Icon("/Images/ditie.png", new BMap.Size(17, 16));
+        var shopIcon = new BMap.Icon("/Images/shop.png", new BMap.Size(17, 16));
+        var yinhangIcon = new BMap.Icon("/Images/yinhang.png", new BMap.Size(17, 16));
+        var yiyuanIcon = new BMap.Icon("/Images/yiyuan.png", new BMap.Size(17, 16));
+        var houseIcon = new BMap.Icon("/Images/house.png", new BMap.Size(17, 16));
+        var gongjiaoIcon = new BMap.Icon("/Images/gongjiao.png", new BMap.Size(17, 16));
+        var myIcons = "";
+        if (results.keyword == "学校") {
+            myIcons = houseIcon;
+        } else if (results.keyword == "餐厅") {
+            myIcons = cantingIcon;
+        } else if (results.keyword == "商场") {
+            myIcons = shopIcon;
+        } else if (results.keyword == "银行") {
+            myIcons = yinhangIcon;
+        } else if (results.keyword == "医院") {
+            myIcons = yiyuanIcon;
+        } else if (results.keyword == "地铁") {
+            myIcons = ditieIcon;
+        } else if (results.keyword == "公交") {
+            myIcons = gongjiaoIcon;
+        } else {
+            myIcons = houseIcon;
+        }
+
+        var marker = new BMap.Marker(point.point, {icon: myIcons});
+
+        var infoWindow = new BMap.InfoWindow(point.title);  // 创建信息窗口对象
+        marker.addEventListener("mouseover",
+            function () {
+                marker.openInfoWindow(infoWindow);
+            });
+        map.addOverlay(marker);
+    }
+
+    //查询完毕的回调函数
+    var searchComplete = function (results) {
+        if (local.getStatus() != BMAP_STATUS_SUCCESS) {
+            return;
+        }
+        //移除覆盖物
+        //map.clearOverlays();
+        //var lat = $("#htbLat").attr("value");
+        //var lng = $("#htbLng").attr("value");
+        lng = 116.416532;
+        lat = 39.91536;
+        var point = new BMap.Point(lng, lat);
+        var mk = new BMap.Marker(point);
+        map.addOverlay(mk);
+        for (var cnt = 0; cnt < results.getCurrentNumPois(); cnt++) {
+            var point = results.getPoi(cnt);
+            addMarker(results, point, cnt);
+        }
+    }
+</script>
+</html>

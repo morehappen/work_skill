@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>如何创建一个百度地图</title>
+    <style>
+        #map-bottom-container {
+            /*border: 1px solid #F00;*/
+            width: 740px;
+            height: 600px;
+        }
+    </style>
+    <!--调用百度地图api,jquery,bootstrap-->
+    <!--    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=1ALTaV0tWvwNHFeCa4qsQMyAd9UYalwj"></script>-->
+</head>
+
+<body>
+<div class="bottom_map_box">
+    <!--地图-->
+    <div id="map-bottom-container"></div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18&services=&t=20180323171755"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18"></script>
+
+<!--<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.2&services=true"></script>-->
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    //【1】如何创建一个百度地图
+    var map = new BMap.Map("map-bottom-container"); // 创建地图实例
+    var point = new BMap.Point(116.404, 39.915);   // 创建点坐标
+    map.centerAndZoom(point, 15);                  // 初始化地图，设置中心点坐标和地图级别
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    //【2】控件的概念
+    // NavigationControl平移缩放控件
+    map.addControl(new BMap.NavigationControl());
+    // 下面控件将在右上角添加地图，卫星，三维的切换
+    // map.addControl(new BMap.MapTypeControl());
+</script>
+
+</html>

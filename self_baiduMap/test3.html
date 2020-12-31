@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        #container{border:1px solid #F00; width:500px; height:400px;}
+    </style>
+    <!--调用百度地图api,jquery,bootstrap-->
+    <!--    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=1ALTaV0tWvwNHFeCa4qsQMyAd9UYalwj"></script>-->
+</head>
+<body>
+<div>
+
+    <!--地图-->
+    <div id="container"></div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18&services=&t=20180323171755"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18"></script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.2&services=true"></script>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    var map = new BMap.Map("container");            // 创建Map实例
+
+    var points = new BMap.Point(121.462923,31.221531);
+    map.centerAndZoom(points, 16);
+
+    // 编写自定义函数,创建标注
+    var myIcon = new BMap.Icon( "http://api.map.baidu.com/img/markers.png",new BMap.Size(23, 25),
+        {
+            offset: new BMap.Size(10, 25),
+            imageOffset: new BMap.Size(0, 0 - 10 * 25)
+        });
+
+    var markers = new BMap.Marker(points,{icon: myIcon}); // 创建标注
+    map.addOverlay(markers); // 将标注添加到地图中
+    map.enableScrollWheelZoom();
+
+
+    var local = new BMap.LocalSearch(map, {
+        renderOptions: {map: map, panel: "r-result"}
+    });
+    local.search("公交");
+
+    $(function(){
+
+        $('.map-indicator a').click(function (){
+            $('.map-indicator a').removeClass("on");
+            $(this).addClass("on");
+            $('.env-list h3').text($(this).text());
+            local.search($(this).text());
+
+        });
+
+    });
+</script>
+</html>

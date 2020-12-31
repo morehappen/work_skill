@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 定义一个走马灯动画 */
+        
+        @-webkit-keyframes marquee {
+            0% {
+                left: 0;
+            }
+            100% {
+                left: -100%;
+            }
+        }
+        
+        @keyframes marquee {
+            0% {
+                left: 0
+            }
+            100% {
+                left: -100%
+            }
+        }
+        
+        .marquee {
+            height: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .marquee div {
+            display: block;
+            width: 200%;
+            height: 30px;
+            position: absolute;
+            overflow: hidden;
+            -webkit-animation: marquee 4s linear infinite;
+            animation: marquee 4s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marquee">
+        <div>
+            <p>纯CSS3生成的走马灯效果</p>
+            <p>纯CSS3生成的走马灯效果</p>
+        </div>
+    </div>
+</body>
+
+</html>

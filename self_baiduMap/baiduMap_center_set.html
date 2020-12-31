@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #allmap {
+            min-height: 600px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="allmap"></div>
+</body>
+<script src="../jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18"></script>
+<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+<script>
+    // 百度地图API功能
+    var map = new BMap.Map("allmap"); // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11); // 初始化地图,设置中心点坐标和地图级别
+
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes: [
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]
+    }));
+    map.setCurrentCity("北京"); // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+
+    // 分割线
+    // 获取本机经纬度
+    var lat, lag;
+    // getlatandlong = () => {
+    //     alert('经度：' + this._position.lat, '维度：' + this._position)
+    // }
+    let grab_positon = () => {
+        let getLocation = () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("浏览器不支持地理定位");
+            }
+            //调用coords的latitude和longitude即可获取到用户的纬度和经度。
+
+        }
+        let showPosition = (position) => {
+            debugger;
+            lat = position.coords.latitude; //纬度
+            lag = position.coords.longitude; //经度
+            // this._position.lon = lag;
+            // this._position.lat = lat;
+            console.log('纬度:' + lat + ',经度:' + lag);
+            setTimeout(function() {
+                debugger
+                grab_positon();
+                var gpsPoint = new BMap.Point(lat, lag);
+                BMap.Convertor.translate(gpsPoint, 0, function(point) {
+                    var geoc = new BMap.Geocoder();
+                    geoc.getLocation(point, function(rs) {
+
+                        map.addControl(new BMap.NavigationControl());
+                        map.addControl(new BMap.ScaleControl());
+                        map.addControl(new BMap.OverviewMapControl());
+                        map.centerAndZoom(point, 18);
+                        map.addOverlay(new BMap.Marker(point));
+
+                        //alert("2");
+                        var addComp = rs.addressComponents;
+                        alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+                        alert('您的位置：' + rs.point.lng + ',' + rs.point.lat);
+                    });
+                });
+            }, 3000);
+        }
+
+        // 上面的代码可以知道，如果用户设备支持地理定位，则运行 getCurrentPosition() 方法。如果getCurrentPosition()运行成功，则向参数showPosition中规定的函数返回一个coordinates对象，getCurrentPosition() 方法的第二个参数showError用于处理错误，它规定当获取用户位置失败时运行的函数。
+        // 我们先来看函数showError()，它规定获取用户地理位置失败时的一些错误代码处理方式：
+        let showError = (error) => {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    console.log("定位失败,用户拒绝请求地理定位");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    console.log("定位失败,位置信息是不可用");
+                    break;
+                case error.TIMEOUT:
+                    console.log("定位失败,请求获取用户位置超时");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    console.log("定位失败,定位系统失效");
+                    break;
+            }
+        };
+        getLocation();
+    }
+
+    grab_positon();
+
+
+    // setTimeout(function() {
+    //     debugger
+    //     var gpsPoint = new BMap.Point(lat, lag);
+    //     BMap.Convertor.translate(gpsPoint, 0, function(point) {
+    //         var geoc = new BMap.Geocoder();
+    //         geoc.getLocation(point, function(rs) {
+    //             var addComp = rs.addressComponents;
+    //             alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+    //         });
+    //     });
+    // }, 3000);
+</script>
+
+</html>

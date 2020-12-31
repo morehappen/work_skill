@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18&services=&t=20180323171755"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18"></script>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Document</title>
+ </head>
+<body>
+输地址：<input type="text" id="kw1" value=""><br><br>
+经纬度：<input type="text" id="kw5" value=""><br><br>
+描述区：<textarea style="width:800px;height:300px;" id="kw6"></textarea><br><br>
+<button onclick="searchByKeyWords()">点击搜索</button>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+
+    var localSearch = "", geocoder = "", myPoint =  "", jd =  "", wd =  "", resultSchool =  "", resultTransit =  "", resultMarket = "";
+    var insidePlant = "";
+
+    function searchByKeyWords(){
+        debugger
+        geocoder = new BMap.Geocoder();
+        geocoder.getPoint($('#kw1').val(), function (point) {
+            if (point) {
+                $('#kw5').val(point.lng+","+point.lat);
+                jd = point.lng;// 116.416532
+                wd = point.lat;//39.91536
+
+                jd = 116.416532;
+                wd = 39.91536;
+
+                myPoint = new BMap.Point(jd, wd);
+                localSearch = new BMap.LocalSearch('北京市');
+                localSearch.clearResults();
+                localSearch.setSearchCompleteCallback(mySearchCompleteCallback);
+                localSearch.searchNearby(["公交", "学校", "购物"], myPoint, 500);
+            }
+        }, "北京市");
+    }
+
+    function mySearchCompleteCallback(LocalResult){
+        for(var i=0; i < LocalResult.length; i++){
+            if(LocalResult[i].Ar.length > 0){
+                if(LocalResult[i].keyword == '公交'){
+                    resultTransit = LocalResult[i].Ar[0].address;
+                }else if(LocalResult[i].keyword == '学校'){
+                    resultSchool = LocalResult[i].Ar[0].title;
+                }else if(LocalResult[i].keyword == '商场'){
+                    resultMarket = LocalResult[i].Ar[0].title;
+                }
+            }
+        }
+        console.log("resultSchool: "+resultSchool);
+        console.log("resultTransit: "+resultTransit);
+        console.log("resultMarket: "+resultMarket);
+
+    }
+</script>
+
+</body>
+</html>

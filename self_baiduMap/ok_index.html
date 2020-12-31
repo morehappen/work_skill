@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    debugger
+    let getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert("浏览器不支持地理定位");
+        }
+        //调用coords的latitude和longitude即可获取到用户的纬度和经度。
+
+    }
+    let showPosition = (position) => {
+        var lat = position.coords.latitude; //纬度
+        var lag = position.coords.longitude; //经度
+        // this._position.lon = lag;
+        // this._position.lat = lat;
+        console.log('纬度:' + lat + ',经度:' + lag);
+    }
+
+    // 上面的代码可以知道，如果用户设备支持地理定位，则运行 getCurrentPosition() 方法。如果getCurrentPosition()运行成功，则向参数showPosition中规定的函数返回一个coordinates对象，getCurrentPosition() 方法的第二个参数showError用于处理错误，它规定当获取用户位置失败时运行的函数。
+    // 我们先来看函数showError()，它规定获取用户地理位置失败时的一些错误代码处理方式：
+    let showError = (error) => {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                console.log("定位失败,用户拒绝请求地理定位");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                console.log("定位失败,位置信息是不可用");
+                break;
+            case error.TIMEOUT:
+                console.log("定位失败,请求获取用户位置超时");
+                break;
+            case error.UNKNOWN_ERROR:
+                console.log("定位失败,定位系统失效");
+                break;
+        }
+    };
+    getLocation();
+</script>
+
+</html>

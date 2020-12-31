@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        .img_li_box {
+            width: 100%;
+            height: 30px;
+            overflow: hidden;
+        }
+        
+        .img_li_con {
+            background-size: auto 100%;
+            background: url('../../commonJS/resources/air_Arrow.png') no-repeat center center;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <li class="position meeting_box li_box">
+        <div class="img_li_box">
+            <div class="img_li_con">
+                <!-- <img src="../../commonJS/resources/air_Arrow.png" alt=""> -->
+            </div>
+        </div>
+        <div class="article_box position_ab">
+            <div class="article_con">
+                <div class="article_title">
+                    http://www.auvgo.com/html/web-site/meeting.html?position=study_anchor
+                </div>
+                <div class="article_main">
+                    鼠标悬停的时候，看到这个DOM里的图片放大了
+                </div>
+            </div>
+        </div>
+    </li>
+</body>
+<script src="../../jquery-1.12.4.min.js"></script>
+<script>
+    $(function() {
+        var service_liDom = $(".img_li_box .img_li_con");
+        service_liDom.each(function() {
+            $(this).mouseover(function() {
+                $(this).css({
+                    "-webkit-transform": "scale(1.025)",
+                    "-moz-transform": "scale(1.025)",
+                    "transform": "scale(1.025)",
+                    "-moz-transition": "all ease 2s",
+                    "-webkit-transition": "all ease 0.5s",
+                    "transition": "all ease 0.5s"
+                });
+            });
+            $(this).mouseout(function() {
+                console.log(22);
+                $(this).css({
+                    "-webkit-transform": "none",
+                    "-moz-transform": "none",
+                    "transform": "none"
+                });
+            });
+        });
+    })
+</script>
+
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>监听scroll</title>
+    <link rel="stylesheet" href="../../../commonJS/mint-ui/mint-ui.css">
+    <style>
+        #app {
+            width: 100%;
+            display: block;
+            /* height: 100%; */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            min-height: 100%;
+        }
+        
+        body #app .all_con {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 52;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 3.1rem;
+            /* 其实该dom的高度被js在初始加载页面时候动态调整 */
+        }
+        
+        #main {
+            touch-action: none;
+            min-height: 35rem;
+            width: 100%;
+            /* 【标记】此处代码是核心，只有出现滚动条，才能进行scroll的监听 */
+            overflow-y: auto;
+            margin-top: 2.75rem;
+            -webkit-overflow-scrolling: touch;
+            /* height: 639.438px; */
+            /* 地图高度也被在初始加载页面时候动态调整 */
+            position: relative;
+        }
+        
+        .big_bar_mask {
+            position: absolute;
+            width: 100%;
+            height: 1355.83px;
+            /* 黑色遮罩的高度，其实被初始js调整为和详情那个内容区高度一致 */
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+            top: 0px;
+            z-index: 52;
+            background: rgba(51, 51, 51, 0.2);
+            display: none;
+        }
+        
+        .all_con_main {
+            padding: 0rem 0 3rem 0rem;
+            /* 注意是min-height，所以有了很高的高度能撑出滚动条 */
+            min-height: 100%;
+            z-index: 53;
+            position: absolute;
+            left: 0.75rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="all_con" :class="countdownFlag?'all_con over_ctr all_con_hideY':'all_con over_ctr'" v-cloak ref="all_con">
+            <div class="map main" id="main" tabindex="0" v-show="map_flag">
+
+            </div>
+            <div id="big_bar_mask" class="big_bar_mask" @click="big_bar_reset()" v-show="big_mask_flag">
+
+            </div>
+            <!--悬停关闭锚点-->
+            <div class="anchor_box" @click="big_bar_reset()" v-show="big_mask_flag" v-cloak>
+                <img src="/resources/images/common/return_anchor.png" alt="">
+            </div>
+            <!--此处为详情的大格子-->
+            <main id="big_bar_box" ref="big_bar_box" class="over_ctr all_con_main" v-show="detail_flag" @click="detail_con_move()">
+                <!--订单信息-->
+                <div id="detail_top_box" class="detail_top_box position" @touchmove="test2" v-if="draw_data">
+                    <div class="detail_top_tips position clear" id="top_bar">
+                        <div class="platInfo_con">
+                            <span class="platform_con" v-cloak v-if="!userCarFlag">
+                                {{draw_data.platformName}}
+                            </span>
+                            <span class="platform_con" v-cloak v-if="userCarFlag">
+                                {{draw_data.driver.plateNo}}  ·  {{draw_data.driver.carModel}}
+                            </span>
+                            <span class="service_type_con" v-cloak v-if="!userCarFlag">
+                                {{draw_data.carTypeName}}
+                            </span>
+                        </div>
+                        <div class="carInfo_con clear" v-if="userCarFlag">
+                            <div class="car_plat_box">
+                                <span>{{draw_data.platformName}}</span>
+                                <span class="service_type_con">{{draw_data.carTypeName}}</span>
+                            </div>
+                            <div class="car_guy_box" @click="cell_start()">
+                                <span>{{draw_data.driver.driverName}}</span>
+                                <span class="phone_img"></span>
+                            </div>
+                        </div>
+                        <!--审批状态的图片-->
+                        <div class="position-ab progress_tip" data-tip="" v-cloak>
+                            <img :src="draw_data.showStatus | stateIMGswitch" alt="">
+                        </div>
+                    </div>
+                    <div class="detail_bottom position">
+                        <div class="detail_bottom_one clear">
+                            <div class="float-left contan_passenger_num" v-if="seatNum_flag" v-cloak>
+                                <span class="passenger_num_icon"></span>
+                                <span>
+                                    可乘坐
+                                    {{draw_data.extendData.seatNum}}
+                                    人
+                                </span>
+                            </div>
+                            <div class="float-left airNUM_con" v-cloak v-if="draw_data.serviceType == 3">
+                                <span class="airNUM_icon"></span>
+                                <span>
+                                    {{draw_data.routes.routeCode}}
+                                </span>
+                            </div>
+                            <div v-if="draw_data.serviceType != 3" v-cloak class="float-left user_inTime">
+                                <span class="user_inTime_icon"></span>
+                                <span>
+                                    {{(draw_data.routes.departDate ? draw_data.routes.departDate:draw_data.tripDate) | on_Trip_switch }}
+                                </span>
+                            </div>
+                            <div v-if="draw_data.serviceType == 3 && draw_data.routes.flightArrive != null" v-cloak class="float-left user_inTime">
+                                <span class="user_inTime_icon"></span>
+                                <span>
+                                    {{(draw_data.routes.flightArrive ) | on_Trip_switch }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="detail_bottom_other" v-cloak v-if="draw_data.serviceType == 3">
+                            航班到达后
+                            <span class="time_color">
+                                {{draw_data.routes.flightDelay}}分钟
+                            </span> 上车
+                        </div>
+                        <div class="detail_bottom_orderNO">
+                            <span class="detail_orderNO_icon">
+                            </span>
+                            <span class="detail_orderNO_con">
+                                订单号：{{draw_data.orderNo}}
+                            </span>
+                        </div>
+                        <div class="on_up_box">
+                            <div class="detail_bottom_1 position">
+                                <div class="from_tip_img">
+                                    <span></span>
+                                </div>
+                                <div class="car_info_box" v-cloak>
+                                    {{draw_data.depart}}
+                                </div>
+                                <div class="circle_concat_box">
+                                    <div class="circle_concat_icon"></div>
+                                    <div class="circle_concat_icon"></div>
+                                    <div class="circle_concat_icon"></div>
+                                </div>
+                            </div>
+                            <div class="detail_bottom2">
+                                <div class="from_tip_img">
+                                    <span></span>
+                                </div>
+                                <div class="car_info_box arrive_place" v-cloak>
+                                    {{draw_data.arrive}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--用车信息开始-->
+                <!--<div class="travel_approver_box use_car_Info" v-if="userCarFlag">-->
+                <!--<div class="travel_approver_tip">用车信息</div>-->
+                <!--<ul class=" margin-20-bottom use_car_con">-->
+                <!--<li class="user_info_item clear">-->
+                <!--<div class="li_item_tip  font-size-088" v-cloak>-->
+                <!--{{draw_data.driver.plateNo}}-->
+                <!--</div>-->
+                <!--<div class="li_item_con  font-size-088" v-cloak>-->
+                <!--{{draw_data.driver.carModel}}-->
+                <!--</div>-->
+                <!--</li>-->
+                <!--<li class="user_info_item clear car_driver_li">-->
+                <!--<div class="li_item_tip  font-size-088" v-cloak>-->
+                <!--{{draw_data.driver.driverName}}-->
+                <!--</div>-->
+                <!--<div class="li_item_con driver_cell  font-size-088 position" v-cloak @click="cell_start()">-->
+                <!--<div class="phone_img position-ab"></div>-->
+                <!--{{draw_data.driver.driverMobile}}-->
+                <!--</div>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--用车信息结束-->
+                <!-- 乘车人信息 -->
+                <div class="user_info_box">
+                    <div class="user_info_tip">乘车人信息</div>
+                    <ul class="user_info_main" v-if="draw_data">
+                        <li class="user_info_item clear" v-for="(item,index) in draw_data.customers">
+                            <div class="info_item_tip info_item_tip_click clear position" :dasn="item.ctr_open" @click="open_customers(item)">
+                                <div class="li_item_tip" v-cloak>
+                                    <span class="">乘车人</span>
+                                    <span class="open_customers_index"> {{index + 1}}</span>
+                                </div>
+                                <div class="li_item_con">
+                                    <div class="customer_name"> {{item.name}}</div>
+                                    <div class="customer_cell"> {{item.mobile}}</div>
+                                </div>
+                                <div v-show="item.costName || item.costDeptName" :class="[item.ctr_open?'arrows_tip arrows_down arrows_up float-right position-ab':'arrows_tip arrows_down float-right position-ab']">
+
+                                </div>
+                            </div>
+                            <ul class="user_info_detail " v-show="item.ctr_open">
+                                <li class="" v-if="item.costName" v-cloak>
+                                    <div class="li_item_tip">
+                                        成本中心
+                                    </div>
+                                    <div class="li_item_con" v-cloak>
+                                        {{item.costName?item.costName:"暂未填写"}}
+                                    </div>
+                                </li>
+                                <li class="" v-if="item.costDeptName" v-cloak>
+                                    <div class="li_item_tip">
+                                        项目中心
+                                    </div>
+                                    <div class="li_item_con" v-cloak>
+                                        {{item.costDeptName?item.costDeptName:"暂未填写"}}
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 差旅信息-->
+                <div id="cost-util-wraper" class="travel_Info_box" v-if="travel_info_flag">
+                    <div class="travel_info_tip">差旅信息</div>
+                    <ul class=" margin-20-bottom cancellLabel travel_Info_UL">
+                        <li class="list_num  " v-if="draw_data.travelNo">
+                            <div class="li_item_tip">出差单号</div>
+                            <div class="li_item_con" v-cloak>{{draw_data.travelNo}}</div>
+                            <!--<input type="text" class="font-size-28-no" readonly="readonly" value="$!{orderDetail.travelNo}">-->
+                        </li>
+
+                        <li class="travel_reason " v-if="draw_data.travelReason">
+                            <div class="li_item_tip">用车事由</div>
+                            <div class="li_item_con" v-cloak class="travel_reason">
+                                {{draw_data.travelReason}}
+                            </div>
+                            <!--<input type="text" class="font-size-28-no" readonly="readonly" value="$!{orderDetail.travelReason}">-->
+                        </li>
+
+                        <li class=" super_item " v-if="exceed_flag">
+                            <div class="li_item_tip">超标政策</div>
+                            <div class="li_item_con policy_item_con" v-cloak>{{draw_data.bookPolicy}}</div>
+                            <!--<input type="text" class="font-size-28-no" readonly="readonly" value="$!{orderDetail.overItem}">-->
+                        </li>
+
+                        <li class="super_reason" v-if="exceed_flag">
+                            <div class="li_item_tip">超标原因</div>
+                            <div class="li_item_con" v-cloak>{{draw_data.overItem}}</div>
+                            <!--<input type="text" class="font-size-28-no" readonly="readonly" value="$!{orderDetail.overReason}">-->
+                        </li>
+                    </ul>
+                </div>
+                <!--审批人信息开始-->
+                <div class="approve_box check_round" v-show="approveFlag">
+                    <div class="li_item li_item_title">
+                        审批人
+                        <span class="approve_img approve_all_pass" v-if="total_states == 1" v-cloak>
+                            <img src="/resources/images/order/approve_pass.png" alt="">
+                        </span>
+                        <span class="approve_img approve_all_reject" v-if="total_states == 2" v-cloak>
+                             <img src="/resources/images/order/approve_reject.png" alt="">
+                        </span>
+                    </div>
+                    <ul class="shenpi_box" v-if="draw_data">
+                        <li class="shenpi_group_li" @click="shenpi_open_ctr()">
+                            <div :class="total_states==0 && !draw_data.appRuleName?'levels-title levels-title-ctrH':'levels-title'">
+                                <span class="shenpi_arrow_con" v-show="draw_data != null && draw_data.appRuleName">
+                                    <span class="shenpi_rule_name">
+                                        {{draw_data.appRuleName}}
+                                    </span>
+                                <span :class="shenpi_open_flag?'shenpi_arrow shenpi_arrow_switch':'shenpi_arrow'"></span>
+                                </span>
+                            </div>
+                            <ul class="approve_user_container" v-show="shenpi_open_flag">
+                                <li class="" v-for="(item1,index1) in shenpi_origin" v-cloak>
+                                    <span class="" v-if="item1.level_state_sign==0">
+                                    <span class="circle_icon_"></span>
+                                    <span class="line_icon_"></span>
+                                    </span>
+                                    <span class="active" v-else>
+                                    <span class="circle_icon_"></span>
+                                    <span class="line_icon_"></span>
+                                    </span>
+                                    <em>{{item1.sign | levelSwitch}}</em>
+                                    <div class="shenpi_person_container">
+                                        <div class="shenpi_person_box" v-for="(item2,index2) in item1.con" v-cloak :key="index2">
+                                            <span class="plus_icon"></span>
+                                            <span class="state_sign reject_sign" v-if="item2.status == 2">否决</span>
+                                            <span class="state_sign pass_sign" v-else-if="item2.status == 1"></span>
+                                            <span class="shenpi_person">{{item2.userName | nameSlice}}</span>
+                                            <span class="shenpi_person_txt">{{item2.userName}}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!--<div class="reason_box" v-if="total_states==2">-->
+                    <!--<span>否决理由：</span>-->
+                    <!--<span>{{reject_reason}}</span>-->
+                    <!--</div>-->
+                </div>
+                <!--审批人信息结束-->
+                <div class="shenpi_approve_reason" v-show="approve_reason_flag">
+                    <div class="levels-title reason_title clear" @click="shenpi_reason_open()">
+                        <span class="shenpi_arrow_con">
+                        <span class="shenpi_rule_name">
+                            审批意见
+                        </span>
+                        <span :class="shenpi_reason_flag?'shenpi_arrow shenpi_arrow_switch':'shenpi_arrow'"></span>
+                        </span>
+                    </div>
+                    <ul class="shenpi_reason_box" v-show="shenpi_reason_flag">
+                        <li class="reason_item clear" v-for="(item1,index1) in shenpi_origin" v-show="item1.area_has">
+                            <div class="item_tip">{{item1.sign | reason_levelSwitch}}</div>
+                            <div class="item_con">{{item1.area}}</div>
+                        </li>
+                    </ul>
+                </div>
+                <!--联系人 start-->
+                <div class="travel_Info_box" v-if="draw_data &&draw_data.contact">
+                    <div class="travel_info_tip">联系人</div>
+                    <ul class=" margin-20-bottom cancellLabel travel_Info_UL">
+                        <li class="list_num">
+                            <div class="li_item_tip">姓名</div>
+                            <div class="li_item_con" v-cloak>{{draw_data.contact.contactName}}</div>
+                            <!--<input type="text" class="font-size-28-no" readonly="readonly" value="$!{orderDetail.travelNo}">-->
+                        </li>
+
+                        <li class="travel_reason ">
+                            <div class="li_item_tip">电话</div>
+                            <div class="li_item_con">
+                                {{draw_data.contact.contactPhone}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--联系人 end-->
+                <!--取消原因开始-->
+                <div class="travel_info_box cancel_box" v-if="cancelFlag">
+                    <div class="travel_info_tip">取消原因</div>
+                    <ul class=" margin-20-bottom cancellLabel">
+                        <li class="list_num  ">
+                            <div style="font-weight: 500;font-size: 0.88rem;">{{draw_data.remark}}</div>
+                        </li>
+                    </ul>
+                </div>
+                <!--取消原因结束-->
+            </main>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../../commonJS//vue.js"></script>
+<script type="text/javascript" src="../../../commonJS/mint-ui/mint-ui.js"></script>
+<script type="text/javascript" src="../../../commonJS/zepto-1.2.0.js"></script>
+<script type="text/javascript" src="../../../commonJS/date.js"></script>
+<script type="text/javascript" src="../../../commonJS/moment.js"></script>
+<script type="text/javascript" src="../../../commonJS/common.js"></script>
+<script>
+    'use strict';
+
+    Vue.prototype.$ = $;
+    var app = new Vue({
+        el: '#app',
+        data: function data() {
+            return {
+
+            };
+        },
+
+        watch: {},
+        filters: {
+
+        },
+        methods: {
+            // 高度动态控制
+            height_ctr: function height_ctr() {
+                var this_ = this;
+                // 获取设备高度
+                var clientHeight = document.documentElement.clientHeight;
+                var heightHeader, heightFooter;
+                setTimeout(() => {
+                    // 黑色遮罩的高度
+                    let targetDom = document.getElementById('big_bar_mask');
+                    // 获取header高度
+                    heightHeader = window.getComputedStyle(this.$refs.headers).height;
+                    // 由于是h5，直接将heightFooter置为0
+                    heightFooter = 0;
+                    // 去除header和footer，就是动态配置的内容区高度
+                    let resHeight = clientHeight - parseFloat(heightHeader) - parseFloat(heightFooter);
+
+                    let resHeight_other = clientHeight - parseFloat(heightHeader) - parseFloat(heightFooter);
+
+                    let detail_top_base = clientHeight - parseFloat(heightHeader);
+                    let detail_top_boxHeight = document.getElementById("detail_top_box").offsetHeight;
+                    if (this_.draw_data.showCancel) {
+                        // 将主显示区高度动态设置
+                        $("#all_con").css("height", resHeight + 'px');
+                        $("#main").css("height", resHeight_other + 'px');
+                    } else {
+                        let resHeight_other_again = resHeight_other - 48;
+                        $("#all_con").css("height", resHeight + 'px');
+                        $("#main").css("height", resHeight_other_again + 'px');
+                    }
+                    // 动态设置底部详情那个dom距离顶部的距离
+                    document.getElementById("big_bar_box").style.top = (detail_top_base - detail_top_boxHeight - 10) + 'px';
+                    // 获取一个dom距离左上角的top
+                    this_.big_bar_top = document.getElementById("big_bar_box").getBoundingClientRect().top;
+                    // 监听滚动距离
+                    this_.scroll_wath();
+                    let height_mask = (parseFloat(window.getComputedStyle(this_.$refs.big_bar_box).height) + this_.big_bar_top + 120) + 'px;';
+                    targetDom.style.cssText = 'position: absolute;width: 100%;height:' + height_mask + 'left: 0;bottom: 0;right: 0;top: 0;z-index: 52;display:none';
+                }, 50);
+            },
+            // 监听滚动条滚动
+            scroll_wath: function scroll_wath() {
+                let this_ = this;
+                // 首先通过$refs获取dom元素
+                let all_con_box = this_.$refs.all_con;
+                let targetDom = document.getElementById('big_bar_mask');
+                // 监听这个dom的scroll事件
+                all_con_box.addEventListener('scroll', () => {
+                    // scrollTop属性: 
+                    // 此属性可以获取或者设置对象的最顶部到对象在当前窗口显示的范围内的顶边的距离，【注意是当前窗口】
+                    // 也就是元素滚动条被向下拉动的距离。
+                    // 返回值是一个整数，单位是像素。
+
+                    // 滚动的距离大于某个值时候，开始将黑色遮罩放出来，并且根据百分比调整透明度
+                    let base_val = this_.$refs.all_con.scrollTop / 200;
+                    if (base_val > 0.8) {
+                        base_val = 0.8;
+                    } else if (base_val < 0.2) {
+                        base_val = 0.2;
+                    }
+                    if (this_.$refs.all_con.scrollTop < 25) {
+                        this_.big_mask_flag = 0; //big_mask_flag是控制黑色背景遮罩的显示和隐藏
+                        targetDom.style.background = 'rgba(51, 51, 51,' + base_val + ')';
+                        this_.header_flag = true; //header_flag是控制顶部header的显示和隐藏
+                    } else {
+                        this_.big_mask_flag = 1;
+                        this_.header_flag = false;
+                        targetDom.style.background = 'rgba(51, 51, 51,' + base_val + ')';
+                    }
+                }, false)
+            },
+        },
+        mounted: function() {
+            var this_ = this;
+            this_.height_ctr();
+            this_.scroll_wath();
+        }
+    });
+</script>
+
+</html>

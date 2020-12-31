@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>如何创建一个百度地图</title>
+    <link rel="stylesheet" href="./baiduditu.css">
+    <style>
+        #map_result [target='_blank'] {
+            /* display: none; */
+        }
+    </style>
+    <!--调用百度地图api,jquery,bootstrap-->
+    <!--    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=1ALTaV0tWvwNHFeCa4qsQMyAd9UYalwj"></script>-->
+</head>
+
+<body>
+    <!--<input type="hidden" id="city" name="szcsmc" value="北京">-->
+    <!--<input type="hidden" id="jd" name="jd" value="116.36293162272">-->
+    <!--<input type="hidden" id="wd" name="wd" value="39.89198063365">-->
+    <!--<input type="hidden" id="jddz" name="jddz" value="白广路二条甲3号">-->
+    <!--<input type="hidden" id="jdzy" name="jdzy" value="http://dimg04.c-ctrip.com/images//hotel/428000/427303/b45151cb34824f92b3ca22263b0344bf_R_550_412.jpg">-->
+    <!--<input type="hidden" name="markList" value="@{'index':'0','hotelId':'VE1060786','lat':'39.89198063365','lon':'116.36293162272','address':'白广路二条甲3号','img':'http://dimg04.c-ctrip.com/images//hotel/428000/427303/b45151cb34824f92b3ca22263b0344bf_R_550_412.jpg','hotelName':'北京云天酒店','pt':'b2g','hotelType':'','jdpp':''                     ,'szcs':'10119','xj':'0','jdzdj':'788.0'}">-->
+
+
+
+    <!--<input type="hidden" id="jdid" value="VE1060786">-->
+    <!--<input type="hidden" id="rzrq" value="2019-11-01">-->
+    <!--<input type="hidden" id="jsrq" value="2019-11-02">-->
+    <!--<input type="hidden" id="jdzwmc" value="北京云天酒店">-->
+    <!--<input type="hidden" id="zdj" value="788.0">-->
+    <!--<input type="hidden" id="szcs" value="10119">-->
+    <!--<input type="hidden" id="jdpp" value="">-->
+    <!--<input type="hidden" id="xj" value="0">-->
+    <!--<input type="hidden" id="xyid" value="">-->
+    <!--<input type="hidden" id="xyh" value="">-->
+    <!--<input type="hidden" id="hotelType" value="">-->
+    <!--<input type="hidden" id="bdjd" value="116.36293162272">-->
+    <!--<input type="hidden" id="bdwd" value="39.89198063365">-->
+    <!--<input type="hidden" id="cxrids" name="cxrids" value="10822E9F64083001">-->
+    <!--<input type="hidden" id="cxrbmids" name="cxrbmids" value="1000100110061005">-->
+    <!--<input type="hidden" id="ccsqdh" name="ccsqdh" value="">-->
+    <!--<input type="hidden" id="ygys" value="1">-->
+    <!--<input type="hidden" id="sfxy" value="0">-->
+    <!--<input type="hidden" id="payment" value="">-->
+    <!--<input type="hidden" id="jdfp" value="">-->
+    <!--<input type="hidden" id="xzq" name="xzq" value="7803649">-->
+    <!--<input type="hidden" name="uuid" id="uuid" value="hotel-df703183-79c1-4959-b29e-158b0ecd128d">-->
+    <!--<input type="hidden" id="xckzkg" value="">-->
+    <!--<input type="hidden" id="xcsjkz" value="">-->
+    <!--<input type="hidden" id="gkrqs" value="">-->
+    <!--<input type="hidden" id="gkrqz" value="[, ]">-->
+    <!--<input type="hidden" id="yxapssry" value="">-->
+    <!--<input type="hidden" id="xddm" value="">-->
+    <!--<input type="hidden" id="ifsqd" name="ifsqd" value="">-->
+
+    <div class="hotel-text-info hotel-detail-box" id="traffic_div">
+        <p class="title">交通位置</p>
+        <div class="div_map">
+            <div id="baiduMap_traffic" class="fl-mp"></div>
+            <div class="pro-tab">
+                <div style="border:1px solid #eee;width: 294px;height: 165px;">
+                    <div class="box-tab">
+                        <span class="current theme_border theme" searchCurrent="1" searchType="1">公交</span>
+                        <span class="theme_border" searchCurrent="0" searchType="2">驾车</span>
+                        <span class="theme_border" searchCurrent="0" searchType="3">步行</span>
+                    </div>
+                    <div class="map_route_box">
+                        <div class="change"><a href="javascript:searchChange();">换</a></div>
+                        <!--起点-->
+                        <input type="text" class="input_txt" id="start-suggestId" readonly>
+                        <input type="hidden" id="start-searchResultPanel">
+                        <!--终点-->
+                        <input type="text" class="input_txt" id="end-suggestId" readonly>
+                        <input type="hidden" id="end-searchResultPanel">
+                        <input type="button" class="btn" value="查询路线" onclick="beforeSearchTrip()" />
+                    </div>
+                </div>
+                <div id="r-result" class="result_box">
+                    <div class="tab-list">
+                        <span class="current theme_bg" keyword="1" style="line-height: 40px;">
+                        <p>酒店</p>
+                    </span>
+                        <span keyword="2">
+                        <p>机场</p>
+                        <p>车站</p>
+                    </span>
+                        <span style="line-height: 40px;" keyword="3">
+                        <p>地铁</p>
+                    </span>
+                    </div>
+                    <div class="pro-box" id="zb_result">
+                        <!--<table width="100%" class="pro-list-table train-table local-search-tab">-->
+                        <!--<tr>-->
+                        <!--<td width="10%">1</td>-->
+                        <!--<td>天河机场</td>-->
+                        <!--<td width="40%" align="right">直线19.5KM</td>-->
+                        <!--</tr>-->
+                        <!--</table>-->
+                    </div>
+                </div>
+                <div id="p-result" class="result_box" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    //C系统登录用户全局变量
+    // var user = {
+    //     "loginip": "103.208.12.2",
+    //     "domainname": "220.248.230.244",
+    //     "pt": "FCC",
+    //     "yypt": null,
+    //     "bcsjts": 0,
+    //     "sftcdl": null,
+    //     "veLanguage": "zhcn",
+    //     "timezone": null,
+    //     "zgs": "BOE",
+    //     "qybh": "BOE",
+    //     "ygid": "10822E9F64083001",
+    //     "gh": "8587",
+    //     "xm": "\u4EAC\u4E1C\u65B9E",
+    //     "bmid": "1000100110061005",
+    //     "ygrzid": "10822E9F67483001",
+    //     "canAccessFca": "0",
+    //     "only": "FCC-BOE-BOE-10822E9F64083001"
+    // };
+    // var VEGLOBAL = {
+    //     FCCUSER: user,
+    // };
+</script>
+<!--<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18&services=&t=20180323171755"></script>-->
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=7MVdOrfzsN4mmm8uTKCOy5XSw12Djf18"></script>
+
+<!--<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.2&services=true"></script>-->
+<script src="../../jquery-1.12.4.min.js"></script>
+<script src="./jquery.util.js"></script>
+<script src="./hotel-traffic-mao.js"></script>
+<!--<script src="./hotel-mao.js"></script>-->
+<script>
+    $(function() {
+            HotelTraffic(116.495639, 39.918352, "立水桥大饭店");
+            BaiduMap.initMap("baiduMap_traffic");
+            // 创建地图,定位中心点
+            BaiduMap.createMap();
+            dynamicPOI();
+            // 初始化默认的周边信息
+            BaiduMap.localSearch();
+            // 绑定本地搜索事件
+            bindLocalSearch();
+            // 目的地默认为当前酒店
+            $("#end-suggestId").val(jdData.jdzwmc);
+            $("#end-searchResultPanel").val(jdData.lng + "," + jdData.lat);
+            // 出行类型绑定事件(公交,驾车,步行)
+            $(".box-tab span").click(function() {
+                var _this = $(this);
+                if (!_this.attr("class") || _this.attr("class").indexOf("current") < 0) {
+                    $(".box-tab span").removeClass("current");
+                    $(".box-tab span").removeClass("theme");
+                    $(".box-tab span").attr("searchCurrent", "0");
+                    _this.addClass("current");
+                    _this.addClass("theme");
+                    _this.attr("searchCurrent", "1");
+                    beforeSearchTrip();
+                }
+            });
+        })
+        // 动态绑定POI控件
+    function dynamicPOI() {
+        // 一个页面只能绑定一个POI控件,这只能搞一个动态绑定,点击的输入框时候绑定POI控件
+        $(".map_route_box .input_txt").click(function() {
+            var _this = $(this);
+            // _this.showXzqSqAddress({
+            //     csbh:"szcs",//城市编号
+            //     qybh:VEGLOBAL.FCCUSER.qybh,//企业编号
+            //     compId:VEGLOBAL.FCCUSER.zgs,//总公司
+            //     ygid:VEGLOBAL.FCCUSER.ygid,
+            //     bmid:VEGLOBAL.FCCUSER.bmid,
+            //     type:2,
+            //     autoChoose: false,
+            //     cbFn:function(data,$dom){
+            //         if (!$.isEmptyObject(data)) {
+            //             var bdjd = data.lon;
+            //             var bdwd = data.lat;
+            //             _this.val(data.poiName);
+            //             _this.next().val(bdjd+","+bdwd);
+            //         }
+            //     }
+            // });
+        });
+    }
+
+    // 点击周边设施搜索路线
+    window.localSearchTrip = function(jdzwmc, bd) {
+        searchChange();
+        $("#end-suggestId").val(jdzwmc);
+        $("#end-searchResultPanel").val(bd);
+        beforeSearchTrip();
+    }
+
+    window.hoverintheme = function(_this) {
+        $(_this).addClass("theme");
+    }
+
+    window.hoverouttheme = function(_this) {
+        $(_this).removeClass("theme")
+    }
+
+    // 本地搜索绑定事件(酒店,机场车站,地铁)
+    function bindLocalSearch() {
+        if ($(".tab-list span").length > 0) {
+            $(".tab-list span").click(function() {
+                var _this = $(this);
+                if (!_this.attr("class") || _this.attr("class").indexOf("current") < 0) {
+                    $(".tab-list span").removeClass("current");
+                    $(".tab-list span").removeClass("theme_bg");
+                    _this.addClass("current");
+                    _this.addClass("theme_bg");
+                    var keyword = _this.attr("keyword");
+                    BaiduMap.localSearch(keyword);
+                }
+            });
+        }
+    }
+    // 数据交换
+    window.searchChange = searchChange;
+
+    function searchChange() {
+        var inp1 = $("#start-suggestId").val();
+        var inp2 = $("#end-suggestId").val();
+        $("#start-suggestId").val(inp2);
+        $("#end-suggestId").val(inp1);
+        var hid1 = $("#start-searchResultPanel").val();
+        var hid2 = $("#end-searchResultPanel").val();
+        $("#start-searchResultPanel").val(hid2);
+        $("#end-searchResultPanel").val(hid1);
+        // searchTrip();
+    }
+
+    // 位置交通搜索路线,搜索之前渲染页面
+    window.beforeSearchTrip = beforeSearchTrip;
+
+    function beforeSearchTrip() {
+        var startzwmc = $("#start-suggestId").val();
+        var endzwmc = $("#end-suggestId").val();
+        if ($.isBlank(startzwmc) || $.isBlank(endzwmc)) {
+            return;
+        }
+        // 做个简单的动态页面,免得页面写很多html
+        var html = '<div style="padding: 7px;font-size: 12px;"><a href="javascript:comeBack()">< 返回</a> |<font style="font-weight: bold;"> 线路查询</font></div>';
+        var searchType = $(".box-tab span[searchCurrent='1']").attr("searchType");
+        if (searchType == '1') {
+            html += '<div class="bus_sort">' +
+                '<a class="selected" travelPolicy="0" href="javascript:;">速度最快</a>' +
+                '<a travelPolicy="1" href="javascript:;">最少换乘</a>' +
+                '<a travelPolicy="2" href="javascript:;">步行最少</a>' +
+                '<a travelPolicy="3" href="javascript:;">不乘地铁</a> </div>';
+            html += '<div id="map_result" class="p_result clear" style="height: 258px;margin-top: 37px;"></div>';
+        } else if (searchType == '2') {
+            html += '<div class="bus_sort">' +
+                '<a class="selected" travelPolicy="0" href="javascript:;">速度最快</a>' +
+                '<a travelPolicy="1" href="javascript:;">距离最短</a>' +
+                '<a travelPolicy="2" href="javascript:;">避开高速</a></div>';
+            html += '<div id="map_result" class="p_result clear" style="height: 258px;margin-top: 37px;"></div>';
+        } else if (searchType == '3') {
+            html += '<div id="map_result" class="p_result"></div>';
+        }
+        $("#p-result").html(html);
+        // 出行策略切换按钮绑定事件
+        bindPolicy();
+        // 搜索
+        searchTrip();
+    }
+
+    // 出行策略绑定事件(时间最短,距离最短,...)
+    function bindPolicy() {
+        if ($(".bus_sort a").length > 0) {
+            $(".bus_sort a").click(function() {
+                var _this = $(this);
+                if (!_this.attr("class") || _this.attr("class").indexOf("selected") < 0) {
+                    $(".bus_sort a").removeClass("selected");
+                    _this.addClass("selected");
+                    searchTrip();
+                }
+            });
+        }
+    }
+
+    // 位置交通搜索路线
+    window.searchTrip = searchTrip;
+
+    function searchTrip() {
+        var startzwmc = $("#start-suggestId").val();
+        var endzwmc = $("#end-suggestId").val();
+        if ($.isBlank(startzwmc) || $.isBlank(endzwmc)) {
+            return;
+        }
+        BaiduMap.searchTrip({
+            startzwmc: startzwmc,
+            start: $("#start-searchResultPanel").val(),
+            endzwmc: endzwmc,
+            end: $("#end-searchResultPanel").val(),
+            searchType: $(".box-tab span[searchCurrent='1']").attr("searchType"),
+            travelPolicy: $(".bus_sort a[class='selected']").attr("travelPolicy")
+        });
+    }
+    // 返回
+    window.comeBack = function() {
+        // 创建地图,定位中心点
+        var jdData = BaiduMap.comeBack();
+        $("#start-suggestId").val("");
+        $("#start-searchResultPanel").val("");
+        $("#end-suggestId").val(jdData.jdzwmc);
+        $("#end-searchResultPanel").val(jdData.lng + "," + jdData.lat);
+    }
+</script>
+
+</html>
